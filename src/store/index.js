@@ -1,7 +1,7 @@
 import {
   combineReducers,
   configureStore,
-  getDefaultMiddleware,
+  // getDefaultMiddleware,
 } from '@reduxjs/toolkit';
 import userSlice from './feature/userSlice';
 import logger from 'redux-logger';
