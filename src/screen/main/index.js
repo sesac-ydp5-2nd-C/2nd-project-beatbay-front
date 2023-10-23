@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
+import Screen from '../Screen';
 
-function App() {
+function MainScreen() {
   const authInfo = useSelector((state) => state.user.authInfo);
 
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ function App() {
     dispatch(setAuthInfo(1));
   }, []);
 
-  return <div className="App"></div>;
+  return <Screen>123</Screen>;
 }
 
-export default App;
+export default MainScreen;
