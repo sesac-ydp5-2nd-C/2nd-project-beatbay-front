@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-
+import './style.css';
 Modal.setAppElement('#root'); // 모달이 나타날 부모 요소 지정
 
 const LoginModal = ({ isOpen, onRequestClose }) => {
