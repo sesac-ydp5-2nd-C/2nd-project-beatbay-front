@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './style.css';
+import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
 import Screen from '../Screen';
@@ -13,7 +13,11 @@ function MainScreen() {
     dispatch(setAuthInfo(1));
   }, []);
 
-  return <Screen>123</Screen>;
+  return (
+    <Screen>
+      <img className="disk" alt="disk" src="disk.png" />
+    </Screen>
+  );
 }
 
 export default MainScreen;

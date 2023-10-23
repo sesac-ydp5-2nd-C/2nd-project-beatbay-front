@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.disk {
+  width: 84vw;
+  height: 84vw;
+  position: absolute;
+  top: -43vw;
+  left: 50%;
+  transform: translateX(-50%);
+}
