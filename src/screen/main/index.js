@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import './App.css';
+import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthInfo } from './store/feature/userSlice';
+import { setAuthInfo } from '../../store/feature/userSlice';
 
 function App() {
   const authInfo = useSelector((state) => state.user.authInfo);
