@@ -59,12 +59,9 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
           로그인
         </button>
         <br></br>
-        <br></br>
         <button type="submit" className="kakao-submit-button">
-          <img src={kakaologo}></img>
-          카카오 로그인
+          <img src={kakaologo}></img>카카오 로그인
         </button>
-        <br></br>
         <br></br>
         회원이 아니신가요? 회원가입하기
       </form>

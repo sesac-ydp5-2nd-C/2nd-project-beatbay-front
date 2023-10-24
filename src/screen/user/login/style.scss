@@ -1,51 +1,81 @@
 .login-modal {
-  max-width: 588px;
+  width: 588px;
   height: 561px;
   margin: 0 auto;
   padding: 20px;
   background-color: #ffffff;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   box-sizing: border-box;
   font-family: inherit;
 
   h2 {
-    text-align: center;
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
 
   .login-form {
     .form-label {
       display: block;
-      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .form-input {
-      // width: 100%;
+      width: 351px;
       padding: 12px 12px 12px 16px;
-      justify-content: flex-end;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      gap: 10px;
-      flex: 1 0 0;
+      margin-bottom: 22px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
     }
 
     .submit-button {
+      width: 379px;
+      height: 45px;
       background-color: #30338a;
       color: #fff;
-      padding: 10px 20px;
+      padding: 12px;
       border: none;
       border-radius: 5px;
+      margin-bottom: 22px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.8px;
+      text-transform: uppercase;
+      // transition: background-color 0.3s;
 
-      &:hover {
-        background-color: #30338a;
+      // &:hover {
+      //   background-color: #1b1c4b;
+      // }
+    }
+    .kakao-submit-button {
+      width: 379px;
+      height: 45px;
+      background-color: #fee500;
+      color: #000;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 22px;
+      cursor: pointer;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.8px;
+      text-transform: uppercase;
+      // transition: background-color 0.3s;
+
+      // &:hover {
+      //   background-color: #e7d000;
+      // }
+
+      img {
+        height: 25px;
       }
     }
   }
@@ -64,15 +94,40 @@
 }
 
 .logo {
-  height: 20vh;
+  height: 124px;
   margin: auto;
   display: flex;
-  align-items: center;
 }
 
 @media (max-width: 768px) {
   .login-modal {
+    max-height: 100%;
     max-width: 100%;
+    margin: 0;
+    padding: 10px;
+  }
+
+  .login-modal h2 {
+    font-size: 1.2rem;
+  }
+
+  .login-form .form-label {
+    font-size: 0.9rem;
+  }
+
+  .login-form .form-input {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .login-form .submit-button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-height: 714px) {
+  .login-modal {
+    max-height: 100%;
     margin: 0;
     padding: 10px;
   }
