@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import './style.css';
+import './style.scss';
+import logo from './logo1beatbay_logo.jpg';
+import kakaologo from './kakako-icon.png';
+
 Modal.setAppElement('#root'); // 모달이 나타날 부모 요소 지정
 
 const LoginModal = ({ isOpen, onRequestClose }) => {
@@ -27,31 +30,43 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
       className="login-modal"
       overlayClassName="modal-overlay"
     >
-      <h2>로그인</h2>
+      <img className="logo" src={logo}></img>
+      <h2>BEAT BAY로 중고거래를 시작하세요</h2>
       <form onSubmit={handleSubmit} className="login-form">
         <div>
-          <label className="form-label">이메일</label>
+          <label className="form-label"></label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             className="form-input"
+            placeholder="아이디 / 이메일"
           />
         </div>
         <div>
-          <label className="form-label">비밀번호</label>
+          <label className="form-label"></label>
           <input
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             className="form-input"
+            placeholder="비밀번호"
           />
         </div>
         <button type="submit" className="submit-button">
           로그인
         </button>
+        <br></br>
+        <br></br>
+        <button type="submit" className="kakao-submit-button">
+          <img src={kakaologo}></img>
+          카카오 로그인
+        </button>
+        <br></br>
+        <br></br>
+        회원이 아니신가요? 회원가입하기
       </form>
     </Modal>
   );
