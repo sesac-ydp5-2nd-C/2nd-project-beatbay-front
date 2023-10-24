@@ -1,27 +1,10 @@
-.App {
-  // text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -39,19 +22,113 @@
 
 .disk {
   z-index: 1;
-  width: 84vw;
+  width: toSize(1200);
   max-width: 1200px;
-  height: 84vw;
+  height: toSize(1200);
   max-height: 1200px;
   position: absolute;
-  top: -44vw;
+  top: toSize(-633);
   left: 50%;
   // transform: translateX(-50%);
   animation: disk-spin infinite 20s linear;
 }
 
+.intro {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: toSize(144);
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+.intro1 {
+  font-size: toSize(20);
+  color: white;
+  font-weight: 500;
+}
+.intro2 {
+  font-size: toSize(120);
+  color: #878be5;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: toSize(14);
+}
+.intro3 {
+  font-size: toSize(20);
+  color: white;
+}
+
+.scrollLine {
+  width: 0.15vw;
+  height: toSize(172);
+  background-color: #30338a;
+}
+
+.scrollContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: toSize(172);
+  margin-bottom: toSize(100);
+
+  @include media('>1440px') {
+    margin-top: 172px;
+    margin-bottom: 100px;
+  }
+}
+
+@keyframes ball-anim {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(12vw);
+  }
+}
+
+.scrollBall {
+  width: toSize(12);
+  height: toSize(12);
+  background-color: #30338a;
+  border-radius: 999px;
+  position: absolute;
+  animation: ball-anim infinite 1s linear;
+  @include media('>1440px') {
+    width: 12px;
+    height: 12px;
+  }
+}
+
 @media (min-width: 1440px) {
   .disk {
     top: -620px;
+  }
+  .intro {
+    margin-top: 144px;
+  }
+
+  .intro1 {
+    font-size: 20px;
+  }
+  .intro2 {
+    font-size: 120px;
+    margin-bottom: 14px;
+  }
+  .intro3 {
+    font-size: 20px;
+  }
+  .scrollLine {
+    width: 3px;
+    height: 172px;
+  }
+  @keyframes ball-anim {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(172px);
+    }
   }
 }

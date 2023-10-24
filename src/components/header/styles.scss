@@ -1,12 +1,20 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
 .headerContainer {
   display: flex;
   position: relative;
   z-index: 2;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
+  height: toSize(100);
   background-color: transparent;
-  padding: 0 16vw;
+  padding: 0 toSize(230);
+
+  @include media('>1440px') {
+    height: 100px;
+    padding: 0 230px;
+  }
 }
 
 .mobileHeader {
@@ -14,7 +22,7 @@
   display: none;
   position: relative;
   z-index: 2;
-  height: 100px;
+  height: 7vw;
   justify-content: space-between;
   background-color: transparent;
 }
@@ -26,12 +34,17 @@
 }
 
 .logo {
-  width: 100px;
-  height: 100px;
+  width: toSize(100);
+  height: toSize(100);
 
   &.mobile {
     width: 10vw;
     height: 10vw;
+  }
+
+  @include media('>1440px') {
+    width: 100px;
+    height: 100px;
   }
 }
 
