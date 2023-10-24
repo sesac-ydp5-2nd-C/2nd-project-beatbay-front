@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
+import Mypage from '../../components/Mypage/Mypage';
 
 function App() {
   const authInfo = useSelector((state) => state.user.authInfo);
@@ -12,7 +13,11 @@ function App() {
     dispatch(setAuthInfo(1));
   }, []);
 
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <Mypage />
+    </div>
+  );
 }
 
 export default App;

@@ -4,6 +4,7 @@ import './index.css';
 import App from './screen/main';
 import { Provider } from 'react-redux';
 import store from './store';
+import './config/Fonts/Font.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

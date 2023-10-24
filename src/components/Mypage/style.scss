@@ -1,0 +1,23 @@
+.full {
+  background-color: #30338a;
+}
+.container {
+  height: 100vh;
+  display: flex;
+}
+
+.icon {
+  width: 2vw;
+}
+
+.menus {
+  width: 15vw;
+  color: white;
+}
+
+.content {
+  width: 70vw;
+  height: 100vh;
+  border-radius: 15px 15px 0 0;
+  background: #f2f2f2;
+}
