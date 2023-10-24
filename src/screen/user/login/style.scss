@@ -99,6 +99,11 @@
   display: flex;
 }
 
+.error-message {
+  color: #ff0000;
+  text-align: left;
+}
+
 @media (max-width: 768px) {
   .login-modal {
     max-height: 100%;
