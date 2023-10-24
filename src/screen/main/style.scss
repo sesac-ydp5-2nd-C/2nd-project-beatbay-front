@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  // text-align: center;
 }
 
 .App-logo {
@@ -28,20 +28,30 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes disk-spin {
   from {
-    transform: rotate(0deg);
+    transform: translateX(-50%) rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateX(-50%) rotate(360deg);
   }
 }
 
 .disk {
+  z-index: 1;
   width: 84vw;
+  max-width: 1200px;
   height: 84vw;
+  max-height: 1200px;
   position: absolute;
-  top: -43vw;
+  top: -44vw;
   left: 50%;
-  transform: translateX(-50%);
+  // transform: translateX(-50%);
+  animation: disk-spin infinite 20s linear;
+}
+
+@media (min-width: 1440px) {
+  .disk {
+    top: -620px;
+  }
 }

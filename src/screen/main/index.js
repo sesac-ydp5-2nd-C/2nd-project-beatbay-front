@@ -14,7 +14,7 @@ function MainScreen() {
   }, []);
 
   return (
-    <Screen>
+    <Screen headerColor="white">
       <img className="disk" alt="disk" src="disk.png" />
     </Screen>
   );
