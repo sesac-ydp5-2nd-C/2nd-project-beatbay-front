@@ -1,0 +1,22 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.parentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: toSize(45) 0px toSize(100) 0px;
+  @include media('>1440px') {
+    padding: 45px 0px 100px 0px;
+  }
+}
+
+.carouselContainer {
+  width: toSize(1250);
+  height: toSize(450);
+  background-color: #d9d9d9;
+  @include media('>1440px') {
+    width: 1250px;
+    height: 450px;
+  }
+}
