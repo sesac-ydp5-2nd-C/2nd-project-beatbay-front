@@ -1,35 +1,39 @@
-import React from 'react';
-import dashboard from '../../config/icon/home_white.png';
-import listing from '../../config/icon/invoice_white.png';
-import purchase from '../../config/icon/shopping_white.png';
-import like from '../../config/icon/heart_white.png';
-import chat from '../../config/icon/chat_white.png';
+import React, { useState } from 'react';
 import MypageMenu from './MenuItem';
+import './menu.scss';
 
 export default function MypageMenus() {
+  const [selectedItem, setSelectedItem] = useState();
+
   const handleItemClick = (itemName) => {
     console.log(`Item clicked: ${itemName}`);
   };
 
+  const dashboardIcon = process.env.PUBLIC_URL + '/home.svg';
+  const listingIcon = process.env.PUBLIC_URL + '/invoice.svg';
+  const purchaseIcon = process.env.PUBLIC_URL + '/shopping.svg';
+  const likeIcon = process.env.PUBLIC_URL + '/heart.svg';
+  const chatIcon = process.env.PUBLIC_URL + '/chat.svg';
+
   return (
     <ul className="menus">
       <MypageMenu
-        icon={dashboard}
+        icon={dashboardIcon}
         text="DASHBOARD"
         onItemClick={handleItemClick}
       />
       <MypageMenu
-        icon={listing}
+        icon={listingIcon}
         text="LISTINGS"
         onItemClick={handleItemClick}
       />
       <MypageMenu
-        icon={purchase}
+        icon={purchaseIcon}
         text="PURCHASES"
         onItemClick={handleItemClick}
       />
-      <MypageMenu icon={like} text="LIKES" onItemClick={handleItemClick} />
-      <MypageMenu icon={chat} text="CHAT" onItemClick={handleItemClick} />
+      <MypageMenu icon={likeIcon} text="LIKES" onItemClick={handleItemClick} />
+      <MypageMenu icon={chatIcon} text="CHAT" onItemClick={handleItemClick} />
     </ul>
   );
 }

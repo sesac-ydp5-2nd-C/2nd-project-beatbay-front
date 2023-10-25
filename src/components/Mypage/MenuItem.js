@@ -13,8 +13,10 @@ export default function MenuItem({ icon, text, onItemClick }) {
       className={`menu ${isSelected ? 'selected' : ''}`}
       onClick={handleItemClick}
     >
-      <img className="icon" src={icon} alt={`${text} Icon`} />
-      <span>{text}</span>
+      <div className="item">
+        <img className="icon" src={icon} alt={`${text} Icon`} />
+        <span>{text}</span>
+      </div>
     </li>
   );
 }
