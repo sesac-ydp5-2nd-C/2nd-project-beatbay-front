@@ -1,27 +1,43 @@
 @import '../../config/globalStyle.scss';
 @import '~include-media/dist/include-media';
 
-.icon {
-  width: 2vw;
-}
-
-.menus {
-  width: 15vw;
-}
-
-ul {
+.mypageMenus {
+  width: toSize(220);
   position: relative;
+
+  @include media('>1440px') {
+    width: 220px;
+  }
+}
+
+.icon {
+  width: toSize(30);
+  min-width: 22px;
+
+  @include media('>1440px') {
+    width: 30px;
+  }
+}
+
+.mypageMenus {
+  padding-left: 10px;
+  min-width: 150px;
 }
 
 .mypageMenu {
   position: relative;
   list-style-type: none;
-  width: 100%;
-  margin: 2vh;
-  padding: 5%;
+  margin: toSize(10);
+  padding: toSize(10);
   color: white;
   font-weight: 500;
   z-index: 100;
+  display: flex;
+
+  @include media('>1440px') {
+    margin: 10px;
+    padding: 10px;
+  }
 }
 
 .selected-icon {
@@ -31,7 +47,14 @@ ul {
 .here {
   background: #f2f2f2;
   width: 100%;
-  height: 8vh;
+  height: toSize(50);
+  min-height: 37px;
+  max-height: 50px;
   position: absolute;
-  border-radius: 15px;
+  border-radius: toSize(10);
+  margin-top: toSize(10);
+}
+
+.menuName {
+  font-size: 1.5em;
 }

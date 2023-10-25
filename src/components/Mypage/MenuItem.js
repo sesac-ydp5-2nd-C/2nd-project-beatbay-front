@@ -7,10 +7,8 @@ export default function MenuItem({ icon, text, onItemClick }) {
 
   return (
     <li className="mypageMenu" onClick={handleItemClick}>
-      <div className="item">
-        <img className="icon" src={icon} alt={`${text} Icon`} />
-        <span>{text}</span>
-      </div>
+      <img className="icon" src={icon} alt={`${text} Icon`} />
+      <span className="menuName">{text}</span>
     </li>
   );
 }

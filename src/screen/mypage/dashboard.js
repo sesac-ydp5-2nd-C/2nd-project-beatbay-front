@@ -15,12 +15,10 @@ function MypageDashboard() {
   }, []);
 
   return (
-    <Screen bgColor="bgPurple" headerColor="white">
-      <div className="Mypage Dashboard">
-        <div className="container">
-          <MypageMenus />
-          <div className="content"></div>
-        </div>
+    <Screen bgColor="bgPurple" headerColor="white" className="dashboard">
+      <div className="container">
+        <MypageMenus />
+        <div className="content"></div>
       </div>
     </Screen>
   );

@@ -1,14 +1,24 @@
-.Mypage {
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.dashboard {
   background-color: #30338a;
 }
+
 .container {
   height: 100vh;
   display: flex;
+
+  justify-content: center;
 }
 
 .content {
-  width: 70vw;
+  width: toSize(1000);
   height: 100vh;
   border-radius: 15px 15px 0 0;
   background: #f2f2f2;
+
+  @include media('>1440px') {
+    width: 1000px;
+  }
 }

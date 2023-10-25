@@ -6,14 +6,6 @@ export default function MypageMenus() {
   const [selectedItem, setSelectedItem] = useState(null);
   const hereRef = useRef();
 
-  useEffect(() => {
-    const selectedMenu = document.querySelector('.selected');
-    if (selectedMenu) {
-      const selectedMenuRect = selectedMenu.getBoundingClientRect();
-      const hereElement = hereRef.current;
-    }
-  }, [selectedItem]);
-
   const handleItemClick = (itemName) => {
     setSelectedItem(itemName);
     console.log(`Item clicked: ${itemName}`);
@@ -31,8 +23,8 @@ export default function MypageMenus() {
   const chatClicked = process.env.PUBLIC_URL + '/chat_clicked.svg';
 
   return (
-    <ul className="menus">
-      <div className="here" ref={hereRef} />
+    <ul className="mypageMenus">
+      <div className="here" />
       <MypageMenu
         className={selectedItem === 'DASHBOARD' ? 'selected' : ''}
         icon={selectedItem === 'DASHBOARD' ? dashboardClicked : dashboard}
