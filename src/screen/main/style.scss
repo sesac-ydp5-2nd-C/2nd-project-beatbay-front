@@ -101,6 +101,21 @@ p {
   }
 }
 
+.columnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.columns {
+  display: flex;
+  width: toSize(1250);
+  justify-content: space-between;
+  @include media('>1440px') {
+    width: 1250px;
+  }
+}
+
 @media (min-width: 1440px) {
   .disk {
     top: -620px;

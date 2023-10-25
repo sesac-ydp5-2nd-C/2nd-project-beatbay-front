@@ -1,0 +1,48 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.columnCard {
+  width: 100%;
+}
+
+/* 공통 스타일 */
+.flip-container {
+  perspective: 1000px; /* 3D 효과를 위한 perspective 설정 */
+  width: 100%;
+  height: toSize(500);
+  position: relative;
+  @include media('>1440px') {
+    height: 500px;
+  }
+}
+
+.flipper {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* 뒷면이 화면에 보이지 않도록 설정 */
+}
+
+/* 초기 상태 */
+.front {
+  background-color: #3498db;
+  transform: rotateY(0deg);
+}
+
+.back {
+  background-color: #e74c3c;
+  transform: rotateY(180deg);
+}
+
+/* Hover 상태 */
+.flip-container:hover .flipper {
+  transform: rotateY(180deg);
+}

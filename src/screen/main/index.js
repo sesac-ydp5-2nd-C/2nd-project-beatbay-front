@@ -5,6 +5,7 @@ import { setAuthInfo } from '../../store/feature/userSlice';
 import Screen from '../Screen';
 import IntroVideo from '../../components/introVideo/IntroVideo';
 import CustomCarousel from '../../components/customCarousel/CustomCarousel';
+import ColumnCard from '../../components/columnCard/ColumnCard';
 
 function MainScreen() {
   const authInfo = useSelector((state) => state.user.authInfo);
@@ -40,6 +41,13 @@ function MainScreen() {
       <IntroVideo src={'sampleVideo.webm'} reverse />
 
       <CustomCarousel />
+      <div className="columnContainer">
+        <div className="columns">
+          {[0, 1, 2].map((e) => {
+            return <ColumnCard />;
+          })}
+        </div>
+      </div>
     </Screen>
   );
 }
