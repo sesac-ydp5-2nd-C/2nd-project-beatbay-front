@@ -5,6 +5,10 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  padding-bottom: toSize(66);
+  @include media('>1440px') {
+    padding-bottom: 66px;
+  }
 }
 
 .video-player {
@@ -18,6 +22,16 @@
 }
 .controller {
   margin-left: toSize(30);
+  &.rev {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 0px;
+    margin-right: toSize(30);
+    @include media('>1440px') {
+      margin-right: 30px;
+    }
+  }
 
   @include media('>1440px') {
     margin-left: 30px;
@@ -33,6 +47,7 @@
       margin-bottom: 25px;
     }
   }
+
   @media (min-width: 1440px) {
     font-size: 40px;
   }
@@ -45,11 +60,13 @@
   width: toSize(588);
   height: toSize(59);
   margin-bottom: toSize(44);
+  padding: 0px toSize(23);
 
   @include media('>1440px') {
     width: 588px;
     height: 59px;
     margin-bottom: 44px;
+    padding: 0px 23px;
   }
 }
 
@@ -61,8 +78,38 @@
 .cIcon {
   width: toSize(30);
   height: toSize(30);
+
+  &.mr {
+    margin-right: toSize(30);
+    @include media('>1440px') {
+      margin-right: 30px;
+    }
+  }
+
+  &.mlPr {
+    margin-left: toSize(30);
+    padding-right: toSize(30);
+    border-right: solid toSize(1) white;
+    @include media('>1440px') {
+      margin-left: 30px;
+      padding-right: 30px;
+      border-right: solid 1px white;
+    }
+  }
+
   @include media('>1440px') {
     width: 30px;
     height: 30px;
+  }
+}
+
+.goTrade {
+  font-size: toSize(20);
+  font-weight: bold;
+  color: white;
+  margin-left: toSize(30);
+  @include media('>1440px') {
+    font-size: 20px;
+    margin-left: 30px;
   }
 }

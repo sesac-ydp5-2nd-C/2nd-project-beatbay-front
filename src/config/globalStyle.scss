@@ -4,7 +4,7 @@ $breakpoint-mobile: 768px;
 
 // 반응형 크기 계산 (1440px 기준)
 @function toSize($size) {
-  $calculatedSize: math.round(($size / 1440) * 100);
+  $calculatedSize: ($size / 1440) * 100;
   @return #{$calculatedSize * 1vw};
 }
 
