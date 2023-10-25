@@ -12,19 +12,19 @@ export default function Header({ color = 'black' }) {
     <>
       <div className="headerContainer">
         <div style={{ display: 'flex' }}>
-          <div style={{ color }} className="menu mSpace">
+          <div style={{ color }} className="headerMenu mSpace">
             GOODS
           </div>
-          <div style={{ color }} className="menu">
+          <div style={{ color }} className="headerMenu">
             ABILITY
           </div>
         </div>
         <Logo className="logo" />
         <div style={{ display: 'flex' }}>
-          <div style={{ color }} className="menu mSpace">
+          <div style={{ color }} className="headerMenu mSpace">
             SIGN UP
           </div>
-          <div style={{ color }} className="menu">
+          <div style={{ color }} className="headerMenu">
             SIGN IN
           </div>
         </div>

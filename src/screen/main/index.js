@@ -8,6 +8,23 @@ import CustomCarousel from '../../components/customCarousel/CustomCarousel';
 import ColumnCard from '../../components/columnCard/ColumnCard';
 
 function MainScreen() {
+  const [columnData, setColumnData] = useState([
+    {
+      src: 'columnImg1.png',
+      title: '나는 왜\n코딩이 어려운가',
+      content: '미주알고주알미주알고주알미주알고주알미주알고주알미주알고주알',
+    },
+    {
+      src: 'columnImg2.png',
+      title: '기타의 매력에 대한\n네 가지 해석',
+      content: '미주알고주알미주알고주알미주알고주알미주알고주알미주알고주알',
+    },
+    {
+      src: 'columnImg3.png',
+      title: '왜 클래식을 듣는가?',
+      content: '미주알고주알미주알고주알미주알고주알미주알고주알미주알고주알',
+    },
+  ]);
   const authInfo = useSelector((state) => state.user.authInfo);
 
   const dispatch = useDispatch();
@@ -43,11 +60,16 @@ function MainScreen() {
       <CustomCarousel />
       <div className="columnContainer">
         <div className="columns">
-          {['columnImg1.png', 'columnImg2.png', 'columnImg3.png'].map(
-            (e, i) => {
-              return <ColumnCard mid={i === 1 ? true : false} src={e} />;
-            },
-          )}
+          {columnData.map((e, i) => {
+            return (
+              <ColumnCard
+                mid={i === 1 ? true : false}
+                src={e.src}
+                title={e.title}
+                content={e.content}
+              />
+            );
+          })}
         </div>
       </div>
     </Screen>
