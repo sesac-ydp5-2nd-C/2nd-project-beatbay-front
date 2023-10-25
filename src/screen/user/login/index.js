@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './style.scss';
-import logo from './logo1beatbay_logo.jpg';
 import kakaologo from './kakako-icon.png';
 
 Modal.setAppElement('#root');
@@ -75,7 +74,7 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
       className="login-modal"
       overlayClassName="modal-overlay"
     >
-      <img className="logo" src={logo} alt="로고"></img>
+      <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
       <h2>BEAT BAY로 중고거래를 시작하세요</h2>
       <form onSubmit={handleSubmit} className="login-form">
         <div>
@@ -114,7 +113,8 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
         </button>
         <br></br>
         <button type="submit" className="kakao-submit-button">
-          <img src={kakaologo} alt="카카오 로고"></img>카카오 로그인
+          <img src="Group kakao.svg" alt="카카오 로고"></img>
+          &nbsp; 카카오 로그인
         </button>
         <br></br>
         회원이 아니신가요? 회원가입하기
