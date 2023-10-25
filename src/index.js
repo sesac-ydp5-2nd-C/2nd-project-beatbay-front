@@ -11,7 +11,7 @@ root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <App />
-    <MypageDashboard />
+    {/* <MypageDashboard /> */}
   </Provider>,
   // </React.StrictMode>
 );
