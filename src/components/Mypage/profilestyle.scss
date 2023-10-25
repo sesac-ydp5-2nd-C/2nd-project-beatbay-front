@@ -1,0 +1,17 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.profileImg {
+  width: toSize(180);
+  height: toSize(180);
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileImg img {
+  width: 85%;
+  height: 85%;
+}

@@ -4,6 +4,7 @@ import Screen from '../Screen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
 import MypageMenus from '../../components/Mypage/MypageMenus';
+import Mypageprofile from '../../components/Mypage/Mypageprofile';
 
 function MypageDashboard() {
   const authInfo = useSelector((state) => state.user.authInfo);
@@ -18,7 +19,9 @@ function MypageDashboard() {
     <Screen bgColor="bgPurple" headerColor="white" className="dashboard">
       <div className="container">
         <MypageMenus />
-        <div className="content"></div>
+        <div className="content">
+          <Mypageprofile />
+        </div>
       </div>
     </Screen>
   );
