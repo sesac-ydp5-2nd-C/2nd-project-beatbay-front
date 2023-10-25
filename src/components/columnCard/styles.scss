@@ -4,6 +4,12 @@
 .columnCard {
   width: 100%;
 }
+.mH {
+  margin: 0px toSize(24);
+  @include media('>1440px') {
+    margin: 0px 24px;
+  }
+}
 
 /* 공통 스타일 */
 .flip-container {
@@ -33,13 +39,26 @@
 
 /* 초기 상태 */
 .front {
-  background-color: #3498db;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   transform: rotateY(0deg);
 }
 
 .back {
-  background-color: #e74c3c;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   transform: rotateY(180deg);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0d0f53e6; /* 원하는 배경 색상과 불투명도를 설정 (예: 빨간색, 50% 불투명) */
+  }
 }
 
 /* Hover 상태 */

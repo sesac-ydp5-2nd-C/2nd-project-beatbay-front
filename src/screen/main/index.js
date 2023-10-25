@@ -43,9 +43,11 @@ function MainScreen() {
       <CustomCarousel />
       <div className="columnContainer">
         <div className="columns">
-          {[0, 1, 2].map((e) => {
-            return <ColumnCard />;
-          })}
+          {['columnImg1.png', 'columnImg2.png', 'columnImg3.png'].map(
+            (e, i) => {
+              return <ColumnCard mid={i === 1 ? true : false} src={e} />;
+            },
+          )}
         </div>
       </div>
     </Screen>
