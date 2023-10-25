@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import MypageMenu from './MenuItem';
 import './menu.scss';
 
 export default function MypageMenus() {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const hereRef = useRef();
-
+  const [selectedItem, setSelectedItem] = useState('DASHBOARD');
   const handleItemClick = (itemName) => {
     setSelectedItem(itemName);
     console.log(`Item clicked: ${itemName}`);
@@ -26,27 +24,31 @@ export default function MypageMenus() {
     <ul className="mypageMenus">
       <div className="here" />
       <MypageMenu
-        className={selectedItem === 'DASHBOARD' ? 'selected' : ''}
+        selected={selectedItem === 'DASHBOARD' ? 'selected' : ''}
         icon={selectedItem === 'DASHBOARD' ? dashboardClicked : dashboard}
         text="DASHBOARD"
         onItemClick={handleItemClick}
       />
       <MypageMenu
+        selected={selectedItem === 'LISTINGS' ? 'selected' : ''}
         icon={selectedItem === 'LISTINGS' ? listingClicked : listing}
         text="LISTINGS"
         onItemClick={handleItemClick}
       />
       <MypageMenu
+        selected={selectedItem === 'PURCHASES' ? 'selected' : ''}
         icon={selectedItem === 'PURCHASES' ? purchaseClicked : purchase}
         text="PURCHASES"
         onItemClick={handleItemClick}
       />
       <MypageMenu
+        selected={selectedItem === 'LIKES' ? 'selected' : ''}
         icon={selectedItem === 'LIKES' ? likeClicked : like}
         text="LIKES"
         onItemClick={handleItemClick}
       />
       <MypageMenu
+        selected={selectedItem === 'CHAT' ? 'selected' : ''}
         icon={selectedItem === 'CHAT' ? chatClicked : chat}
         text="CHAT"
         onItemClick={handleItemClick}
