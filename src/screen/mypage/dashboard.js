@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './style.scss';
+import Screen from '../Screen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
-import Header from '../../components/Header/Header';
 import MypageMenus from '../../components/Mypage/MypageMenus';
 
 function MypageDashboard() {
@@ -15,13 +15,14 @@ function MypageDashboard() {
   }, []);
 
   return (
-    <div className="Mypage Dashboard">
-      <Header />
-      <div className="container">
-        <MypageMenus />
-        <div className="content"></div>
+    <Screen bgColor="bgPurple" headerColor="white">
+      <div className="Mypage Dashboard">
+        <div className="container">
+          <MypageMenus />
+          <div className="content"></div>
+        </div>
       </div>
-    </div>
+    </Screen>
   );
 }
 
