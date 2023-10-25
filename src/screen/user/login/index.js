@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import Modal from 'react-modal';
 import './style.scss';
-import kakaologo from './kakako-icon.png';
 
 Modal.setAppElement('#root');
 

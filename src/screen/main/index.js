@@ -3,6 +3,7 @@ import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
 import ParentComponent from '../user/component/button';
+import App from '../user/register';
 
 function MainScreen() {
   const authInfo = useSelector((state) => state.user.authInfo);

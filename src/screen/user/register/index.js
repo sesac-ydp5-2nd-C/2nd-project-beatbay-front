@@ -1,101 +1,78 @@
 import React, { useState } from 'react';
-import './style.css';
-const SignUpForm = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+import './style.scss';
 
-  const [formErrors, setFormErrors] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+const App = () => {
+  const [email, setEmail] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [agreementChecked, setAgreementChecked] = useState(false);
+  const [showAgreementModal, setShowAgreementModal] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    validateField(name, value);
+  const sendVerificationEmail = () => {
+    // 인증 이메일 발송 로직
   };
 
-  const validateField = (name, value) => {
-    let error = '';
-    switch (name) {
-      case 'username':
-        error =
-          value.length < 3 ? '사용자 이름은 최소 3자 이상이어야 합니다.' : '';
-        break;
-      case 'email':
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        error = !emailRegex.test(value)
-          ? '올바른 이메일 주소를 입력하세요.'
-          : '';
-        break;
-      case 'password':
-        error =
-          value.length < 8 ? '비밀번호는 최소 8자 이상이어야 합니다.' : '';
-        break;
-      default:
-        break;
-    }
-    setFormErrors({ ...formErrors, [name]: error });
+  const handleSubmit = () => {
+    // 회원가입 로직 및 유효성 검사
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 여기에서 서버로 데이터를 보내거나 다른 회원가입 처리 로직을 구현.
-    // 유효성 검사 로직을 다시 실행하여 제출 전에도 모든 필드를 확인.
-    validateField('username', formData.username);
-    validateField('email', formData.email);
-    validateField('password', formData.password);
-
-    // 유효성 검사를 통과하는 경우에만 서버로 데이터를 보냅니다.
-    if (!formErrors.username && !formErrors.email && !formErrors.password) {
-      // 서버로 데이터를 보내는 로직을 추가.
-    }
+  const toggleAgreementModal = () => {
+    setShowAgreementModal(!showAgreementModal);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="signup-form">
-      <div>
-        <label className="form-label">사용자 이름</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          className="form-input"
-        />
-        {formErrors.username && <p className="error">{formErrors.username}</p>}
+    <div className="registration-form">
+      <input
+        type="email"
+        placeholder="이메일"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button onClick={sendVerificationEmail}>이메일로 인증 메일 발송</button>
+
+      <div className="verification-modal">
+        {showAgreementModal && (
+          <div className="modal-content">
+            {/* 이용약관 내용 */}
+            <button onClick={toggleAgreementModal}>닫기</button>
+          </div>
+        )}
       </div>
-      <div>
-        <label className="form-label">이메일</label>
+
+      <input
+        type="text"
+        placeholder="인증 번호"
+        value={verificationCode}
+        onChange={(e) => setVerificationCode(e.target.value)}
+      />
+
+      <input
+        type="password"
+        placeholder="비밀번호"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <input
+        type="text"
+        placeholder="닉네임"
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+      />
+
+      <div className="agreement">
         <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="form-input"
+          type="checkbox"
+          checked={agreementChecked}
+          onChange={() => setAgreementChecked(!agreementChecked)}
         />
-        {formErrors.email && <p className="error">{formErrors.email}</p>}
+        <label onClick={toggleAgreementModal}>이용약관 동의</label>
       </div>
-      <div>
-        <label className="form-label">비밀번호</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="form-input"
-        />
-        {formErrors.password && <p className="error">{formErrors.password}</p>}
-      </div>
-      <button type="submit" className="submit-button">
-        가입하기
-      </button>
-    </form>
+
+      <button onClick={handleSubmit}>회원가입</button>
+    </div>
   );
 };
 
-export default SignUpForm;
+export default App;
