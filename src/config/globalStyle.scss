@@ -1,0 +1,19 @@
+@use 'sass:math';
+// export 해야할 스타일 여기서 통합
+$breakpoint-mobile: 768px;
+
+// 반응형 크기 계산 (1440px 기준)
+@function toSize($size) {
+  $calculatedSize: ($size / 1440) * 100;
+  @return #{$calculatedSize * 1vw};
+}
+
+// Screen 배경색 설정
+.bgGray {
+  background-color: #f2f2f2;
+  // font-size: toSize(40) px;
+}
+
+.bgWhite {
+  background-color: #ffffff;
+}
