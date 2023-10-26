@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Interest from './Interests';
-import './profilestyle.scss';
+import './style.scss';
 
-export default function Mypageprofile() {
+export default function MypageProfile() {
   const [username, setUsername] = useState('영걸');
   const [introduce, setIntroduce] = useState('Music Is My Life~~~~~!!~~!');
   const interests = ['밴드', '베이스', '레슨'];

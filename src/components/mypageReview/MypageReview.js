@@ -1,5 +1,5 @@
 import React from 'react';
-import './reviewstyle.scss';
+import './style.scss';
 
 export default function MypageReview({
   userImg,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MypageMenu from './MenuItem';
-import './menustyle.scss';
+import './style.scss';
 
 export default function MypageMenus() {
   const [selectedItem, setSelectedItem] = useState('DASHBOARD');

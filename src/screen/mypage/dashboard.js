@@ -3,9 +3,9 @@ import './style.scss';
 import Screen from '../Screen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
-import MypageMenus from '../../components/Mypage/MypageMenus';
-import Mypageprofile from '../../components/Mypage/Mypageprofile';
-import MypageReview from '../../components/Mypage/MypageReview';
+import MypageMenus from '../../components/mypageMenu/MypageMenus';
+import MypageReview from '../../components/mypageReview/MypageReview';
+import MypageProfile from '../../components/mypageProfile/MypageProfile';
 
 function MypageDashboard() {
   const [reviewData, setReviewData] = useState([
@@ -42,7 +42,7 @@ function MypageDashboard() {
       <div className="container">
         <MypageMenus />
         <div className="content">
-          <Mypageprofile />
+          <MypageProfile />
 
           <div className="figures">
             <div className="figure grade">
