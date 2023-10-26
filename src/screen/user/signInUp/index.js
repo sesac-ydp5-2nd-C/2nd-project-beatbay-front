@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 // 스타일 파일 추가
 import './style.scss';
+import { Link } from 'react-router-dom/dist';
 
-const LoginScreen = () => {
+const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const handleSignUpClick = () => {
@@ -14,6 +15,7 @@ const LoginScreen = () => {
   };
   return (
     <div className={`container ${isSignUp ? 'right-panel-active' : ''}`}>
+      {/* <img src="guitar-2428921_1920 2.svg" className='login-img'></img> */}
       <div className="form-container sign-up-container">
         <form action="#">
           <h1>Create Account</h1>
@@ -24,7 +26,9 @@ const LoginScreen = () => {
           <button>Sign Up</button>
         </form>
       </div>
-      <div className={`form-container sign-in-container ${isSignUp && 'temp'}`}>
+      <div
+        className={`form-container sign-in-container ${isSignUp ? 'temp' : ''}`}
+      >
         <form action="#">
           <h1>Sign in</h1>
           <span>or use your account</span>
@@ -44,6 +48,7 @@ const LoginScreen = () => {
               ? 'Enter your personal details and start your journey with us'
               : 'To keep connected with us please login with your personal info'}
           </p>
+
           <button
             className="ghost"
             onClick={isSignUp ? handleSignInClick : handleSignUpClick}
@@ -56,4 +61,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignInUpScreen;

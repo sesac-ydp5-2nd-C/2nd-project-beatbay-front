@@ -22,12 +22,12 @@ export default function Header({ color = 'black' }) {
         </div>
         <Logo className="logo" />
         <div style={{ display: 'flex' }}>
-          <Link to="/user/signup">
+          <Link to="/user">
             <div style={{ color }} className="headerMenu mSpace">
               SIGN UP
             </div>
           </Link>
-          <Link to="/user/login">
+          <Link to="/user">
             <div style={{ color }} className="headerMenu">
               SIGN IN
             </div>
@@ -56,10 +56,10 @@ export default function Header({ color = 'black' }) {
 
         <div className="mMenu">GOODS</div>
         <div className="mMenu">ABILITY</div>
-        <Link to="/user/signup">
+        <Link to="/user">
           <div className="mMenu">SIGN UP</div>
         </Link>
-        <Link to="/user/login">
+        <Link to="/user">
           <div className="mMenu">SIGN IN</div>
         </Link>
       </div>
