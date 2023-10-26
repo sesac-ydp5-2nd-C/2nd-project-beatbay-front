@@ -5,7 +5,7 @@ import '../config/globalStyle.scss';
 const Screen = ({ children, bgColor = 'gray', headerColor = 'black' }) => {
   return (
     <div
-      className={bgColor === 'gray' ? 'bgGray' : ' bgWhite'}
+      className={bgColor === 'gray' ? 'bgGray' : ' bgPurple'}
       style={{ width: '100vw' }}
     >
       <Header color={headerColor} />

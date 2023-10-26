@@ -14,6 +14,12 @@ $breakpoint-mobile: 768px;
   // font-size: toSize(40) px;
 }
 
-.bgWhite {
-  background-color: #ffffff;
+.bgPurple {
+  background-color: #30338a;
+}
+
+$browser-font-size: 10;
+
+@function em($pixels, $context: $browser-font-size) {
+  @return #{$pixels/$context}em;
 }

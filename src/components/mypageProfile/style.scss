@@ -1,0 +1,79 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.profileContainer {
+  display: flex;
+}
+
+.profileImg {
+  width: toSize(200);
+  height: toSize(200);
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include media('>1440px') {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.profileImg img {
+  width: 85%;
+  height: 85%;
+}
+
+.profileContent {
+  margin-left: toSize(30);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include media('>1440px') {
+    margin-left: 30px;
+  }
+}
+
+.profileContent h1 {
+  vertical-align: middle;
+  font-size: 3.5em;
+  margin: 0;
+}
+
+.profileContent p {
+  font-size: 2em;
+  font-weight: 500;
+}
+.profileContent span {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.interestBox {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.interests span {
+  vertical-align: middle;
+  padding: 5px;
+  margin-right: toSize(10);
+  border-radius: 5px;
+  background-color: #d9d9d9;
+}
+
+@media (max-width: 1440px) {
+  .profileContent h1 {
+    font-size: toSize(35);
+  }
+
+  .profileContent p {
+    font-size: toSize(20);
+  }
+
+  .profileContent span {
+    font-size: toSize(15);
+  }
+}
