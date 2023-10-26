@@ -52,8 +52,12 @@ export default function Header({ color = 'black' }) {
 
         <div className="mMenu">GOODS</div>
         <div className="mMenu">ABILITY</div>
-        <div className="mMenu">SIGN IN</div>
-        <div className="mMenu">SIGN UP</div>
+        <div className="mMenu">
+          <Link to="/user/signup">SIGN UP</Link>
+        </div>
+        <div className="mMenu">
+          <Link to="/user/login">SIGN IN</Link>
+        </div>
       </div>
     </>
   );
