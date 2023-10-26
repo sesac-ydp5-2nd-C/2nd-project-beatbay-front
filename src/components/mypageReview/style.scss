@@ -1,0 +1,50 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.review {
+  background-color: white;
+  display: flex;
+  padding: toSize(15);
+  margin: toSize(15);
+}
+
+.userImg {
+  width: toSize(70);
+  height: toSize(70);
+  margin-right: toSize(40);
+  @include media('>1440px') {
+    width: 70px;
+    height: 70px;
+    margin-right: 40px;
+  }
+}
+
+.userName {
+  margin: 0;
+  font-size: toSize(20);
+  @include media('>1440px') {
+    font-size: 20px;
+  }
+}
+
+.userType {
+  font-size: toSize(12);
+  margin-bottom: toSize(10);
+  @include media('>1440px') {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+}
+
+.reviewContent {
+  font-size: toSize(16);
+  font-weight: 400;
+  margin-bottom: toSize(10);
+  @include media('>1440px') {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 1440px) {
+}
