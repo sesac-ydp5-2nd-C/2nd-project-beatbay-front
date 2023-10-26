@@ -1,5 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function IntroVideo({ src, reverse }) {
   const videoRef = useRef();
@@ -15,8 +17,16 @@ export default function IntroVideo({ src, reverse }) {
     setIsPlaying(!isPlaying);
   };
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
-    <div className="video-player-container">
+    <div
+      data-aos-duration="2000"
+      data-aos={reverse ? 'fade-right' : 'fade-left'}
+      className="video-player-container"
+    >
       {reverse && (
         <div className="controller rev">
           <p className="introLetter">ANY MUSICAL TALENT</p>
