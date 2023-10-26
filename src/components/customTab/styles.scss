@@ -8,6 +8,7 @@
   margin: 0px toSize(120);
 
   .tab-list {
+    position: relative;
     display: flex;
     list-style: none;
     padding: 0;
@@ -24,6 +25,10 @@
     font-weight: 700;
     color: #c4c4c4;
     border-bottom: solid 2px #d6d6d6;
+  }
+
+  .tab:hover {
+    background-color: #878be5; ////
   }
 
   .tab.active {
@@ -60,6 +65,9 @@
   font-size: 1.6rem;
   font-weight: 500;
 
+  overflow-x: auto; /* 가로 스크롤 활성화 */
+  white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+
   .tab-content {
     cursor: pointer;
     display: flex;
@@ -68,7 +76,21 @@
     padding: 0px 38px;
     border-right: solid 1px #d6d6d6;
   }
+
+  .tcActive {
+    font-weight: bold;
+    color: #878be5;
+  }
 }
+
+// /* 숨기려는 스크롤 바 스타일 */
+// .tab-content-container::-webkit-scrollbar {
+//   width: 0.1rem; /* 가로 스크롤 바의 너비를 0으로 설정 */
+// }
+
+// .tab-content-container::-webkit-scrollbar-thumb {
+//   background: transparent; /* 스크롤 바 슬라이더를 투명으로 설정 */
+// }
 @media (max-width: 768px) {
   //   .tabs-container {
   //     .tab {
