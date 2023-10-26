@@ -8,15 +8,17 @@ export default function Mypageprofile() {
   const interests = ['밴드', '베이스', '레슨'];
 
   return (
-    <div>
+    <div className="profileContainer">
       <div className="profileImg">
         <img src="profile_default.png" alt="profileImage" />
       </div>
       <div className="profileContent">
-        <p>HELLO, {username}</p>
-        <p>{introduce}</p>
-
         <div>
+          <h1>HELLO, {username}</h1>
+          <p>"{introduce}"</p>
+        </div>
+
+        <div className="interestBox">
           {interests.map((interest, index) => (
             <Interest key={index} kind={interest} />
           ))}

@@ -21,6 +21,26 @@ function MypageDashboard() {
         <MypageMenus />
         <div className="content">
           <Mypageprofile />
+
+          <div className="figures">
+            <div className="figure grade">
+              <h2>GRADE</h2>
+              <div>
+                <img src="mezzoforte.svg" alt="grade" />
+                <span>Mezzo Forte</span>
+              </div>
+            </div>
+            <div className="figure items">
+              <h2>ITEMS</h2>
+              <p>18</p>
+            </div>
+            <div className="figure followers">
+              <h2>FOLLOWERS</h2>
+              <p>28</p>
+            </div>
+          </div>
+
+          <hr />
         </div>
       </div>
     </Screen>

@@ -2,7 +2,7 @@
 @import '~include-media/dist/include-media';
 
 .mypageMenus {
-  width: toSize(220);
+  width: 15vw;
   position: relative;
   left: 10px;
 
@@ -32,7 +32,7 @@
   padding: toSize(15);
   color: white;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 2em;
   z-index: 100;
   display: flex;
   margin: 20px 0;
@@ -50,4 +50,10 @@
   border-radius: toSize(10);
   color: black;
   font-weight: bold;
+}
+
+@media (max-width: 1440px) {
+  .mypageMenu {
+    font-size: toSize(20);
+  }
 }

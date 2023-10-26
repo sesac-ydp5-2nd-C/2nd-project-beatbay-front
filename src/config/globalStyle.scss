@@ -17,3 +17,9 @@ $breakpoint-mobile: 768px;
 .bgPurple {
   background-color: #30338a;
 }
+
+$browser-font-size: 10;
+
+@function em($pixels, $context: $browser-font-size) {
+  @return #{$pixels/$context}em;
+}
