@@ -36,3 +36,7 @@
 * {
   font-family: 'Noto Sans KR';
 }
+
+a {
+  text-decoration: none;
+}

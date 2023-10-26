@@ -1,0 +1,7 @@
+@import '../..//../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.pTContainer {
+  padding: toSize(40) toSize(120);
+  height: 120px;
+}
