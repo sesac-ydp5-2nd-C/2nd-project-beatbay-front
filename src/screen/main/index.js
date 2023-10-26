@@ -6,6 +6,7 @@ import Screen from '../Screen';
 import IntroVideo from '../../components/introVideo/IntroVideo';
 import CustomCarousel from '../../components/customCarousel/CustomCarousel';
 import ColumnCard from '../../components/columnCard/ColumnCard';
+import CustomFooter from '../../components/customFooter/CustomFooter';
 
 function MainScreen() {
   const [columnData, setColumnData] = useState([
@@ -58,6 +59,7 @@ function MainScreen() {
       <IntroVideo src={'sampleVideo.webm'} reverse />
 
       <CustomCarousel />
+
       <div className="columnContainer">
         <div className="columns">
           {columnData.map((e, i) => {
@@ -72,6 +74,8 @@ function MainScreen() {
           })}
         </div>
       </div>
+
+      <CustomFooter />
     </Screen>
   );
 }

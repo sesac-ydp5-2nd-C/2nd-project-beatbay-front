@@ -105,6 +105,10 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: toSize(250);
+  @include media('>1440px') {
+    padding-bottom: 250px;
+  }
 }
 
 .columns {

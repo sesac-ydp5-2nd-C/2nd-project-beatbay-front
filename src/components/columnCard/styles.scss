@@ -105,6 +105,26 @@
   }
 }
 
+.rArrow {
+  width: toSize(22);
+  margin-left: toSize(12);
+  @include media('>1440px') {
+    width: 22px;
+    margin-left: 12px;
+  }
+}
+
 .backLetter {
+  display: flex;
   position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: toSize(20);
+  bottom: toSize(100);
+  right: toSize(60);
+  @include media('>1440px') {
+    font-size: 20px;
+    bottom: 100px;
+    right: 60px;
+  }
 }

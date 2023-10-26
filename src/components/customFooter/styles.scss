@@ -1,0 +1,11 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.footerContainer {
+  width: 100vw;
+  height: toSize(500);
+  background-color: black;
+  @include media('>1440px') {
+    height: 500px;
+  }
+}
