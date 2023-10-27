@@ -4,7 +4,6 @@ import hamburger from '../../asset/hamburger.svg';
 import whiteHamburger from '../../asset/whiteHamburger.svg';
 import { Link } from 'react-router-dom';
 import './styles.scss';
-import { Link } from 'react-router-dom/dist';
 
 export default function Header({ color = 'black' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // 메뉴를 열고 닫는 상태값 저장
