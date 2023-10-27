@@ -1,0 +1,52 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+@keyframes profileImg-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.profileVinyl {
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  width: 37vw;
+  height: 33vw;
+  margin-right: 6vw;
+  @include media('>1440px') {
+    width: 533px;
+    height: 476px;
+    margin-right: 86px;
+  }
+}
+
+.turntable {
+  width: 37vw;
+  height: 33vw;
+  position: absolute;
+  z-index: 100;
+  @include media('>1440px') {
+    width: 533px;
+    height: 476px;
+  }
+}
+
+.profileImg {
+  width: 30vw;
+  height: 30vw;
+  margin-right: 1.5vw;
+  margin-bottom: 1.45vw;
+  animation: profileImg-spin infinite 20s linear;
+  border-radius: 999px;
+  @include media('>1440px') {
+    width: 432px;
+    height: 432px;
+    margin-right: 21.6px;
+    margin-bottom: 21.6px;
+  }
+}

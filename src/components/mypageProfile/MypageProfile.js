@@ -9,20 +9,15 @@ export default function MypageProfile() {
 
   return (
     <div className="profileContainer">
-      <div className="profileImg">
-        <img src="profile_default.png" alt="profileImage" />
+      <div>
+        <h1>HELLO, {username}</h1>
+        <p>"{introduce}"</p>
       </div>
-      <div className="profileContent">
-        <div>
-          <h1>HELLO, {username}</h1>
-          <p>"{introduce}"</p>
-        </div>
 
-        <div className="interestBox">
-          {interests.map((interest, index) => (
-            <Interest key={index} kind={interest} />
-          ))}
-        </div>
+      <div className="interestBox">
+        {interests.map((interest, index) => (
+          <Interest key={index} kind={interest} />
+        ))}
       </div>
     </div>
   );
