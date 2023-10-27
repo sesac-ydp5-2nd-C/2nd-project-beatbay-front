@@ -1,7 +1,41 @@
-@import '../..//../config/globalStyle.scss';
 @import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
 
-.pTContainer {
-  padding: toSize(40) toSize(120);
-  height: 120px;
+.postCardContainer {
+  margin: 0px toSize(120);
+  @include media('>1440px') {
+    margin: 0px 120px;
+  }
+}
+
+.productGridContainer {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  // grid-template-rows: repeat(3, minmax(100px, auto));
+  // align-items: stretch;
+  grid-column-gap: toSize(24);
+  grid-row-gap: toSize(24);
+}
+
+.postIntro {
+  width: toSize(180);
+  height: toSize(30);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: white;
+  font-size: toSize(20);
+  font-weight: 700;
+  background-color: #30338a;
+  border-radius: toSize(8);
+  margin-bottom: toSize(36);
+  @include media('>1440px') {
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 8px;
+    margin-bottom: 36px;
+  }
 }
