@@ -23,3 +23,7 @@ $browser-font-size: 10;
 @function em($pixels, $context: $browser-font-size) {
   @return #{$pixels/$context}em;
 }
+
+:link {
+  text-decoration: none;
+}
