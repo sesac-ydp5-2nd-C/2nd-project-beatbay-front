@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { ReactComponent as Logo } from '../../asset/beatbay_logo.svg';
+import logo from '../../asset/beatbay_logo.svg';
+import hamburger from '../../asset/hamburger.svg';
+import whiteHamburger from '../../asset/whiteHamburger.svg';
+import { Link } from 'react-router-dom';
 import './styles.scss';
-import { Link } from 'react-router-dom/dist';
 
 export default function Header({ color = 'black' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // 메뉴를 열고 닫는 상태값 저장
@@ -13,14 +15,16 @@ export default function Header({ color = 'black' }) {
     <>
       <div className="headerContainer">
         <div style={{ display: 'flex' }}>
-          <div style={{ color }} className="headerMenu mSpace">
-            GOODS
-          </div>
+          <Link to="/trade/product">
+            <div style={{ color }} className="headerMenu mSpace">
+              GOODS
+            </div>
+          </Link>
           <div style={{ color }} className="headerMenu">
             ABILITY
           </div>
         </div>
-        <Logo className="logo" />
+        <img alt="logo" src={logo} className="logo" />
         <div style={{ display: 'flex' }}>
           <Link to="/user">
             <div style={{ color }} className="headerMenu mSpace">
@@ -35,9 +39,9 @@ export default function Header({ color = 'black' }) {
         </div>
       </div>
       <div className="mobileHeader">
-        <img src="beatbay_logo.svg" className="logo mobile" alt="logo" />
+        <img src={logo} className="logo mobile" alt="logo" />
         <img
-          src="hamburger.svg"
+          src={hamburger}
           className="hamburger"
           alt="logo"
           onClick={toggleBurger}
@@ -47,7 +51,7 @@ export default function Header({ color = 'black' }) {
         <div className="hMenuContainer">
           <div></div>
           <img
-            src="whiteHamburger.svg"
+            src={whiteHamburger}
             className="hamburger wBurger"
             alt="logo"
             onClick={toggleBurger}

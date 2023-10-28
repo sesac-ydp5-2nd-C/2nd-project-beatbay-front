@@ -11,14 +11,14 @@ export default function ColumnCard({ mid, src, title, content }) {
     <div
       data-aos-duration="1500"
       data-aos="zoom-out"
-      class={`flip-container ${mid && 'mH'}`}
+      className={`flip-container ${mid && 'mH'}`}
     >
-      <div class="flipper">
-        <div class="front" style={{ backgroundImage: `url(${src})` }}>
+      <div className="flipper">
+        <div className="front" style={{ backgroundImage: `url(${src})` }}>
           <p className="ccTitle">{title}</p>
           <img className="columnArrow" alt="arrow" src={'columnArrow.svg'} />
         </div>
-        <div class="back" style={{ backgroundImage: `url(${src})` }}>
+        <div className="back" style={{ backgroundImage: `url(${src})` }}>
           <p className="ccContent">{content}</p>
           <div className="backLetter">
             자세히 보기

@@ -3,10 +3,10 @@ import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
 import Screen from '../Screen';
-import IntroVideo from '../../components/introVideo/IntroVideo';
-import CustomCarousel from '../../components/customCarousel/CustomCarousel';
-import ColumnCard from '../../components/columnCard/ColumnCard';
-import CustomFooter from '../../components/customFooter/CustomFooter';
+import IntroVideo from '../../components/MainPage/introVideo/IntroVideo';
+import CustomCarousel from '../../components/MainPage/customCarousel/CustomCarousel';
+import ColumnCard from '../../components/MainPage/columnCard/ColumnCard';
+import CustomFooter from '../../components/MainPage/customFooter/CustomFooter';
 
 function MainScreen() {
   const [columnData, setColumnData] = useState([

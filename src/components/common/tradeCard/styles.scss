@@ -1,0 +1,86 @@
+@import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
+
+.TCContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: toSize(260);
+  background-color: white;
+  transition: 0.2s;
+
+  @include media('>1440px') {
+    height: 260px;
+  }
+
+  .prdImg {
+    width: 100%;
+    height: toSize(180);
+    @include media('>1440px') {
+      height: 180px;
+    }
+  }
+
+  .TCTitle {
+    line-height: 1;
+    margin: toSize(9) toSize(7) 0px toSize(7);
+    font-size: toSize(14);
+    font-weight: 500;
+    @include media('>1440px') {
+      margin: 9px 7px 0px 7px;
+      font-size: 14px;
+    }
+  }
+  .TCDate {
+    margin: toSize(3) toSize(7);
+    font-size: toSize(8);
+    font-weight: 500;
+    @include media('>1440px') {
+      margin: 3px 7px;
+      font-size: 8px;
+    }
+  }
+  .TCPContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: toSize(3) toSize(7) 0px toSize(7);
+    font-size: toSize(14);
+    font-weight: 500;
+    @include media('>1440px') {
+      margin: 3px 7px 0px 7px;
+      font-size: 14px;
+    }
+
+    .TCPrice {
+      display: flex;
+      align-items: end;
+      font-size: toSize(16);
+      font-weight: 500;
+      @include media('>1440px') {
+        font-size: 16px;
+      }
+
+      .TCWon {
+        margin-left: toSize(3);
+        font-size: toSize(14);
+        @include media('>1440px') {
+          margin-left: 3px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .TCLike {
+    width: toSize(15);
+    height: toSize(15);
+    @include media('>1440px') {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}
+
+.TCContainer:hover {
+  transform: scale(1.05);
+}
