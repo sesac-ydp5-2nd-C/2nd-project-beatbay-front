@@ -38,7 +38,7 @@ function MypageDashboard() {
   }, []);
 
   return (
-    <Screen className="dashboard">
+    <Screen>
       <div className="MpContainer">
         <div className="MpContent">
           <MypageVinyl />

@@ -5,16 +5,16 @@
   vertical-align: middle;
   font-size: toSize(35);
   margin: 0;
-  @include media('<768px') {
-    font-size: toSize(100);
+  @include media('<=768px') {
+    font-size: 7vw;
   }
 }
 
 .profileContainer p {
   font-weight: 500;
   font-size: toSize(20);
-  @include media('<768px') {
-    font-size: toSize(40);
+  @include media('<=768px') {
+    font-size: 3.5vw;
     word-break: break-word;
   }
 }
@@ -24,8 +24,8 @@
   margin: toSize(50) 0;
   text-align: center;
 
-  @include media('<768px') {
-    margin: toSize(80) 0;
+  @include media('<=768px') {
+    margin: 8vw 0 4vw 0;
   }
 }
 
@@ -37,8 +37,8 @@
   background-color: #d9d9d9;
   font-weight: 500;
   font-size: toSize(15);
-  @include media('<768px') {
-    font-size: toSize(30);
+  @include media('<=768px') {
+    font-size: 2.2vw;
   }
 }
 

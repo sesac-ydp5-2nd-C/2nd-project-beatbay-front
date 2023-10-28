@@ -5,6 +5,9 @@
   background: #f2f2f2;
   height: 100vh;
   display: flex;
+  @include media('<=768px') {
+    height: 90vh;
+  }
 }
 
 .MpContent {
@@ -45,7 +48,7 @@
   text-align: center;
   @include media('<=768px') {
     width: 30vw;
-    height: 15vw;
+    height: 16vw;
   }
 }
 
@@ -66,7 +69,7 @@
   font-size: toSize(15);
   margin: toSize(10);
   @include media('<=768px') {
-    font-size: 2vw;
+    font-size: 2.5vw;
   }
 }
 
@@ -94,7 +97,7 @@
   font-weight: 500;
   color: #30338a;
   @include media('<=768px') {
-    font-size: 4vw;
+    font-size: 5vw;
   }
 }
 
@@ -102,6 +105,6 @@
   .MpContent {
     flex-direction: column;
     justify-content: center;
-    margin: 0;
+    margin: -7vh 0 0 0;
   }
 }
