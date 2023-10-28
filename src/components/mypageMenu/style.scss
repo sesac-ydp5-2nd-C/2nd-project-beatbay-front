@@ -2,15 +2,17 @@
 @import '~include-media/dist/include-media';
 
 .mypageMenus {
-  width: 75vw;
   position: fixed;
   bottom: 0;
+  background-color: #f2f2f2;
+  width: 100vw;
+}
+
+.mypageMenus ul {
   display: flex;
   justify-content: space-around;
-  padding: 2vh 0;
-  @include media('>1440px') {
-    width: 1080px;
-  }
+  padding: toSize(20) toSize(145);
+  margin: 0;
 }
 
 .mypageMenu {

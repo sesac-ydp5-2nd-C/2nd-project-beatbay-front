@@ -4,7 +4,9 @@ import './style.scss';
 
 export default function MypageProfile() {
   const [username, setUsername] = useState('영걸');
-  const [introduce, setIntroduce] = useState('Music Is My Life~~~~~!!~~!');
+  const [introduce, setIntroduce] = useState(
+    'Music Is My Life~~~~~!!~~! dndndndndndnndddddddddddddddddddddddddd',
+  );
   const interests = ['밴드', '베이스', '레슨'];
 
   return (

@@ -18,13 +18,21 @@
   width: 37vw;
   height: 33vw;
   margin-right: 6vw;
+  @include media('<=768px') {
+    width: 68vw;
+    height: 61vw;
+  }
 }
 
 .turntable {
   width: 37vw;
   height: 33vw;
   position: absolute;
-  z-index: 100;
+  z-index: 1;
+  @include media('<=768px') {
+    width: 68vw;
+    height: 61vw;
+  }
 }
 
 .profileImg {
@@ -34,4 +42,8 @@
   margin-bottom: 1.45vw;
   animation: profileImg-spin infinite 20s linear;
   border-radius: 999px;
+  @include media('<=768px') {
+    width: 58vw;
+    height: 58vw;
+  }
 }

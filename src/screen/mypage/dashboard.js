@@ -40,7 +40,6 @@ function MypageDashboard() {
   return (
     <Screen className="dashboard">
       <div className="MpContainer">
-        <MypageMenus />
         <div className="MpContent">
           <MypageVinyl />
           <div className="MpProfile">
@@ -49,8 +48,8 @@ function MypageDashboard() {
               <div className="figure grade">
                 <h2>GRADE</h2>
                 <div>
-                  <img src="mezzoforte.svg" alt="grade" />
-                  <span>Mezzo Forte</span>
+                  <img src="mezzoforte.svg" alt="grade" className="gradeImg" />
+                  <span className="gradeText">Mezzo Forte</span>
                 </div>
               </div>
               <div className="figure items">
@@ -68,6 +67,7 @@ function MypageDashboard() {
             </div>
           </div>
         </div>
+        <MypageMenus />
       </div>
     </Screen>
   );

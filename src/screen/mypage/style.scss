@@ -2,18 +2,27 @@
 @import '~include-media/dist/include-media';
 
 .MpContainer {
-  display: flex;
-  justify-content: center;
   background: #f2f2f2;
   height: 100vh;
+  display: flex;
 }
 
 .MpContent {
   box-sizing: border-box;
   display: flex;
-  height: 100vh;
   align-items: center;
   margin-top: toSize(-70);
+  padding: 0 10vw;
+  overflow: auto;
+}
+
+.MpProfile {
+  display: flex;
+  flex-direction: column;
+  @include media('<=768px') {
+    align-items: center;
+    margin-top: 20px;
+  }
 }
 
 .figures {
@@ -22,6 +31,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
+  @include media('<=768px') {
+    justify-content: center;
+  }
 }
 
 .figure {
@@ -31,6 +43,14 @@
   width: toSize(200);
   height: toSize(110);
   text-align: center;
+  @include media('<=768px') {
+    width: 30vw;
+    height: 15vw;
+  }
+}
+
+.figure:hover {
+  background-color: #878be5;
 }
 
 .figure div {
@@ -39,26 +59,49 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: auto;
 }
 
 .figure h2 {
   font-size: toSize(15);
   margin: toSize(10);
+  @include media('<=768px') {
+    font-size: 2vw;
+  }
 }
 
-.figure img {
+.gradeImg {
   width: toSize(40);
-  height: toSize(40);
+  height: auto;
+  @include media('<=768px') {
+    width: 8vw;
+    padding-bottom: 10px;
+    margin: auto;
+  }
 }
 
-.figure span {
+.gradeText {
   font-size: toSize(18);
   font-weight: 500;
   font-style: italic;
   color: #30338a;
+  @include media('<=768px') {
+    display: none;
+  }
 }
 .figure p {
   font-size: toSize(20);
   font-weight: 500;
   color: #30338a;
+  @include media('<=768px') {
+    font-size: 4vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .MpContent {
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+  }
 }
