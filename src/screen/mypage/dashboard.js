@@ -4,8 +4,8 @@ import Screen from '../Screen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
 import MypageMenus from '../../components/mypageMenu/MypageMenus';
-import MypageReview from '../../components/mypageReview/MypageReview';
 import MypageProfile from '../../components/mypageProfile/MypageProfile';
+import MypageVinyl from '../../components/mypageVinyl/MypageVinyl';
 
 function MypageDashboard() {
   const [reviewData, setReviewData] = useState([
@@ -38,45 +38,36 @@ function MypageDashboard() {
   }, []);
 
   return (
-    <Screen bgColor="bgPurple" headerColor="white" className="dashboard">
-      <div className="container">
-        <MypageMenus />
-        <div className="content">
-          <MypageProfile />
-
-          <div className="figures">
-            <div className="figure grade">
-              <h2>GRADE</h2>
-              <div>
-                <img src="mezzoforte.svg" alt="grade" />
-                <span>Mezzo Forte</span>
+    <Screen>
+      <div className="MpContainer">
+        <div className="MpContent">
+          <MypageVinyl />
+          <div className="MpProfile">
+            <MypageProfile />
+            <div className="figures">
+              <div className="figure grade">
+                <h2>GRADE</h2>
+                <div>
+                  <img src="mezzoforte.svg" alt="grade" className="gradeImg" />
+                  <span className="gradeText">Mezzo Forte</span>
+                </div>
+              </div>
+              <div className="figure items">
+                <h2>ITEMS</h2>
+                <p>18</p>
+              </div>
+              <div className="figure followers">
+                <h2>FOLLOWERS</h2>
+                <p>28</p>
+              </div>
+              <div className="figure followers">
+                <h2>REVIEWS</h2>
+                <p>28</p>
               </div>
             </div>
-            <div className="figure items">
-              <h2>ITEMS</h2>
-              <p>18</p>
-            </div>
-            <div className="figure followers">
-              <h2>FOLLOWERS</h2>
-              <p>28</p>
-            </div>
-          </div>
-
-          <hr />
-
-          <div className="reviews">
-            {reviewData.map((e, i) => {
-              return (
-                <MypageReview
-                  userImg={e.userImg}
-                  userName={e.userName}
-                  userType={e.userType}
-                  reviewContent={e.reviewContent}
-                />
-              );
-            })}
           </div>
         </div>
+        <MypageMenus />
       </div>
     </Screen>
   );

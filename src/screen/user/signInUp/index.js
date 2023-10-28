@@ -14,7 +14,7 @@ const SignInUpScreen = () => {
     setIsSignUp(false);
   };
   return (
-    <div className={`container ${isSignUp ? 'right-panel-active' : ''}`}>
+    <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
       {/* <img src="guitar-2428921_1920 2.svg" className='login-img'></img> */}
       <div className="form-container sign-up-container">
         <form action="#">

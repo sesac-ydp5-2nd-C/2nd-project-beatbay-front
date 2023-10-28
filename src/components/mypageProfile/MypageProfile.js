@@ -4,25 +4,22 @@ import './style.scss';
 
 export default function MypageProfile() {
   const [username, setUsername] = useState('영걸');
-  const [introduce, setIntroduce] = useState('Music Is My Life~~~~~!!~~!');
+  const [introduce, setIntroduce] = useState(
+    'Music Is My Life~~~~~!!~~! dndndndndndnndddddddddddddddddddddddddd',
+  );
   const interests = ['밴드', '베이스', '레슨'];
 
   return (
     <div className="profileContainer">
-      <div className="profileImg">
-        <img src="profile_default.png" alt="profileImage" />
+      <div>
+        <h1>HELLO, {username}</h1>
+        <p>"{introduce}"</p>
       </div>
-      <div className="profileContent">
-        <div>
-          <h1>HELLO, {username}</h1>
-          <p>"{introduce}"</p>
-        </div>
 
-        <div className="interestBox">
-          {interests.map((interest, index) => (
-            <Interest key={index} kind={interest} />
-          ))}
-        </div>
+      <div className="interestBox">
+        {interests.map((interest, index) => (
+          <Interest key={index} kind={interest} />
+        ))}
       </div>
     </div>
   );
