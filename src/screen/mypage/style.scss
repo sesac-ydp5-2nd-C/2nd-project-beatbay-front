@@ -1,46 +1,59 @@
 @import '../../config/globalStyle.scss';
 @import '~include-media/dist/include-media';
 
-.container {
+.MpContainer {
+  background: #f2f2f2;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  @include media('<=768px') {
+    height: 90vh;
+  }
 }
 
-.content {
-  width: 80vw;
-  max-width: 1080px;
-  height: 100vh;
-  padding: toSize(80);
+.MpContent {
   box-sizing: border-box;
-  border-radius: 15px 15px 0 0;
-  background: #f2f2f2;
-  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: toSize(-70);
+  padding: 0 10vw;
+  overflow: auto;
+}
 
-  @include media('>1440px') {
-    padding: 80px;
+.MpProfile {
+  display: flex;
+  flex-direction: column;
+  @include media('<=768px') {
+    align-items: center;
+    margin-top: 20px;
   }
 }
 
 .figures {
+  width: toSize(400);
   margin-top: toSize(60);
-  display: flex;
-  justify-content: space-around;
-
-  @include media('>1440px') {
-    margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  @include media('<=768px') {
+    justify-content: center;
   }
 }
 
 .figure {
-  background-color: white;
-  width: toSize(280);
+  background: #f2f2f2;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  border-radius: toSize(15);
+  width: toSize(200);
   height: toSize(110);
   text-align: center;
-  @include media('>1440px') {
-    width: 280px;
-    height: 110px;
+  @include media('<=768px') {
+    width: 30vw;
+    height: 16vw;
   }
+}
+
+.figure:hover {
+  background-color: #878be5;
 }
 
 .figure div {
@@ -49,48 +62,49 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @include media('>1440px') {
-    width: 160px;
+  overflow: auto;
+}
+
+.figure h2 {
+  font-size: toSize(15);
+  margin: toSize(10);
+  @include media('<=768px') {
+    font-size: 2.5vw;
   }
 }
 
-.figure img {
+.gradeImg {
   width: toSize(40);
-  height: toSize(40);
-  @include media('>1440px') {
-    width: 40px;
+  height: auto;
+  @include media('<=768px') {
+    width: 8vw;
+    padding-bottom: 10px;
+    margin: auto;
   }
 }
 
-.figure span {
-  font-size: 1.8em;
+.gradeText {
+  font-size: toSize(18);
   font-weight: 500;
   font-style: italic;
   color: #30338a;
+  @include media('<=768px') {
+    display: none;
+  }
 }
 .figure p {
-  font-size: 2em;
+  font-size: toSize(20);
   font-weight: 500;
   color: #30338a;
-}
-
-.container hr {
-  margin: toSize(50) 0;
-  @include media('>1440px') {
-    margin: 50px 0;
+  @include media('<=768px') {
+    font-size: 5vw;
   }
 }
 
-@media (max-width: 1440px) {
-  .figure span {
-    font-size: toSize(18);
-  }
-  .figure p {
-    font-size: toSize(20);
-    margin: toSize(20);
-  }
-  .figure h2 {
-    font-size: toSize(15);
-    margin: toSize(10);
+@media (max-width: 768px) {
+  .MpContent {
+    flex-direction: column;
+    justify-content: center;
+    margin: -7vh 0 0 0;
   }
 }

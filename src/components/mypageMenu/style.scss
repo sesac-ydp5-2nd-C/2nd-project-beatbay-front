@@ -2,58 +2,39 @@
 @import '~include-media/dist/include-media';
 
 .mypageMenus {
-  width: 15vw;
-  position: relative;
-  left: 10px;
-
-  @include media('>1440px') {
-    width: 220px;
-  }
+  position: fixed;
+  bottom: 0;
+  background-color: #f2f2f2;
+  width: 100vw;
 }
 
-.icon {
-  width: toSize(30);
-  min-width: 22px;
-  margin-right: 10px;
-
-  @include media('>1440px') {
-    width: 30px;
+.mypageMenus ul {
+  display: flex;
+  justify-content: space-around;
+  padding: toSize(20) toSize(145);
+  margin: 0;
+  @include media('<=768px') {
+    height: 7vh;
+    padding: 0 5vw;
   }
-}
-
-.mypageMenus {
-  padding-left: 10px;
-  min-width: 150px;
 }
 
 .mypageMenu {
-  position: relative;
   list-style-type: none;
   padding: toSize(15);
-  color: white;
+  color: black;
   font-weight: 500;
-  font-size: 2em;
-  z-index: 100;
   display: flex;
-  margin: 20px 0;
+  font-size: toSize(20);
   @include media('>1440px') {
     padding: 15px;
   }
-}
-
-.selected-icon {
-  fill: black;
+  @include media('<=768px') {
+    font-size: 3vw;
+  }
 }
 
 .selected {
-  background: #f2f2f2;
-  border-radius: toSize(10);
-  color: black;
+  color: #878be5;
   font-weight: bold;
-}
-
-@media (max-width: 1440px) {
-  .mypageMenu {
-    font-size: toSize(20);
-  }
 }

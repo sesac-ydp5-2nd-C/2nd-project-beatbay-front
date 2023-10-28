@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainScreen from '../screen/main';
 
 import SignInUpScreen from '../screen/user/signInUp';
+import MypageDashboard from '../screen/mypage/dashboard';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainScreen />} />
           <Route path="/user" element={<SignInUpScreen />} />
+          <Route path="/mypage" element={<MypageDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>

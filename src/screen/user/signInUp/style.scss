@@ -95,9 +95,8 @@
 .Lcontainer {
   background: url(../../../../public/loginpage.png) no-repeat center fixed;
   background-size: cover;
-
-  // background: url(../../../../public/loginpage.png);
-
+  height: 100vh;
+  justify-content: center; // background: url(../../../../public/loginpage.png);
   // background: green;
   //   border-radius: 10px;
   //   box-shadow:
