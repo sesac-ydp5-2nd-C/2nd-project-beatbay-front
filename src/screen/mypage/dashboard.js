@@ -4,7 +4,6 @@ import Screen from '../Screen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthInfo } from '../../store/feature/userSlice';
 import MypageMenus from '../../components/mypageMenu/MypageMenus';
-import MypageReview from '../../components/mypageReview/MypageReview';
 import MypageProfile from '../../components/mypageProfile/MypageProfile';
 import MypageVinyl from '../../components/mypageVinyl/MypageVinyl';
 

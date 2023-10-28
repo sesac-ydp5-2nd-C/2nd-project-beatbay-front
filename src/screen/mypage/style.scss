@@ -4,19 +4,16 @@
 .MpContainer {
   display: flex;
   justify-content: center;
+  background: #f2f2f2;
+  height: 100vh;
 }
 
 .MpContent {
-  height: 100vh;
-  padding: toSize(80);
   box-sizing: border-box;
-  border-radius: 15px 15px 0 0;
-  background: #f2f2f2;
   display: flex;
-
-  @include media('>1440px') {
-    padding: 80px;
-  }
+  height: 100vh;
+  align-items: center;
+  margin-top: toSize(-70);
 }
 
 .figures {
@@ -25,24 +22,15 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
-
-  @include media('>1440px') {
-    width: 400px;
-    margin-top: 60px;
-  }
 }
 
 .figure {
   background: #f2f2f2;
   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  border-radius: toSize(15);
   width: toSize(200);
   height: toSize(110);
   text-align: center;
-  @include media('>1440px') {
-    width: 200px;
-    height: 110px;
-  }
 }
 
 .figure div {
@@ -51,42 +39,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @include media('>1440px') {
-    width: 160px;
-    height: 40px;
-  }
+}
+
+.figure h2 {
+  font-size: toSize(15);
+  margin: toSize(10);
 }
 
 .figure img {
   width: toSize(40);
   height: toSize(40);
-  @include media('>1440px') {
-    width: 40px;
-  }
 }
 
 .figure span {
-  font-size: 1.8em;
+  font-size: toSize(18);
   font-weight: 500;
   font-style: italic;
   color: #30338a;
 }
 .figure p {
-  font-size: 2em;
+  font-size: toSize(20);
   font-weight: 500;
   color: #30338a;
-}
-
-@media (max-width: 1440px) {
-  .figure span {
-    font-size: toSize(18);
-  }
-  .figure p {
-    font-size: toSize(20);
-    margin: toSize(20);
-  }
-  .figure h2 {
-    font-size: toSize(15);
-    margin: toSize(10);
-  }
 }
