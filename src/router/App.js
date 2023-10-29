@@ -3,7 +3,8 @@ import MainScreen from '../screen/main';
 import ProductTradeScreen from '../screen/trade/productTrade';
 
 import SignInUpScreen from '../screen/user/signInUp';
-import MypageDashboard from '../screen/mypage/dashboard';
+import MypageDashboardScreen from '../screen/mypage/dashboard';
+import MypageListingsScreen from '../screen/mypage/listings';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
           <Route path="/" element={<MainScreen />} />
           <Route path="/trade/product" element={<ProductTradeScreen />} />
           <Route path="/user" element={<SignInUpScreen />} />
-          <Route path="/mypage" element={<MypageDashboard />} />
+          <Route path="/mypage" element={<MypageDashboardScreen />} />
+          <Route path="/mypage/sell" element={<MypageListingsScreen />} />
         </Routes>
       </BrowserRouter>
     </div>
