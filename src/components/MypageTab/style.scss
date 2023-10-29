@@ -1,0 +1,70 @@
+@import '~include-media/dist/include-media';
+@import '../../config/globalStyle.scss';
+
+.mpTabs-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .mpTabList {
+    position: relative;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mpTab {
+    cursor: pointer;
+    width: toSize(400);
+    text-align: center;
+    padding: toSize(21) toSize(27) toSize(17) toSize(27);
+    transition: color 0.3s;
+    user-select: none;
+    font-size: toSize(20);
+    font-weight: 700;
+    color: #c4c4c4;
+    border-bottom: solid toSize(2) #d6d6d6;
+    @include media('>1440px') {
+      padding: 21px 27px 17px 27px;
+      font-size: 2rem;
+      border-bottom: solid 2px #d6d6d6;
+    }
+  }
+
+  .mpTab:hover {
+    color: #878be5;
+  }
+
+  .mpTab.active {
+    color: #000;
+  }
+
+  .firstIndex {
+    border-top-left-radius: toSize(15);
+    @include media('>1440px') {
+      border-top-left-radius: 15px;
+    }
+  }
+
+  .lastIndex {
+    border-top-right-radius: toSize(15);
+    @include media('>1440px') {
+      border-top-right-radius: 15px;
+    }
+  }
+
+  .mpTabBar {
+    position: absolute;
+    bottom: toSize(-1);
+    left: 0;
+    height: toSize(3);
+    background-color: #878be5;
+    transition: left 0.3s;
+    border-radius: 999px;
+    @include media('>1440px') {
+      bottom: -1px;
+      height: 4px;
+    }
+  }
+}

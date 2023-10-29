@@ -6,29 +6,18 @@ import { setAuthInfo } from '../../../store/feature/userSlice';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 import MypageProfile from '../../../components/mypageProfile/MypageProfile';
 import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
+import userImg from '../../../config/profile_default.png';
 
 function MypageDashboardScreen() {
-  const [reviewData, setReviewData] = useState([
-    {
-      userImg: 'profile_default.png',
-      userName: '강백호',
-      userType: 'Buyer',
-      reviewContent: '배고프다',
-    },
-    {
-      userImg: 'profile_default.png',
-      userName: '정대만',
-      userType: 'Buyer',
-      reviewContent: '잠온다',
-    },
-    {
-      userImg: 'profile_default.png',
-      userName: '이명헌',
-      userType: 'Seller',
-      reviewContent:
-        'Proident voluptate veniam voluptate mollit reprehenderit anim officia et ea ex laboris nulla laboris. Nulla ut aliquip fugiat tempor veniam sint aliqua reprehenderit tempor Lorem commodo anim.',
-    },
-  ]);
+  const [userData, setUserData] = useState({
+    username: '영걸',
+    introduce:
+      'Music Is My Life~~~~~!!~~! dndndndndndnndddddddddddddddddddddddddd',
+    interests: ['밴드', '베이스', '레슨'],
+    imgSrc: userImg,
+    grade: 'mezzoforte.svg',
+  });
+
   const authInfo = useSelector((state) => state.user.authInfo);
 
   const dispatch = useDispatch();
@@ -41,14 +30,14 @@ function MypageDashboardScreen() {
     <Screen>
       <div className="MpContainer">
         <div className="MpContent">
-          <MypageVinyl />
+          <MypageVinyl userData={userData} />
           <div className="MpProfile">
-            <MypageProfile />
+            <MypageProfile userData={userData} />
             <div className="figures">
               <div className="figure grade">
                 <h2>GRADE</h2>
                 <div>
-                  <img src="mezzoforte.svg" alt="grade" className="gradeImg" />
+                  <img src={userData.grade} alt="grade" className="gradeImg" />
                   <span className="gradeText">Mezzo Forte</span>
                 </div>
               </div>

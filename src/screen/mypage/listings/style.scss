@@ -1,0 +1,8 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.vinyl {
+  margin-left: -32vw;
+  margin-right: 5vw;
+  transform: rotate(90deg);
+}
