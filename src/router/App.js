@@ -5,6 +5,7 @@ import ProductTradeScreen from '../screen/trade/productTrade';
 import SignInUpScreen from '../screen/user/signInUp';
 import MypageDashboardScreen from '../screen/mypage/dashboard';
 import MypageListingsScreen from '../screen/mypage/listings';
+import MypagePurchasesScreen from '../screen/mypage/purchases';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/user" element={<SignInUpScreen />} />
           <Route path="/mypage" element={<MypageDashboardScreen />} />
           <Route path="/mypage/sell" element={<MypageListingsScreen />} />
+          <Route path="/mypage/buy" element={<MypagePurchasesScreen />} />
         </Routes>
       </BrowserRouter>
     </div>

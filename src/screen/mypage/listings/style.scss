@@ -18,7 +18,7 @@
   top: 14vh;
 }
 
-.listingsContainer {
+.MpListContainer {
   margin-left: toSize(300);
   width: toSize(1000);
   @include media('>1440px') {
@@ -26,14 +26,14 @@
   }
 }
 
-.listingsContainer h1 {
+.MpListContainer h1 {
   font-size: toSize(30);
   @include media('>1440px') {
     font-size: 30px;
   }
 }
 
-.listingsContainer .postIntro {
+.MpListContainer .postIntro {
   margin: 40px 0;
 }
 

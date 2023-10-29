@@ -6,21 +6,9 @@ import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import tradeSample from '../../../asset/tradeSample.png';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
-import MypageTab from '../../../components/MypageTab/MypageTab';
 import InfiniteScroll from 'react-infinite-scroller';
 
-export default function MypageListingsScreen() {
-  const tabsData = [
-    {
-      id: 1,
-      title: 'ACITVE',
-    },
-    {
-      id: 2,
-      title: 'SOLD',
-    },
-  ];
-
+export default function MypagePurchasesScreen() {
   const items = ['ALL', 'GOODS', 'ABILITY'];
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
@@ -42,9 +30,7 @@ export default function MypageListingsScreen() {
             <MypageVinyl />
           </div>
           <div className="MpListContainer">
-            <h1>LISTINGS</h1>
-            <div className="postIntro">POST</div>
-            <MypageTab tabsData={tabsData} />
+            <h1 className="purchaseTitle">PURCHASES</h1>
 
             <CustomDropdown
               showDropdown={showDropdown}
