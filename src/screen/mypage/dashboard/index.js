@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
-import Screen from '../Screen';
+import Screen from '../../Screen';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthInfo } from '../../store/feature/userSlice';
-import MypageMenus from '../../components/mypageMenu/MypageMenus';
-import MypageProfile from '../../components/mypageProfile/MypageProfile';
-import MypageVinyl from '../../components/mypageVinyl/MypageVinyl';
+import { setAuthInfo } from '../../../store/feature/userSlice';
+import MypageMenus from '../../../components/mypageMenu/MypageMenus';
+import MypageProfile from '../../../components/mypageProfile/MypageProfile';
+import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 
-function MypageDashboard() {
+function MypageDashboardScreen() {
   const [reviewData, setReviewData] = useState([
     {
       userImg: 'profile_default.png',
@@ -73,4 +73,4 @@ function MypageDashboard() {
   );
 }
 
-export default MypageDashboard;
+export default MypageDashboardScreen;
