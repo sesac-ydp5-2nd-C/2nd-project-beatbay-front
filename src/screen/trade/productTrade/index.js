@@ -4,13 +4,25 @@ import { CSSTransition } from 'react-transition-group';
 import { useDispatch, useSelector } from 'react-redux';
 import tradeSample from '../../../asset/tradeSample.png';
 import Screen from '../../Screen';
+import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 
 function ProductTradeScreen() {
   const authInfo = useSelector((state) => state.user.authInfo);
-  const [dropdownVisibility, setDropdownVisibility] = useState(false);
+  const items = ['인기순', '최신순', '낮은가격순', '높은가격순'];
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(items[0]);
+  const [productData, setProductData] = useState(
+    new Array(15).fill({
+      title: '텔레캐스터 민트 팝니다',
+      date: '1일전',
+      price: '1,300,000',
+      isLike: false,
+      img: tradeSample,
+    }),
+  );
   const tabsData = [
     {
       id: 1,
@@ -33,14 +45,6 @@ function ProductTradeScreen() {
     },
   ];
 
-  const productData = new Array(15).fill({
-    title: '텔레캐스터 민트 팝니다',
-    date: '1일전',
-    price: '1,300,000',
-    isLike: false,
-    img: tradeSample,
-  });
-
   return (
     <Screen>
       <CustomTab tabsData={tabsData} />
@@ -54,23 +58,33 @@ function ProductTradeScreen() {
         <div className="postCardContainer">
           <div className="PIContainer">
             <div className="postIntro">POST</div>
-            <button onClick={(e) => setDropdownVisibility(!dropdownVisibility)}>
-              {dropdownVisibility ? 'Close' : 'Open'}
-            </button>
-            <CustomDropdown visibility={dropdownVisibility}>
-              <ul>
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
-                <li>item 4</li>
-              </ul>
-            </CustomDropdown>
+            <CustomDropdown
+              showDropdown={showDropdown}
+              setShowDropdown={() => setShowDropdown(!showDropdown)}
+              items={items}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
           </div>
-          <div className="productGridContainer">
-            {productData.map((e, i) => {
-              return <TradeCard key={`${i}_${e.title}`} data={e} />;
-            })}
-          </div>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={() => {
+              setProductData([...productData, ...productData]);
+              console.log(productData);
+            }}
+            hasMore={true}
+            loader={
+              <div className="loader" key={0}>
+                Loading ...
+              </div>
+            }
+          >
+            <div className="productGridContainer">
+              {productData.map((e, i) => {
+                return <TradeCard key={`${i}_${e.title}`} data={e} />;
+              })}
+            </div>
+          </InfiniteScroll>
         </div>
       </div>
     </Screen>

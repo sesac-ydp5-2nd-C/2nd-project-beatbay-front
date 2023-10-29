@@ -1,30 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles.scss';
-const CustomDropdown = (props) => {
-  const [visibilityAnimation, setVisibilityAnimation] = React.useState(false);
-  const [repeat, setRepeat] = React.useState(null);
+import downArrow from '../../../asset/down-arrow.svg';
 
-  React.useEffect(() => {
-    if (props.visibility) {
-      clearTimeout(repeat);
-      setRepeat(null);
-      setVisibilityAnimation(true);
-    } else {
-      setRepeat(
-        setTimeout(() => {
-          setVisibilityAnimation(false);
-        }, 400),
-      );
-    }
-  }, [props.visibility]);
-
+const CustomDropdown = ({
+  showDropdown,
+  setShowDropdown,
+  items,
+  selectedItem,
+  setSelectedItem,
+}) => {
+  useEffect(() => {
+    console.log(selectedItem);
+  }, []);
   return (
-    <div
-      className={`components-dropdown ${
-        props.visibility ? 'slide-fade-in-dropdown' : 'slide-fade-out-dropdown'
-      }`}
-    >
-      {visibilityAnimation && props.children}
+    <div className="dropdown-wrapper">
+      <div onClick={setShowDropdown} className="trigger-button">
+        {selectedItem}
+        <img
+          alt="dArrow"
+          src={downArrow}
+          className={`dArrow  ${showDropdown ? 'AActive' : ''}`}
+        />
+      </div>
+      <ul className={`dropdown-content ${showDropdown ? 'DcActive' : ''}`}>
+        {items.map((item, i) => (
+          <li
+            key={`${item}_${i}`}
+            onClick={() => {
+              setSelectedItem(item);
+              setShowDropdown();
+            }}
+            className={`dItem ${i === 0 ? 'fItem' : ''} ${
+              item === selectedItem ? 'dsItem' : ''
+            }`}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
