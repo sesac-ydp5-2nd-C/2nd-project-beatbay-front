@@ -29,7 +29,7 @@ export default function MypageListingsScreen() {
     },
   ];
 
-  const items = ['인기순', '최신순', '낮은가격순', '높은가격순'];
+  const items = ['ALL', 'GOODS', 'ABILITY'];
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [productData, setProductData] = useState(
@@ -53,6 +53,14 @@ export default function MypageListingsScreen() {
             <h1>LISTINGS</h1>
             <div className="postIntro">POST</div>
             <MypageTab tabsData={tabsData} />
+
+            <CustomDropdown
+              showDropdown={showDropdown}
+              setShowDropdown={() => setShowDropdown(!showDropdown)}
+              items={items}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
           </div>
         </div>
         <MypageMenus />
