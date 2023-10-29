@@ -1,12 +1,55 @@
 @import '../../../config/globalStyle.scss';
 @import '~include-media/dist/include-media';
 
+.MLContainer {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+
+.MLContent {
+  position: relative;
+}
+
 .vinyl {
-  margin-left: -32vw;
-  margin-right: 5vw;
   transform: rotate(90deg);
+  position: absolute;
+  left: -26vw;
+  top: 14vh;
+}
+
+.listingsContainer {
+  margin-left: toSize(300);
+  width: toSize(1000);
+  @include media('>1440px') {
+    width: 1000px;
+  }
 }
 
 .listingsContainer h1 {
   font-size: toSize(30);
+  @include media('>1440px') {
+    font-size: 30px;
+  }
+}
+
+.listingsContainer .postIntro {
+  margin: 40px 0;
+}
+
+.dropdown-wrapper {
+  margin-left: auto;
+}
+
+.MpGridContainer {
+  margin-top: 30px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: toSize(24);
+  grid-row-gap: toSize(24);
+  @include media('>1440px') {
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+  }
 }

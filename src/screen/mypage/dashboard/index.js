@@ -56,8 +56,8 @@ function MypageDashboardScreen() {
             </div>
           </div>
         </div>
-        <MypageMenus />
       </div>
+      <MypageMenus />
     </Screen>
   );
 }

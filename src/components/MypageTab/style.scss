@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 30px;
 
   .mpTabList {
     position: relative;
@@ -16,7 +17,7 @@
 
   .mpTab {
     cursor: pointer;
-    width: toSize(450);
+    width: toSize(500);
     text-align: center;
     padding: toSize(21) toSize(27) toSize(17) toSize(27);
     transition: color 0.3s;
@@ -29,6 +30,7 @@
       padding: 21px 27px 17px 27px;
       font-size: 2rem;
       border-bottom: solid 2px #d6d6d6;
+      width: 500px;
     }
   }
 

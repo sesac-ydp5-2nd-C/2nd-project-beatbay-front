@@ -30,12 +30,13 @@
 
 .figures {
   width: toSize(400);
-  margin-top: toSize(60);
+  margin-top: toSize(20);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
   @include media('<=768px') {
     justify-content: center;
+    margin-top: toSize(50);
   }
 }
 
