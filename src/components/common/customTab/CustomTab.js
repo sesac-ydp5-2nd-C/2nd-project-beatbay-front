@@ -34,12 +34,16 @@ export default function CustomTab({ tabsData }) {
             }}
           />
         </ul>
-        <div className="tab-content-container">
+        <div
+          className={`tab-content-container ${
+            activeTab.content.length > 10 ? 'tcTwoLine' : ''
+          }`}
+        >
           {activeTab.content.map((e, i) => {
             return (
               <div
                 key={`${e}_${i}`}
-                className={`tab-content ${activeContent === e && 'tcActive'}`}
+                className={`tab-content ${activeContent === e && 'tcActive'} `}
                 onClick={() => setActiveContent(e)}
               >
                 {e}

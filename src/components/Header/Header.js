@@ -20,9 +20,11 @@ export default function Header({ color = 'black' }) {
               GOODS
             </div>
           </Link>
-          <div style={{ color }} className="headerMenu">
-            ABILITY
-          </div>
+          <Link to="/trade/talent">
+            <div style={{ color }} className="headerMenu">
+              ABILITY
+            </div>
+          </Link>
         </div>
         <img alt="logo" src={logo} className="logo" />
         <div style={{ display: 'flex' }}>

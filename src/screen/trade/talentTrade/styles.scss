@@ -1,0 +1,96 @@
+@import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
+
+.postCardContainer {
+  position: relative;
+  width: toSize(1250);
+  @include media('>1440px') {
+    width: 1250px;
+  }
+}
+
+.productGridContainer {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  // grid-template-rows: repeat(3, minmax(100px, auto));
+  // align-items: stretch;
+  grid-column-gap: toSize(24);
+  grid-row-gap: toSize(24);
+  @include media('>1440px') {
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+  }
+}
+
+.PIContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: toSize(36);
+  @include media('>1440px') {
+    margin-bottom: 36px;
+  }
+}
+
+.postIntro {
+  width: toSize(180);
+  height: toSize(30);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: white;
+  font-size: toSize(20);
+  font-weight: 700;
+  background-color: #30338a;
+  border-radius: toSize(8);
+  @include media('>1440px') {
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 8px;
+  }
+}
+
+.DDBtn {
+  width: 100px;
+  height: 100%;
+  background-color: purple;
+  cursor: pointer;
+}
+.DDBtn:hover {
+}
+
+@keyframes dropdown-open {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 200px;
+  }
+}
+
+@keyframes dropdown-close {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.DDContent {
+  position: absolute;
+  background-color: white;
+  width: 100px;
+  height: 200px;
+  animation: dropdown-open 0.5s ease-out;
+  .DDOpen {
+    display: block;
+  }
+}
+
+.DDClose {
+  display: none;
+  animation: dropdown-close 1s ease-out;
+}
