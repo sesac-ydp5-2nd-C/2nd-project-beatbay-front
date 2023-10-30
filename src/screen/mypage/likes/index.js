@@ -8,7 +8,7 @@ import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import MypageTab from '../../../components/MypageTab/MypageTab';
 import InfiniteScroll from 'react-infinite-scroller';
 
-export default function MypagePurchasesScreen() {
+export default function MypageLikesScreen() {
   const tabsData = [
     {
       id: 1,

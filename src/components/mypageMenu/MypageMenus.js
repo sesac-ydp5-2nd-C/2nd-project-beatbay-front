@@ -20,7 +20,7 @@ export default function MypageMenus() {
       return 'LISTINGS';
     } else if (path === '/mypage/buy') {
       return 'PURCHASES';
-    } else if (path === '/mypage/likes') {
+    } else if (path === '/mypage/like') {
       return 'LIKES';
     } else if (path === '/mypage/chat') {
       return 'CHAT';
@@ -59,7 +59,7 @@ export default function MypageMenus() {
           PURCHASES
         </NavLink>
         <NavLink
-          to="/mypage/likes"
+          to="/mypage/like"
           onClick={() => handleItemClick('LIKES')}
           className={`mypageMenu ${selectedItem === 'LIKES' ? 'selected' : ''}`}
         >

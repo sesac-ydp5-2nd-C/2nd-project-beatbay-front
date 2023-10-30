@@ -6,6 +6,7 @@ import SignInUpScreen from '../screen/user/signInUp';
 import MypageDashboardScreen from '../screen/mypage/dashboard';
 import MypageListingsScreen from '../screen/mypage/listings';
 import MypagePurchasesScreen from '../screen/mypage/purchases';
+import MypageLikesScreen from '../screen/mypage/likes';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/mypage" element={<MypageDashboardScreen />} />
           <Route path="/mypage/sell" element={<MypageListingsScreen />} />
           <Route path="/mypage/buy" element={<MypagePurchasesScreen />} />
+          <Route path="/mypage/like" element={<MypageLikesScreen />} />
         </Routes>
       </BrowserRouter>
     </div>
