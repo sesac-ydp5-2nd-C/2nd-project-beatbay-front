@@ -6,28 +6,51 @@ import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import tradeSample from '../../../asset/tradeSample.png';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import MypageTab from '../../../components/MypageTab/MypageTab';
+
 import InfiniteScroll from 'react-infinite-scroller';
+import forte from '../../../asset/forte.svg';
+import mezzoforte from '../../../asset/mezzoforte.svg';
+import fortissimo from '../../../asset/fortissimo.svg';
+import piano from '../../../asset/piano.svg';
+import mezzopiano from '../../../asset/mezzopiano.svg';
+import pianissimo from '../../../asset/pianissimo.svg';
+import UserProfileContainer from '../../../components/common/userProfile';
+import userImg from '../../../asset/profile_default.png';
 
 export default function MypageLikesScreen() {
   const tabsData = [
     {
       id: 1,
-      title: 'PRODUCT',
+      title: 'FOLLOWING',
     },
     {
       id: 2,
-      title: 'ABILITY',
+      title: 'ITEM',
     },
   ];
 
-  const [productData, setProductData] = useState(
-    new Array(8).fill({
-      title: '텔레캐스터 민트 팝니다',
-      date: '1일전',
-      price: '1,300,000',
-      isLike: false,
-      img: tradeSample,
-    }),
+  const [followingData, setFollowingData] = useState(
+    {
+      name: '정대만',
+      grade: fortissimo,
+      introduce: '“그래, 난 정대만. 포기를 모르는 남자지….”',
+      profileImg: userImg,
+      interests: ['밴드', '일렉기타'],
+    },
+    {
+      name: '이명헌',
+      grade: mezzopiano,
+      introduce: '“...뿅”',
+      profileImg: userImg,
+      interests: ['밴드', '일렉기타'],
+    },
+    {
+      name: '강백호',
+      grade: mezzoforte,
+      introduce: '“왼손은 거들 뿐”',
+      profileImg: userImg,
+      interests: ['밴드', '일렉기타'],
+    },
   );
 
   return (
@@ -37,33 +60,16 @@ export default function MypageLikesScreen() {
           <div className="MpListContainer">
             <div className="MpTopBox">
               <div className="MpTitleBox">
-                <h1>PURCHASES</h1>
+                <h1>LIKES</h1>
               </div>
               <div className="vinyl">
                 <MypageVinyl />
               </div>
             </div>
             <MypageTab tabsData={tabsData} />
-
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={() => {
-                setProductData([...productData, ...productData]);
-                console.log(productData);
-              }}
-              hasMore={true}
-              loader={
-                <div className="loader" key={0}>
-                  Loading ...
-                </div>
-              }
-            >
-              <div className="MpGridContainer">
-                {productData.map((e, i) => {
-                  return <TradeCard key={`${i}_${e.title}`} data={e} />;
-                })}
-              </div>
-            </InfiniteScroll>
+            <div className="MpFollowingContainer">
+              <UserProfileContainer followingData={followingData} />
+            </div>
           </div>
         </div>
         <MypageMenus />

@@ -6,7 +6,8 @@ import { setAuthInfo } from '../../../store/feature/userSlice';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 import MypageProfile from '../../../components/mypageProfile/MypageProfile';
 import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
-import userImg from '../../../config/profile_default.png';
+import userImg from '../../../asset/profile_default.png';
+import mezzoforte from '../../../asset/mezzoforte.svg';
 
 function MypageDashboardScreen() {
   const [userData, setUserData] = useState({
@@ -15,7 +16,7 @@ function MypageDashboardScreen() {
       'Music Is My Life~~~~~!!~~! dndndndndndnndddddddddddddddddddddddddd',
     interests: ['밴드', '베이스', '레슨'],
     imgSrc: userImg,
-    grade: 'mezzoforte.svg',
+    grade: mezzoforte,
   });
 
   const authInfo = useSelector((state) => state.user.authInfo);

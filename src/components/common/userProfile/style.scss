@@ -1,0 +1,92 @@
+@import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
+
+.UPContainer {
+  background-color: white;
+  border-radius: toSize(15);
+  padding: toSize(40);
+  margin: 30px 0;
+  display: flex;
+  @include media('>1440px') {
+    border-radius: 15px;
+    padding: 40px;
+  }
+}
+
+.UPImgBorder {
+  width: toSize(170);
+  height: toSize(170);
+  border: 0.5px solid rgb(151, 151, 151);
+  border-radius: 999px;
+  position: relative;
+  margin-right: toSize(40);
+  @include media('>1440px') {
+    width: 170px;
+    height: 170px;
+    margin-right: 40px;
+  }
+}
+
+.UPImg {
+  width: toSize(155);
+  border-radius: 999px;
+  position: absolute;
+  top: toSize(6);
+  left: toSize(6);
+
+  @include media('>1440px') {
+    width: 160px;
+    top: 6px;
+    left: 6px;
+  }
+}
+
+.UPInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  p {
+    font-size: toSize(20);
+
+    @include media('>1440px') {
+      font-size: 20px;
+      font-weight: 300;
+    }
+  }
+}
+
+.UPInfoText div {
+  display: flex;
+
+  h2 {
+    font-size: toSize(25);
+    margin: 0 toSize(15) 0 0;
+  }
+
+  .userGradeImg {
+    width: toSize(30);
+  }
+
+  @include media('>1440px') {
+    h2 {
+      font-size: 25px;
+      margin: 0 15px 0 0;
+    }
+
+    .userGradeImg {
+      width: 30px;
+    }
+  }
+}
+
+.UPInfo .interestBox {
+  margin: 15px 0;
+
+  @include media('>1440px') {
+    .interests span {
+      font-size: 15px;
+      margin-right: 7px;
+    }
+  }
+}
