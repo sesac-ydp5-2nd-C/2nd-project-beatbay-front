@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import Interests from '../../mypageProfile/Interests';
+import userImg from '../../../asset/profile_default.png';
 
 export default function UserProfileContainer({ followingData }) {
   return (

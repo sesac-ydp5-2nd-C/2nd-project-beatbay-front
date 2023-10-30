@@ -29,8 +29,9 @@ export default function MypageLikesScreen() {
     },
   ];
 
-  const [followingData, setFollowingData] = useState(
+  const [followingData, setFollowingData] = useState([
     {
+      id: 1,
       name: '정대만',
       grade: fortissimo,
       introduce: '“그래, 난 정대만. 포기를 모르는 남자지….”',
@@ -38,6 +39,7 @@ export default function MypageLikesScreen() {
       interests: ['밴드', '일렉기타'],
     },
     {
+      id: 2,
       name: '이명헌',
       grade: mezzopiano,
       introduce: '“...뿅”',
@@ -45,14 +47,14 @@ export default function MypageLikesScreen() {
       interests: ['밴드', '일렉기타'],
     },
     {
+      id: 3,
       name: '강백호',
       grade: mezzoforte,
       introduce: '“왼손은 거들 뿐”',
       profileImg: userImg,
       interests: ['밴드', '일렉기타'],
     },
-  );
-
+  ]);
   return (
     <Screen>
       <div className="MLContainer">
@@ -68,7 +70,9 @@ export default function MypageLikesScreen() {
             </div>
             <MypageTab tabsData={tabsData} />
             <div className="MpFollowingContainer">
-              <UserProfileContainer followingData={followingData} />
+              {followingData.map((data, index) => (
+                <UserProfileContainer key={index} followingData={data} />
+              ))}
             </div>
           </div>
         </div>
