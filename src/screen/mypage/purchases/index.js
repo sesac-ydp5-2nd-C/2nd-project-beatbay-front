@@ -6,12 +6,21 @@ import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import tradeSample from '../../../asset/tradeSample.png';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
+import MypageTab from '../../../components/MypageTab/MypageTab';
 import InfiniteScroll from 'react-infinite-scroller';
 
-export default function MypagePurchasesScreen() {
-  const items = ['ALL', 'GOODS', 'ABILITY'];
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(items[0]);
+export default function MypageListingsScreen() {
+  const tabsData = [
+    {
+      id: 1,
+      title: 'PRODUCT',
+    },
+    {
+      id: 2,
+      title: 'ABILITY',
+    },
+  ];
+
   const [productData, setProductData] = useState(
     new Array(8).fill({
       title: '텔레캐스터 민트 팝니다',
@@ -26,19 +35,17 @@ export default function MypagePurchasesScreen() {
     <Screen>
       <div className="MLContainer">
         <div className="MLContent">
-          <div className="vinyl">
-            <MypageVinyl />
-          </div>
           <div className="MpListContainer">
-            <h1 className="purchaseTitle">PURCHASES</h1>
+            <div className="MpTopBox">
+              <div className="MpTitleBox">
+                <h1>PURCHASES</h1>
+              </div>
+              <div className="vinyl">
+                <MypageVinyl />
+              </div>
+            </div>
+            <MypageTab tabsData={tabsData} />
 
-            <CustomDropdown
-              showDropdown={showDropdown}
-              setShowDropdown={() => setShowDropdown(!showDropdown)}
-              items={items}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-            />
             <InfiniteScroll
               pageStart={0}
               loadMore={() => {

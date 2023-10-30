@@ -13,15 +13,15 @@ export default function MypageListingsScreen() {
   const tabsData = [
     {
       id: 1,
-      title: 'ACITVE',
+      title: 'PRODUCT',
     },
     {
       id: 2,
-      title: 'SOLD',
+      title: 'ABILITY',
     },
   ];
 
-  const items = ['ALL', 'GOODS', 'ABILITY'];
+  const items = ['전체', '판매중', '판매완료'];
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [productData, setProductData] = useState(
