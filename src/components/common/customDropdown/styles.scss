@@ -3,6 +3,10 @@
 
 .dropdown-wrapper {
   position: relative;
+  width: toSize(100);
+  @include media('>1440px') {
+    width: 100px;
+  }
 }
 
 .trigger-button {
@@ -42,7 +46,7 @@
   height: 0px;
   transition: height 0.3s ease;
   padding: 0;
-  width: 98%;
+  width: 100%;
   border: solid toSize(0.5) black;
   border-bottom-left-radius: toSize(10);
   border-bottom-right-radius: toSize(10);
