@@ -38,12 +38,16 @@ export default function MypageListingsScreen() {
     <Screen>
       <div className="MLContainer">
         <div className="MLContent">
-          <div className="vinyl">
-            <MypageVinyl />
-          </div>
           <div className="MpListContainer">
-            <h1>LISTINGS</h1>
-            <div className="postIntro">POST</div>
+            <div className="MpTopBox">
+              <div className="MpTitleBox">
+                <h1>LISTINGS</h1>
+                <div className="postIntro">POST</div>
+              </div>
+              <div className="vinyl">
+                <MypageVinyl />
+              </div>
+            </div>
             <MypageTab tabsData={tabsData} />
 
             <CustomDropdown
