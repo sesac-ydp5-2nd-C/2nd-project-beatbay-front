@@ -138,6 +138,13 @@ const SignInUpScreen = () => {
             >
               비밀번호 찾기
             </Link>
+            <input
+              className="checkbox"
+              type="checkbox"
+              id="reg-log"
+              name="reg-log"
+            />
+            <label htmlFor="reg-log">find_passwd</label>
           </div>
           <br />
           {errorMessage && <p className="error-message">{errorMessage}</p>}

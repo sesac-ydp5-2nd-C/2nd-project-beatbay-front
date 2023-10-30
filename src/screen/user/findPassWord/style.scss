@@ -94,7 +94,7 @@
 }
 
 .checkbox:checked + label:before {
-  transform: translateX(44px) rotate(-270deg);
+  // transform: translateX(44px) rotate(-270deg);
 }
 
 .card-3d-wrap {
@@ -147,16 +147,16 @@
   transform: rotateY(180deg);
 }
 
-.center-wrap {
-  position: absolute;
-  width: 100%;
-  padding: 0 35px;
-  top: 50%;
-  left: 0;
-  transform: translate3d(0, -50%, 35px) perspective(100px);
-  z-index: 20;
-  display: block;
-}
+// .center-wrap {
+//   position: absolute;
+//   width: 100%;
+//   padding: 0 35px;
+//   top: 50%;
+//   left: 0;
+//   transform: translate3d(0, -50%, 35px) perspective(100px);
+//   z-index: 20;
+//   display: block;
+// }
 
 //------------------------------------------------
 
