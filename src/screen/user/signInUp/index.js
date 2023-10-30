@@ -82,6 +82,14 @@ const SignInUpScreen = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <input
+            style={{ width: '40%', textAlign: 'left' }}
+            type="text"
+            placeholder="인증번호 입력 (6자리)"
+            // value={}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button>인증번호 전송</button>
           <span className="find-password">
             <input type="checkbox"></input>
             <Link
@@ -96,8 +104,6 @@ const SignInUpScreen = () => {
             </Link>
             에 동의합니다
           </span>
-          <br></br>
-
           <button onClick={handleSignUp}>Sign Up</button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>

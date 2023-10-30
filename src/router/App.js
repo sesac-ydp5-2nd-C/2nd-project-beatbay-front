@@ -4,6 +4,7 @@ import ProductTradeScreen from '../screen/trade/productTrade';
 
 import SignInUpScreen from '../screen/user/signInUp';
 import MypageDashboard from '../screen/mypage/dashboard';
+import FindPassword from '../screen/user/findPassWord';
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
           <Route path="/" element={<MainScreen />} />
           <Route path="/trade/product" element={<ProductTradeScreen />} />
           <Route path="/user" element={<SignInUpScreen />} />
+          <Route path="/user/find_passwd" element={<FindPassword />} />
+
           <Route path="/mypage" element={<MypageDashboard />} />
         </Routes>
       </BrowserRouter>
