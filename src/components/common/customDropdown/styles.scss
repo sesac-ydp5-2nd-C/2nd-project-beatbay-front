@@ -52,6 +52,7 @@
   border-bottom-right-radius: toSize(10);
 
   @include media('>1440px') {
+    top: 15px;
     font-size: 14px;
     border: solid 0.5px black;
     font-size: 14px;

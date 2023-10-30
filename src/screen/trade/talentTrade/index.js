@@ -8,21 +8,10 @@ import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
+import { getTradeAbility } from '../../../api/trade';
 
 function TalentTradeScreen() {
-  const authInfo = useSelector((state) => state.user.authInfo);
-  const items = ['인기순', '최신순', '낮은가격순', '높은가격순'];
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(items[0]);
-  const [productData, setProductData] = useState(
-    new Array(15).fill({
-      title: '텔레캐스터 민트 팝니다',
-      date: '1일전',
-      price: '1,300,000',
-      isLike: false,
-      img: tradeSample,
-    }),
-  );
+  const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
 
   const areas = [
     '강원도',
@@ -61,10 +50,37 @@ function TalentTradeScreen() {
       content: areas,
     },
   ];
+  const [activeContent, setActiveContent] = useState(tabsData[0].content[0]);
+  const [activeTab, setActiveTab] = useState(tabsData[0]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(items[0]);
+  const [productData, setProductData] = useState([]);
+
+  useEffect(() => {
+    getAbilityList();
+  }, [selectedItem, activeContent]);
+
+  const getAbilityList = async () => {
+    const apiData = {
+      orderMethod: items.indexOf(selectedItem),
+      categoryNum: activeTab.id,
+      subCategoryNum: activeTab.content.indexOf(activeContent) + 1,
+    };
+    console.log(apiData);
+    getTradeAbility(apiData).then((res) => {
+      setProductData(res.data);
+    });
+  };
 
   return (
     <Screen>
-      <CustomTab tabsData={tabsData} />
+      <CustomTab
+        tabsData={tabsData}
+        activeContent={activeContent}
+        setActiveContent={setActiveContent}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
       <div
         style={{
           display: 'flex',
@@ -86,8 +102,10 @@ function TalentTradeScreen() {
           <InfiniteScroll
             pageStart={0}
             loadMore={() => {
-              setProductData([...productData, ...productData]);
-              console.log(productData);
+              if (productData.length > 0) {
+                setProductData([...productData, ...productData]);
+                console.log(productData);
+              }
             }}
             hasMore={true}
             loader={
@@ -98,7 +116,13 @@ function TalentTradeScreen() {
           >
             <div className="productGridContainer">
               {productData.map((e, i) => {
-                return <TradeCard key={`${i}_${e.title}`} data={e} />;
+                return (
+                  <TradeCard
+                    key={`${i}_${e.title}`}
+                    data={e}
+                    type={'ability'}
+                  />
+                );
               })}
             </div>
           </InfiniteScroll>

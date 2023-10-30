@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // 스타일 파일 추가
 import './style.scss';
-import { Link } from 'react-router-dom/dist';
 
 const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
