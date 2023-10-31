@@ -45,11 +45,16 @@ const SignInUpScreen = () => {
       setErrorMessage('Email and password are required');
     } else if (!isValidEmail(email)) {
       setErrorMessage('Invalid email format');
+    } else if (!isValidPassword(password)) {
+      setErrorMessage(
+        'Password must be at least 8 characters long and include letters, numbers, and special characters.',
+      );
     } else {
       // Perform your sign-in logic here
       // e.g., make an API request to authenticate the user
     }
   };
+  const handleKakaoSignIn = () => {};
 
   const isValidEmail = (email) => {
     //이메일검사 로직
@@ -69,6 +74,7 @@ const SignInUpScreen = () => {
   const sendAuth = () => {};
 
   const checkAuth = () => {};
+  const sendPw = () => {};
 
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
@@ -118,6 +124,7 @@ const SignInUpScreen = () => {
               width: '100%',
               fontSize: '17px',
               color: 'black',
+              fontWeight: '500',
               textAlign: 'left',
               marginLeft: '0px',
             }}
@@ -180,8 +187,37 @@ const SignInUpScreen = () => {
             Sign In
           </button>
           <br />
-
-          <label htmlFor="reg-log">비밀번호를 잊으셨나요? 비밀번호 찾기</label>
+          <button
+            onClick={handleKakaoSignIn}
+            style={{
+              width: '108%',
+              backgroundColor: '#FEE500',
+              color: 'black',
+              border: '1px solid #FEE500',
+            }}
+          >
+            <img
+              src="groupkakao.svg"
+              style={{ width: '19.337px', height: '18.085px' }}
+            ></img>{' '}
+            KAKAO
+          </button>
+          <br />
+          <p
+            style={{
+              color: 'black',
+              fontWeight: '700',
+              letterSpacing: '-0.8px',
+            }}
+          >
+            비밀번호를 잊으셨나요?{' '}
+            <label
+              htmlFor="reg-log"
+              style={{ color: '#03A9F4', fontWeight: '500' }}
+            >
+              비밀번호찾기
+            </label>
+          </p>
           <br />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
@@ -211,11 +247,25 @@ const SignInUpScreen = () => {
             </div>
 
             <br />
-            <button onClick={handleSignIn} style={{ width: '107%' }}>
-              Sign In
+            <button onClick={sendPw} style={{ width: '106%' }}>
+              비밀번호 메일로 받기
             </button>
             <br />
-            <label htmlFor="reg-log">로그인 하러가기</label>
+            <p
+              style={{
+                color: 'black',
+                fontWeight: '700',
+                letterSpacing: '-0.8px',
+              }}
+            >
+              <label
+                htmlFor="reg-log"
+                style={{ color: '#03A9F4', fontWeight: '500' }}
+              >
+                로그인{' '}
+              </label>
+              하러가기
+            </p>
           </form>
         </div>
       </div>
