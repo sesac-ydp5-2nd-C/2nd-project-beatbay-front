@@ -9,8 +9,13 @@ const SignInUpScreen = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isChecked, setIsChecked] = useState(false); // 추가된 부분
 
   const handleSignUpClick = () => {
+    // 체크박스가 체크된 상태인지 확인하고 토글
+    if (isChecked) {
+      setIsChecked(false);
+    }
     setIsSignUp(true);
   };
 
@@ -57,9 +62,17 @@ const SignInUpScreen = () => {
       password,
     );
   };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // 체크박스를 토글
+  };
+
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
-      <div className="form-container sign-up-container">
+      <div
+        className="form-container sign-up-container"
+        style={{ opacity: isSignUp ? '100' : '0' }}
+      >
         <form action="#">
           <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
           <h1>Create Account</h1>
@@ -91,7 +104,6 @@ const SignInUpScreen = () => {
           />
           <button>인증번호 전송</button>
           <span className="find-password">
-            <input type="checkbox"></input>
             <Link
               to="/user/find_passwd"
               style={{
@@ -108,6 +120,17 @@ const SignInUpScreen = () => {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
       </div>
+
+      <input
+        className="checkbox"
+        type="checkbox"
+        id="reg-log"
+        name="reg-log"
+        style={{ display: 'none' }}
+        checked={isChecked} // 체크박스 상태 연결
+        onChange={handleCheckboxChange} // 체크박스 변경 이벤트 핸들러
+      />
+
       <div
         className={`form-container sign-in-container ${isSignUp ? 'temp' : ''}`}
       >
@@ -130,25 +153,37 @@ const SignInUpScreen = () => {
           <br />
           <button onClick={handleSignIn}>Sign In</button>
           <br />
-          <div className="find-password">
-            비밀번호를 잊으셨나요?{' '}
-            <Link
-              to="/user/find_passwd"
-              style={{ color: '#03A9F4', fontSize: '10px' }}
-            >
-              비밀번호 찾기
-            </Link>
-            <input
-              className="checkbox"
-              type="checkbox"
-              id="reg-log"
-              name="reg-log"
-            />
-            <label htmlFor="reg-log">find_passwd</label>
-          </div>
+
+          <label htmlFor="reg-log">비밀번호 찾기</label>
           <br />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
+        <div />
+
+        <div className="Lcard-back">
+          <form>
+            <h1>Sign in</h1>
+            <br></br>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input type="text" placeholder="test" />
+            <label htmlFor="reg-log">find_passwd</label>
+
+            <br />
+            <button onClick={handleSignIn}>Sign In</button>
+            <br />
+          </form>
+        </div>
       </div>
       <div className="overlay-container">
         <div

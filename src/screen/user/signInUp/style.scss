@@ -47,6 +47,7 @@
     cursor: pointer;
     border: 1px solid #fff;
   }
+
   h1 {
     font-weight: bold;
     margin: 0;
@@ -73,10 +74,15 @@
   position: absolute;
   height: 100%;
   transition: all 0.6s ease-in-out;
+
   //---
-  // -webkit-transform-style: preserve-3d;
-  // transform-style: preserve-3d;
-  // transition: all 600ms ease-out;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: all 600ms ease-out;
+  // -webkit-backface-visibility: hidden;
+  // -moz-backface-visibility: hidden;
+  // -o-backface-visibility: hidden;
+  // backface-visibility: hidden;
 
   //-----
 
@@ -159,54 +165,33 @@
 
 //--------------------------------
 
-[type='checkbox']:checked,
-[type='checkbox']:not(:checked) {
-  position: absolute;
-  left: -9999px;
-}
-
-.checkbox:checked + label,
-.checkbox:not(:checked) + label {
-  position: relative;
-  display: block;
-  text-align: center;
-  width: 60px;
-  height: 16px;
-  border-radius: 8px;
-  padding: 0;
-  margin: 10px auto;
-  cursor: pointer;
-  background-color: #ffeba7;
-}
-
-.checkbox:checked + label:before,
-.checkbox:not(:checked) + label:before {
-  position: absolute;
-  display: block;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  color: #ffeba7;
-  background-color: #102770;
-  font-family: 'unicons';
-  content: '\eb4f';
-  z-index: 20;
-  top: -10px;
-  left: -10px;
-  line-height: 36px;
-  text-align: center;
-  font-size: 24px;
-  transition: all 0.5s ease;
-}
-
-.checkbox:checked + label:before {
-  transform: translateX(44px) rotate(-270deg);
-}
-
-.card-back {
+#reg-log:checked ~ .form-container {
   transform: rotateY(180deg);
 }
 
-.checkbox:checked ~ .Lcontainer {
+.Lcard-back {
+  width: 100%;
+  height: 100%;
+  background-color: #2a2b38;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 300%;
+  position: absolute;
+  border-radius: 6px;
+  left: 0;
+  top: 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.Lcard-back {
   transform: rotateY(180deg);
 }
+
+// .temp {
+//   visibility: hidden;
+// }
