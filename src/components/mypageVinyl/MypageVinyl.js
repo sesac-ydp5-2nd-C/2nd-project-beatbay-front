@@ -1,11 +1,13 @@
 import React from 'react';
 import './style.scss';
+import turntable from '../../asset/turntable.png';
+import userImg from '../../asset/profile_default.png';
 
-export default function MypageVinyl() {
+export default function MypageVinyl({ userData }) {
   return (
     <div className="profileVinyl">
-      <img src="turntable.png" alt="turntable" className="turntable" />
-      <img src="profile_default.png" alt="profileImg" className="profileImg" />
+      <img src={turntable} alt="turntable" className="turntable" />
+      <img src={userImg} alt="profileImg" className="profileImg" />
     </div>
   );
 }

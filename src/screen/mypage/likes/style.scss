@@ -1,0 +1,6 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.MLContainer {
+  height: calc(100vh - toSize(100));
+}

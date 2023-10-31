@@ -11,7 +11,7 @@
 .mypageMenus ul {
   display: flex;
   justify-content: space-around;
-  padding: toSize(20) toSize(145);
+  padding: 0 toSize(145) toSize(20) toSize(145);
   margin: 0;
   @include media('<=768px') {
     height: 7vh;

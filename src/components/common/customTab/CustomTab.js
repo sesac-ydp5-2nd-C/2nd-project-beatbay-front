@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
 
-export default function CustomTab({ tabsData }) {
-  const [activeTab, setActiveTab] = useState(tabsData[0]);
-  const [activeContent, setActiveContent] = useState(tabsData[0].content[0]);
+export default function CustomTab({
+  tabsData,
+  activeContent,
+  setActiveContent,
+  activeTab,
+  setActiveTab,
+}) {
+  // const [activeTab, setActiveTab] = useState(tabsData[0]);
+  // const [activeContent, setActiveContent] = useState(tabsData[0].content[0]);
 
   useEffect(() => {
     setActiveContent(activeTab.content[0]);
@@ -34,12 +40,16 @@ export default function CustomTab({ tabsData }) {
             }}
           />
         </ul>
-        <div className="tab-content-container">
+        <div
+          className={`tab-content-container ${
+            activeTab.content.length > 10 ? 'tcTwoLine' : ''
+          }`}
+        >
           {activeTab.content.map((e, i) => {
             return (
               <div
                 key={`${e}_${i}`}
-                className={`tab-content ${activeContent === e && 'tcActive'}`}
+                className={`tab-content ${activeContent === e && 'tcActive'} `}
                 onClick={() => setActiveContent(e)}
               >
                 {e}

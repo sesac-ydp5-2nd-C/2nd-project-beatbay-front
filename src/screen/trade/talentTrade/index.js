@@ -8,31 +8,46 @@ import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
-import { getTradeProduct } from '../../../api/trade';
-import axios from 'axios';
+import { getTradeAbility } from '../../../api/trade';
 
-function ProductTradeScreen() {
-  const authInfo = useSelector((state) => state.user.authInfo);
+function TalentTradeScreen() {
   const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
+
+  const areas = [
+    '강원도',
+    '경기도',
+    '경상도',
+    '광주',
+    '대구',
+    '부산',
+    '서울',
+    '울산',
+    '세종',
+    '인천',
+    '전라도',
+    '제주도',
+    '충청도',
+  ];
   const tabsData = [
     {
       id: 1,
-      title: '악기',
-      content: [
-        '관악기',
-        '현악기',
-        '타악기',
-        '건반악기',
-        '전자악기',
-        '앰프/스피커',
-        '악기용품',
-        '기타',
-      ],
+      title: '레슨',
+      content: areas,
     },
     {
       id: 2,
-      title: '음반',
-      content: ['CD', 'DVD', 'LP', '기타'],
+      title: '악보 제작',
+      content: areas,
+    },
+    {
+      id: 3,
+      title: '녹음/편집',
+      content: areas,
+    },
+    {
+      id: 4,
+      title: '연주',
+      content: areas,
     },
   ];
   const [activeContent, setActiveContent] = useState(tabsData[0].content[0]);
@@ -42,17 +57,17 @@ function ProductTradeScreen() {
   const [productData, setProductData] = useState([]);
 
   useEffect(() => {
-    getTradeList();
+    getAbilityList();
   }, [selectedItem, activeContent]);
 
-  const getTradeList = async () => {
+  const getAbilityList = async () => {
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,
       subCategoryNum: activeTab.content.indexOf(activeContent) + 1,
     };
     console.log(apiData);
-    getTradeProduct(apiData).then((res) => {
+    getTradeAbility(apiData).then((res) => {
       setProductData(res.data);
     });
   };
@@ -105,7 +120,7 @@ function ProductTradeScreen() {
                   <TradeCard
                     key={`${i}_${e.title}`}
                     data={e}
-                    type={'product'}
+                    type={'ability'}
                   />
                 );
               })}
@@ -117,4 +132,4 @@ function ProductTradeScreen() {
   );
 }
 
-export default ProductTradeScreen;
+export default TalentTradeScreen;
