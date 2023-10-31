@@ -9,6 +9,7 @@ import MypageDashboardScreen from '../screen/mypage/dashboard';
 import MypageListingsScreen from '../screen/mypage/listings';
 import MypagePurchasesScreen from '../screen/mypage/purchases';
 import MypageLikesScreen from '../screen/mypage/likes';
+import TradeDetailScreen from '../screen/trade/tradeDetail';
 
 function App() {
   return (
@@ -18,6 +19,14 @@ function App() {
           <Route path="/" element={<MainScreen />} />
           <Route path="/trade/product" element={<ProductTradeScreen />} />
           <Route path="/trade/talent" element={<TalentTradeScreen />} />
+          <Route
+            path="/trade/product/detail/:id"
+            element={<TradeDetailScreen />}
+          />
+          <Route
+            path="/trade/ability/detail/:id"
+            element={<TradeDetailScreen />}
+          />
           <Route path="/user" element={<SignInUpScreen />} />
           <Route path="/mypage" element={<MypageDashboardScreen />} />
           <Route path="/mypage/sell" element={<MypageListingsScreen />} />
