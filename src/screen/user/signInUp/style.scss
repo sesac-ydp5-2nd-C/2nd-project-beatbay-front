@@ -40,10 +40,10 @@
     color: #ffffff;
     font-size: 12px;
     font-weight: bold;
-    padding: 12px 45px;
+    padding: 12px 15px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    transition: transform 80ms ease-in;
+    transition: transform ease-in;
     cursor: pointer;
     border: 1px solid #fff;
   }
@@ -73,12 +73,12 @@
 .form-container {
   position: absolute;
   height: 100%;
-  transition: all 0.6s ease-in-out;
+  transition: all ease-in-out;
 
   //---
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: all 600ms ease-out;
+  transition: all 400ms ease-out;
   // -webkit-backface-visibility: hidden;
   // -moz-backface-visibility: hidden;
   // -o-backface-visibility: hidden;
@@ -140,13 +140,14 @@
   color: #fff;
 
   text-align: center;
-  font-family: Noto Sans;
+
   // font-size: 35px;
   font-style: normal;
   // font-weight: 700;
   line-height: normal;
   // letter-spacing: -1.75px;
   // text-transform: uppercase;
+  transition: all 400ms ease-out;
 }
 
 .Lcontainer.right-panel-active .overlay-container {
@@ -159,8 +160,17 @@
   transition: transform 0.6s ease-in-out;
 }
 
-.find-password {
-  font-size: 10px;
+.email-authentication {
+  width: 110%;
+  input {
+    width: 51%;
+    text-align: left;
+  }
+  button {
+    font-size: 0.8rem;
+    width: 20%;
+    height: 4vh;
+  }
 }
 
 //--------------------------------

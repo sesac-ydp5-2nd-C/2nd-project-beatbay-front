@@ -66,6 +66,9 @@ const SignInUpScreen = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // 체크박스를 토글
   };
+  const sendAuth = () => {};
+
+  const checkAuth = () => {};
 
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
@@ -95,28 +98,50 @@ const SignInUpScreen = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input
-            style={{ width: '40%', textAlign: 'left' }}
-            type="text"
-            placeholder="인증번호 입력 (6자리)"
-            // value={}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <button>인증번호 전송</button>
-          <span className="find-password">
+          <div className="email-authentication">
+            <input
+              type="text"
+              placeholder="인증번호 입력 (6자리)"
+              // value={}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <button onClick={sendAuth}>인증번호 전송</button>
+            <button onClick={checkAuth}>인증번호 확인</button>
+          </div>
+
+          <br></br>
+          <br></br>
+
+          <div
+            style={{
+              border: '10px',
+              width: '100%',
+              fontSize: '17px',
+              color: 'black',
+              textAlign: 'left',
+              marginLeft: '0px',
+            }}
+          >
+            <input type="checkbox" style={{ width: '10%' }}></input>
             <Link
-              to="/user/find_passwd"
+              to="https://www.notion.so/sage-h/515b5c492e7c4e0495c8d57427b42f78"
+              target="_blank"
               style={{
                 textDecoration: 'underline',
-                fontSize: '11px',
-                // fontWeight: 'bold',
+                fontSize: '16px',
+                fontWeight: 'bold',
               }}
             >
               이용약관
             </Link>
             에 동의합니다
-          </span>
-          <button onClick={handleSignUp}>Sign Up</button>
+          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <button onClick={handleSignUp} style={{ width: '107%' }}>
+            Sign Up
+          </button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
       </div>
@@ -151,10 +176,12 @@ const SignInUpScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
-          <button onClick={handleSignIn}>Sign In</button>
+          <button onClick={handleSignIn} style={{ width: '108%' }}>
+            Sign In
+          </button>
           <br />
 
-          <label htmlFor="reg-log">비밀번호 찾기</label>
+          <label htmlFor="reg-log">비밀번호를 잊으셨나요? 비밀번호 찾기</label>
           <br />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
@@ -162,7 +189,9 @@ const SignInUpScreen = () => {
 
         <div className="Lcard-back">
           <form>
-            <h1>Sign in</h1>
+            <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
+
+            <h1>Find password</h1>
             <br></br>
             <input
               type="email"
@@ -170,18 +199,23 @@ const SignInUpScreen = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input type="text" placeholder="test" />
-            <label htmlFor="reg-log">find_passwd</label>
+            <div className="email-authentication">
+              <input
+                type="text"
+                placeholder="인증번호 입력 (6자리)"
+                // value={}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <button onClick={sendAuth}>인증번호 전송</button>
+              <button onClick={checkAuth}>인증번호 확인</button>
+            </div>
 
             <br />
-            <button onClick={handleSignIn}>Sign In</button>
+            <button onClick={handleSignIn} style={{ width: '107%' }}>
+              Sign In
+            </button>
             <br />
+            <label htmlFor="reg-log">로그인 하러가기</label>
           </form>
         </div>
       </div>
