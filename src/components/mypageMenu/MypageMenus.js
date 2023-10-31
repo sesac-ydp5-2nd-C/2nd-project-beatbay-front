@@ -1,42 +1,77 @@
 import React, { useState } from 'react';
-import MypageMenu from './MenuItem';
 import './style.scss';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export default function MypageMenus() {
-  const [selectedItem, setSelectedItem] = useState('DASHBOARD');
+  const location = useLocation();
+  const [selectedItem, setSelectedItem] = useState(
+    getSelectedItemFromPath(location.pathname),
+  );
+
   const handleItemClick = (itemName) => {
     setSelectedItem(itemName);
     console.log(`Item clicked: ${itemName}`);
   };
 
+  function getSelectedItemFromPath(path) {
+    if (path === '/mypage') {
+      return 'DASHBOARD';
+    } else if (path === '/mypage/sell') {
+      return 'LISTINGS';
+    } else if (path === '/mypage/buy') {
+      return 'PURCHASES';
+    } else if (path === '/mypage/like') {
+      return 'LIKES';
+    } else if (path === '/mypage/chat') {
+      return 'CHAT';
+    }
+    return '';
+  }
+
   return (
     <div className="mypageMenus">
       <ul>
-        <MypageMenu
-          selected={selectedItem === 'DASHBOARD' ? 'selected' : ''}
-          text="DASHBOARD"
-          onItemClick={handleItemClick}
-        />
-        <MypageMenu
-          selected={selectedItem === 'LISTINGS' ? 'selected' : ''}
-          text="LISTINGS"
-          onItemClick={handleItemClick}
-        />
-        <MypageMenu
-          selected={selectedItem === 'PURCHASES' ? 'selected' : ''}
-          text="PURCHASES"
-          onItemClick={handleItemClick}
-        />
-        <MypageMenu
-          selected={selectedItem === 'LIKES' ? 'selected' : ''}
-          text="LIKES"
-          onItemClick={handleItemClick}
-        />
-        <MypageMenu
-          selected={selectedItem === 'CHAT' ? 'selected' : ''}
-          text="CHAT"
-          onItemClick={handleItemClick}
-        />
+        <NavLink
+          to="/mypage"
+          onClick={() => handleItemClick('DASHBOARD')}
+          className={`mypageMenu ${
+            selectedItem === 'DASHBOARD' ? 'selected' : ''
+          }`}
+        >
+          DASHBOARD
+        </NavLink>
+        <NavLink
+          to="/mypage/sell"
+          onClick={() => handleItemClick('LISTINGS')}
+          className={`mypageMenu ${
+            selectedItem === 'LISTINGS' ? 'selected' : ''
+          }`}
+        >
+          LISTINGS
+        </NavLink>
+        <NavLink
+          to="/mypage/buy"
+          onClick={() => handleItemClick('PURCHASES')}
+          className={`mypageMenu ${
+            selectedItem === 'PURCHASES' ? 'selected' : ''
+          }`}
+        >
+          PURCHASES
+        </NavLink>
+        <NavLink
+          to="/mypage/like"
+          onClick={() => handleItemClick('LIKES')}
+          className={`mypageMenu ${selectedItem === 'LIKES' ? 'selected' : ''}`}
+        >
+          LIKES
+        </NavLink>
+        <NavLink
+          to="/mypage/chat"
+          onClick={() => handleItemClick('CHAT')}
+          className={`mypageMenu ${selectedItem === 'CHAT' ? 'selected' : ''}`}
+        >
+          CHAT
+        </NavLink>
       </ul>
     </div>
   );

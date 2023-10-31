@@ -5,11 +5,10 @@ import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import tradeSample from '../../../asset/tradeSample.png';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
-import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import MypageTab from '../../../components/MypageTab/MypageTab';
 import InfiniteScroll from 'react-infinite-scroller';
 
-export default function MypageListingsScreen() {
+export default function MypagePurchasesScreen() {
   const tabsData = [
     {
       id: 1,
@@ -21,9 +20,6 @@ export default function MypageListingsScreen() {
     },
   ];
 
-  const items = ['전체', '판매중', '판매완료'];
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(items[0]);
   const [productData, setProductData] = useState(
     new Array(8).fill({
       title: '텔레캐스터 민트 팝니다',
@@ -41,8 +37,7 @@ export default function MypageListingsScreen() {
           <div className="MpListContainer">
             <div className="MpTopBox">
               <div className="MpTitleBox">
-                <h1>LISTINGS</h1>
-                <div className="postIntro">POST</div>
+                <h1>PURCHASES</h1>
               </div>
               <div className="vinyl">
                 <MypageVinyl />
@@ -50,13 +45,6 @@ export default function MypageListingsScreen() {
             </div>
             <MypageTab tabsData={tabsData} />
 
-            <CustomDropdown
-              showDropdown={showDropdown}
-              setShowDropdown={() => setShowDropdown(!showDropdown)}
-              items={items}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-            />
             <InfiniteScroll
               pageStart={0}
               loadMore={() => {
