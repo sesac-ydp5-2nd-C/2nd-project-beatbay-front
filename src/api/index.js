@@ -22,6 +22,10 @@ const setInterceptors = (instance) => {
     },
 
     async (error) => {
+      // if (axios.isCancel(error)) {
+      //   // 요청이 취소되었을 때 처리
+      //   console.log('Request was canceled');
+      // }
       return error.response;
     },
   );

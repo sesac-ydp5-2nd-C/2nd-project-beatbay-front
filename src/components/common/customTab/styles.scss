@@ -31,7 +31,9 @@
 
   .tab {
     cursor: pointer;
-    padding: toSize(21) toSize(27) toSize(17) toSize(27);
+    text-align: center;
+    padding: toSize(21) 0px toSize(17) 0px;
+    width: toSize(100);
     background-color: #fff;
     transition: color 0.3s;
     user-select: none;
@@ -40,7 +42,8 @@
     color: #c4c4c4;
     border-bottom: solid toSize(2) #d6d6d6;
     @include media('>1440px') {
-      padding: 21px 27px 17px 27px;
+      width: 100px;
+      padding: 21px 0px 17px 0px;
       font-size: 2rem;
       border-bottom: solid 2px #d6d6d6;
     }
@@ -85,6 +88,7 @@
 
 .tab-content-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   width: 100%;
   height: toSize(93);
@@ -117,6 +121,13 @@
   .tcActive {
     font-weight: bold;
     color: #878be5;
+  }
+}
+
+.tcTwoLine {
+  height: toSize(151);
+  @include media('>1440px') {
+    height: 151px;
   }
 }
 
