@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './style.scss';
 import { NavLink, useLocation } from 'react-router-dom';
 
-export default function MypageMenus() {
+export default function MypageMenus({ userData }) {
   const location = useLocation();
   const [selectedItem, setSelectedItem] = useState(
     getSelectedItemFromPath(location.pathname),

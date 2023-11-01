@@ -15,25 +15,51 @@
   display: flex;
   align-items: end;
   justify-content: end;
-  width: 37vw;
-  height: 33vw;
-  margin-right: 6vw;
+  width: toSize(530);
+  height: toSize(475);
+  margin-right: toSize(80);
+  @include media('>1440px') {
+    width: 530px;
+    height: 475px;
+    margin-right: 80px;
+  }
 }
 
 .turntable {
   position: absolute;
   z-index: 1;
-  width: 37vw;
-  height: 33vw;
+  width: toSize(530);
+  height: toSize(475);
+  @include media('>1440px') {
+    width: 530px;
+    height: 475px;
+  }
 }
 
 .profileImg {
-  width: 30vw;
-  height: 30vw;
-  margin-right: 1.5vw;
-  margin-bottom: 1.45vw;
+  width: toSize(435);
+  margin-right: toSize(20);
+  margin-bottom: toSize(20);
   animation: profileImg-spin infinite 20s linear;
   border-radius: 999px;
+  @include media('>1440px') {
+    width: 435px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.gradeImg {
+  position: absolute;
+  z-index: 1;
+  width: toSize(70);
+  margin-right: toSize(198);
+  margin-bottom: toSize(200);
+  @include media('>1440px') {
+    margin-right: 198px;
+    margin-bottom: 200px;
+    width: 70px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -51,5 +77,12 @@
   .profileImg {
     width: 58vw;
     height: 58vw;
+  }
+
+  .gradeImg {
+    width: 8vw;
+    margin-right: 37.5%;
+    margin-bottom: 39%;
+    padding: 0;
   }
 }
