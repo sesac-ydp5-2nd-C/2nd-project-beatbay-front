@@ -8,6 +8,8 @@
   height: toSize(260);
   background-color: white;
   transition: 0.2s;
+  cursor: pointer;
+  color: black;
 
   @include media('>1440px') {
     height: 260px;

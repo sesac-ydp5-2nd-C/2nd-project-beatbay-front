@@ -87,7 +87,7 @@ function ProductTradeScreen() {
           <InfiniteScroll
             pageStart={0}
             loadMore={() => {
-              if (productData.length > 0) {
+              if (productData?.length > 0) {
                 setProductData([...productData, ...productData]);
                 console.log(productData);
               }
@@ -100,7 +100,7 @@ function ProductTradeScreen() {
             }
           >
             <div className="productGridContainer">
-              {productData.map((e, i) => {
+              {productData?.map((e, i) => {
                 return (
                   <TradeCard
                     key={`${i}_${e.title}`}
