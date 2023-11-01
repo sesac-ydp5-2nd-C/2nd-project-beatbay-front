@@ -6,6 +6,8 @@
   bottom: 0;
   background-color: #f2f2f2;
   width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 .mypageMenus ul {
@@ -13,6 +15,11 @@
   justify-content: space-around;
   padding: 0 toSize(145) toSize(20) toSize(145);
   margin: 0;
+  width: toSize(1440);
+  @include media('>1440px') {
+    padding: 0 145px 20px 145px;
+    width: 1440px;
+  }
   @include media('<=768px') {
     height: 7vh;
     padding: 0 5vw;
@@ -28,6 +35,7 @@
   font-size: toSize(20);
   @include media('>1440px') {
     padding: 15px;
+    font-size: 20px;
   }
   @include media('<=768px') {
     font-size: 3vw;
