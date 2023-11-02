@@ -57,6 +57,10 @@
   }
 }
 
+.vinyl .gradeImg {
+  display: none;
+}
+
 .MpListContainer {
   width: toSize(1250);
   @include media('>1440px') {

@@ -14,30 +14,30 @@ export default function Header({ color = 'black' }) {
   return (
     <>
       <div className="headerContainer">
-        <div style={{ display: 'flex' }}>
+        <div className="headerMenus">
           <Link to="/trade/product">
-            <div style={{ color }} className="headerMenu mSpace">
-              GOODS
+            <div style={{ color }} className="headerMenu">
+              상품
             </div>
           </Link>
           <Link to="/trade/talent">
             <div style={{ color }} className="headerMenu">
-              ABILITY
+              재능
             </div>
           </Link>
         </div>
         <Link to="/">
           <img alt="logo" src={logo} className="logo" />
         </Link>
-        <div style={{ display: 'flex' }}>
+        <div className="headerMenus">
           <Link to="/user">
-            <div style={{ color }} className="headerMenu mSpace">
-              SIGN UP
+            <div style={{ color }} className="headerMenu">
+              회원가입
             </div>
           </Link>
           <Link to="/user">
             <div style={{ color }} className="headerMenu">
-              SIGN IN
+              로그인
             </div>
           </Link>
         </div>
