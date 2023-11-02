@@ -27,7 +27,24 @@ function CustomModal({ isOpen, onRequestClose, modalData }) {
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       {content}
-      <button onClick={onRequestClose}>닫기</button>
+      <div>
+        <h1>{modalData.title}</h1>
+        <button onClick={onRequestClose}>닫기</button>
+      </div>
+      <div className="modalList">
+        {item.map((item, i) = (
+          <div
+            key={`${item}_${i}`}
+            onClick={() => {
+              setSelectedItem(item);
+            }}
+            className="modalItem"
+          >
+            <p>{user_nickname}</p>
+            <p>{user}</p>
+          </div>
+        ))}
+      </div>
     </Modal>
   );
 }
