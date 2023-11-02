@@ -107,9 +107,7 @@ function TradeDetailScreen() {
 
         <div className="prdType">판매자</div>
         <div className="tradeUserContainer">
-          <div className="tradeUserContainer">
-            <UserProfileContainer followingData={data} />
-          </div>
+          <UserProfileContainer followingData={data} />
         </div>
       </div>
     </Screen>

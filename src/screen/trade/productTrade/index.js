@@ -38,26 +38,46 @@ function ProductTradeScreen() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [productData, setProductData] = useState();
+  const [startLoad, setStartLoad] = useState(true);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
+    // 카테고리, 순서 바뀔때 마다 초기화
+    setStartLoad(true);
     getTradeList();
   }, [selectedItem, activeContent]);
 
-  const getTradeList = async () => {
+  const getTradeList = async (search = null) => {
+    setProductData();
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,
       subCategoryNum: activeTab.content.indexOf(activeContent) + 1,
+      searchKeyword: search ? search : undefined,
     };
     console.log(apiData);
     getTradeProduct(apiData).then((res) => {
-      setProductData(res.data?.products ? res.data?.products : []);
+      const settingData = res.data?.products ? res.data?.products : [];
+      setProductData(settingData);
+      // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
+      if (settingData?.length > 0) {
+        console.log('들어옴');
+        setStartLoad(false);
+      }
     });
+  };
+
+  const handleSearch = () => {
+    setStartLoad(true);
+    getTradeList(searchText);
   };
 
   return (
     <Screen>
       <CustomTab
+        handleSearch={handleSearch}
+        searchText={searchText}
+        setSearchText={setSearchText}
         tabsData={tabsData}
         activeContent={activeContent}
         setActiveContent={setActiveContent}
@@ -85,23 +105,31 @@ function ProductTradeScreen() {
           <InfiniteScroll
             pageStart={0}
             loadMore={() => {
-              if (productData?.length > 0) {
+              if (productData?.length > 0 && startLoad) {
                 setProductData([...productData, ...productData]);
                 console.log(productData);
               }
             }}
             hasMore={true}
             loader={
-              productData?.length === 0 ? (
-                <div className="loader" key={0}>
-                  <img
-                    src={RollingSpinner}
-                    alt="spinner"
-                    className="loaderGif"
-                  />
-                </div>
+              startLoad ? (
+                productData?.length === 0 ? (
+                  <div>데이터가 없습니다</div>
+                ) : (
+                  <div className="loader" key={0}>
+                    <img
+                      src={RollingSpinner}
+                      alt="spinner"
+                      className="loaderGif"
+                    />
+                  </div>
+                )
               ) : (
-                <div>데이터가 없습니다</div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div onClick={() => setStartLoad(true)} className="seeMore">
+                    더 보기 +
+                  </div>
+                </div>
               )
             }
           >

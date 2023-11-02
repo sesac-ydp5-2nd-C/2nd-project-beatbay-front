@@ -111,3 +111,29 @@
     }
   }
 }
+
+.seeMore {
+  cursor: pointer;
+  width: toSize(385);
+  text-align: center;
+  color: #30338a;
+  font-size: toSize(20);
+  font-weight: 700;
+  border: solid toSize(1) #30338a;
+  border-radius: toSize(5);
+  padding: toSize(8) 0px;
+  margin-top: toSize(30);
+  transition: 0.2s;
+  @include media('>1440px') {
+    width: 385px;
+    border: solid 1px #30338a;
+    padding: 8px 0px;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-top: 30px;
+  }
+}
+
+.seeMore:hover {
+  transform: scale(1.05);
+}
