@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
-import { CSSTransition } from 'react-transition-group';
 import { useDispatch, useSelector } from 'react-redux';
-import tradeSample from '../../../asset/tradeSample.png';
 import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
+import RollingSpinner from '../../../asset/RollingSpinner.gif';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeProduct } from '../../../api/trade';
-import axios from 'axios';
 
 function ProductTradeScreen() {
   const authInfo = useSelector((state) => state.user.authInfo);
@@ -39,7 +37,7 @@ function ProductTradeScreen() {
   const [activeTab, setActiveTab] = useState(tabsData[0]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
-  const [productData, setProductData] = useState([]);
+  const [productData, setProductData] = useState();
 
   useEffect(() => {
     getTradeList();
@@ -53,7 +51,7 @@ function ProductTradeScreen() {
     };
     console.log(apiData);
     getTradeProduct(apiData).then((res) => {
-      setProductData(res.data);
+      setProductData(res.data?.products ? res.data?.products : []);
     });
   };
 
@@ -94,21 +92,30 @@ function ProductTradeScreen() {
             }}
             hasMore={true}
             loader={
-              <div className="loader" key={0}>
-                Loading ...
-              </div>
+              productData?.length === 0 ? (
+                <div className="loader" key={0}>
+                  <img
+                    src={RollingSpinner}
+                    alt="spinner"
+                    className="loaderGif"
+                  />
+                </div>
+              ) : (
+                <div>데이터가 없습니다</div>
+              )
             }
           >
             <div className="productGridContainer">
-              {productData?.map((e, i) => {
-                return (
-                  <TradeCard
-                    key={`${i}_${e.title}`}
-                    data={e}
-                    type={'product'}
-                  />
-                );
-              })}
+              {productData &&
+                productData?.map((e, i) => {
+                  return (
+                    <TradeCard
+                      key={`${i}_${e.title}`}
+                      data={e}
+                      type={'product'}
+                    />
+                  );
+                })}
             </div>
           </InfiniteScroll>
         </div>

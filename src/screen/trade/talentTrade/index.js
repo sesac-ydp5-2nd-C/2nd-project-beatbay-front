@@ -3,6 +3,7 @@ import './styles.scss';
 import { CSSTransition } from 'react-transition-group';
 import { useDispatch, useSelector } from 'react-redux';
 import tradeSample from '../../../asset/tradeSample.png';
+import RollingSpinner from '../../../asset/RollingSpinner.gif';
 import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
@@ -68,7 +69,7 @@ function TalentTradeScreen() {
     };
     console.log(apiData);
     getTradeAbility(apiData).then((res) => {
-      setProductData(res.data);
+      setProductData(res.data?.abilities ? res.data?.abilities : []);
     });
   };
 
@@ -110,20 +111,21 @@ function TalentTradeScreen() {
             hasMore={true}
             loader={
               <div className="loader" key={0}>
-                Loading ...
+                <img src={RollingSpinner} alt="spinner" className="loaderGif" />
               </div>
             }
           >
             <div className="productGridContainer">
-              {productData?.map((e, i) => {
-                return (
-                  <TradeCard
-                    key={`${i}_${e.title}`}
-                    data={e}
-                    type={'ability'}
-                  />
-                );
-              })}
+              {productData &&
+                productData?.map((e, i) => {
+                  return (
+                    <TradeCard
+                      key={`${i}_${e.title}`}
+                      data={e}
+                      type={'ability'}
+                    />
+                  );
+                })}
             </div>
           </InfiniteScroll>
         </div>

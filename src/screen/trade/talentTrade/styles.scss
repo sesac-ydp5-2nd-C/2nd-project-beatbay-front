@@ -94,3 +94,20 @@
   display: none;
   animation: dropdown-close 1s ease-out;
 }
+
+.loader {
+  display: flex;
+  justify-content: center;
+  margin-top: toSize(200);
+  @include media('>1440px') {
+    margin-top: 200px;
+  }
+  .loaderGif {
+    width: toSize(200);
+    height: toSize(200);
+    @include media('>1440px') {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}
