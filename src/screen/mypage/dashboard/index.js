@@ -6,26 +6,62 @@ import { setAuthInfo } from '../../../store/feature/userSlice';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 import MypageProfile from '../../../components/mypageProfile/MypageProfile';
 import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
+
 import userImg from '../../../asset/profile_default.png';
-import mezzoforte from '../../../asset/mezzoforte.svg';
+import CustomModal from '../../../components/common/customModal/CustomModal';
 
 function MypageDashboardScreen() {
   const [userData, setUserData] = useState({
-    username: '영걸',
-    introduce:
+    user_nickname: '영걸',
+    comment:
       'Music Is My Life~~~~~!!~~! dndndndndndnndddddddddddddddddddddddddd',
-    interests: ['밴드', '베이스', '레슨'],
+    user_interests: ['밴드', '베이스', '레슨'],
     imgSrc: userImg,
-    grade: mezzoforte,
+    user_grade: 5,
+    user_review: 32,
+    user_following: 28,
+    user_follower: 18,
+    itemCount: 20,
   });
 
   const authInfo = useSelector((state) => state.user.authInfo);
 
-  const dispatch = useDispatch();
+  const [reviewsData, setReviewsData] = useState(
+    {
+      user_nickname: '대만',
+      review: '좋아요',
+    },
+    { user_nickname: '호열', review: '별루에용' },
+    {
+      user_nickname: '백호',
+      review: '굿이에용',
+    },
+  );
 
-  useEffect(() => {
-    dispatch(setAuthInfo(1));
-  }, []);
+  const [followData, setFollowData] = useState(
+    {
+      user_nickname: '대만',
+      imgSrc: userImg,
+    },
+    { user_nickname: '호열', imgSrc: userImg },
+    {
+      user_nickname: '백호',
+      imgSrc: userImg,
+    },
+  );
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
+  const openModal = (data) => {
+    setModalData(data);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalData(null);
+    setModalIsOpen(false);
+  };
 
   return (
     <Screen>
@@ -35,30 +71,43 @@ function MypageDashboardScreen() {
           <div className="MpProfile">
             <MypageProfile userData={userData} />
             <div className="figures">
-              <div className="figure grade">
-                <h2>GRADE</h2>
-                <div>
-                  <img src={userData.grade} alt="grade" className="gradeImg" />
-                  <span className="gradeText">Mezzo Forte</span>
-                </div>
-              </div>
               <div className="figure items">
-                <h2>ITEMS</h2>
-                <p>18</p>
+                <h2>상품</h2>
+                <p>{userData.itemCount}</p>
               </div>
-              <div className="figure followers">
-                <h2>FOLLOWERS</h2>
-                <p>28</p>
+              <div
+                className="figure followers"
+                onClick={() => openModal(reviewsData)}
+              >
+                <h2>후기</h2>
+                <p>{userData.user_review}</p>
               </div>
-              <div className="figure followers">
-                <h2>REVIEWS</h2>
-                <p>28</p>
+              <div
+                className="figure followers"
+                onClick={() => openModal(followData)}
+              >
+                <h2>팔로워</h2>
+                <p>{userData.user_follower}</p>
+              </div>
+              <div
+                className="figure following"
+                onClick={() => openModal(followData)}
+              >
+                <h2>팔로잉</h2>
+                <p>{userData.user_following}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <MypageMenus />
+      <MypageMenus userData={userData} />
+      {modalIsOpen && (
+        <CustomModal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          modalData={modalData}
+        />
+      )}
     </Screen>
   );
 }

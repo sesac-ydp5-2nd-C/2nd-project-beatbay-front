@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './style.scss';
 import { NavLink, useLocation } from 'react-router-dom';
 
-export default function MypageMenus() {
+export default function MypageMenus({ userData }) {
   const location = useLocation();
   const [selectedItem, setSelectedItem] = useState(
     getSelectedItemFromPath(location.pathname),
@@ -38,7 +38,7 @@ export default function MypageMenus() {
             selectedItem === 'DASHBOARD' ? 'selected' : ''
           }`}
         >
-          DASHBOARD
+          대시보드
         </NavLink>
         <NavLink
           to="/mypage/sell"
@@ -47,7 +47,7 @@ export default function MypageMenus() {
             selectedItem === 'LISTINGS' ? 'selected' : ''
           }`}
         >
-          LISTINGS
+          판매
         </NavLink>
         <NavLink
           to="/mypage/buy"
@@ -56,21 +56,21 @@ export default function MypageMenus() {
             selectedItem === 'PURCHASES' ? 'selected' : ''
           }`}
         >
-          PURCHASES
+          구매
         </NavLink>
         <NavLink
           to="/mypage/like"
           onClick={() => handleItemClick('LIKES')}
           className={`mypageMenu ${selectedItem === 'LIKES' ? 'selected' : ''}`}
         >
-          LIKES
+          찜
         </NavLink>
         <NavLink
           to="/mypage/chat"
           onClick={() => handleItemClick('CHAT')}
           className={`mypageMenu ${selectedItem === 'CHAT' ? 'selected' : ''}`}
         >
-          CHAT
+          채팅
         </NavLink>
       </ul>
     </div>

@@ -83,12 +83,25 @@
   justify-content: space-between;
 }
 
-.headerMenu {
-  font-size: 20px;
-  font-weight: 500;
+.headerMenus {
+  width: toSize(180);
+  display: flex;
+  justify-content: space-between;
 
-  &.mSpace {
-    margin-right: 2.4rem;
+  .headerMenu {
+    width: toSize(80);
+    font-size: toSize(20);
+    font-weight: 500;
+    text-align: center;
+
+    @include media('>1440px') {
+      font-size: 20px;
+      width: 80px;
+    }
+  }
+
+  @include media('>1440px') {
+    width: 180px;
   }
 }
 
@@ -99,12 +112,6 @@
   color: white;
   font-weight: 500;
   border-bottom: solid 1px white;
-}
-
-@media (max-width: 1440px) {
-  .headerMenu {
-    font-size: 1.4vw;
-  }
 }
 
 // 웹 메뉴 <-> 모바일 메뉴
