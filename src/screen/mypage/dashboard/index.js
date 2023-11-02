@@ -26,39 +26,55 @@ function MypageDashboardScreen() {
 
   const authInfo = useSelector((state) => state.user.authInfo);
 
-  const [reviewsData, setReviewsData] = useState(
+  const [reviewsData, setReviewsData] = useState([
     {
       user_nickname: '대만',
-      review: '좋아요',
+      imgSrc: userImg,
+      comment:
+        '좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요',
     },
-    { user_nickname: '호열', review: '별루에용' },
+    {
+      user_nickname: '호열',
+      imgSrc: userImg,
+      comment:
+        '별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용',
+    },
     {
       user_nickname: '백호',
-      review: '굿이에용',
+      imgSrc: userImg,
+      comment: '굿이에용',
     },
-  );
+  ]);
 
-  const [followData, setFollowData] = useState(
+  const [followData, setFollowData] = useState([
     {
-      user_nickname: '대만',
+      user_nickname: '해리',
       imgSrc: userImg,
     },
-    { user_nickname: '호열', imgSrc: userImg },
     {
-      user_nickname: '백호',
+      user_nickname: '론',
       imgSrc: userImg,
     },
-  );
+    {
+      user_nickname: '헤르미온느',
+      imgSrc: userImg,
+    },
+  ]);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [modalTitle, setModalTitle] = useState();
 
-  const openModal = (data) => {
+  const openModal = (data, title) => {
     setModalData(data);
     setModalIsOpen(true);
+    setModalTitle(title);
+    setModalTitle(title);
+    console.log(title, data);
   };
 
   const closeModal = () => {
+    console.log('Modal Closed');
     setModalData(null);
     setModalIsOpen(false);
   };
@@ -77,21 +93,21 @@ function MypageDashboardScreen() {
               </div>
               <div
                 className="figure followers"
-                onClick={() => openModal(reviewsData)}
+                onClick={() => openModal(reviewsData, '리뷰')}
               >
                 <h2>후기</h2>
                 <p>{userData.user_review}</p>
               </div>
               <div
                 className="figure followers"
-                onClick={() => openModal(followData)}
+                onClick={() => openModal(followData, '팔로워')}
               >
                 <h2>팔로워</h2>
                 <p>{userData.user_follower}</p>
               </div>
               <div
                 className="figure following"
-                onClick={() => openModal(followData)}
+                onClick={() => openModal(followData, '팔로잉')}
               >
                 <h2>팔로잉</h2>
                 <p>{userData.user_following}</p>
@@ -106,6 +122,7 @@ function MypageDashboardScreen() {
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           modalData={modalData}
+          modalTitle={modalTitle}
         />
       )}
     </Screen>
