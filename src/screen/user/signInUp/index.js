@@ -4,12 +4,16 @@ import './style.scss';
 
 import { Link } from 'react-router-dom';
 import KakaoLogin from 'react-kakao-login';
+// import SignUp from '../../../components/User/SignUp';
 
 const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [name, setName] = useState('');
+  const [certification, setCertification] = useState('');
+
   const [errorMessage, setErrorMessage] = useState('');
   const [isChecked, setIsChecked] = useState(false); // 추가된 부분
 
@@ -27,7 +31,7 @@ const SignInUpScreen = () => {
 
   const handleSignUp = () => {
     // 회원가입 유효성 검사
-    if (!email || !password || !name) {
+    if (!email || !password || !name || !passwordCheck || !certification) {
       setErrorMessage('작성되지 않은 항목이 있습니다.');
     } else if (!isValidEmail(email)) {
       setErrorMessage('존재하지 않는 이메일 형식입니다.');
@@ -35,9 +39,10 @@ const SignInUpScreen = () => {
       setErrorMessage(
         '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
+    } else if (password !== passwordCheck) {
+      setErrorMessage('비밀번호확인과 비밀번호를 다르게 입력하셨습니다.');
     } else {
-      // Perform your signup logic here
-      // e.g., make an API request to register the user
+      setErrorMessage(' ');
     }
   };
 
@@ -52,8 +57,7 @@ const SignInUpScreen = () => {
         '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
     } else {
-      // Perform your sign-in logic here
-      // e.g., make an API request to authenticate the user
+      setErrorMessage(' ');
     }
   };
   const handleKakaoSignIn = () => {};
@@ -115,16 +119,22 @@ const SignInUpScreen = () => {
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="비밀번호 확인"
+            value={passwordCheck}
+            onChange={(e) => setPasswordCheck(e.target.value)}
           />
           <div className="email-authentication">
             <input
               type="text"
               placeholder="인증번호 입력 (6자리)"
-              // value={}
-              onChange={(e) => setName(e.target.value)}
+              value={certification}
+              onChange={(e) => setCertification(e.target.value)}
             />
             <button onClick={sendAuth}>인증번호 전송</button>
             <button onClick={checkAuth}>인증번호 확인</button>
@@ -165,7 +175,6 @@ const SignInUpScreen = () => {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
       </div>
-
       <input
         className="checkbox"
         type="checkbox"
