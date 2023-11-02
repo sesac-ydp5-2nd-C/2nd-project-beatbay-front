@@ -93,6 +93,8 @@ function ProductTradeScreen() {
             hasMore={true}
             loader={
               productData?.length === 0 ? (
+                <div>데이터가 없습니다</div>
+              ) : (
                 <div className="loader" key={0}>
                   <img
                     src={RollingSpinner}
@@ -100,8 +102,6 @@ function ProductTradeScreen() {
                     className="loaderGif"
                   />
                 </div>
-              ) : (
-                <div>데이터가 없습니다</div>
               )
             }
           >
