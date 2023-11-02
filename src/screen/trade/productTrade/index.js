@@ -43,7 +43,7 @@ function ProductTradeScreen() {
     getTradeList();
   }, [selectedItem, activeContent]);
 
-  const getTradeList = async () => {
+  const getTradeList = () => {
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,

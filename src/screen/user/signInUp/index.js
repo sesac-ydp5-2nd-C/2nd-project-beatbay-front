@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './style.scss';
 
 import { Link } from 'react-router-dom';
-
+import KakaoLogin from 'react-kakao-login';
 
 const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -28,12 +28,12 @@ const SignInUpScreen = () => {
   const handleSignUp = () => {
     // 회원가입 유효성 검사
     if (!email || !password || !name) {
-      setErrorMessage('All fields are required');
+      setErrorMessage('작성되지 않은 항목이 있습니다.');
     } else if (!isValidEmail(email)) {
-      setErrorMessage('Invalid email format');
+      setErrorMessage('존재하지 않는 이메일 형식입니다.');
     } else if (!isValidPassword(password)) {
       setErrorMessage(
-        'Password must be at least 8 characters long and include letters, numbers, and special characters.',
+        '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
     } else {
       // Perform your signup logic here
@@ -44,12 +44,12 @@ const SignInUpScreen = () => {
   const handleSignIn = () => {
     //로그인 유효성 검사
     if (!email || !password) {
-      setErrorMessage('Email and password are required');
+      setErrorMessage('작성되지 않은 항목이 있습니다.');
     } else if (!isValidEmail(email)) {
-      setErrorMessage('Invalid email format');
+      setErrorMessage('존재하지 않는 이메일 형식입니다.');
     } else if (!isValidPassword(password)) {
       setErrorMessage(
-        'Password must be at least 8 characters long and include letters, numbers, and special characters.',
+        '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
     } else {
       // Perform your sign-in logic here
@@ -78,6 +78,19 @@ const SignInUpScreen = () => {
   const checkAuth = () => {};
   const sendPw = () => {};
 
+  const kakaoClientId = '1b3f4e90bde253a802ad08134afe8d96';
+  const kakaoOnSuccess = async (data) => {
+    console.log(data);
+    const idToken = data.response.access_token; // 엑세스 토큰 백엔드로 전달
+    const access_token = data.response.access_token;
+    const refresh_token = data.response.refresh_token;
+
+    alert(`Access Token: ${access_token}\nRefresh Token: ${refresh_token}`);
+  };
+  const kakaoOnFailure = (error) => {
+    console.log(error);
+  };
+
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
       <div
@@ -86,7 +99,7 @@ const SignInUpScreen = () => {
       >
         <form action="#">
           <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
-          <h1>Create Account</h1>
+          <h1>회원가입</h1>
           <br />
           <input
             type="text"
@@ -148,9 +161,7 @@ const SignInUpScreen = () => {
           <br></br>
           <br></br>
           <br></br>
-          <button onClick={handleSignUp} style={{ width: '107%' }}>
-            Sign Up
-          </button>
+          <button onClick={handleSignUp}>Sign Up</button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
       </div>
@@ -170,7 +181,7 @@ const SignInUpScreen = () => {
       >
         <form action="#">
           <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
-          <h1>Sign in</h1>
+          <h1>로그인</h1>
           <br></br>
           <input
             type="email"
@@ -185,11 +196,9 @@ const SignInUpScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
-          <button onClick={handleSignIn} style={{ width: '108%' }}>
-            Sign In
-          </button>
+          <button onClick={handleSignIn}>로그인</button>
           <br />
-          <button
+          {/* <button
             onClick={handleKakaoSignIn}
             style={{
               width: '108%',
@@ -197,13 +206,29 @@ const SignInUpScreen = () => {
               color: 'black',
               border: '1px solid #FEE500',
             }}
+          > */}
+          <KakaoLogin
+            token={kakaoClientId}
+            onSuccess={kakaoOnSuccess}
+            onFail={kakaoOnFailure}
+            style={{
+              backgroundColor: '#FEE500',
+              border: '#FEE500',
+              color: 'black',
+            }}
           >
             <img
               src="groupkakao.svg"
               style={{ width: '19.337px', height: '18.085px' }}
             ></img>{' '}
+            카카오 로그인
+          </KakaoLogin>
+          {/* <img
+              src="groupkakao.svg"
+              style={{ width: '19.337px', height: '18.085px' }}
+            ></img>{' '}
             KAKAO
-          </button>
+          </button> */}
           <br />
           <p
             style={{
@@ -229,7 +254,7 @@ const SignInUpScreen = () => {
           <form>
             <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
 
-            <h1>Find password</h1>
+            <h1>비밀번호 찾기</h1>
             <br></br>
             <input
               type="email"
@@ -286,7 +311,7 @@ const SignInUpScreen = () => {
             className="ghost"
             onClick={isSignUp ? handleSignInClick : handleSignUpClick}
           >
-            {isSignUp ? 'Sign In' : 'Sign Up'}
+            {isSignUp ? '로그인' : '회원가입'}
           </button>
         </div>
       </div>
