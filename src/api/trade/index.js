@@ -8,6 +8,16 @@ export const getTradeProduct = async (apiData) => {
   return await BB.get('/trade/product', apiData);
 };
 
+export const postUserSignup = async (apiData) => {
+  const temp = {
+    userId: '1234',
+    userPw: '1234',
+    userNickname: '1234',
+    authCode: '1234',
+  };
+  return await BB.post('/user/signup', apiData);
+};
+
 /**
  * 재능 거래 리스트 요청
  * @param {Number} apiData.phone
