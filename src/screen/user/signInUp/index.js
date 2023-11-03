@@ -3,8 +3,13 @@ import React, { useState } from 'react';
 import './style.scss';
 
 import { Link } from 'react-router-dom';
-
-// import SignUp from '../../../components/User/SignUp';
+import KakaoLogin from 'react-kakao-login';
+// import { postUserSignup } from '../../../api/trade';
+import {
+  postUserCertification,
+  postUserEmailCodeCheck,
+  postUserSignup,
+} from '../../../api/user';
 
 const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -42,7 +47,19 @@ const SignInUpScreen = () => {
     } else if (password !== passwordCheck) {
       setErrorMessage('비밀번호확인과 비밀번호를 다르게 입력하셨습니다.');
     } else {
-      setErrorMessage(' ');
+      // Perform your signup logic here
+      // e.g., make an API request to register the user
+      console.log('Signing up');
+      const apiData = {
+        userId: email,
+        userPw: password,
+        userNickname: name,
+
+        authCode: '1234', ///???
+      };
+      postUserSignup(apiData).then((res) => {
+        console.log(res);
+      });
     }
   };
 
@@ -79,9 +96,21 @@ const SignInUpScreen = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // 체크박스를 토글
   };
-  const sendAuth = () => {};
+  const sendAuth = () => {
+    console.log('sending');
+    const apiData = { email: email };
+    postUserCertification(apiData).then((res) => {
+      console.log(res);
+    });
+  };
 
-  const checkAuth = () => {};
+  const checkAuth = () => {
+    console.log('Checking');
+    const apiData = { emailCode: certification };
+    postUserEmailCodeCheck(apiData).then((res) => {
+      console.log(res);
+    });
+  };
   const sendPw = () => {};
 
   return (
@@ -129,36 +158,6 @@ const SignInUpScreen = () => {
             <button onClick={checkAuth}>인증번호 확인</button>
           </div>
 
-          <br></br>
-          <br></br>
-
-          <div
-            style={{
-              border: '10px',
-              width: '100%',
-              fontSize: '17px',
-              color: 'black',
-              fontWeight: '500',
-              textAlign: 'left',
-              marginLeft: '0px',
-            }}
-          >
-            <input type="checkbox" style={{ width: '10%' }}></input>
-            <Link
-              to="https://www.notion.so/sage-h/515b5c492e7c4e0495c8d57427b42f78"
-              target="_blank"
-              style={{
-                textDecoration: 'underline',
-                fontSize: '16px',
-                fontWeight: 'bold',
-              }}
-            >
-              이용약관
-            </Link>
-            에 동의합니다
-          </div>
-          <br></br>
-          <br></br>
           <br></br>
           <button onClick={handleSignUp}>Sign Up</button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
