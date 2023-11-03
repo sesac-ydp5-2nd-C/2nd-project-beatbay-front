@@ -4,6 +4,8 @@ import './style.scss';
 
 import { Link } from 'react-router-dom';
 import KakaoLogin from 'react-kakao-login';
+import { postUserSignup } from '../../../api/trade';
+import { postUserCertification } from '../../../api/user';
 
 const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -38,6 +40,15 @@ const SignInUpScreen = () => {
     } else {
       // Perform your signup logic here
       // e.g., make an API request to register the user
+      const apiData = {
+        userId: email,
+        userPw: password,
+        userNickname: name,
+        authCode: '1234',
+      };
+      postUserSignup(apiData).then((res) => {
+        console.log(res);
+      });
     }
   };
 
@@ -73,7 +84,13 @@ const SignInUpScreen = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // 체크박스를 토글
   };
-  const sendAuth = () => {};
+  const sendAuth = () => {
+    console.log('sending');
+    const apiData = { email: email };
+    postUserCertification(apiData).then((res) => {
+      console.log(res);
+    });
+  };
 
   const checkAuth = () => {};
   const sendPw = () => {};
