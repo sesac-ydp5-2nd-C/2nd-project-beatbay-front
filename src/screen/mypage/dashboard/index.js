@@ -6,9 +6,12 @@ import { setAuthInfo } from '../../../store/feature/userSlice';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 import MypageProfile from '../../../components/mypageProfile/MypageProfile';
 import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
+import axios from 'axios';
 
 import userImg from '../../../asset/profile_default.png';
 import CustomModal from '../../../components/common/customModal/CustomModal';
+import { postUserLogin } from '../../../api/user';
+import { getMypage } from '../../../api/trade';
 
 function MypageDashboardScreen() {
   const [userData, setUserData] = useState({
@@ -23,6 +26,20 @@ function MypageDashboardScreen() {
     user_follower: 18,
     itemCount: 20,
   });
+
+  useEffect(() => {
+    gogogo();
+  }, []);
+
+  const gogogo = () => {
+    postUserLogin().then((res) => {
+      console.log(res);
+      getMypage({
+        userId: 'aa6618@naver.com',
+        userPw: 'test1234@',
+      }).then((result) => console.log(result));
+    });
+  };
 
   const authInfo = useSelector((state) => state.user.authInfo);
 
