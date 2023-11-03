@@ -1,0 +1,20 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.categoriesContainer {
+  display: flex;
+
+  .categoryListContainer {
+    font-size: toSize(16);
+    font-weight: 500;
+    width: toSize(230);
+    height: toSize(250);
+    padding: toSize(20);
+    border: 0.5px solid #aaa;
+    overflow-y: auto;
+  }
+}
+
+.sellFormSubmit {
+  font-size: 20px;
+}

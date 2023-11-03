@@ -1,69 +1,103 @@
-import React, { useState } from 'react';
+import React from 'react';
+import './style.scss';
 
-export default function SellFormCategory({ categories }) {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
-
-  const handleCategoryClick = (categoryIndex) => {
-    setSelectedCategory(categoryIndex);
-    console.log('aaaaaaaaaaaaaaaa');
+function SellFormCategory({
+  categories,
+  selectedType,
+  selectedCategory,
+  selectedSubCategory,
+  setSelectedType,
+  setSelectedCategory,
+  setSelectedSubCategory,
+}) {
+  const handleTypeClick = (index) => {
+    setSelectedType(index);
+    setSelectedCategory(null);
+    setSelectedSubCategory(null);
   };
 
-  const handleSubcategoryClick = (subcategoryIndex) => {
-    setSelectedSubcategory(subcategoryIndex);
-    console.log(categories[0].subcategories, 'ssss');
-    console.log(subcategoryIndex, 'a');
+  const handleCategoryClick = (index) => {
+    if (selectedType !== null) {
+      setSelectedCategory(index);
+      setSelectedSubCategory(null);
+    }
+  };
+
+  const handleSubCategoryClick = (index) => {
+    if (selectedType !== null && selectedCategory !== null) {
+      setSelectedSubCategory(index);
+      console.log(selectedType, selectedCategory + 1, index + 1);
+    }
   };
 
   return (
-    <div className="category-selector">
-      {categories.map((category, categoryIndex) => (
-        <div
-          key={categoryIndex}
-          className={`category ${
-            selectedCategory === categoryIndex ? 'selected' : ''
-          }`}
-          onClick={() => handleCategoryClick(categoryIndex)}
-        >
-          <h2>{category.name}</h2>
-          {selectedCategory === categoryIndex && (
-            <div className="subcategories">
-              {category.subcategories.map((subcategory, subcategoryIndex) => (
+    <div className="categoriesContainer">
+      <div className="categoryListContainer">
+        {categories.map((category, index) => (
+          <div
+            key={index}
+            className={
+              selectedType === index ? 'selected categoryItem' : 'categoryItem'
+            }
+            onClick={() => handleTypeClick(index)}
+          >
+            {category.name}
+          </div>
+        ))}
+      </div>
+
+      <div className="categoryListContainer">
+        {selectedType === null && (
+          <div className="message">상위 카테고리를 선택해주세요.</div>
+        )}
+
+        {selectedType !== null && (
+          <div className="sellCategoryList">
+            {categories[selectedType].subcategories.map(
+              (subcategory, index) => (
                 <div
-                  key={subcategoryIndex}
-                  className={`subcategory ${
-                    selectedSubcategory === subcategoryIndex ? 'selected' : ''
-                  }`}
-                  onClick={() => handleSubcategoryClick(subcategoryIndex)}
+                  key={index}
+                  className={
+                    selectedCategory === index
+                      ? 'selected subcategoryItem'
+                      : 'subcategoryItem'
+                  }
+                  onClick={() => handleCategoryClick(index)}
                 >
-                  <h3>{subcategory.name}</h3>
-                  <h3>
-                    {selectedSubcategory} {subcategoryIndex}
-                  </h3>
-                  {selectedSubcategory === subcategoryIndex && (
-                    <ul>
-                      {subcategory.cities &&
-                        subcategory.cities.map((city, cityIndex) => (
-                          <li key={cityIndex}>{city}</li>
-                        ))}
-                      {subcategory.types &&
-                        subcategory.types.map((type, typeIndex) => (
-                          <li key={typeIndex}>{type}</li>
-                        ))}
-                      {subcategory.instruments &&
-                        subcategory.instruments.map(
-                          (instrument, instrumentIndex) => (
-                            <li key={instrumentIndex}>{instrument}</li>
-                          ),
-                        )}
-                    </ul>
-                  )}
+                  {subcategory.name}
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+              ),
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="categoryListContainer">
+        {selectedCategory == null && (
+          <div className="message">상위 카테고리를 선택해주세요.</div>
+        )}
+        {selectedType !== null && selectedCategory !== null && (
+          <div className="sellSubCategoryList">
+            {categories[selectedType].subcategories[selectedCategory].items.map(
+              (item, index) => (
+                <div
+                  key={index}
+                  className={
+                    selectedSubCategory === index
+                      ? 'selectedItem selected'
+                      : 'selectedItem'
+                  }
+                  onClick={() => handleSubCategoryClick(index)}
+                >
+                  {item}
+                </div>
+              ),
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+
+export default SellFormCategory;
