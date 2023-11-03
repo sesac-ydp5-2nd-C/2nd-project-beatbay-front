@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 import Screen from '../../Screen';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAuthInfo } from '../../../store/feature/userSlice';
+import { useSelector } from 'react-redux';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 import MypageProfile from '../../../components/mypageProfile/MypageProfile';
 import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';

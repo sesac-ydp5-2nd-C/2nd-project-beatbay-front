@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import tradeSample from '../../../asset/profile_default.png';
 import Screen from '../../Screen';
 import downArrow from '../../../asset/down-arrow.svg';
@@ -23,6 +24,9 @@ import { calculateTime } from '../../../function/calculate';
 
 function TradeDetailScreen() {
   const [detailData, setDetailData] = useState();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const items = ['판매중', '예약중', '거래완료'];
+  const [selectedItem, setSelectedItem] = useState(items[0]);
   const { id, type } = useParams();
   const data = {
     id: 1,
@@ -81,12 +85,12 @@ function TradeDetailScreen() {
                 >
                   {JSON.parse(detailData[`${type}_file_path`]).map((e, i) => {
                     return (
-                      <div>
+                      <div key={`${e}_${i}`}>
                         <img
                           alt="cImg"
-                          src={e}
-                          className="tradeCarouselImg"
+                          src={`http://localhost:8000/uploads/${e}`}
                           onError={(e) => (e.target.src = tradeSample)}
+                          className="tradeCarouselImg"
                         />
                         <p className="legend">자세히 보기</p>
                       </div>
@@ -111,17 +115,28 @@ function TradeDetailScreen() {
                   {' 원'}
                 </div>
                 <div className="TVLContainer">
-                  <img alt="icon" src={time} className={'TVLIcon'} />
+                  <img alt="icon" src={time} className={'TVLIcon TVMB'} />
                   {calculateTime(detailData.updatedAt)}
                   <div className="ICenter">
                     <img alt="icon" src={view} className={'TVLIcon'} />
                     {detailData[`${type}_count`]}
                   </div>
-                  <img alt="icon" src={tradeLike} className={'TVLIcon'} />
+                  <img alt="icon" src={tradeLike} className={'TVLIcon TVMB'} />
                   {detailData[`${type}_like`]}
-                  <div className="tradeUpdate">
+
+                  {/* 글을 작성한 사람이면 드롭다운, 아니면 div  */}
+
+                  {/* <div className="tradeUpdate">
                     {findValue(`${type}_update`, detailData[`${type}_update`])}
-                  </div>
+                  </div> */}
+
+                  <CustomDropdown
+                    showDropdown={showDropdown}
+                    setShowDropdown={() => setShowDropdown(!showDropdown)}
+                    items={items}
+                    selectedItem={selectedItem}
+                    setSelectedItem={setSelectedItem}
+                  />
                 </div>
 
                 <ul className="regionInfo">
@@ -142,7 +157,7 @@ function TradeDetailScreen() {
             </div>
 
             <div className="flexEnd">
-              <button className="tDBtn">거래상태</button>
+              {/* <button className="tDBtn">거래상태</button> */}
               <button className="tDBtn">수정</button>
               <button className="tDBtn">삭제</button>
             </div>
