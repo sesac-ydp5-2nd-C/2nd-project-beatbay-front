@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 // 스타일 파일 추가
 import './style.scss';
 
-import { Link } from 'react-router-dom';
-import KakaoLogin from 'react-kakao-login';
 // import { postUserSignup } from '../../../api/trade';
 import {
   postUserCertification,
   postUserEmailCodeCheck,
+  postUserLogin,
   postUserSignup,
+  putUserFindPass,
 } from '../../../api/user';
 
 const SignInUpScreen = () => {
@@ -75,6 +75,15 @@ const SignInUpScreen = () => {
       );
     } else {
       setErrorMessage(' ');
+      const apiData = {
+        userId: email,
+        userPw: password,
+      };
+      console.log('signing up');
+
+      postUserLogin(apiData).then((res) => {
+        console.log(res);
+      });
     }
   };
   const handleKakaoSignIn = () => {
@@ -111,7 +120,17 @@ const SignInUpScreen = () => {
       console.log(res);
     });
   };
-  const sendPw = () => {};
+  const sendPw = () => {
+    console.log('Changing');
+    const apiData = {
+      userId: email,
+      newPass: password,
+      emailCode: certification,
+    };
+    putUserFindPass(apiData).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
@@ -159,7 +178,7 @@ const SignInUpScreen = () => {
           </div>
 
           <br></br>
-          <button onClick={handleSignUp}>Sign Up</button>
+          <button onClick={handleSignUp}>회원가입</button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
       </div>
