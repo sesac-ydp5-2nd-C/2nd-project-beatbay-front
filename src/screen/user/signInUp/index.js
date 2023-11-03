@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './style.scss';
 
 import { Link } from 'react-router-dom';
-import KakaoLogin from 'react-kakao-login';
+
 // import SignUp from '../../../components/User/SignUp';
 
 const SignInUpScreen = () => {
@@ -60,7 +60,9 @@ const SignInUpScreen = () => {
       setErrorMessage(' ');
     }
   };
-  const handleKakaoSignIn = () => {};
+  const handleKakaoSignIn = () => {
+    window.open('http://localhost:8000/kakao');
+  };
 
   const isValidEmail = (email) => {
     //이메일검사 로직
@@ -81,19 +83,6 @@ const SignInUpScreen = () => {
 
   const checkAuth = () => {};
   const sendPw = () => {};
-
-  const kakaoClientId = '1b3f4e90bde253a802ad08134afe8d96';
-  const kakaoOnSuccess = async (data) => {
-    console.log(data);
-    const idToken = data.response.access_token; // 엑세스 토큰 백엔드로 전달
-    const access_token = data.response.access_token;
-    const refresh_token = data.response.refresh_token;
-
-    alert(`Access Token: ${access_token}\nRefresh Token: ${refresh_token}`);
-  };
-  const kakaoOnFailure = (error) => {
-    console.log(error);
-  };
 
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
@@ -207,23 +196,12 @@ const SignInUpScreen = () => {
           <br />
           <button onClick={handleSignIn}>로그인</button>
           <br />
-          {/* <button
+          <button
             onClick={handleKakaoSignIn}
             style={{
-              width: '108%',
               backgroundColor: '#FEE500',
               color: 'black',
               border: '1px solid #FEE500',
-            }}
-          > */}
-          <KakaoLogin
-            token={kakaoClientId}
-            onSuccess={kakaoOnSuccess}
-            onFail={kakaoOnFailure}
-            style={{
-              backgroundColor: '#FEE500',
-              border: '#FEE500',
-              color: 'black',
             }}
           >
             <img
@@ -231,13 +209,7 @@ const SignInUpScreen = () => {
               style={{ width: '19.337px', height: '18.085px' }}
             ></img>{' '}
             카카오 로그인
-          </KakaoLogin>
-          {/* <img
-              src="groupkakao.svg"
-              style={{ width: '19.337px', height: '18.085px' }}
-            ></img>{' '}
-            KAKAO
-          </button> */}
+          </button>
           <br />
           <p
             style={{
@@ -284,7 +256,7 @@ const SignInUpScreen = () => {
 
             <br />
             <button onClick={sendPw} style={{ width: '106%' }}>
-              비밀번호 메일로 받기
+              비밀번호 재설정
             </button>
             <br />
             <p
