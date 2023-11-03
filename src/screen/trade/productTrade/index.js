@@ -61,7 +61,6 @@ function ProductTradeScreen() {
       setProductData(settingData);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
       if (settingData?.length > 0) {
-        console.log('들어옴');
         setStartLoad(false);
       }
     });

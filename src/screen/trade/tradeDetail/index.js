@@ -3,7 +3,6 @@ import tradeSample from '../../../asset/profile_default.png';
 import Screen from '../../Screen';
 import downArrow from '../../../asset/down-arrow.svg';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import './styles.scss';
 import { Carousel } from 'react-responsive-carousel';
 import tradeLike from '../../../asset/tradeLike.svg';
 import heartFill from '../../../asset/heart_fill.svg';
@@ -11,8 +10,15 @@ import time from '../../../asset/time.svg';
 import fortissimo from '../../../asset/fortissimo.svg';
 import view from '../../../asset/view.svg';
 import UserProfileContainer from '../../../components/common/userProfile';
+import './styles.scss';
+import { useParams } from 'react-router-dom';
+import {
+  getTradeDetailAbility,
+  getTradeDetailProduct,
+} from '../../../api/trade';
 
 function TradeDetailScreen() {
+  const { id, type } = useParams();
   const data = {
     id: 1,
     name: '정대만',
@@ -20,6 +26,20 @@ function TradeDetailScreen() {
     introduce: '“그래, 난 정대만. 포기를 모르는 남자지….”',
     profileImg: tradeSample,
     interests: ['밴드', '일렉기타'],
+  };
+
+  useEffect(() => {
+    console.log(id, type);
+    getTradeData();
+  }, []);
+
+  const getTradeData = () => {
+    (type === 'product'
+      ? getTradeDetailProduct()
+      : getTradeDetailAbility()
+    ).then((res) => {
+      console.log(res.data);
+    });
   };
   return (
     <Screen>
@@ -108,6 +128,10 @@ function TradeDetailScreen() {
         <div className="prdType">판매자</div>
         <div className="tradeUserContainer">
           <UserProfileContainer followingData={data} />
+          <div className="tradeUserBtnC">
+            <div className="tradeUserBtn">CHAT</div>
+            <div className="tradeUserBtn">FOLLOW</div>
+          </div>
         </div>
       </div>
     </Screen>
