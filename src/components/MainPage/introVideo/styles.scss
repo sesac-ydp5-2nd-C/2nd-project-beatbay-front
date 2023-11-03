@@ -78,6 +78,7 @@
 .cIcon {
   width: toSize(30);
   height: toSize(30);
+  cursor: pointer;
 
   &.mr {
     margin-right: toSize(30);
@@ -88,12 +89,8 @@
 
   &.mlPr {
     margin-left: toSize(30);
-    padding-right: toSize(30);
-    border-right: solid toSize(1) white;
     @include media('>1440px') {
       margin-left: 30px;
-      padding-right: 30px;
-      border-right: solid 1px white;
     }
   }
 
@@ -108,8 +105,12 @@
   font-weight: bold;
   color: white;
   margin-left: toSize(30);
+  padding-left: toSize(30);
+  border-left: solid toSize(1) white;
   @include media('>1440px') {
     font-size: 20px;
     margin-left: 30px;
+    padding-left: 30px;
+    border-left: solid 1px white;
   }
 }

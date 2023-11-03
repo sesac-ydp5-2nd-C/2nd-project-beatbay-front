@@ -22,13 +22,13 @@ function App() {
           <Route path="/trade/product" element={<ProductTradeScreen />} />
           <Route path="/trade/talent" element={<TalentTradeScreen />} />
           <Route
-            path="/trade/product/detail/:id"
+            path="/trade/:type/detail/:id"
             element={<TradeDetailScreen />}
           />
-          <Route
-            path="/trade/ability/detail/:id"
+          {/* <Route
+            path="/trade/:ability/detail/:id"
             element={<TradeDetailScreen />}
-          />
+          /> */}
           <Route path="/user" element={<SignInUpScreen />} />
 
           <Route path="/mypage" element={<MypageDashboardScreen />} />

@@ -196,8 +196,10 @@
 
   .regionInfo {
     margin-top: toSize(56);
+    padding-inline-start: toSize(40);
     @include media('>1440px') {
       margin-top: 56px;
+      padding-inline-start: 40px;
     }
     .tdInfo {
       font-size: toSize(18);
@@ -262,4 +264,71 @@
   width: toSize(1200);
   justify-content: space-between;
   height: toSize(145);
+  margin-bottom: toSize(100);
+  @include media('>1440px') {
+    width: 1200px;
+    height: 145px;
+    margin-bottom: 100px;
+  }
+
+  .tradeUserBtnC {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .tradeUserBtn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: toSize(15);
+      width: toSize(384);
+      height: toSize(66);
+      background-color: #30338a;
+      color: white;
+      font-size: toSize(24);
+      font-weight: 500;
+      @include media('>1440px') {
+        font-size: 24px;
+        border-radius: 15px;
+        width: 384px;
+        height: 66px;
+      }
+    }
+  }
+}
+
+.UPContainer {
+  width: toSize(792);
+  align-items: center;
+  margin: 0;
+  padding: 0px toSize(23);
+  @include media('>1440px') {
+    width: 792px;
+    padding: 0px 23px;
+  }
+
+  .UPImgBorder {
+    width: toSize(105);
+    height: toSize(105);
+    @include media('>1440px') {
+      width: 105px;
+      height: 105px;
+    }
+
+    .UPImg {
+      width: toSize(90);
+      height: toSize(90);
+      @include media('>1440px') {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  }
+  .UPInfo .interestBox {
+    margin: toSize(15) 0;
+    @include media('>1440px') {
+      margin: 15px 0;
+    }
+  }
 }
