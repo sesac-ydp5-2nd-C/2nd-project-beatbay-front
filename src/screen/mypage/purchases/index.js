@@ -7,16 +7,22 @@ import tradeSample from '../../../asset/tradeSample.png';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import MypageTab from '../../../components/MypageTab/MypageTab';
 import InfiniteScroll from 'react-infinite-scroller';
+import userImg from '../../../asset/profile_default.png';
 
 export default function MypagePurchasesScreen() {
+  const [userData, setUserData] = useState({
+    imgSrc: userImg,
+    user_grade: 5,
+  });
+
   const tabsData = [
     {
       id: 1,
-      title: 'PRODUCT',
+      title: '상품',
     },
     {
       id: 2,
-      title: 'ABILITY',
+      title: '재능',
     },
   ];
 
@@ -37,10 +43,10 @@ export default function MypagePurchasesScreen() {
           <div className="MpListContainer">
             <div className="MpTopBox">
               <div className="MpTitleBox">
-                <h1>PURCHASES</h1>
+                <h1>구매 내역</h1>
               </div>
               <div className="vinyl">
-                <MypageVinyl />
+                <MypageVinyl userData={userData} />
               </div>
             </div>
             <MypageTab tabsData={tabsData} />

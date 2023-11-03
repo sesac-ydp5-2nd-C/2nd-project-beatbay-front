@@ -6,55 +6,41 @@ import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import tradeSample from '../../../asset/tradeSample.png';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import MypageTab from '../../../components/MypageTab/MypageTab';
-
 import InfiniteScroll from 'react-infinite-scroller';
-import forte from '../../../asset/forte.svg';
-import mezzoforte from '../../../asset/mezzoforte.svg';
-import fortissimo from '../../../asset/fortissimo.svg';
-import piano from '../../../asset/piano.svg';
-import mezzopiano from '../../../asset/mezzopiano.svg';
-import pianissimo from '../../../asset/pianissimo.svg';
-import UserProfileContainer from '../../../components/common/userProfile';
 import userImg from '../../../asset/profile_default.png';
+import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 
-export default function MypageLikesScreen() {
+export default function MypagePurchasesScreen() {
+  const [userData, setUserData] = useState({
+    imgSrc: userImg,
+    user_grade: 5,
+  });
+
   const tabsData = [
     {
       id: 1,
-      title: 'FOLLOWING',
+      title: '상품',
     },
     {
       id: 2,
-      title: 'ITEM',
+      title: '재능',
     },
   ];
 
-  const [followingData, setFollowingData] = useState([
-    {
-      id: 1,
-      name: '정대만',
-      grade: fortissimo,
-      introduce: '“그래, 난 정대만. 포기를 모르는 남자지….”',
-      profileImg: userImg,
-      interests: ['밴드', '일렉기타'],
-    },
-    {
-      id: 2,
-      name: '이명헌',
-      grade: mezzopiano,
-      introduce: '“...뿅”',
-      profileImg: userImg,
-      interests: ['밴드', '일렉기타'],
-    },
-    {
-      id: 3,
-      name: '강백호',
-      grade: mezzoforte,
-      introduce: '“왼손은 거들 뿐”',
-      profileImg: userImg,
-      interests: ['밴드', '일렉기타'],
-    },
-  ]);
+  const items = ['전체', '판매중', '판매완료'];
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(items[0]);
+
+  const [productData, setProductData] = useState(
+    new Array(8).fill({
+      title: '텔레캐스터 민트 팝니다',
+      date: '1일전',
+      price: '1,300,000',
+      isLike: false,
+      img: tradeSample,
+    }),
+  );
+
   return (
     <Screen>
       <div className="MLContainer">
@@ -62,18 +48,40 @@ export default function MypageLikesScreen() {
           <div className="MpListContainer">
             <div className="MpTopBox">
               <div className="MpTitleBox">
-                <h1>LIKES</h1>
+                <h1>찜</h1>
               </div>
               <div className="vinyl">
-                <MypageVinyl />
+                <MypageVinyl userData={userData} />
               </div>
             </div>
             <MypageTab tabsData={tabsData} />
-            <div className="MpFollowingContainer">
-              {followingData.map((data, index) => (
-                <UserProfileContainer key={index} followingData={data} />
-              ))}
-            </div>
+            <CustomDropdown
+              showDropdown={showDropdown}
+              setShowDropdown={() => setShowDropdown(!showDropdown)}
+              items={items}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
+
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={() => {
+                setProductData([...productData, ...productData]);
+                console.log(productData);
+              }}
+              hasMore={true}
+              loader={
+                <div className="loader" key={0}>
+                  Loading ...
+                </div>
+              }
+            >
+              <div className="MpGridContainer">
+                {productData.map((e, i) => {
+                  return <TradeCard key={`${i}_${e.title}`} data={e} />;
+                })}
+              </div>
+            </InfiniteScroll>
           </div>
         </div>
         <MypageMenus />

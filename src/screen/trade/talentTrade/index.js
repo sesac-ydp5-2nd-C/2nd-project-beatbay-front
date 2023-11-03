@@ -3,6 +3,7 @@ import './styles.scss';
 import { CSSTransition } from 'react-transition-group';
 import { useDispatch, useSelector } from 'react-redux';
 import tradeSample from '../../../asset/tradeSample.png';
+import RollingSpinner from '../../../asset/RollingSpinner.gif';
 import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
@@ -55,26 +56,44 @@ function TalentTradeScreen() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [productData, setProductData] = useState([]);
+  const [startLoad, setStartLoad] = useState(true);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
+    setStartLoad(true);
     getAbilityList();
-  }, [selectedItem, activeContent]);
+  }, [selectedItem, activeContent, activeTab]);
 
-  const getAbilityList = async () => {
+  const getAbilityList = async (search = null) => {
+    setProductData();
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,
       subCategoryNum: activeTab.content.indexOf(activeContent) + 1,
+      searchKeyword: search ? search : undefined,
     };
     console.log(apiData);
     getTradeAbility(apiData).then((res) => {
-      setProductData(res.data);
+      const settingData = res.data?.abilities ? res.data?.abilities : [];
+      setProductData(res.data?.abilities ? res.data?.abilities : []);
+      // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
+      if (settingData?.length > 0) {
+        setStartLoad(false);
+      }
     });
+  };
+
+  const handleSearch = () => {
+    setStartLoad(true);
+    getAbilityList(searchText);
   };
 
   return (
     <Screen>
       <CustomTab
+        handleSearch={handleSearch}
+        searchText={searchText}
+        setSearchText={setSearchText}
         tabsData={tabsData}
         activeContent={activeContent}
         setActiveContent={setActiveContent}
@@ -102,28 +121,45 @@ function TalentTradeScreen() {
           <InfiniteScroll
             pageStart={0}
             loadMore={() => {
-              if (productData?.length > 0) {
+              if (productData?.length > 0 && startLoad) {
                 setProductData([...productData, ...productData]);
                 console.log(productData);
               }
             }}
             hasMore={true}
             loader={
-              <div className="loader" key={0}>
-                Loading ...
-              </div>
+              startLoad ? (
+                productData?.length === 0 ? (
+                  <div>데이터가 없습니다</div>
+                ) : (
+                  <div className="loader" key={0}>
+                    <img
+                      src={RollingSpinner}
+                      alt="spinner"
+                      className="loaderGif"
+                    />
+                  </div>
+                )
+              ) : (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div onClick={() => setStartLoad(true)} className="seeMore">
+                    더 보기 +
+                  </div>
+                </div>
+              )
             }
           >
             <div className="productGridContainer">
-              {productData?.map((e, i) => {
-                return (
-                  <TradeCard
-                    key={`${i}_${e.title}`}
-                    data={e}
-                    type={'ability'}
-                  />
-                );
-              })}
+              {productData &&
+                productData?.map((e, i) => {
+                  return (
+                    <TradeCard
+                      key={`${i}_${e.title}`}
+                      data={e}
+                      type={'ability'}
+                    />
+                  );
+                })}
             </div>
           </InfiniteScroll>
         </div>

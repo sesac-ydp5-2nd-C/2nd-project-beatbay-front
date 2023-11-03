@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
-import Screen from '../../Screen';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAuthInfo } from '../../../store/feature/userSlice';
-import MypageMenus from '../../../components/mypageMenu/MypageMenus';
-import MypageProfile from '../../../components/mypageProfile/MypageProfile';
-import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
+import Screen from '../Screen';
+import MypageVinyl from '../../components/mypageVinyl/MypageVinyl';
+import userImg from '../../asset/profile_default.png';
+import MypageProfile from '../../components/mypageProfile/MypageProfile';
+import CustomModal from '../../components/common/customModal/CustomModal';
+import MypageTab from '../../components/MypageTab/MypageTab';
+import InfiniteScroll from 'react-infinite-scroller';
+import tradeSample from '../../asset/tradeSample.png';
+import TradeCard from '../../components/common/tradeCard/TradeCard';
 
-import userImg from '../../../asset/profile_default.png';
-import CustomModal from '../../../components/common/customModal/CustomModal';
-
-function MypageDashboardScreen() {
+export default function Userpage() {
   const [userData, setUserData] = useState({
-    user_nickname: '영걸',
-    comment:
-      'Music Is My Life~~~~~!!~~! dndndndndndnndddddddddddddddddddddddddd',
-    user_interests: ['밴드', '베이스', '레슨'],
+    user_nickname: '대만',
+    comment: '“그래, 난 정대만. 포기를 모르는 남자지….”',
+    user_interests: ['밴드', '일렉기타'],
     imgSrc: userImg,
     user_grade: 5,
     user_review: 32,
@@ -23,8 +22,6 @@ function MypageDashboardScreen() {
     user_follower: 18,
     itemCount: 20,
   });
-
-  const authInfo = useSelector((state) => state.user.authInfo);
 
   const [reviewsData, setReviewsData] = useState([
     {
@@ -46,20 +43,26 @@ function MypageDashboardScreen() {
     },
   ]);
 
-  const [followData, setFollowData] = useState([
+  const tabsData = [
     {
-      user_nickname: '해리',
-      imgSrc: userImg,
+      id: 1,
+      title: '상품',
     },
     {
-      user_nickname: '론',
-      imgSrc: userImg,
+      id: 2,
+      title: '재능',
     },
-    {
-      user_nickname: '헤르미온느',
-      imgSrc: userImg,
-    },
-  ]);
+  ];
+
+  const [productData, setProductData] = useState(
+    new Array(8).fill({
+      title: '텔레캐스터 민트 팝니다',
+      date: '1일전',
+      price: '1,300,000',
+      isLike: false,
+      img: tradeSample,
+    }),
+  );
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -81,16 +84,12 @@ function MypageDashboardScreen() {
 
   return (
     <Screen>
-      <div className="MpContainer">
-        <div className="MpContent">
+      <div className="sellerProfile">
+        <div className="sellerInfo">
           <MypageVinyl userData={userData} />
-          <div className="MpProfile">
+          <div className="sellercontent">
             <MypageProfile userData={userData} />
             <div className="figures">
-              <div className="figure items">
-                <h2>상품</h2>
-                <p>{userData.itemCount}</p>
-              </div>
               <div
                 className="figure followers"
                 onClick={() => openModal(reviewsData, '리뷰')}
@@ -98,25 +97,40 @@ function MypageDashboardScreen() {
                 <h2>후기</h2>
                 <p>{userData.user_review}</p>
               </div>
-              <div
-                className="figure followers"
-                onClick={() => openModal(followData, '팔로워')}
-              >
+              <div className="figure followers">
                 <h2>팔로워</h2>
                 <p>{userData.user_follower}</p>
               </div>
-              <div
-                className="figure following"
-                onClick={() => openModal(followData, '팔로잉')}
-              >
+              <div className="figure following">
                 <h2>팔로잉</h2>
                 <p>{userData.user_following}</p>
               </div>
             </div>
           </div>
         </div>
+        <div className="sellerListContainer">
+          <MypageTab tabsData={tabsData} />
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={() => {
+              setProductData([...productData, ...productData]);
+              console.log(productData);
+            }}
+            hasMore={true}
+            loader={
+              <div className="loader" key={0}>
+                Loading ...
+              </div>
+            }
+          >
+            <div className="MpGridContainer">
+              {productData.map((e, i) => {
+                return <TradeCard key={`${i}_${e.title}`} data={e} />;
+              })}
+            </div>
+          </InfiniteScroll>
+        </div>
       </div>
-      <MypageMenus userData={userData} />
       {modalIsOpen && (
         <CustomModal
           isOpen={modalIsOpen}
@@ -128,5 +142,3 @@ function MypageDashboardScreen() {
     </Screen>
   );
 }
-
-export default MypageDashboardScreen;
