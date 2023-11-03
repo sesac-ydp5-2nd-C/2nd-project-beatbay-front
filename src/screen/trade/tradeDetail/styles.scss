@@ -280,7 +280,6 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: center;
       border-radius: toSize(15);
       width: toSize(384);
       height: toSize(66);
@@ -329,6 +328,28 @@
     margin: toSize(15) 0;
     @include media('>1440px') {
       margin: 15px 0;
+    }
+  }
+}
+
+.TUIcon {
+  width: toSize(30);
+  height: toSize(30);
+  margin-right: toSize(57);
+  margin-left: toSize(100);
+  @include media('>1440px') {
+    width: 30px;
+    height: 30px;
+    margin-right: 57px;
+    margin-left: 100px;
+  }
+
+  &.TUHeart {
+    margin-right: toSize(40);
+    @include media('>1440px') {
+      width: 30px;
+      height: 30px;
+      margin-right: 40px;
     }
   }
 }
