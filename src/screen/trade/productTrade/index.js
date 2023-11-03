@@ -59,6 +59,7 @@ function ProductTradeScreen() {
     getTradeProduct(apiData).then((res) => {
       const settingData = res.data?.products ? res.data?.products : [];
       setProductData(settingData);
+      console.log(settingData);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
       if (settingData?.length > 0) {
         setStartLoad(false);

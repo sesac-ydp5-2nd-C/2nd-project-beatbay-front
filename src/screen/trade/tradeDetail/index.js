@@ -5,6 +5,7 @@ import downArrow from '../../../asset/down-arrow.svg';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import tradeLike from '../../../asset/tradeLike.svg';
+import likeWhite from '../../../asset/likeWhite.svg';
 import heartFill from '../../../asset/heart_fill.svg';
 import time from '../../../asset/time.svg';
 import fortissimo from '../../../asset/fortissimo.svg';
@@ -16,6 +17,7 @@ import {
   getTradeDetailAbility,
   getTradeDetailProduct,
 } from '../../../api/trade';
+import chat from '../../../asset/chat.svg';
 
 function TradeDetailScreen() {
   const { id, type } = useParams();
@@ -35,9 +37,10 @@ function TradeDetailScreen() {
 
   const getTradeData = () => {
     (type === 'product'
-      ? getTradeDetailProduct()
-      : getTradeDetailAbility()
+      ? getTradeDetailProduct({ product_id: id })
+      : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
+      console.log(res);
       console.log(res.data);
     });
   };
@@ -129,8 +132,14 @@ function TradeDetailScreen() {
         <div className="tradeUserContainer">
           <UserProfileContainer followingData={data} />
           <div className="tradeUserBtnC">
-            <div className="tradeUserBtn">CHAT</div>
-            <div className="tradeUserBtn">FOLLOW</div>
+            <div className="tradeUserBtn">
+              <img alt="icon" src={chat} className="TUIcon" />
+              CHAT
+            </div>
+            <div className="tradeUserBtn">
+              <img alt="icon" src={likeWhite} className="TUIcon TUHeart" />
+              FOLLOW
+            </div>
           </div>
         </div>
       </div>
