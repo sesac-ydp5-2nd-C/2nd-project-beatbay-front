@@ -15,21 +15,144 @@
     }
   }
 
+  input {
+    border: none;
+    border-bottom: 1px solid #aaaaaa;
+    font-size: toSize(18);
+    font-weight: 500;
+    padding-bottom: toSize(7);
+    @include media('>1440px') {
+      font-size: 16px;
+    }
+  }
+
+  #sellTitle {
+    width: toSize(570);
+    @include media('>1440px') {
+      width: 570px;
+    }
+  }
+
   .sellForm {
     width: 100%;
     background-color: white;
     border-radius: toSize(15);
     padding: toSize(105);
+    padding-bottom: toSize(200);
     font-size: toSize(20);
     font-weight: 500;
+    @include media('>1440px') {
+      border-radius: 15px;
+      padding: 105px;
+      padding-bottom: 200px;
+      font-size: 20px;
+      font-weight: 500;
+    }
 
     section {
       display: flex;
-      margin: 0 auto toSize(40) auto;
+      margin: 0 auto toSize(60) auto;
+      @include media('>1440px') {
+        margin-bottom: 60px;
+      }
+    }
+
+    .sellLocationSection {
+      .dropdown-wrapper {
+        width: toSize(250);
+        margin: 0;
+        @include media('>1440px') {
+          width: 250px;
+        }
+      }
+      .trigger-button {
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid #aaaaaa;
+        width: toSize(250);
+        font-size: toSize(18);
+        padding-bottom: toSize(5);
+        @include media('>1440px') {
+          width: 250px;
+          font-size: 18px;
+          padding-bottom: 5px;
+        }
+      }
+      .dropdown-content {
+        font-size: 20px;
+        padding-top: 10px;
+
+        border: none;
+      }
+      .DcActive {
+        border: none;
+        overflow-y: auto;
+        height: toSize(200);
+        @include media('>1440px') {
+          height: 200px;
+        }
+      }
+      .dsItem {
+        color: #878be5;
+      }
+      .dItem {
+        font-size: toSize(18);
+        @include media('>1440px') {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .sellContextSection textarea {
+      width: toSize(855);
+      height: toSize(150);
+      padding: toSize(15);
+      resize: none;
+      border: 1px solid #aaaaaa;
+      box-sizing: border-box;
+      outline: none;
+      font-size: toSize(16);
+      font-weight: 500;
+      @include media('>1440px') {
+        width: 855px;
+        height: 150px;
+        font-size: 16px;
+        padding: 15px;
+      }
     }
   }
 }
 .formList {
   display: block;
-  width: 170px;
+  width: toSize(170);
+  border: none;
+  @include media('>1440px') {
+    width: 170px;
+  }
+}
+
+.formBtns {
+  width: 100%;
+  text-align: center;
+  margin-top: toSize(150);
+  @include media('>1440px') {
+    margin-top: 150px;
+  }
+  button {
+    width: toSize(78);
+    height: toSize(45);
+    font-size: toSize(16);
+    color: white;
+    background-color: #30338a;
+    border: none;
+    border-radius: toSize(5);
+    margin: toSize(20);
+    @include media('>1440px') {
+      width: 78px;
+      height: 45px;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 20px;
+    }
+  }
 }

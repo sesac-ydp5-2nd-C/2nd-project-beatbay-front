@@ -4,6 +4,7 @@ import SellFormCategory from '../../../components/SellForm/SellFormCategory';
 import SellFormStatus from '../../../components/SellForm/SellFormStatus';
 import './styles.scss';
 import SellFromImg from '../../../components/SellForm/SellFromImg';
+import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 
 function TradeSellScreen() {
   const categories = [
@@ -107,18 +108,44 @@ function TradeSellScreen() {
       ],
     },
   ];
+  const items = [
+    '무관',
+    '강원도',
+    '경기도',
+    '경상도',
+    '광주',
+    '대구',
+    '부산',
+    '서울',
+    '울산',
+    '세종',
+    '인천',
+    '전라도',
+    '제주도',
+    '충청도',
+  ];
 
+  const [title, setTitle] = useState('');
   const [selectedType, setSelectedType] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-  const [selectedMethod, setSelectedMethod] = useState([]);
   const [uploadImages, setUploadImages] = useState([]);
+  const [price, setPrice] = useState(null);
+  const [context, setContext] = useState(null);
+  const [selectedMethod, setSelectedMethod] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(items[0]);
+  const [showDropdown, setShowDropdown] = useState('');
 
   const sellFormData = {
+    title: title,
     selectedType: selectedType,
     selectedCategory: selectedCategory + 1,
     selectedSubCategory: selectedSubCategory + 1,
+    price: price,
+    context: context,
     selectedMethod: selectedMethod,
+    uploadImages: uploadImages,
+    location: selectedItem,
   };
 
   const buttonClick = () => {
@@ -143,7 +170,12 @@ function TradeSellScreen() {
               <span htmlFor="sellTitle" className="formList">
                 제목
               </span>
-              <input type="text" id="sellTitle" />
+              <input
+                type="text"
+                id="sellTitle"
+                placeholder="제목을 입력하세요."
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </section>
             <section className="sellCategorySection">
               <span className="formList">카테고리</span>
@@ -171,13 +203,19 @@ function TradeSellScreen() {
               <span htmlFor="sellPrice" className="formList">
                 가격
               </span>
-              <input type="number" />원
+              <input
+                type="number"
+                id="sellPrice"
+                placeholder="0"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              원
             </section>
             <section className="sellContextSection">
               <span htmlFor="sellContext" className="formList">
                 설명
               </span>
-              <textarea />{' '}
+              <textarea onChange={(e) => setContext(e.target.value)} />{' '}
             </section>
             <section className="sellStatusSection">
               <span className="formList">상품 상태</span>
@@ -206,14 +244,32 @@ function TradeSellScreen() {
                 <span>비대면거래</span>
               </label>
             </section>
-            <section className="sellLocationSection"></section>
-            <button
-              type="button"
-              className="sellFormSubmit"
-              onClick={buttonClick}
-            >
-              등록
-            </button>
+            <section className="sellLocationSection">
+              <span className="formList">지역</span>
+              <CustomDropdown
+                showDropdown={showDropdown}
+                setShowDropdown={() => setShowDropdown(!showDropdown)}
+                items={items}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+              />
+            </section>
+            <div className="formBtns">
+              <button
+                type="button"
+                className="sellFormExit"
+                onClick={buttonClick}
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                className="sellFormSubmit"
+                onClick={buttonClick}
+              >
+                등록
+              </button>
+            </div>
           </form>
         </div>
       </div>

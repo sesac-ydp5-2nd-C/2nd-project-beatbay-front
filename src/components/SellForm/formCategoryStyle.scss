@@ -7,14 +7,17 @@
   .categoryListContainer {
     font-size: toSize(16);
     font-weight: 500;
-    width: toSize(260);
+    width: toSize(285);
     height: toSize(260);
     padding: toSize(20);
     border: 0.5px solid #aaa;
     overflow-y: auto;
-  }
-}
 
-.sellFormSubmit {
-  font-size: 20px;
+    @include media('>1440px') {
+      font-size: 16px;
+      width: 285px;
+      height: 260px;
+      padding: 20px;
+    }
+  }
 }
