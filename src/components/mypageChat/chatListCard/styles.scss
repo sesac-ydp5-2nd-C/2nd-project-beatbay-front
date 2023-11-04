@@ -1,0 +1,53 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.chatCard {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: toSize(282);
+  height: toSize(98);
+  background-color: white;
+  border-radius: toSize(5);
+  margin: 0px toSize(8) toSize(8) toSize(8);
+  //   border: solid toSize(0.2) #878be5;
+
+  .cpImage {
+    width: toSize(65);
+    height: toSize(65);
+    margin-left: toSize(26);
+    margin-right: toSize(20);
+  }
+
+  .cpInfo {
+    font-size: toSize(16);
+    font-weight: 700;
+  }
+
+  .cpLc {
+    margin-top: toSize(12);
+    font-size: toSize(12);
+    font-weight: 500;
+  }
+
+  .unreadCircle {
+    position: absolute;
+    top: toSize(14);
+    right: toSize(11);
+    width: toSize(24);
+    height: toSize(24);
+    background-color: #ffca0c;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: toSize(12);
+    font-weight: 500;
+    color: #30338a;
+  }
+}
+
+.chatCard:hover {
+  cursor: pointer;
+  background-color: #f2f3ff;
+}

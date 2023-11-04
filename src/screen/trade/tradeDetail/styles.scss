@@ -171,6 +171,28 @@
       padding-top: 20px;
       font-size: 16px;
     }
+
+    .DcActive {
+      height: toSize(95);
+      overflow: hidden;
+      @include media('>1440px') {
+        height: 95px;
+      }
+    }
+
+    .dItem {
+      margin: 0px 0px toSize(10) toSize(8);
+      @include media('>1440px') {
+        margin: 0px 0px 10px 8px;
+      }
+      &.fItem {
+        margin-top: toSize(20);
+        @include media('>1440px') {
+          margin-top: 20px;
+        }
+      }
+    }
+
     .TVLIcon {
       width: toSize(15);
       height: toSize(15);
@@ -373,27 +395,6 @@
     margin-right: toSize(40);
     @include media('>1440px') {
       margin-right: 40px;
-    }
-  }
-}
-
-.DcActive {
-  height: toSize(95);
-  overflow: hidden;
-  @include media('>1440px') {
-    height: 95px;
-  }
-}
-
-.dItem {
-  margin: 0px 0px toSize(10) toSize(8);
-  @include media('>1440px') {
-    margin: 0px 0px 10px 8px;
-  }
-  &.fItem {
-    margin-top: toSize(20);
-    @include media('>1440px') {
-      margin-top: 20px;
     }
   }
 }

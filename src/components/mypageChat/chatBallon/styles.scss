@@ -1,0 +1,50 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.bContainer {
+  display: flex;
+  align-items: end;
+  .bTime {
+    margin-bottom: toSize(22);
+    margin-left: toSize(6);
+    font-size: toSize(10);
+    font-weight: 100;
+
+    &.mbTime {
+      margin-right: toSize(6);
+    }
+  }
+}
+
+.senderBallon {
+  display: inline-block;
+  padding: toSize(16) toSize(24);
+  background-color: #f2f3ff;
+  word-break: break-word;
+  border-radius: toSize(15);
+  border-bottom-left-radius: 0;
+  font-size: toSize(16);
+  font-weight: 500;
+  margin-bottom: toSize(22);
+  max-width: toSize(300);
+  margin-left: toSize(8);
+}
+
+.mbContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.myBallon {
+  display: inline-block;
+  padding: toSize(16) toSize(24);
+  background-color: #f1f1f1;
+  word-break: break-word;
+  border-radius: toSize(15);
+  border-bottom-right-radius: 0;
+  font-size: toSize(16);
+  margin-bottom: toSize(22);
+  font-weight: 500;
+  max-width: toSize(300);
+  margin-right: toSize(8);
+}

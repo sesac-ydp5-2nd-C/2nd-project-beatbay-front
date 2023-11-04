@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import tradeSample from '../../../asset/profile_default.png';
 import Screen from '../../Screen';
 import downArrow from '../../../asset/down-arrow.svg';
@@ -21,6 +20,7 @@ import {
 import chat from '../../../asset/chat.svg';
 import { productCategory, abilityCategory } from '../../../function/changeKey';
 import { calculateTime } from '../../../function/calculate';
+import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 
 function TradeDetailScreen() {
   const [detailData, setDetailData] = useState();

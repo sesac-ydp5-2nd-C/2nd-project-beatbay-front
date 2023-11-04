@@ -1,0 +1,77 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.chatTotalContainer {
+  display: flex;
+  //   align-items: center;
+  justify-content: center;
+  height: toSize(773);
+
+  .chatListContainer {
+    align-items: center;
+    width: toSize(300);
+    overflow-x: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: toSize(4);
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+      background: #878be5;
+    }
+  }
+
+  .chatConatainer {
+    display: flex;
+    flex-direction: column;
+    width: toSize(585);
+    border-radius: toSize(15);
+    margin: 0px toSize(24) 0px toSize(18);
+    background-color: white;
+    padding: toSize(23) toSize(15);
+
+    .chatmessagesList {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      height: 100%;
+      &::-webkit-scrollbar {
+        width: toSize(4);
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background: #f1f1f1;
+      }
+    }
+
+    .chatInput {
+      width: 100%;
+      margin-top: toSize(40);
+      padding: toSize(26) toSize(11) toSize(14) toSize(11);
+      border: none;
+      border-top: solid toSize(1) #c4c4c4;
+      font-size: toSize(16);
+      color: #6d6d6d;
+      font-weight: 500;
+    }
+  }
+
+  .sellerContainer {
+    width: toSize(281);
+    height: 100%;
+    border-radius: toSize(15);
+    background-color: white;
+  }
+}
+
+.sendIcon {
+  width: toSize(30);
+  height: toSize(30);
+  position: absolute;
+  right: toSize(8);
+  bottom: toSize(10);
+
+  &.fSend {
+    right: toSize(48);
+  }
+}
