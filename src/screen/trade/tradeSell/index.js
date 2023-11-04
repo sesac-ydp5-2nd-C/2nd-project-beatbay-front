@@ -5,6 +5,7 @@ import SellFormStatus from '../../../components/SellForm/SellFormStatus';
 import './styles.scss';
 import SellFromImg from '../../../components/SellForm/SellFromImg';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
+import { useNavigate } from 'react-router-dom';
 
 function TradeSellScreen() {
   const categories = [
@@ -199,6 +200,11 @@ function TradeSellScreen() {
     }
   };
 
+  const nav = useNavigate();
+  const hadleBack = () => {
+    nav(-1);
+  };
+
   return (
     <Screen>
       <div>
@@ -345,7 +351,7 @@ function TradeSellScreen() {
               <button
                 type="button"
                 className="sellFormExit"
-                onClick={buttonClick}
+                onClick={hadleBack}
               >
                 취소
               </button>
