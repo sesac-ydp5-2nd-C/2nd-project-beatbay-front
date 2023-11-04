@@ -55,7 +55,7 @@ const SignInUpScreen = () => {
         userPw: password,
         userNickname: name,
 
-        authCode: '1234', ///???
+        authCode: certification,
       };
       postUserSignup(apiData).then((res) => {
         console.log(res);

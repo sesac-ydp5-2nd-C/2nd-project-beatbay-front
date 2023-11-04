@@ -33,7 +33,7 @@ const setInterceptors = (instance) => {
 };
 
 export const createInstance = (url = baseURL) => {
-  const instance = axios.create({ baseURL: url });
+  const instance = axios.create({ baseURL: url, withCredentials: true });
   return setInterceptors(instance);
 };
 
