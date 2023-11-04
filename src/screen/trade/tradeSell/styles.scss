@@ -1,0 +1,35 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.sellFormContainer {
+  width: toSize(1250);
+  margin: toSize(100) auto;
+  @include media('>1440px') {
+    width: 1250px;
+  }
+
+  h1 {
+    font-size: toSize(30);
+    @include media('>1440px') {
+      font-size: 30px;
+    }
+  }
+
+  .sellForm {
+    width: 100%;
+    background-color: white;
+    border-radius: toSize(15);
+    padding: toSize(105);
+    font-size: toSize(20);
+    font-weight: 500;
+
+    section {
+      display: flex;
+      margin: 0 auto toSize(40) auto;
+    }
+  }
+}
+.formList {
+  display: block;
+  width: 170px;
+}

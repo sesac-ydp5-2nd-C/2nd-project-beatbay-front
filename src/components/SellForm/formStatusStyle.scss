@@ -1,0 +1,30 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.sellRadio > input {
+  display: none;
+}
+.sellRadio > input + *::before {
+  content: '';
+  display: inline-block;
+  vertical-align: bottom;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.3rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-color: #aaaaaa;
+}
+.sellRadio > input:checked + * {
+  color: #878be5;
+}
+.sellRadio > input:checked + *::before {
+  background: radial-gradient(
+    #878be5 0%,
+    #878be5 40%,
+    transparent 50%,
+    transparent
+  );
+  border-color: #878be5;
+}
