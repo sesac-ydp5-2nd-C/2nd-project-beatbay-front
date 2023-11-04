@@ -122,6 +122,7 @@
     }
   }
 }
+
 .formList {
   display: block;
   width: toSize(170);
@@ -154,5 +155,13 @@
       border-radius: 5px;
       margin: 20px;
     }
+  }
+}
+
+.sellInputContainer .sellFormMsg {
+  font-size: toSize(14);
+  color: red;
+  @include media('>1440px') {
+    font-size: 14px;
   }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
@@ -103,6 +103,7 @@ function ProductTradeScreen() {
             />
           </div>
           <InfiniteScroll
+            key={0}
             pageStart={0}
             loadMore={() => {
               if (productData?.length > 0 && startLoad) {

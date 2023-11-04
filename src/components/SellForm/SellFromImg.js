@@ -4,10 +4,17 @@ import { useDropzone } from 'react-dropzone';
 import camera from '../../asset/camera.svg';
 import deleteImg from '../../asset/delete.svg';
 
-export default function SellFromImg({ uploadImages, setUploadImages }) {
+export default function SellFromImg({
+  uploadImages,
+  setUploadImages,
+  setFilePaths,
+  filePaths,
+}) {
   const onDrop = (acceptedFiles) => {
     if (uploadImages.length + acceptedFiles.length <= 5) {
       setUploadImages([...uploadImages, ...acceptedFiles]);
+      const paths = acceptedFiles.map((file) => file.path);
+      setFilePaths([...filePaths, ...paths]);
     } else {
       alert('이미지는 최대 5개까지 업로드할 수 있습니다.');
     }

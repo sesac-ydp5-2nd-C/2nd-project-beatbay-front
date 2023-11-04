@@ -130,33 +130,72 @@ function TradeSellScreen() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [uploadImages, setUploadImages] = useState([]);
+  const [filePaths, setFilePaths] = useState([]);
   const [price, setPrice] = useState(null);
-  const [context, setContext] = useState(null);
-  const [selectedMethod, setSelectedMethod] = useState([]);
+  const [context, setContext] = useState('');
+  const [status, setStatus] = useState(null);
+  const [method, setMethod] = useState([]);
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [showDropdown, setShowDropdown] = useState('');
+
+  const handleMethodChange = (value) => {
+    if (method.includes(value)) {
+      setMethod(method.filter((item) => item !== value));
+    } else {
+      setMethod([...method, value]);
+    }
+  };
+
+  const selectedIndex = items.indexOf(selectedItem);
+
+  const calculateMethod = () => {
+    if (method.length === 0) {
+      return 0;
+    } else if (method.length === 1) {
+      if (method.includes('direct')) {
+        return 0;
+      } else if (method.includes('delivery')) {
+        return 1;
+      }
+    }
+    return 2;
+  };
+
+  const methodType = calculateMethod();
 
   const sellFormData = {
     title: title,
     selectedType: selectedType,
     selectedCategory: selectedCategory + 1,
     selectedSubCategory: selectedSubCategory + 1,
-    price: price,
+    filePaths: filePaths,
+    price: Number(price),
     context: context,
-    selectedMethod: selectedMethod,
-    uploadImages: uploadImages,
-    location: selectedItem,
+    status: Number(status),
+    method: methodType,
+    location: selectedIndex,
   };
+
+  const [isFormValid, setIsFormValid] = useState(true);
 
   const buttonClick = () => {
-    console.log(sellFormData);
-  };
-
-  const handleMethodChange = (value) => {
-    if (selectedMethod.includes(value)) {
-      setSelectedMethod(selectedMethod.filter((item) => item !== value));
+    if (
+      !title ||
+      !selectedType ||
+      !selectedCategory ||
+      !selectedSubCategory ||
+      !uploadImages.length ||
+      !filePaths.length ||
+      !price ||
+      !context ||
+      status === null ||
+      method.length === 0 ||
+      !selectedItem
+    ) {
+      setIsFormValid(false);
+      return;
     } else {
-      setSelectedMethod([...selectedMethod, value]);
+      console.log(sellFormData);
     }
   };
 
@@ -170,89 +209,137 @@ function TradeSellScreen() {
               <span htmlFor="sellTitle" className="formList">
                 제목
               </span>
-              <input
-                type="text"
-                id="sellTitle"
-                placeholder="제목을 입력하세요."
-                onChange={(e) => setTitle(e.target.value)}
-              />
+              <div className="sellInputContainer">
+                <input
+                  type="text"
+                  id="sellTitle"
+                  placeholder="제목을 입력하세요."
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                {!title && !isFormValid && (
+                  <p className="sellFormMsg">제목은 필수 항목입니다.</p>
+                )}
+              </div>
             </section>
             <section className="sellCategorySection">
               <span className="formList">카테고리</span>
-              <SellFormCategory
-                categories={categories}
-                selectedType={selectedType}
-                selectedCategory={selectedCategory}
-                selectedSubCategory={selectedSubCategory}
-                setSelectedType={setSelectedType}
-                setSelectedCategory={setSelectedCategory}
-                setSelectedSubCategory={setSelectedSubCategory}
-              />
+              <div className="sellInputContainer">
+                <SellFormCategory
+                  categories={categories}
+                  selectedType={selectedType}
+                  selectedCategory={selectedCategory}
+                  selectedSubCategory={selectedSubCategory}
+                  setSelectedType={setSelectedType}
+                  setSelectedCategory={setSelectedCategory}
+                  setSelectedSubCategory={setSelectedSubCategory}
+                />
+                {(selectedType === null ||
+                  selectedCategory === null ||
+                  selectedSubCategory === null) &&
+                  !isFormValid && (
+                    <p className="sellFormMsg">카테고리는 필수 항목입니다.</p>
+                  )}
+              </div>
             </section>
             <section className="sellImgSection">
               <p className="formList">
                 <p>상품이미지</p>
                 <p>({uploadImages.length}/5)</p>
               </p>
-              <SellFromImg
-                uploadImages={uploadImages}
-                setUploadImages={setUploadImages}
-              />
+              <div className="sellInputContainer">
+                <SellFromImg
+                  uploadImages={uploadImages}
+                  setUploadImages={setUploadImages}
+                  setFilePaths={setFilePaths}
+                  filePaths={filePaths}
+                />
+                {uploadImages.length === 0 && !isFormValid && (
+                  <p className="sellFormMsg">이미지는 필수 항목입니다.</p>
+                )}
+              </div>
             </section>
             <section className="sellPriceSection">
               <span htmlFor="sellPrice" className="formList">
                 가격
               </span>
-              <input
-                type="number"
-                id="sellPrice"
-                placeholder="0"
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              원
+              <div className="sellInputContainer">
+                <input
+                  type="number"
+                  id="sellPrice"
+                  placeholder="0"
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+                원
+                {!price && !isFormValid && (
+                  <p className="sellFormMsg">가격은 필수 항목입니다.</p>
+                )}
+              </div>
             </section>
             <section className="sellContextSection">
               <span htmlFor="sellContext" className="formList">
                 설명
               </span>
-              <textarea onChange={(e) => setContext(e.target.value)} />{' '}
+              <div className="sellInputContainer">
+                <textarea
+                  onChange={(e) => setContext(e.target.value)}
+                  placeholder="상품 설명을 입력하세요."
+                />{' '}
+                {!context && !isFormValid && (
+                  <p className="sellFormMsg">설명은 필수 항목입니다.</p>
+                )}
+              </div>
             </section>
             <section className="sellStatusSection">
               <span className="formList">상품 상태</span>
-              <SellFormStatus />
+              <div className="sellInputContainer">
+                <SellFormStatus status={status} setStatus={setStatus} />
+                {status === null && !isFormValid && (
+                  <p className="sellFormMsg">상품 상태는 필수 항목입니다.</p>
+                )}
+              </div>
             </section>
             <section className="sellMethodSection">
               <span className="formList">거래 방식</span>
-              <label className="sellRadio">
-                <input
-                  type="checkbox"
-                  name="methodRadio0"
-                  value="0"
-                  checked={selectedMethod.includes(0)}
-                  onChange={() => handleMethodChange(0)}
-                />
-                <span>직거래</span>
-              </label>
-              <label className="sellRadio">
-                <input
-                  type="checkbox"
-                  name="methodRadio1"
-                  value="1"
-                  checked={selectedMethod.includes(1)}
-                  onChange={() => handleMethodChange(1)}
-                />
-                <span>비대면거래</span>
-              </label>
+              <div className="sellInputContainer">
+                <label className="sellRadio">
+                  <input
+                    type="checkbox"
+                    name="methodRadio0"
+                    value="direct"
+                    checked={method.includes('direct')}
+                    onChange={() => handleMethodChange('direct')}
+                  />
+                  <span>직거래</span>
+                </label>
+                <label className="sellRadio">
+                  <input
+                    type="checkbox"
+                    name="methodRadio1"
+                    value="delivery"
+                    checked={method.includes('delivery')}
+                    onChange={() => handleMethodChange('delivery')}
+                  />
+                  <span>비대면거래</span>
+                </label>
+                {method.length === 0 && !isFormValid && (
+                  <p className="sellFormMsg">거래 방식은 필수 항목입니다.</p>
+                )}
+              </div>
             </section>
             <section className="sellLocationSection">
               <span className="formList">지역</span>
-              <CustomDropdown
-                showDropdown={showDropdown}
-                setShowDropdown={() => setShowDropdown(!showDropdown)}
-                items={items}
-                selectedItem={selectedItem}
-                setSelectedItem={setSelectedItem}
-              />
+              <div className="sellInputContainer">
+                <CustomDropdown
+                  showDropdown={showDropdown}
+                  setShowDropdown={() => setShowDropdown(!showDropdown)}
+                  items={items}
+                  selectedItem={selectedItem}
+                  setSelectedItem={setSelectedItem}
+                />
+                {!selectedItem && !isFormValid && (
+                  <p className="sellFormMsg">지역은 필수 항목입니다.</p>
+                )}
+              </div>
             </section>
             <div className="formBtns">
               <button
