@@ -12,6 +12,7 @@ import MypagePurchasesScreen from '../screen/mypage/purchases';
 import MypageLikesScreen from '../screen/mypage/likes';
 import TradeDetailScreen from '../screen/trade/tradeDetail';
 import Userpage from '../screen/userpage';
+import TradeSellScreen from '../screen/trade/tradeSell';
 import MypageChatScreen from '../screen/mypage/chat';
 
 function App() {
@@ -26,10 +27,12 @@ function App() {
             path="/trade/:type/detail/:id"
             element={<TradeDetailScreen />}
           />
+          <Route path="/trade/sell" element={<TradeSellScreen />} />
           {/* <Route
             path="/trade/:ability/detail/:id"
             element={<TradeDetailScreen />}
           /> */}
+
           <Route path="/user" element={<SignInUpScreen />} />
 
           <Route path="/mypage" element={<MypageDashboardScreen />} />
