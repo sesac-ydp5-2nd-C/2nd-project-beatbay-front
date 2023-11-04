@@ -20,6 +20,8 @@ const SignInUpScreen = () => {
   const [certification, setCertification] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [mailCheckMessage, setMailCheckMessage] = useState('');
+
   const [isChecked, setIsChecked] = useState(false); // 추가된 부분
 
   const handleSignUpClick = () => {
@@ -109,7 +111,12 @@ const SignInUpScreen = () => {
     console.log('sending');
     const apiData = { email: email };
     postUserCertification(apiData).then((res) => {
-      console.log(res);
+      console.log(res.data.result);
+      if (res.data.result === true) {
+        setMailCheckMessage('메일 전송 완료!');
+      } else {
+        setMailCheckMessage('메일 전송 실패! 다시 시도해주세요');
+      }
     });
   };
 
@@ -118,6 +125,12 @@ const SignInUpScreen = () => {
     const apiData = { emailCode: certification };
     postUserEmailCodeCheck(apiData).then((res) => {
       console.log(res);
+
+      if (res.data.result === true) {
+        setMailCheckMessage('메일 인증 완료!');
+      } else {
+        setMailCheckMessage('올바르지 않은 코드입니다');
+      }
     });
   };
   const sendPw = () => {
@@ -138,7 +151,7 @@ const SignInUpScreen = () => {
         className="form-container sign-up-container"
         style={{ opacity: isSignUp ? '100' : '0' }}
       >
-        <form action="#">
+        <div className="Form">
           <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
           <h1>회원가입</h1>
           <br />
@@ -148,18 +161,21 @@ const SignInUpScreen = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          {/* {errorMessage} */}
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {/* {errorMessage} */}
           <input
             type="password"
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {/* {errorMessage} */}
           <input
             type="password"
             placeholder="비밀번호 확인"
@@ -177,10 +193,13 @@ const SignInUpScreen = () => {
             <button onClick={checkAuth}>인증번호 확인</button>
           </div>
 
-          <br></br>
+          <p className="error-message" style={{ color: 'black' }}>
+            {mailCheckMessage}
+          </p>
+
           <button onClick={handleSignUp}>회원가입</button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-        </form>
+        </div>
       </div>
       <input
         className="checkbox"
@@ -195,7 +214,7 @@ const SignInUpScreen = () => {
       <div
         className={`form-container sign-in-container ${isSignUp ? 'temp' : ''}`}
       >
-        <form action="#">
+        <div className="Form">
           <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
           <h1>로그인</h1>
           <br></br>
@@ -246,11 +265,11 @@ const SignInUpScreen = () => {
           </p>
           <br />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-        </form>
+        </div>
         <div />
 
         <div className="Lcard-back">
-          <form>
+          <div className="Form">
             <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
 
             <h1>비밀번호 찾기</h1>
@@ -292,7 +311,7 @@ const SignInUpScreen = () => {
               </label>
               하러가기
             </p>
-          </form>
+          </div>
         </div>
       </div>
       <div className="overlay-container">
