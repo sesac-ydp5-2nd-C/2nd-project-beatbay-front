@@ -1,0 +1,99 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.sellFormImgEntry {
+  display: flex;
+  width: toSize(860);
+  flex-wrap: wrap;
+  @include media('>1440px') {
+    width: 860px;
+  }
+}
+
+.dropzone {
+  border: 1px solid #aaaaaa;
+  cursor: pointer;
+  padding: toSize(20);
+  width: toSize(160);
+  height: toSize(160);
+  margin-right: toSize(20);
+  margin-bottom: toSize(20);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include media('>1440px') {
+    padding: 20px;
+    width: 160px;
+    height: 160px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  .putImg {
+    width: toSize(50);
+    height: toSize(50);
+    @include media('>1440px') {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  p {
+    font-size: toSize(16);
+    font-weight: lighter;
+    @include media('>1440px') {
+      font-size: 16px;
+    }
+  }
+}
+
+.formImgHover {
+  width: toSize(160);
+  height: toSize(160);
+  background-color: rgba(255, 255, 255, 0.623);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @include media('>1440px') {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.sellFormImgContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: toSize(10);
+  position: relative;
+  @include media('>1440px') {
+    margin-bottom: 10px;
+  }
+  &:hover {
+    .formImgHover {
+      display: flex;
+    }
+  }
+}
+
+.sellFormImg {
+  width: toSize(160);
+  height: toSize(160);
+  margin-right: toSize(10);
+  margin-bottom: toSize(10);
+  cursor: pointer;
+  @include media('>1440px') {
+    width: 160px;
+    height: 160px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  &:hover {
+    .formImgHover {
+      display: flex;
+    }
+  }
+}
