@@ -8,6 +8,7 @@ import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import RollingSpinner from '../../../asset/RollingSpinner.gif';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeProduct } from '../../../api/trade';
+import emptyLogo from '../../../asset/emptyLogo.svg';
 
 function ProductTradeScreen() {
   const authInfo = useSelector((state) => state.user.authInfo);
@@ -55,12 +56,10 @@ function ProductTradeScreen() {
       subCategoryNum: activeTab.content.indexOf(activeContent) + 1,
       searchKeyword: search ? search : undefined,
     };
-    console.log(apiData);
     getTradeProduct(apiData).then((res) => {
       console.log(res);
       const settingData = res.data?.products ? res.data?.products : [];
       setProductData(settingData);
-      console.log(settingData);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
       if (settingData?.length > 0) {
         setStartLoad(false);
@@ -116,7 +115,10 @@ function ProductTradeScreen() {
             loader={
               startLoad ? (
                 productData?.length === 0 ? (
-                  <div>데이터가 없습니다</div>
+                  <div className="emptyContainer">
+                    거래 장터가 비어있어요!
+                    <img className="emptyLogo" alt="empty" src={emptyLogo} />
+                  </div>
                 ) : (
                   <div className="loader" key={0}>
                     <img

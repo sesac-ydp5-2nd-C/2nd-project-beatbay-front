@@ -64,6 +64,7 @@
     .tradeCarouselImg {
       width: toSize(384);
       height: toSize(384);
+      object-fit: cover;
       @include media('>1440px') {
         width: 384px;
         height: 384px;

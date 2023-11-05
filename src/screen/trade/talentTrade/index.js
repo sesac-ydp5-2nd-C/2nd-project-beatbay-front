@@ -10,6 +10,7 @@ import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeAbility } from '../../../api/trade';
+import emptyLogo from '../../../asset/emptyLogo.svg';
 
 function TalentTradeScreen() {
   const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
@@ -130,7 +131,10 @@ function TalentTradeScreen() {
             loader={
               startLoad ? (
                 productData?.length === 0 ? (
-                  <div>데이터가 없습니다</div>
+                  <div className="emptyContainer">
+                    재능 장터가 비어있어요!
+                    <img className="emptyLogo" alt="empty" src={emptyLogo} />
+                  </div>
                 ) : (
                   <div className="loader" key={0}>
                     <img

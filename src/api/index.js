@@ -18,10 +18,12 @@ const setInterceptors = (instance) => {
 
   instance.interceptors.response.use(
     (response) => {
+      console.log(response);
       return response;
     },
 
     async (error) => {
+      console.log(error);
       // if (axios.isCancel(error)) {
       //   // 요청이 취소되었을 때 처리
       //   console.log('Request was canceled');

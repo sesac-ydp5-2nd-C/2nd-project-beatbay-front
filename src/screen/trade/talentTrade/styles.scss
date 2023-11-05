@@ -137,3 +137,18 @@
 .seeMore:hover {
   transform: scale(1.05);
 }
+
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  color: #30338a;
+  font-size: toSize(30);
+  font-weight: 500;
+  align-items: center;
+  margin-top: toSize(35);
+
+  .emptyLogo {
+    margin-top: toSize(30);
+    height: toSize(286);
+  }
+}
