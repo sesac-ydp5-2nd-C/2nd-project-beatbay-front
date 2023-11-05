@@ -46,9 +46,9 @@ function TradeDetailScreen() {
       ? getTradeDetailProduct({ product_id: id })
       : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
-      console.log(res.data[type]);
+      console.log(res);
       setDetailData(res.data[type]);
-      console.log(JSON.parse(res.data[type][`${type}_file_path`]));
+      // console.log(JSON.parse(res.data[type][`${type}_file_path`]));
     });
   };
 

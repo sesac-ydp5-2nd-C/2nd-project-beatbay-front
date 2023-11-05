@@ -7,15 +7,13 @@ const ChatBallon = ({ data }) => {
     return (
       <div className="bContainer">
         <div className="senderBallon">{data.content}</div>
-        <div className="bTime">{moment(data.sent_at).format('mm:ss')}</div>
+        <div className="bTime">{moment(data.sent_at).format('LT')}</div>
       </div>
     );
   } else {
     return (
       <div className="bContainer mbContainer">
-        <div className="bTime mbTime">
-          {moment(data.sent_at).format('mm:ss')}
-        </div>
+        <div className="bTime mbTime">{moment(data.sent_at).format('LT')}</div>
         <div className="myBallon">{data.content}</div>
       </div>
     );

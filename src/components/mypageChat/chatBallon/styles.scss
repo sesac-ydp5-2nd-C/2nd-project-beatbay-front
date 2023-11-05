@@ -9,9 +9,17 @@
     margin-left: toSize(6);
     font-size: toSize(10);
     font-weight: 100;
+    @include media('>1440px') {
+      margin-bottom: 22px;
+      margin-left: 6px;
+      font-size: 10px;
+    }
 
     &.mbTime {
       margin-right: toSize(6);
+      @include media('>1440px') {
+        margin-right: 6px;
+      }
     }
   }
 }
@@ -28,6 +36,14 @@
   margin-bottom: toSize(22);
   max-width: toSize(300);
   margin-left: toSize(8);
+  @include media('>1440px') {
+    padding: 16px 24px;
+    border-radius: 15px;
+    font-size: 16px;
+    margin-bottom: 22px;
+    max-width: 300px;
+    margin-left: 8px;
+  }
 }
 
 .mbContainer {
@@ -47,4 +63,12 @@
   font-weight: 500;
   max-width: toSize(300);
   margin-right: toSize(8);
+  @include media('>1440px') {
+    padding: 16px 24px;
+    border-radius: 15px;
+    font-size: 16px;
+    margin-bottom: 22px;
+    max-width: 300px;
+    margin-right: 8px;
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import './styles.scss';
 import send from '../../../asset/send.svg';
@@ -49,6 +49,7 @@ function MypageChatScreen() {
     { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
   ]);
   const [connect, setConnect] = useState(false);
+  const msgRef = useRef();
 
   // 화면 렌더링시 소켓 처음 접속
   useEffect(() => {
@@ -61,6 +62,9 @@ function MypageChatScreen() {
   useEffect(() => {
     socket.on('message', (message) => {
       console.log(message);
+      if (msgRef.current) {
+        msgRef.current.scrollTop = msgRef.current.scrollHeight;
+      }
       // setMessages((messages) => [...messages, message]);
     });
 
@@ -95,20 +99,26 @@ function MypageChatScreen() {
         </div>
 
         <div className="chatConatainer">
-          <div className="chatmessagesList">
-            {messages.map((e, i) => {
-              return <ChatBallon key={`${e}_${i}`} data={e} />;
-            })}
-          </div>
-          <div style={{ position: 'relative' }}>
-            <input
-              placeholder="TEXT MESSAGE..."
-              type="text"
-              className="chatInput"
-            />
-            <img alt="send" src={send} className="sendIcon" />
-            <img alt="filesend" src={fileSend} className="sendIcon fSend" />
-          </div>
+          {messages ? (
+            <>
+              <div className="chatmessagesList" ref={msgRef}>
+                {messages.map((e, i) => {
+                  return <ChatBallon key={`${e}_${i}`} data={e} />;
+                })}
+              </div>
+              <div style={{ position: 'relative' }}>
+                <input
+                  placeholder="TEXT MESSAGE..."
+                  type="text"
+                  className="chatInput"
+                />
+                <img alt="send" src={send} className="sendIcon" />
+                <img alt="filesend" src={fileSend} className="sendIcon fSend" />
+              </div>
+            </>
+          ) : (
+            <div className="beforeRoom">채팅방을 선택해주세요</div>
+          )}
         </div>
 
         <div className="sellerContainer"></div>

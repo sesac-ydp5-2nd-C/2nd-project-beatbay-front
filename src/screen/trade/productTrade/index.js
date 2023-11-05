@@ -57,6 +57,7 @@ function ProductTradeScreen() {
     };
     console.log(apiData);
     getTradeProduct(apiData).then((res) => {
+      console.log(res);
       const settingData = res.data?.products ? res.data?.products : [];
       setProductData(settingData);
       console.log(settingData);
