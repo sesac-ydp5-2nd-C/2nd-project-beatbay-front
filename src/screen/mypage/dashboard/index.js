@@ -49,21 +49,22 @@ function MypageDashboardScreen() {
     },
   ]);
 
-  useEffect(() => {
-    gogogo();
-  }, []);
-
   const gogogo = async () => {
     postUserLogin().then((res) => {
       console.log(res);
       getMypage().then((result) => {
         console.log(result);
         setMyPageData(result.data);
-        console.log('mypageData:', mypageData); // undefined 가 계속 뜨는데.,,
-        console.log('mypageData.userData:', mypageData.userData);
+        // mypageData && console.log('mypageData:', mypageData); // undefined 가 계속 뜨는데.,,
+        // console.log('mypageData.userData:', mypageData.userData);
       });
     });
   };
+
+  useEffect(() => {
+    gogogo();
+    console.log('mypageData:', mypageData);
+  }, []);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -89,41 +90,43 @@ function MypageDashboardScreen() {
         {userData.userData.user_nickname}
         {userData.itemCount}
       </div> */}
-      <div className="MpContainer">
-        <div className="MpContent">
-          <MypageVinyl userData={mypageData.userData} />
-          <div className="MpProfile">
-            <MypageProfile userData={mypageData.userData} />
-            <div className="figures">
-              <div className="figure items">
-                <h2>상품</h2>
-                <p>{mypageData.itemCount}</p>
-              </div>
-              <div
-                className="figure followers"
-                onClick={() => openModal(reviewsData, '리뷰')}
-              >
-                <h2>후기</h2>
-                <p>{mypageData.userData.user_comment ?? 0}</p>
-              </div>
-              <div
-                className="figure followers"
-                onClick={() => openModal(followData, '팔로워')}
-              >
-                <h2>팔로워</h2>
-                <p>{followData.length}</p>
-              </div>
-              <div
-                className="figure following"
-                onClick={() => openModal(followData, '팔로잉')}
-              >
-                <h2>팔로잉</h2>
-                <p>{followData.length}</p>
+      {mypageData && (
+        <div className="MpContainer">
+          <div className="MpContent">
+            <MypageVinyl userData={mypageData.userData} />
+            <div className="MpProfile">
+              <MypageProfile userData={mypageData.userData} />
+              <div className="figures">
+                <div className="figure items">
+                  <h2>상품</h2>
+                  <p>{mypageData.itemCount}</p>
+                </div>
+                <div
+                  className="figure followers"
+                  onClick={() => openModal(reviewsData, '리뷰')}
+                >
+                  <h2>후기</h2>
+                  <p>{mypageData.userData.user_comment ?? 0}</p>
+                </div>
+                <div
+                  className="figure followers"
+                  onClick={() => openModal(followData, '팔로워')}
+                >
+                  <h2>팔로워</h2>
+                  <p>{followData.length}</p>
+                </div>
+                <div
+                  className="figure following"
+                  onClick={() => openModal(followData, '팔로잉')}
+                >
+                  <h2>팔로잉</h2>
+                  <p>{followData.length}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <MypageMenus />
       {modalIsOpen && (
         <CustomModal
