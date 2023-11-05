@@ -1,0 +1,54 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.editInformationContainer {
+  position: relative;
+  width: toSize(1250);
+  @include media('>1440px') {
+    width: 1250px;
+  }
+}
+.editInformation {
+}
+
+// form {
+//   max-width: 400px;
+//   margin: 0 auto;
+//   padding: 20px;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+// }
+
+// label {
+//   display: block;
+//   margin-top: 10px;
+//   font-weight: bold;
+// }
+
+// input[type='password'],
+// input[type='text'],
+// textarea {
+//   width: 100%;
+//   padding: 10px;
+//   margin-top: 5px;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+// }
+
+// button {
+//   display: inline-block;
+//   margin-top: 20px;
+//   padding: 10px 20px;
+//   background-color: #007bff;
+//   color: #fff;
+//   border: none;
+//   border-radius: 5px;
+//   cursor: pointer;
+// }
+
+/* 추가적인 스타일을 여기에 계속해서 추가하세요. */
