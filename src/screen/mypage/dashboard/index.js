@@ -10,38 +10,11 @@ import axios from 'axios';
 import userImg from '../../../asset/profile_default.png';
 import CustomModal from '../../../components/common/customModal/CustomModal';
 import { postUserLogin } from '../../../api/user';
-import { getMypage } from '../../../api/trade';
+import { getMypage } from '../../../api/mypage';
 
 function MypageDashboardScreen() {
-  const [userData, setUserData] = useState({
-    user_nickname: '영걸',
-    comment:
-      'Music Is My Life~~~~~!!~~! dndndndndndnndddddddddddddddddddddddddd',
-    user_interests: ['밴드', '베이스', '레슨'],
-    imgSrc: userImg,
-    user_grade: 5,
-    user_review: 32,
-    user_following: 28,
-    user_follower: 18,
-    itemCount: 20,
-  });
-
-  useEffect(() => {
-    gogogo();
-  }, []);
-
-  const gogogo = () => {
-    postUserLogin().then((res) => {
-      console.log(res);
-      getMypage({
-        userId: 'aa6618@naver.com',
-        userPw: 'test1234@',
-      }).then((result) => console.log(result));
-    });
-  };
-
   const authInfo = useSelector((state) => state.user.authInfo);
-
+  const [mypageData, setMyPageData] = useState();
   const [reviewsData, setReviewsData] = useState([
     {
       user_nickname: '대만',
@@ -61,7 +34,6 @@ function MypageDashboardScreen() {
       comment: '굿이에용',
     },
   ]);
-
   const [followData, setFollowData] = useState([
     {
       user_nickname: '해리',
@@ -76,6 +48,23 @@ function MypageDashboardScreen() {
       imgSrc: userImg,
     },
   ]);
+
+  const gogogo = async () => {
+    postUserLogin().then((res) => {
+      console.log(res);
+      getMypage().then((result) => {
+        console.log(result);
+        setMyPageData(result.data);
+        // mypageData && console.log('mypageData:', mypageData);
+        // console.log('mypageData.userData:', mypageData.userData);
+      });
+    });
+  };
+
+  useEffect(() => {
+    gogogo();
+    console.log('mypageData:', mypageData);
+  }, []);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -97,42 +86,44 @@ function MypageDashboardScreen() {
 
   return (
     <Screen>
-      <div className="MpContainer">
-        <div className="MpContent">
-          <MypageVinyl userData={userData} />
-          <div className="MpProfile">
-            <MypageProfile userData={userData} />
-            <div className="figures">
-              <div className="figure items">
-                <h2>상품</h2>
-                <p>{userData.itemCount}</p>
-              </div>
-              <div
-                className="figure followers"
-                onClick={() => openModal(reviewsData, '리뷰')}
-              >
-                <h2>후기</h2>
-                <p>{userData.user_review}</p>
-              </div>
-              <div
-                className="figure followers"
-                onClick={() => openModal(followData, '팔로워')}
-              >
-                <h2>팔로워</h2>
-                <p>{userData.user_follower}</p>
-              </div>
-              <div
-                className="figure following"
-                onClick={() => openModal(followData, '팔로잉')}
-              >
-                <h2>팔로잉</h2>
-                <p>{userData.user_following}</p>
+      {mypageData && (
+        <div className="MpContainer">
+          <div className="MpContent">
+            <MypageVinyl userData={mypageData.userData} />
+            <div className="MpProfile">
+              <MypageProfile userData={mypageData.userData} />
+              <div className="figures">
+                <div className="figure items">
+                  <h2>상품</h2>
+                  <p>{mypageData.itemCount}</p>
+                </div>
+                <div
+                  className="figure followers"
+                  onClick={() => openModal(reviewsData, '리뷰')}
+                >
+                  <h2>후기</h2>
+                  <p>{mypageData.userData.user_comment ?? 0}</p>
+                </div>
+                <div
+                  className="figure followers"
+                  onClick={() => openModal(followData, '팔로워')}
+                >
+                  <h2>팔로워</h2>
+                  <p>{followData.length}</p>
+                </div>
+                <div
+                  className="figure following"
+                  onClick={() => openModal(followData, '팔로잉')}
+                >
+                  <h2>팔로잉</h2>
+                  <p>{followData.length}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <MypageMenus userData={userData} />
+      )}
+      <MypageMenus />
       {modalIsOpen && (
         <CustomModal
           isOpen={modalIsOpen}

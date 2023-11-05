@@ -195,9 +195,9 @@ function TradeSellScreen() {
     ) {
       setIsFormValid(false);
       return;
-    } else {
-      console.log(sellFormData);
     }
+    setIsFormValid(true);
+    console.log(sellFormData);
   };
 
   const nav = useNavigate();
