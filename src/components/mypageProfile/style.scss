@@ -8,15 +8,29 @@
   }
 }
 
-.profileContainer h1 {
-  vertical-align: middle;
-  font-size: toSize(35);
-  margin: 0;
-  @include media('<=768px') {
-    font-size: 7vw;
+.helloUser {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h1 {
+    vertical-align: middle;
+    font-size: toSize(35);
+    margin: 0;
+    @include media('<=768px') {
+      font-size: 7vw;
+    }
+    @include media('>1440px') {
+      font-size: 35px;
+    }
   }
-  @include media('>1440px') {
-    font-size: 35px;
+
+  svg {
+    width: toSize(30);
+    height: toSize(30);
+    @include media('>1440px') {
+      width: 30px;
+      height: 30px;
+    }
   }
 }
 

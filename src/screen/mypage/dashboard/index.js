@@ -55,7 +55,7 @@ function MypageDashboardScreen() {
       getMypage().then((result) => {
         console.log(result);
         setMyPageData(result.data);
-        // mypageData && console.log('mypageData:', mypageData); // undefined 가 계속 뜨는데.,,
+        // mypageData && console.log('mypageData:', mypageData);
         // console.log('mypageData.userData:', mypageData.userData);
       });
     });
@@ -86,10 +86,6 @@ function MypageDashboardScreen() {
 
   return (
     <Screen>
-      {/* <div>
-        {userData.userData.user_nickname}
-        {userData.itemCount}
-      </div> */}
       {mypageData && (
         <div className="MpContainer">
           <div className="MpContent">
