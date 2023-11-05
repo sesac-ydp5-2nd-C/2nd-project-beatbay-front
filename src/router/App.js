@@ -12,6 +12,7 @@ import MypagePurchasesScreen from '../screen/mypage/purchases';
 import MypageLikesScreen from '../screen/mypage/likes';
 import TradeDetailScreen from '../screen/trade/tradeDetail';
 import Userpage from '../screen/userpage';
+import MypageEditInformationScreen from '../screen/mypage/editinfo';
 
 function App() {
   return (
@@ -35,6 +36,10 @@ function App() {
           <Route path="/mypage/sell" element={<MypageListingsScreen />} />
           <Route path="/mypage/buy" element={<MypagePurchasesScreen />} />
           <Route path="/mypage/like" element={<MypageLikesScreen />} />
+          <Route
+            path="/mypage/edit"
+            element={<MypageEditInformationScreen />}
+          />
 
           <Route path="/seller/" element={<Userpage />} />
         </Routes>
