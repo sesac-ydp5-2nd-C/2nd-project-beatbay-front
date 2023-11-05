@@ -16,7 +16,7 @@
     border-radius: 6px;
     border: 2px solid var(--wf-base-400, #cbd2e0);
   }
-  form {
+  .Form {
     background-color: #ffffff;
     display: flex;
     align-items: center;
@@ -88,7 +88,7 @@
 
   //-----
 
-  form {
+  .Form {
     background-color: #ffffff;
     display: flex;
     align-items: center;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // 스타일 파일 추가
 import './style.scss';
 
@@ -19,11 +19,15 @@ const SignInUpScreen = () => {
   const [name, setName] = useState('');
   const [certification, setCertification] = useState('');
 
-  const [errorMessage, setErrorMessage] = useState('');
   const [isChecked, setIsChecked] = useState(false); // 추가된 부분
+
+  const [mailCheckMessage, setMailCheckMessage] = useState('');
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSignUpClick = () => {
     // 체크박스가 체크된 상태인지 확인하고 토글
+    setErrorMessage('');
     if (isChecked) {
       setIsChecked(false);
     }
@@ -31,13 +35,23 @@ const SignInUpScreen = () => {
   };
 
   const handleSignInClick = () => {
+    setErrorMessage('');
+
     setIsSignUp(false);
   };
 
   const handleSignUp = () => {
     // 회원가입 유효성 검사
-    if (!email || !password || !name || !passwordCheck || !certification) {
-      setErrorMessage('작성되지 않은 항목이 있습니다.');
+    if (!name) {
+      setErrorMessage('닉네임이 작성되지 않았습니다.');
+    } else if (!email) {
+      setErrorMessage('이메일이 작성되지 않았습니다.'); //닉네임 중복확인추가필요?
+    } else if (!password) {
+      setErrorMessage('비밀번호가 작성되지 않았습니다.');
+    } else if (!passwordCheck) {
+      setErrorMessage('비밀번호 확인이 작성되지 않았습니다.');
+    } else if (!certification) {
+      setErrorMessage('인증문자가 작성되지 않았습니다.');
     } else if (!isValidEmail(email)) {
       setErrorMessage('존재하지 않는 이메일 형식입니다.');
     } else if (!isValidPassword(password)) {
@@ -45,7 +59,7 @@ const SignInUpScreen = () => {
         '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
     } else if (password !== passwordCheck) {
-      setErrorMessage('비밀번호확인과 비밀번호를 다르게 입력하셨습니다.');
+      setErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
     } else {
       // Perform your signup logic here
       // e.g., make an API request to register the user
@@ -65,8 +79,10 @@ const SignInUpScreen = () => {
 
   const handleSignIn = () => {
     //로그인 유효성 검사
-    if (!email || !password) {
-      setErrorMessage('작성되지 않은 항목이 있습니다.');
+    if (!email) {
+      setErrorMessage('이메일이 작성되지 않았습니다.');
+    } else if (!password) {
+      setErrorMessage('비밀번호가 작성되지 않았습니다.');
     } else if (!isValidEmail(email)) {
       setErrorMessage('존재하지 않는 이메일 형식입니다.');
     } else if (!isValidPassword(password)) {
@@ -92,12 +108,12 @@ const SignInUpScreen = () => {
 
   const isValidEmail = (email) => {
     //이메일검사 로직
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(email);
   };
 
   const isValidPassword = (password) => {
     //패스워드 검사 로직
-    return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+    return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/.test(
       password,
     );
   };
@@ -106,11 +122,23 @@ const SignInUpScreen = () => {
     setIsChecked(!isChecked); // 체크박스를 토글
   };
   const sendAuth = () => {
-    console.log('sending');
-    const apiData = { email: email };
-    postUserCertification(apiData).then((res) => {
-      console.log(res);
-    });
+    if (!email) {
+      setErrorMessage('이메일이 작성되지 않았습니다');
+    } else if (!isValidEmail(email)) {
+      setErrorMessage('존재하지 않는 이메일 형식입니다.');
+    } else {
+      console.log('sending');
+      const apiData = { email: email };
+      postUserCertification(apiData).then((res) => {
+        console.log(res.data.result);
+
+        if (res.data.result === true) {
+          setMailCheckMessage('메일 전송 완료!');
+        } else {
+          setMailCheckMessage('메일 전송 실패! 다시 시도해주세요');
+        }
+      });
+    }
   };
 
   const checkAuth = () => {
@@ -118,6 +146,12 @@ const SignInUpScreen = () => {
     const apiData = { emailCode: certification };
     postUserEmailCodeCheck(apiData).then((res) => {
       console.log(res);
+
+      if (res.data.result === true) {
+        setMailCheckMessage('메일 인증 완료!');
+      } else {
+        setMailCheckMessage('올바르지 않은 코드입니다');
+      }
     });
   };
   const sendPw = () => {
@@ -138,28 +172,30 @@ const SignInUpScreen = () => {
         className="form-container sign-up-container"
         style={{ opacity: isSignUp ? '100' : '0' }}
       >
-        <form action="#">
+        <div className="Form">
           <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
           <h1>회원가입</h1>
           <br />
           <input
             type="text"
-            placeholder="Name"
+            placeholder="별명"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
-            placeholder="Email"
+            placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {/* {errorMessage} */}
           <input
             type="password"
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {/* {errorMessage} */}
           <input
             type="password"
             placeholder="비밀번호 확인"
@@ -177,10 +213,13 @@ const SignInUpScreen = () => {
             <button onClick={checkAuth}>인증번호 확인</button>
           </div>
 
-          <br></br>
+          <p className="error-message" style={{ color: 'black' }}>
+            {mailCheckMessage}
+          </p>
+
           <button onClick={handleSignUp}>회원가입</button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-        </form>
+        </div>
       </div>
       <input
         className="checkbox"
@@ -195,19 +234,19 @@ const SignInUpScreen = () => {
       <div
         className={`form-container sign-in-container ${isSignUp ? 'temp' : ''}`}
       >
-        <form action="#">
+        <div className="Form">
           <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
           <h1>로그인</h1>
           <br></br>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -246,11 +285,11 @@ const SignInUpScreen = () => {
           </p>
           <br />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-        </form>
+        </div>
         <div />
 
         <div className="Lcard-back">
-          <form>
+          <div className="Form">
             <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
 
             <h1>비밀번호 찾기</h1>
@@ -292,7 +331,7 @@ const SignInUpScreen = () => {
               </label>
               하러가기
             </p>
-          </form>
+          </div>
         </div>
       </div>
       <div className="overlay-container">
