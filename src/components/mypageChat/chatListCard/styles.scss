@@ -1,0 +1,80 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.chatCard {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: toSize(282);
+  height: toSize(98);
+  background-color: white;
+  border-radius: toSize(5);
+  margin: 0px toSize(8) toSize(8) toSize(8);
+  //   border: solid toSize(0.2) #878be5;
+  @include media('>1440px') {
+    width: 282px;
+    height: 98px;
+    border-radius: 5px;
+    margin: 0px 8px 8px 8px;
+  }
+
+  .cpImage {
+    width: toSize(65);
+    height: toSize(65);
+    margin-left: toSize(26);
+    margin-right: toSize(20);
+    @include media('>1440px') {
+      width: 65px;
+      height: 65px;
+      margin-left: 26px;
+      margin-right: 20px;
+    }
+  }
+
+  .cpInfo {
+    font-size: toSize(16);
+    font-weight: 700;
+    @include media('>1440px') {
+      font-size: 16px;
+    }
+  }
+
+  .cpLc {
+    margin-top: toSize(12);
+    font-size: toSize(12);
+    font-weight: 500;
+    @include media('>1440px') {
+      margin-top: 12px;
+      font-size: 12px;
+    }
+  }
+
+  .unreadCircle {
+    position: absolute;
+    top: toSize(14);
+    right: toSize(11);
+    width: toSize(24);
+    height: toSize(24);
+    background-color: #ffca0c;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: toSize(12);
+    font-weight: 500;
+    color: #30338a;
+    line-height: 1;
+    @include media('>1440px') {
+      top: 14px;
+      right: 11px;
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
+    }
+  }
+}
+
+.chatCard:hover {
+  cursor: pointer;
+  background-color: #f2f3ff;
+}
