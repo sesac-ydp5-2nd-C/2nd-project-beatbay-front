@@ -56,10 +56,5 @@ export const getUserLogout = async (apiData) => {
 };
 
 export const putUserFindPass = async (apiData) => {
-  const temp = {
-    userId: 'ethan',
-    userPw: 'asdfqwerty1!',
-    emailCode: '111111',
-  };
   return await BB.put('/user/findPass', apiData);
 };
