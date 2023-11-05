@@ -68,7 +68,6 @@ const SignInUpScreen = () => {
         userId: email,
         userPw: password,
         userNickname: name,
-
         authCode: certification,
       };
       postUserSignup(apiData).then((res) => {
@@ -98,6 +97,7 @@ const SignInUpScreen = () => {
       console.log('signing up');
 
       postUserLogin(apiData).then((res) => {
+        localStorage.setItem('login_id', res.data.logUserData.id);
         console.log(res);
       });
     }
