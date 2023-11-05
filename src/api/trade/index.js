@@ -41,7 +41,3 @@ export const getTradeDetailProduct = async (apiData) => {
 export const getTradeDetailAbility = async (apiData) => {
   return await BB.get('/trade/detailAbility', apiData);
 };
-
-export const getMypage = async (apiData) => {
-  return await BB.get('/mypage', apiData);
-};

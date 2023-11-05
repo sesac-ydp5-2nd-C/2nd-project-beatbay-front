@@ -32,7 +32,11 @@ export const postUserSignup = async (apiData) => {
 // };
 
 export const postUserLogin = async (apiData) => {
-  return await BB.post('/user/login', apiData);
+  const temp = {
+    userId: 'helpme@naver.com',
+    userPw: 'HELP1234!',
+  };
+  return await BB.post('/user/login', temp);
 };
 
 /**

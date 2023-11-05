@@ -10,9 +10,9 @@ import mezzoforte from '../../asset/mezzoforte.svg';
 import fortissimo from '../../asset/fortissimo.svg';
 
 export default function MypageVinyl({ userData }) {
-  const gradeImg = (user_grade) => {
-    switch (user_grade) {
-      default:
+  const gradeImg = (e) => {
+    switch (e) {
+      case 0:
         return pianissimo;
       case 1:
         return mezzopiano;
@@ -24,15 +24,18 @@ export default function MypageVinyl({ userData }) {
         return mezzoforte;
       case 5:
         return fortissimo;
+      default:
+        return pianissimo;
     }
   };
 
   const userGradeImg = gradeImg(userData.user_grade);
+  const profileImgSrc = userData.user_profile_img ? userData.imgSrc : userImg;
 
   return (
     <div className="profileVinyl">
       <img src={turntable} alt="turntable" className="turntable" />
-      <img src={userData.imgSrc} alt="profileImg" className="profileImg" />
+      <img src={profileImgSrc} alt="profileImg" className="profileImg" />
       <img src={userGradeImg} alt="grade" className="gradeImg" />
     </div>
   );
