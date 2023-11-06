@@ -34,10 +34,11 @@ export default function MypageListingsScreen() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [activeTab, setActiveTab] = useState(tabsData[0]);
-  const [productData, setProductData] = useState([]);
+  const [productData, setProductData] = useState();
   const [startLoad, setStartLoad] = useState(true);
 
   useEffect(() => {
+    setStartLoad(true);
     getSellList();
   }, [selectedItem, activeTab]);
 
@@ -52,9 +53,9 @@ export default function MypageListingsScreen() {
       console.log(res);
       let productDataFromResponse;
       if (activeTab.type === 'product') {
-        productDataFromResponse = res.data.userProduct;
+        productDataFromResponse = res.data.userProduct.products;
       } else if (activeTab.type === 'ability') {
-        productDataFromResponse = res.data.userAbility;
+        productDataFromResponse = res.data.userAbility.abilities;
       }
       setProductData(productDataFromResponse);
     });
