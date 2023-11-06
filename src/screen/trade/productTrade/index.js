@@ -143,7 +143,7 @@ function ProductTradeScreen() {
             }
           >
             {productData && productData?.length === 0 ? (
-              <EmptyTrade />
+              <EmptyTrade where={'거래 장터가'} />
             ) : (
               <div className="productGridContainer">
                 {productData?.map((e, i) => {
