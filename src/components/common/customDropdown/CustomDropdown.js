@@ -4,10 +4,11 @@ import downArrow from '../../../asset/down-arrow.svg';
 
 const CustomDropdown = ({
   showDropdown,
+  setSelectedItem,
   setShowDropdown,
   items,
   selectedItem,
-  setSelectedItem,
+  onChange,
 }) => {
   useEffect(() => {
     console.log(selectedItem);
@@ -27,8 +28,12 @@ const CustomDropdown = ({
           <li
             key={`${item}_${i}`}
             onClick={() => {
-              setSelectedItem(item);
               setShowDropdown();
+              if (onChange) {
+                onChange(item);
+              } else {
+                setSelectedItem(item);
+              }
             }}
             className={`dItem ${i === 0 ? 'fItem' : ''} ${
               item === selectedItem ? 'dsItem' : ''
