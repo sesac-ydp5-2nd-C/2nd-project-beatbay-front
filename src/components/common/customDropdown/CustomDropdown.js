@@ -4,6 +4,7 @@ import downArrow from '../../../asset/down-arrow.svg';
 
 const CustomDropdown = ({
   showDropdown,
+  setSelectedItem,
   setShowDropdown,
   items,
   selectedItem,
@@ -28,7 +29,11 @@ const CustomDropdown = ({
             key={`${item}_${i}`}
             onClick={() => {
               setShowDropdown();
-              onChange(item);
+              if (onChange) {
+                onChange(item);
+              } else {
+                setSelectedItem(item);
+              }
             }}
             className={`dItem ${i === 0 ? 'fItem' : ''} ${
               item === selectedItem ? 'dsItem' : ''
