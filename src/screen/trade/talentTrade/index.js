@@ -3,7 +3,7 @@ import './styles.scss';
 import { CSSTransition } from 'react-transition-group';
 import { useDispatch, useSelector } from 'react-redux';
 import tradeSample from '../../../asset/tradeSample.png';
-import RollingSpinner from '../../../asset/RollingSpinner.gif';
+import LoadingSpinner from '../../../components/common/loadingSpinner';
 import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
@@ -143,11 +143,7 @@ function TalentTradeScreen() {
             loader={
               startLoad ? (
                 <div className="loader" key={0}>
-                  <img
-                    src={RollingSpinner}
-                    alt="spinner"
-                    className="loaderGif"
-                  />
+                  <LoadingSpinner />
                 </div>
               ) : (
                 <div

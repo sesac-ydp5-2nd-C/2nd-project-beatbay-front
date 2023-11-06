@@ -5,7 +5,7 @@ import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
-import RollingSpinner from '../../../asset/RollingSpinner.gif';
+import LoadingSpinner from '../../../components/common/loadingSpinner';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeProduct } from '../../../api/trade';
 import emptyLogo from '../../../asset/emptyLogo.svg';
@@ -127,11 +127,7 @@ function ProductTradeScreen() {
             loader={
               startLoad ? (
                 <div className="loader" key={0}>
-                  <img
-                    src={RollingSpinner}
-                    alt="spinner"
-                    className="loaderGif"
-                  />
+                  <LoadingSpinner />
                 </div>
               ) : (
                 <div

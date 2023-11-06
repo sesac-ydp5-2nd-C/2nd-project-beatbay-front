@@ -8,9 +8,9 @@ import CustomDropdown from '../../../components/common/customDropdown/CustomDrop
 import MypageTab from '../../../components/MypageTab/MypageTab';
 import InfiniteScroll from 'react-infinite-scroller';
 import userImg from '../../../asset/profile_default.png';
-import RollingSpinner from '../../../asset/RollingSpinner.gif';
 
 import { getMySell } from '../../../api/mypage';
+import LoadingSpinner from '../../../components/common/loadingSpinner';
 
 export default function MypageListingsScreen() {
   const [userData, setUserData] = useState({
@@ -105,11 +105,7 @@ export default function MypageListingsScreen() {
                     <div>데이터가 없습니다</div>
                   ) : (
                     <div className="loader" key={0}>
-                      <img
-                        src={RollingSpinner}
-                        alt="spinner"
-                        className="loaderGif"
-                      />
+                      <LoadingSpinner />
                     </div>
                   )
                 ) : (
