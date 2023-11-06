@@ -5,7 +5,7 @@ import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
-import RollingSpinner from '../../../asset/RollingSpinner.gif';
+import LoadingSpinner from '../../../components/common/loadingSpinner';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeProduct } from '../../../api/trade';
 import emptyLogo from '../../../asset/emptyLogo.svg';
@@ -128,11 +128,7 @@ function ProductTradeScreen() {
             loader={
               startLoad ? (
                 <div className="loader" key={0}>
-                  <img
-                    src={RollingSpinner}
-                    alt="spinner"
-                    className="loaderGif"
-                  />
+                  <LoadingSpinner />
                 </div>
               ) : (
                 <div
@@ -147,7 +143,7 @@ function ProductTradeScreen() {
             }
           >
             {productData && productData?.length === 0 ? (
-              <EmptyTrade />
+              <EmptyTrade where={'거래 장터가'} />
             ) : (
               <div className="productGridContainer">
                 {productData?.map((e, i) => {
