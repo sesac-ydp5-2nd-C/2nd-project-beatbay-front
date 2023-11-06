@@ -9,6 +9,7 @@ import RollingSpinner from '../../../asset/RollingSpinner.gif';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeProduct } from '../../../api/trade';
 import emptyLogo from '../../../asset/emptyLogo.svg';
+import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
 
 function ProductTradeScreen() {
   const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
@@ -146,10 +147,7 @@ function ProductTradeScreen() {
             }
           >
             {productData && productData?.length === 0 ? (
-              <div className="emptyContainer" key={0}>
-                거래 장터가 비어있어요!
-                <img className="emptyLogo" alt="empty" src={emptyLogo} />
-              </div>
+              <EmptyTrade />
             ) : (
               <div className="productGridContainer">
                 {productData?.map((e, i) => {
