@@ -24,6 +24,7 @@ import chat from '../../../asset/chat.svg';
 import { productCategory, abilityCategory } from '../../../function/changeKey';
 import { calculateTime } from '../../../function/calculate';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
+import ImageModal from '../../../components/imageModal/ImageModal';
 
 function TradeDetailScreen() {
   const [detailData, setDetailData] = useState();
@@ -34,6 +35,7 @@ function TradeDetailScreen() {
   const items = ['판매중', '예약중', '거래완료'];
   const [selectedItem, setSelectedItem] = useState();
   const { id, type } = useParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const data = {
     id: 1,
     name: '정대만',
@@ -141,7 +143,18 @@ function TradeDetailScreen() {
                           onError={(e) => (e.target.src = tradeSample)}
                           className="tradeCarouselImg"
                         />
-                        <p className="legend">자세히 보기</p>
+                        <p
+                          style={{ cursor: 'pointer' }}
+                          className="legend"
+                          onClick={() => setIsModalOpen(e)}
+                        >
+                          자세히 보기
+                        </p>
+                        <ImageModal
+                          uri={`http://localhost:8000/uploads/${isModalOpen}`}
+                          isModalOpen={isModalOpen}
+                          setIsModalOpen={setIsModalOpen}
+                        />
                       </div>
                     );
                   })}
