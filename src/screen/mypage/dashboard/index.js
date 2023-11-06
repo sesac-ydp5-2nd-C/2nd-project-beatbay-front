@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 import Screen from '../../Screen';
-import { useSelector } from 'react-redux';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 import MypageProfile from '../../../components/mypageProfile/MypageProfile';
 import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
-import axios from 'axios';
 
 import userImg from '../../../asset/profile_default.png';
 import CustomModal from '../../../components/common/customModal/CustomModal';
-import { postUserLogin } from '../../../api/user';
 import { getMypage } from '../../../api/mypage';
 
 function MypageDashboardScreen() {
-  const authInfo = useSelector((state) => state.user.authInfo);
   const [mypageData, setMyPageData] = useState();
   const [reviewsData, setReviewsData] = useState([
     {
@@ -49,22 +45,18 @@ function MypageDashboardScreen() {
     },
   ]);
 
-  const gogogo = async () => {
-    postUserLogin().then((res) => {
-      console.log(res);
-      getMypage().then((result) => {
-        console.log(result);
-        setMyPageData(result.data);
-        // mypageData && console.log('mypageData:', mypageData);
-        // console.log('mypageData.userData:', mypageData.userData);
-      });
-    });
-  };
-
   useEffect(() => {
     gogogo();
-    console.log('mypageData:', mypageData);
   }, []);
+  const gogogo = () => {
+    getMypage().then((result) => {
+      if (result.data.userData) {
+        setMyPageData(result.data);
+      }
+      // mypageData && console.log('mypageData:', mypageData);
+      // console.log('mypageData.userData:', mypageData.userData);
+    });
+  };
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
