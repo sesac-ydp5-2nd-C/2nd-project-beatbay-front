@@ -20,7 +20,6 @@ import MypageChatScreen from '../screen/mypage/chat';
 import UserpageScreen from '../screen/userpage';
 import NoticeScreen from '../screen/notice';
 
-
 function App() {
   return (
     <div className="App">
@@ -54,7 +53,6 @@ function App() {
           <Route path="/mypage/chat" element={<MypageChatScreen />} />
 
           <Route path="/seller/:id" element={<UserpageScreen />} />
-
 
           <Route path="/notice" element={<NoticeScreen />} />
         </Routes>
