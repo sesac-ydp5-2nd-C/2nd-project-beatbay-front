@@ -33,10 +33,10 @@ export const postUserSignup = async (apiData) => {
 
 export const postUserLogin = async (apiData) => {
   const temp = {
-    userId: 'ethan',
-    userPw: 'asdfqwerty1!',
+    userId: 'helpme@naver.com',
+    userPw: 'HELP1234!',
   };
-  return await BB.post('/user/login', apiData);
+  return await BB.post('/user/login', temp);
 };
 
 /**
@@ -56,10 +56,5 @@ export const getUserLogout = async (apiData) => {
 };
 
 export const putUserFindPass = async (apiData) => {
-  const temp = {
-    userId: 'ethan',
-    userPw: 'asdfqwerty1!',
-    emailCode: '111111',
-  };
   return await BB.put('/user/findPass', apiData);
 };

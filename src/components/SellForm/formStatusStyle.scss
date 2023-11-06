@@ -1,0 +1,43 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.sellRadio {
+  cursor: pointer;
+  margin-right: toSize(30);
+  @include media('>1440px') {
+    margin-right: 30px;
+  }
+}
+
+.sellRadio > input {
+  display: none;
+}
+.sellRadio > input + *::before {
+  content: '';
+  display: inline-block;
+  vertical-align: bottom;
+  width: toSize(20);
+  height: toSize(20);
+  margin-right: toSize(10);
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #aaaaaa;
+  @include media('>1440px') {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+}
+.sellRadio > input:checked + * {
+  color: #878be5;
+}
+.sellRadio > input:checked + *::before {
+  background: radial-gradient(
+    #878be5 0%,
+    #878be5 40%,
+    transparent 50%,
+    transparent
+  );
+  border-color: #878be5;
+}
