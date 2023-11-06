@@ -104,7 +104,7 @@ const SignInUpScreen = () => {
         localStorage.setItem('login_id', res.data.logUserData.id);
         console.log(res);
 
-        if (res.data.true) {
+        if (res.data.result) {
           navigate(`../`);
         } else {
           setErrorMessage('로그인 실패');

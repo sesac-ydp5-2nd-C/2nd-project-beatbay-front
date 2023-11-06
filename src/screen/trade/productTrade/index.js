@@ -115,7 +115,7 @@ function ProductTradeScreen() {
             loader={
               startLoad ? (
                 productData?.length === 0 ? (
-                  <div className="emptyContainer">
+                  <div className="emptyContainer" key={0}>
                     거래 장터가 비어있어요!
                     <img className="emptyLogo" alt="empty" src={emptyLogo} />
                   </div>
@@ -129,7 +129,10 @@ function ProductTradeScreen() {
                   </div>
                 )
               ) : (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                  key={0}
+                >
                   <div onClick={() => setStartLoad(true)} className="seeMore">
                     더 보기 +
                   </div>
