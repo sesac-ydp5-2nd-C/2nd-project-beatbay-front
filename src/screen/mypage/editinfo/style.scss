@@ -14,7 +14,41 @@ h1 {
   }
 }
 .editInformation {
+  width: toSize(180);
+  height: toSize(30);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: white;
+  font-size: toSize(20);
+  font-weight: 700;
+  background-color: #30338a;
+  border-radius: toSize(8);
+  @include media('>1440px') {
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 8px;
+  }
 }
+
+// .editForm {
+//   width: 100%;
+//   background-color: white;
+//   border-radius: toSize(15);
+//   padding: toSize(105);
+//   padding-bottom: toSize(200);
+//   font-size: toSize(20);
+//   font-weight: 500;
+//   @include media('>1440px') {
+//     border-radius: 15px;
+//     padding: 105px;
+//     padding-bottom: 200px;
+//     font-size: 20px;
+//     font-weight: 500;
+//   }
+// }
 
 // form {
 //   max-width: 400px;

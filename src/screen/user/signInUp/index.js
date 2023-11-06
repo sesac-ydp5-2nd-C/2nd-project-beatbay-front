@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // 스타일 파일 추가
 import './style.scss';
 
@@ -24,6 +25,8 @@ const SignInUpScreen = () => {
   const [mailCheckMessage, setMailCheckMessage] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSignUpClick = () => {
     // 체크박스가 체크된 상태인지 확인하고 토글
@@ -68,12 +71,12 @@ const SignInUpScreen = () => {
         userId: email,
         userPw: password,
         userNickname: name,
-
         authCode: certification,
       };
       postUserSignup(apiData).then((res) => {
         console.log(res);
       });
+      setErrorMessage('회원가입이 완료되었습니다.');
     }
   };
 
@@ -99,6 +102,12 @@ const SignInUpScreen = () => {
 
       postUserLogin(apiData).then((res) => {
         console.log(res);
+
+        if (res.data.true) {
+          navigate(`../`);
+        } else {
+          setErrorMessage('로그인 실패');
+        }
       });
     }
   };

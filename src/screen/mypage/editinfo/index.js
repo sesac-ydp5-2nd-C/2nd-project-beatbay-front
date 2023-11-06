@@ -6,14 +6,27 @@ import './style.scss';
 // import SellFromImg from '../../../components/SellForm/SellFromImg';
 // import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 // import { useNavigate } from 'react-router-dom';
+import userImg from '../../../asset/profile_default.png';
+
+import InterestTag from '../../../components/interestTag/InterestTag';
 
 function MypageEditInformationScreen() {
+  const [userData, setUserData] = useState({
+    user_nickname: '이재민',
+    comment: '안녕하세요 기타치는 이재민 입니다.',
+    user_interests: ['밴드', '베이스', '레슨'],
+    imgSrc: userImg,
+    user_id: 'beatbay@gmail.com',
+    user_pw: 'qwerty1234!',
+  });
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [introduction, setIntroduction] = useState('');
   const [interests, setInterests] = useState('');
   const [profileImage, setProfileImage] = useState(null);
+  const [interestTag, setInterestTag] = useState('');
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -29,8 +42,9 @@ function MypageEditInformationScreen() {
     <Screen>
       <div className="editInformationContainer">
         <div className="PIContainer">
-          <div className="DDContent">
+          <div className="editForm">
             <h1>회원정보 수정</h1>
+
             <form onSubmit={handleUpdate}>
               ID : beatbay@gmail.com
               <br />
@@ -73,7 +87,7 @@ function MypageEditInformationScreen() {
                 rows="4"
                 cols="50"
                 required
-                placeholder="안녕하세요 기타치는 이재민입니다"
+                placeholder="자기소개를 입력해 주세요"
               />
               <br />
               <label htmlFor="interests">관심분야 태그:</label>
@@ -97,6 +111,14 @@ function MypageEditInformationScreen() {
                 회원탈퇴
               </button>
               <button type="submit">등록</button>
+              관심분야
+              <input
+                type="text"
+                id="interestTag"
+                name="interestTag"
+                onChange={(e) => setInterestTag(e.target.value)}
+              />
+              <InterestTag userData={userData} />
             </form>
           </div>
         </div>
