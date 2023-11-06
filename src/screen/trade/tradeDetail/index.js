@@ -18,6 +18,7 @@ import {
   getTradeDetailProduct,
   patchTradeLikeAbility,
   patchTradeLikeProduct,
+  patchTradeUpdateStatus,
 } from '../../../api/trade';
 import chat from '../../../asset/chat.svg';
 import { productCategory, abilityCategory } from '../../../function/changeKey';
@@ -29,8 +30,9 @@ function TradeDetailScreen() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isLike, setIsLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const items = ['판매중', '예약중', '거래완료'];
-  const [selectedItem, setSelectedItem] = useState(items[0]);
+  const [selectedItem, setSelectedItem] = useState();
   const { id, type } = useParams();
   const data = {
     id: 1,
@@ -52,10 +54,12 @@ function TradeDetailScreen() {
       ? getTradeDetailProduct({ product_id: id })
       : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
+      console.log(res.data);
       if (res?.data[type]) {
-        console.log(res.data[type]);
+        setLikeCount(res.data.likeCount);
         setDetailData(res.data[type]);
-        setIsLike(res.data[type][`${type}_isLike`]);
+        setIsLike(res.data.isLike == 0 ? false : true);
+        setSelectedItem(items[Number(res.data[type][`${type}_update`]) - 1]);
       }
       // console.log(JSON.parse(res.data[type][`${type}_file_path`]));
     });
@@ -69,10 +73,13 @@ function TradeDetailScreen() {
           ? patchTradeLikeProduct({ product_id: id })
           : patchTradeLikeAbility({ ability_id: id })
         ).then((res) => {
-          if (res.data.like === 'success' || res.data.like === 'cancel') {
-            console.log(res.data.like);
-            setIsLike(!isLike);
-            setLoading(false);
+          console.log(res.data.like);
+          setIsLike(!isLike);
+          setLoading(false);
+          if (res.data.like === 'success') {
+            setLikeCount(likeCount + 1);
+          } else if (res.data.like === 'cancel') {
+            setLikeCount(likeCount - 1);
           }
         });
       } else {
@@ -87,6 +94,19 @@ function TradeDetailScreen() {
     } else {
       return abilityCategory(parentKey, key);
     }
+  };
+
+  const handleStatus = (item) => {
+    const apiData = {
+      type: type === 'product' ? 0 : 1,
+      id: detailData[`${type}_id`],
+      update: items.indexOf(item) + 1,
+    };
+    patchTradeUpdateStatus(apiData).then((res) => {
+      if (res.data.update) {
+        setSelectedItem(item);
+      }
+    });
   };
 
   return (
@@ -152,7 +172,7 @@ function TradeDetailScreen() {
                     {detailData[`${type}_count`]}
                   </div>
                   <img alt="icon" src={tradeLike} className={'TVLIcon TVMB'} />
-                  {detailData[`${type}_like`]}
+                  {likeCount}
 
                   {/* 글을 작성한 사람이면 드롭다운, 아니면 div  */}
 
@@ -165,6 +185,7 @@ function TradeDetailScreen() {
                     setShowDropdown={() => setShowDropdown(!showDropdown)}
                     items={items}
                     selectedItem={selectedItem}
+                    onChange={handleStatus}
                     setSelectedItem={setSelectedItem}
                   />
                 </div>
@@ -187,7 +208,6 @@ function TradeDetailScreen() {
             </div>
 
             <div className="flexEnd">
-              {/* <button className="tDBtn">거래상태</button> */}
               <button className="tDBtn">수정</button>
               <button className="tDBtn">삭제</button>
             </div>

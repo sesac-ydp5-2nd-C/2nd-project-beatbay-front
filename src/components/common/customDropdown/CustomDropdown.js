@@ -7,7 +7,7 @@ const CustomDropdown = ({
   setShowDropdown,
   items,
   selectedItem,
-  setSelectedItem,
+  onChange,
 }) => {
   useEffect(() => {
     console.log(selectedItem);
@@ -27,8 +27,8 @@ const CustomDropdown = ({
           <li
             key={`${item}_${i}`}
             onClick={() => {
-              setSelectedItem(item);
               setShowDropdown();
+              onChange(item);
             }}
             className={`dItem ${i === 0 ? 'fItem' : ''} ${
               item === selectedItem ? 'dsItem' : ''
