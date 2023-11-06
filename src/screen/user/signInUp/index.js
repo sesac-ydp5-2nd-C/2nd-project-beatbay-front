@@ -7,6 +7,7 @@ import './style.scss';
 import {
   postUserCertification,
   postUserEmailCodeCheck,
+  postUserIdExists,
   postUserLogin,
   postUserSignup,
   putUserFindPass,
@@ -163,7 +164,9 @@ const SignInUpScreen = () => {
       console.log(res);
 
       if (res.data.result === true) {
-        setIsEmailVerified(!isEmailVerified);
+        if (isEmailVerified === false) {
+          setIsEmailVerified(!isEmailVerified);
+        }
         setMailCheckMessage('메일 인증 완료!');
       } else {
         setMailCheckMessage('올바르지 않은 코드입니다');
@@ -206,6 +209,21 @@ const SignInUpScreen = () => {
     }
   };
 
+  //이메일 중복확인 함수
+  const checkEmail = () => {
+    console.log('checking Email');
+    const apiData = { userId: email };
+    postUserIdExists(apiData).then((res) => {
+      console.log(res);
+
+      if (res.data.result === true) {
+        setMailCheckMessage(res.data.message + '이메일 인증을 진행하세요!');
+      } else if (res.data.result === false) {
+        setErrorMessage(res.data.message);
+      }
+    });
+  };
+
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
       <div
@@ -222,13 +240,17 @@ const SignInUpScreen = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <input
-            type="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {/* {errorMessage} */}
+          <div className="email-authentication">
+            <input
+              type="email"
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ width: '69%' }}
+            />
+            <button onClick={checkEmail}>이메일 중복확인</button>
+            {/* {errorMessage} */}
+          </div>
           <input
             type="password"
             placeholder="비밀번호"

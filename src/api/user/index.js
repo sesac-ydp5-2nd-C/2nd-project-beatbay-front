@@ -23,14 +23,16 @@ export const postUserSignup = async (apiData) => {
   };
   return await BB.post('/user/signup', apiData);
 };
-//아이디 확인 나중에
-// export const postUserIdExists = async (apiData) => {
-//   const temp = {
-//     userId: '?????',
-//   };
-//   return await BB.post('/user/isExists', apiData);
-// };
 
+//이메일(아이디) 중복 확인
+export const postUserIdExists = async (apiData) => {
+  const temp = {
+    userId: 'jck1004ee@naver.com',
+  };
+  return await BB.post('/user/idExists', apiData);
+};
+
+//로그인
 export const postUserLogin = async (apiData) => {
   return await BB.post('/user/login', apiData);
 };
