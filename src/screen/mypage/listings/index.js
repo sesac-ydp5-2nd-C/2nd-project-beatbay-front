@@ -39,11 +39,12 @@ export default function MypageListingsScreen() {
 
   useEffect(() => {
     setStartLoad(true);
+    console.log(activeTab);
     getSellList();
   }, [selectedItem, activeTab]);
 
   const getSellList = async () => {
-    setProductData();
+    setProductData(null);
     const apiData = {
       type: activeTab.type === 'product' ? 0 : 1,
       update: items.indexOf(selectedItem),
@@ -57,6 +58,7 @@ export default function MypageListingsScreen() {
       } else if (activeTab.type === 'ability') {
         productDataFromResponse = res.data.userAbility.abilities;
       }
+      console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
     });
   };
@@ -94,11 +96,11 @@ export default function MypageListingsScreen() {
               pageStart={0}
               loadMore={() => {
                 if (productData?.length > 0 && startLoad) {
-                  setProductData([...productData, ...productData]);
-                  console.log(productData);
+                  // setProductData([...productData, ...productData]);
+                  // console.log(productData);
                 }
               }}
-              hasMore={true}
+              hasMore={false}
               loader={
                 startLoad ? (
                   productData?.length === 0 ? (

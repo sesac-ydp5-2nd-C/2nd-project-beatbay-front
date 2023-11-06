@@ -11,6 +11,7 @@ import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeAbility } from '../../../api/trade';
 import emptyLogo from '../../../asset/emptyLogo.svg';
+import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
 
 function TalentTradeScreen() {
   const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
@@ -162,10 +163,7 @@ function TalentTradeScreen() {
             }
           >
             {productData && productData?.length === 0 ? (
-              <div className="emptyContainer" key={0}>
-                재능 장터가 비어있어요!
-                <img className="emptyLogo" alt="empty" src={emptyLogo} />
-              </div>
+              <EmptyTrade />
             ) : (
               <div className="productGridContainer">
                 {productData?.map((e, i) => {

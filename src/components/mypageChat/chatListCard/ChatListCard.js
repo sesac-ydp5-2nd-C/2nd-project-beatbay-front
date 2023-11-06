@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import './styles.scss';
 
-const ChatListCard = ({ data }) => {
+const ChatListCard = ({ data, onClick }) => {
   return (
-    <div className="chatCard">
+    <div className="chatCard" onClick={() => onClick(data.room_id)}>
       <img alt="profile" src={data.user_img} className="cpImage" />
       <div className="cpInfo">
         <p>{data.user_name}</p>

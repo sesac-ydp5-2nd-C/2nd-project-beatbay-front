@@ -60,7 +60,9 @@ export const patchTradeLikeAbility = async (apiData) => {
 
 /**
  * 거래 상태 수정
- * @param {Number} apiData.ability_id 조회할 재능의 id
+ * @param {Number} apiData.type
+ * @param {Number} apiData.id
+ * @param {Number} apiData.update
  */
 export const patchTradeUpdateStatus = async (apiData) => {
   return await BB.patch('/trade/updateStatus', apiData);
