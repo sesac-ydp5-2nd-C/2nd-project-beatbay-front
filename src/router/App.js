@@ -14,6 +14,8 @@ import TradeDetailScreen from '../screen/trade/tradeDetail';
 import Userpage from '../screen/userpage';
 import TradeSellScreen from '../screen/trade/tradeSell';
 import MypageChatScreen from '../screen/mypage/chat';
+import UserpageScreen from '../screen/userpage';
+import NoticeScreen from '../screen/notice';
 
 function App() {
   return (
@@ -41,7 +43,9 @@ function App() {
           <Route path="/mypage/like" element={<MypageLikesScreen />} />
           <Route path="/mypage/chat" element={<MypageChatScreen />} />
 
-          <Route path="/seller/" element={<Userpage />} />
+          <Route path="/seller/:id" element={<UserpageScreen />} />
+
+          <Route path="/notice" element={<NoticeScreen />} />
         </Routes>
       </BrowserRouter>
     </div>
