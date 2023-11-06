@@ -11,7 +11,6 @@ import { getTradeProduct } from '../../../api/trade';
 import emptyLogo from '../../../asset/emptyLogo.svg';
 
 function ProductTradeScreen() {
-  const authInfo = useSelector((state) => state.user.authInfo);
   const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
   const tabsData = [
     {
@@ -41,27 +40,41 @@ function ProductTradeScreen() {
   const [productData, setProductData] = useState();
   const [startLoad, setStartLoad] = useState(true);
   const [searchText, setSearchText] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
     // 카테고리, 순서 바뀔때 마다 초기화
     setStartLoad(true);
+    setCurrentPage(0);
+    setTotalPage(1);
     getTradeList();
   }, [selectedItem, activeContent]);
 
-  const getTradeList = async (search = null) => {
+  const getTradeList = async (search = null, page = null) => {
     setProductData();
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,
       subCategoryNum: activeTab.content.indexOf(activeContent) + 1,
       searchKeyword: search ? search : undefined,
+      page: page ? page : undefined,
     };
     getTradeProduct(apiData).then((res) => {
       console.log(res);
-      const settingData = res.data?.products ? res.data?.products : [];
-      setProductData(settingData);
+      const settingData = res.data?.products.products
+        ? res.data?.products.products
+        : [];
+      if (page) {
+        setProductData([...productData, ...settingData]);
+      } else {
+        setProductData(settingData);
+      }
+      setCurrentPage(res.data?.products.pageNum);
+      setTotalPage(res.data?.products.totalPages);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
-      if (settingData?.length > 0) {
+      if (res.data?.products.totalPages > res.data?.products.pageNum) {
+        // if (true) {
         setStartLoad(false);
       }
     });
@@ -107,27 +120,19 @@ function ProductTradeScreen() {
             pageStart={0}
             loadMore={() => {
               if (productData?.length > 0 && startLoad) {
-                setProductData([...productData, ...productData]);
-                console.log(productData);
+                getTradeList(null, currentPage + 1);
               }
             }}
-            hasMore={true}
+            hasMore={totalPage > currentPage ? true : false}
             loader={
               startLoad ? (
-                productData?.length === 0 ? (
-                  <div className="emptyContainer" key={0}>
-                    거래 장터가 비어있어요!
-                    <img className="emptyLogo" alt="empty" src={emptyLogo} />
-                  </div>
-                ) : (
-                  <div className="loader" key={0}>
-                    <img
-                      src={RollingSpinner}
-                      alt="spinner"
-                      className="loaderGif"
-                    />
-                  </div>
-                )
+                <div className="loader" key={0}>
+                  <img
+                    src={RollingSpinner}
+                    alt="spinner"
+                    className="loaderGif"
+                  />
+                </div>
               ) : (
                 <div
                   style={{ display: 'flex', justifyContent: 'center' }}
@@ -140,9 +145,14 @@ function ProductTradeScreen() {
               )
             }
           >
-            <div className="productGridContainer">
-              {productData &&
-                productData?.map((e, i) => {
+            {productData && productData?.length === 0 ? (
+              <div className="emptyContainer" key={0}>
+                거래 장터가 비어있어요!
+                <img className="emptyLogo" alt="empty" src={emptyLogo} />
+              </div>
+            ) : (
+              <div className="productGridContainer">
+                {productData?.map((e, i) => {
                   return (
                     <TradeCard
                       key={`${i}_${e.title}`}
@@ -151,7 +161,8 @@ function ProductTradeScreen() {
                     />
                   );
                 })}
-            </div>
+              </div>
+            )}
           </InfiniteScroll>
         </div>
       </div>

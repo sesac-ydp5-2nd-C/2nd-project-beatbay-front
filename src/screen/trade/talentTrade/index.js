@@ -56,29 +56,41 @@ function TalentTradeScreen() {
   const [activeTab, setActiveTab] = useState(tabsData[0]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
-  const [productData, setProductData] = useState([]);
+  const [productData, setProductData] = useState();
   const [startLoad, setStartLoad] = useState(true);
   const [searchText, setSearchText] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
     setStartLoad(true);
+    setCurrentPage(0);
+    setTotalPage(1);
     getAbilityList();
   }, [selectedItem, activeContent, activeTab]);
 
-  const getAbilityList = async (search = null) => {
+  const getAbilityList = async (search = null, page = null) => {
     setProductData();
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,
       subCategoryNum: activeTab.content.indexOf(activeContent) + 1,
       searchKeyword: search ? search : undefined,
+      page: page ? page : undefined,
     };
-    console.log(apiData);
     getTradeAbility(apiData).then((res) => {
-      const settingData = res.data?.abilities ? res.data?.abilities : [];
-      setProductData(res.data?.abilities ? res.data?.abilities : []);
+      const settingData = res.data?.abilities.abilities
+        ? res.data?.abilities.abilities
+        : [];
+      if (page) {
+        setProductData([...productData, ...settingData]);
+      } else {
+        setProductData(settingData);
+      }
+      setCurrentPage(res.data?.abilities.pageNum);
+      setTotalPage(res.data?.abilities.totalPages);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
-      if (settingData?.length > 0) {
+      if (res.data?.abilities.totalPages > res.data?.abilities.pageNum) {
         setStartLoad(false);
       }
     });
@@ -120,30 +132,23 @@ function TalentTradeScreen() {
             />
           </div>
           <InfiniteScroll
+            key={0}
             pageStart={0}
             loadMore={() => {
               if (productData?.length > 0 && startLoad) {
-                setProductData([...productData, ...productData]);
-                console.log(productData);
+                getAbilityList(null, currentPage + 1);
               }
             }}
-            hasMore={true}
+            hasMore={totalPage > currentPage ? true : false}
             loader={
               startLoad ? (
-                productData?.length === 0 ? (
-                  <div className="emptyContainer" key={0}>
-                    재능 장터가 비어있어요!
-                    <img className="emptyLogo" alt="empty" src={emptyLogo} />
-                  </div>
-                ) : (
-                  <div className="loader" key={0}>
-                    <img
-                      src={RollingSpinner}
-                      alt="spinner"
-                      className="loaderGif"
-                    />
-                  </div>
-                )
+                <div className="loader" key={0}>
+                  <img
+                    src={RollingSpinner}
+                    alt="spinner"
+                    className="loaderGif"
+                  />
+                </div>
               ) : (
                 <div
                   style={{ display: 'flex', justifyContent: 'center' }}
@@ -156,9 +161,14 @@ function TalentTradeScreen() {
               )
             }
           >
-            <div className="productGridContainer">
-              {productData &&
-                productData?.map((e, i) => {
+            {productData && productData?.length === 0 ? (
+              <div className="emptyContainer" key={0}>
+                재능 장터가 비어있어요!
+                <img className="emptyLogo" alt="empty" src={emptyLogo} />
+              </div>
+            ) : (
+              <div className="productGridContainer">
+                {productData?.map((e, i) => {
                   return (
                     <TradeCard
                       key={`${i}_${e.title}`}
@@ -167,7 +177,8 @@ function TalentTradeScreen() {
                     />
                   );
                 })}
-            </div>
+              </div>
+            )}
           </InfiniteScroll>
         </div>
       </div>

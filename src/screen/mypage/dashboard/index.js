@@ -50,8 +50,9 @@ function MypageDashboardScreen() {
   }, []);
   const gogogo = () => {
     getMypage().then((result) => {
-      console.log(result);
-      setMyPageData(result.data);
+      if (result.data.userData) {
+        setMyPageData(result.data);
+      }
       // mypageData && console.log('mypageData:', mypageData);
       // console.log('mypageData.userData:', mypageData.userData);
     });

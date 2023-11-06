@@ -142,12 +142,18 @@
   }
 
   .tLike {
+    cursor: pointer;
+    transition: 0.2s;
     width: toSize(40);
     height: toSize(40);
     @include media('>1440px') {
       width: 40px;
       height: 40px;
     }
+  }
+
+  .tLike:hover {
+    transform: scale(1.05);
   }
 
   .detailPrice {
