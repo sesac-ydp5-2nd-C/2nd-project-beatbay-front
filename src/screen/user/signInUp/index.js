@@ -20,11 +20,13 @@ const SignInUpScreen = () => {
   const [name, setName] = useState('');
   const [certification, setCertification] = useState('');
 
-  const [isChecked, setIsChecked] = useState(false); // 추가된 부분
+  const [isChecked, setIsChecked] = useState(false);
 
   const [mailCheckMessage, setMailCheckMessage] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const navigate = useNavigate();
 
@@ -130,6 +132,7 @@ const SignInUpScreen = () => {
     );
   };
 
+  ///인증메일 전송 함수
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // 체크박스를 토글
   };
@@ -153,6 +156,7 @@ const SignInUpScreen = () => {
     }
   };
 
+  //인증번호 확인 함수
   const checkAuth = () => {
     console.log('Checking');
     const apiData = { emailCode: certification };
@@ -160,6 +164,7 @@ const SignInUpScreen = () => {
       console.log(res);
 
       if (res.data.result === true) {
+        setIsEmailVerified(!isEmailVerified);
         setMailCheckMessage('메일 인증 완료!');
       } else {
         setMailCheckMessage('올바르지 않은 코드입니다');
@@ -167,6 +172,7 @@ const SignInUpScreen = () => {
     });
   };
 
+  //비밀번호 변경 함수
   const sendPw = () => {
     if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다.');
@@ -229,6 +235,8 @@ const SignInUpScreen = () => {
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className={isEmailVerified ? '' : 'disabled-input'}
+            disabled={!isEmailVerified}
           />
           {/* {errorMessage} */}
           <input
@@ -236,6 +244,8 @@ const SignInUpScreen = () => {
             placeholder="비밀번호 확인"
             value={passwordCheck}
             onChange={(e) => setPasswordCheck(e.target.value)}
+            className={isEmailVerified ? '' : 'disabled-input'}
+            disabled={!isEmailVerified}
           />
           <div className="email-authentication">
             <input
@@ -350,6 +360,8 @@ const SignInUpScreen = () => {
               placeholder="비밀번호"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className={isEmailVerified ? '' : 'disabled-input'}
+              disabled={!isEmailVerified}
             />
             {/* {errorMessage} */}
             <input
@@ -357,6 +369,8 @@ const SignInUpScreen = () => {
               placeholder="비밀번호 확인"
               value={passwordCheck}
               onChange={(e) => setPasswordCheck(e.target.value)}
+              className={isEmailVerified ? '' : 'disabled-input'}
+              disabled={!isEmailVerified}
             />
             <p className="error-message" style={{ color: 'black' }}>
               {mailCheckMessage}
