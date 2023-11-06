@@ -8,6 +8,7 @@ import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import userImg from '../../../asset/profile_default.png';
 import CustomModal from '../../../components/common/customModal/CustomModal';
 import { getMypage } from '../../../api/mypage';
+import { Link } from 'react-router-dom';
 
 function MypageDashboardScreen() {
   const [mypageData, setMyPageData] = useState();
@@ -85,30 +86,32 @@ function MypageDashboardScreen() {
             <div className="MpProfile">
               <MypageProfile userData={mypageData.userData} />
               <div className="figures">
-                <div className="figure items">
-                  <h2>상품</h2>
-                  <p>{mypageData.itemCount}</p>
-                </div>
+                <Link to="/mypage/sell">
+                  <div className="figure items">
+                    <h2>상품</h2>
+                    <p>{mypageData.itemCount}</p>
+                  </div>
+                </Link>
                 <div
                   className="figure followers"
                   onClick={() => openModal(reviewsData, '리뷰')}
                 >
                   <h2>후기</h2>
-                  <p>{mypageData.userData.user_comment ?? 0}</p>
+                  <p>{mypageData.reviewCount}</p>
                 </div>
                 <div
                   className="figure followers"
                   onClick={() => openModal(followData, '팔로워')}
                 >
                   <h2>팔로워</h2>
-                  <p>{followData.length}</p>
+                  <p>{mypageData.followerCount}</p>
                 </div>
                 <div
                   className="figure following"
                   onClick={() => openModal(followData, '팔로잉')}
                 >
                   <h2>팔로잉</h2>
-                  <p>{followData.length}</p>
+                  <p>{mypageData.followingCount}</p>
                 </div>
               </div>
             </div>

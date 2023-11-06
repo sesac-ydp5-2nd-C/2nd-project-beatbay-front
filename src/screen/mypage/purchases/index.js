@@ -26,6 +26,7 @@ export default function MypagePurchasesScreen() {
     },
   ];
 
+  const [activeTab, setActiveTab] = useState(tabsData[0]);
   const [productData, setProductData] = useState(
     new Array(8).fill({
       title: '텔레캐스터 민트 팝니다',
@@ -49,7 +50,11 @@ export default function MypagePurchasesScreen() {
                 <MypageVinyl userData={userData} />
               </div>
             </div>
-            <MypageTab tabsData={tabsData} />
+            <MypageTab
+              tabsData={tabsData}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
 
             <InfiniteScroll
               pageStart={0}
@@ -66,7 +71,13 @@ export default function MypagePurchasesScreen() {
             >
               <div className="MpGridContainer">
                 {productData.map((e, i) => {
-                  return <TradeCard key={`${i}_${e.title}`} data={e} />;
+                  return (
+                    <TradeCard
+                      key={`${i}_${e.title}`}
+                      data={e}
+                      type={activeTab.type}
+                    />
+                  );
                 })}
               </div>
             </InfiniteScroll>

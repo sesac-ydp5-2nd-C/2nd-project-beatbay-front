@@ -20,16 +20,19 @@ export default function MypagePurchasesScreen() {
     {
       id: 1,
       title: '상품',
+      type: 'product',
     },
     {
       id: 2,
       title: '재능',
+      type: 'ability',
     },
   ];
 
   const items = ['전체', '판매중', '판매완료'];
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
+  const [activeTab, setActiveTab] = useState(tabsData[0]);
 
   const [productData, setProductData] = useState(
     new Array(8).fill({
@@ -54,7 +57,11 @@ export default function MypagePurchasesScreen() {
                 <MypageVinyl userData={userData} />
               </div>
             </div>
-            <MypageTab tabsData={tabsData} />
+            <MypageTab
+              tabsData={tabsData}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
             <CustomDropdown
               showDropdown={showDropdown}
               setShowDropdown={() => setShowDropdown(!showDropdown)}
@@ -78,7 +85,13 @@ export default function MypagePurchasesScreen() {
             >
               <div className="MpGridContainer">
                 {productData.map((e, i) => {
-                  return <TradeCard key={`${i}_${e.title}`} data={e} />;
+                  return (
+                    <TradeCard
+                      key={`${i}_${e.title}`}
+                      data={e}
+                      type={activeTab.type}
+                    />
+                  );
                 })}
               </div>
             </InfiniteScroll>

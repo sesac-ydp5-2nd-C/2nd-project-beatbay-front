@@ -45,6 +45,10 @@
     grid-gap: 10px;
     width: 400px;
   }
+  a {
+    text-decoration: none;
+    color: black;
+  }
 }
 
 .figure {
@@ -54,6 +58,7 @@
   width: toSize(200);
   height: toSize(110);
   text-align: center;
+  cursor: pointer;
   @include media('<=768px') {
     width: 30vw;
     height: 16vw;

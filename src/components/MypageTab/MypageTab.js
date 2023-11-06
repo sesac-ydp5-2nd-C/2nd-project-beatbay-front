@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './style.scss';
 
-export default function MypageTab({ tabsData }) {
-  const [activeTab, setActiveTab] = useState(tabsData[0]);
+export default function MypageTab({ tabsData, activeTab, setActiveTab }) {
   return (
     <div className="mpTabs-Container">
       <ul className="mpTabList">
