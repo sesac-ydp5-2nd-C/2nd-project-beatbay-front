@@ -8,24 +8,32 @@ import CustomCarousel from '../../components/MainPage/customCarousel/CustomCarou
 import ColumnCard from '../../components/MainPage/columnCard/ColumnCard';
 import CustomFooter from '../../components/MainPage/customFooter/CustomFooter';
 import { Cookies } from 'react-cookie';
+import mainVideo1 from '../../asset/mainVideo1.mp4';
+import mainVideo2 from '../../asset/mainVideo2.mp4';
 
 function MainScreen() {
   const cookies = new Cookies();
   const [columnData, setColumnData] = useState([
     {
       src: 'columnImg1.png',
-      title: '나는 왜\n코딩이 어려운가',
-      content: '미주알고주알미주알고주알미주알고주알미주알고주알미주알고주알',
+      title: '느리고 점진적인: 록의 죽음에 대해',
+      content:
+        '‘록은 쇠퇴했다’. ‘Rock Will Never Die’가 록 음악의 팬들에게 오랜 시간 동안 통용되었던 격언이라는 것을 생각해 보면, 록이 더 이상 주류의, 혹은 인기 있는 음악이 아니라는 건 모든 사람이 인정할 수밖에 없는 사실로 보인다.',
+      url: 'https://heterophony.kr/death-of-rock/',
     },
     {
       src: 'columnImg2.png',
-      title: '기타의 매력에 대한\n네 가지 해석',
-      content: '미주알고주알미주알고주알미주알고주알미주알고주알미주알고주알',
+      title: '대중음악의 힘',
+      content:
+        '대중음악은 우리 삶의 반영이자 감정을 나타내는 예술로, 밥 딜런과 같은 아티스트들은 음악을 통해 사회적 메시지와 감동을 전달해왔습니다.',
+      url: 'https://www.daejonilbo.com/news/articleView.html?idxno=2078719',
     },
     {
       src: 'columnImg3.png',
-      title: '왜 클래식을 듣는가?',
-      content: '미주알고주알미주알고주알미주알고주알미주알고주알미주알고주알',
+      title: '음악가들의 별칭, 제대로 붙인 걸까?',
+      content:
+        '학교 음악시간에 음악의 대가들에 대해 배울 때, 그 이름 앞에 수식어처럼 붙는 별칭도 알아두어야 했다. ‘음악의 아버지 바흐’, ‘교향곡의 아버지 하이든’, ‘음악의 신동 모차르트’, ‘악성 베토벤’, ‘가곡의 왕 슈베르트’, ‘피아노의 시인 쇼팽’, ‘왈츠의 왕 요한 슈트라우스’, ‘가극(오페라)의 제왕 베르디’. 과연 이 별칭들은 제대로 잘 갖다 붙인 것일까? 지금부터 확인해보자.',
+      url: 'https://www.thecolumnist.kr/news/articleView.html?idxno=967',
     },
   ]);
   const authInfo = useSelector((state) => state.user.authInfo);
@@ -54,9 +62,9 @@ function MainScreen() {
         <div className="scrollBall"></div>
       </div>
 
-      <IntroVideo src={'sampleVideo.webm'} />
+      <IntroVideo src={mainVideo1} />
 
-      <IntroVideo src={'sampleVideo.webm'} reverse />
+      <IntroVideo src={mainVideo2} reverse />
 
       <CustomCarousel />
 
@@ -70,6 +78,7 @@ function MainScreen() {
                 src={e.src}
                 title={e.title}
                 content={e.content}
+                url={e.url}
               />
             );
           })}

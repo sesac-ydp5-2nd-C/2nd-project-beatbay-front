@@ -3,6 +3,7 @@ import './styles.scss';
 import notion from '../../../asset/notion.svg';
 import logo from '../../../asset/footer_logo.svg';
 import github from '../../../asset/github.svg';
+import { Link } from 'react-router-dom';
 
 export default function CustomFooter() {
   return (
@@ -14,8 +15,13 @@ export default function CustomFooter() {
             이 프로젝트의 목적은 개인적인 학습과 기술 데모를 위한 것이며,
             상업적인 용도로 사용하지 않습니다.
           </p>
-          <img alt="notionIcon" src={notion} className="notionIcon" />
-          <img alt="githubIcon" src={github} className="githubIcon" />
+          <p>| 프로젝트기간 | 2023. 10. 23 ~ 11. 10</p>
+          <Link to="https://sage-h.notion.site/MAIN-HOME-5d2de6edd8874230bffc78374d1020a5?pvs=4">
+            <img alt="notionIcon" src={notion} className="notionIcon" />
+          </Link>
+          <Link to="https://github.com/sesac-ydp5-2nd-C">
+            <img alt="githubIcon" src={github} className="githubIcon" />
+          </Link>
         </div>
         <div className="footerTeamInfo">
           <div className="teamBack">
