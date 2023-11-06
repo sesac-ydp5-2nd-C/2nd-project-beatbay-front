@@ -5,7 +5,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: toSize(20);
+
+  @include media('>1440px') {
+    margin-bottom: 20px;
+  }
 
   .mpTabList {
     position: relative;
