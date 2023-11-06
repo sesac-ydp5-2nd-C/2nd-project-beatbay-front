@@ -105,6 +105,7 @@ const SignInUpScreen = () => {
       console.log('signing up');
 
       postUserLogin(apiData).then((res) => {
+        localStorage.setItem('login_id', res.data.logUserData.id);
         console.log(res);
 
         if (res.data.result === true) {

@@ -7,8 +7,10 @@ import IntroVideo from '../../components/MainPage/introVideo/IntroVideo';
 import CustomCarousel from '../../components/MainPage/customCarousel/CustomCarousel';
 import ColumnCard from '../../components/MainPage/columnCard/ColumnCard';
 import CustomFooter from '../../components/MainPage/customFooter/CustomFooter';
+import { Cookies } from 'react-cookie';
 
 function MainScreen() {
+  const cookies = new Cookies();
   const [columnData, setColumnData] = useState([
     {
       src: 'columnImg1.png',
@@ -30,9 +32,7 @@ function MainScreen() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setAuthInfo(1));
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Screen headerColor="white">
@@ -65,6 +65,7 @@ function MainScreen() {
           {columnData.map((e, i) => {
             return (
               <ColumnCard
+                key={`${e}_${i}`}
                 mid={i === 1 ? true : false}
                 src={e.src}
                 title={e.title}

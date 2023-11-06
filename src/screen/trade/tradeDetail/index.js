@@ -16,6 +16,8 @@ import { useParams } from 'react-router-dom';
 import {
   getTradeDetailAbility,
   getTradeDetailProduct,
+  patchTradeLikeAbility,
+  patchTradeLikeProduct,
 } from '../../../api/trade';
 import chat from '../../../asset/chat.svg';
 import { productCategory, abilityCategory } from '../../../function/changeKey';
@@ -25,6 +27,8 @@ import CustomDropdown from '../../../components/common/customDropdown/CustomDrop
 function TradeDetailScreen() {
   const [detailData, setDetailData] = useState();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isLike, setIsLike] = useState(false);
   const items = ['판매중', '예약중', '거래완료'];
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const { id, type } = useParams();
@@ -41,15 +45,40 @@ function TradeDetailScreen() {
     getTradeData();
   }, []);
 
+  useEffect(() => {}, []);
+
   const getTradeData = () => {
     (type === 'product'
       ? getTradeDetailProduct({ product_id: id })
       : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
-      console.log(res);
-      setDetailData(res.data[type]);
+      if (res?.data[type]) {
+        console.log(res.data[type]);
+        setDetailData(res.data[type]);
+        setIsLike(res.data[type][`${type}_isLike`]);
+      }
       // console.log(JSON.parse(res.data[type][`${type}_file_path`]));
     });
+  };
+
+  const handleLike = () => {
+    if (!loading) {
+      if (localStorage.getItem('login_id')) {
+        setLoading(true);
+        (type === 'product'
+          ? patchTradeLikeProduct({ product_id: id })
+          : patchTradeLikeAbility({ ability_id: id })
+        ).then((res) => {
+          if (res.data.like === 'success' || res.data.like === 'cancel') {
+            console.log(res.data.like);
+            setIsLike(!isLike);
+            setLoading(false);
+          }
+        });
+      } else {
+        alert('로그인이 필요합니다 !');
+      }
+    }
   };
 
   const findValue = (parentKey, key) => {
@@ -103,8 +132,9 @@ function TradeDetailScreen() {
                 <div className="titleBox">
                   <div className="TTitle">{detailData[`${type}_title`]}</div>
                   <img
+                    onClick={handleLike}
                     alt="like"
-                    src={tradeLike || heartFill}
+                    src={isLike ? heartFill : tradeLike}
                     className="tLike"
                   />
                 </div>

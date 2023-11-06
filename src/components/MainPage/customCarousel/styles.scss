@@ -9,14 +9,50 @@
   @include media('>1440px') {
     padding: 45px 0px 100px 0px;
   }
-}
 
-.carouselContainer {
-  width: toSize(1250);
-  height: toSize(450);
-  background-color: #d9d9d9;
-  @include media('>1440px') {
-    width: 1250px;
-    height: 450px;
+  .carouselContainer {
+    width: toSize(1250);
+    // height: toSize(450);
+    @include media('>1440px') {
+      width: 1250px;
+      // height: 450px;
+    }
+
+    .carousel:hover .slide .cLegend {
+      opacity: 1;
+    }
+
+    .carousel .slide .legend {
+      bottom: toSize(40);
+      border-radius: toSize(10);
+      padding: toSize(10);
+      font-size: toSize(12);
+      @include media('>1440px') {
+        bottom: 40px;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 12px;
+      }
+    }
+
+    .carousel .control-dots .dot {
+      box-shadow: toSize(1) toSize(1) toSize(2) rgba(0, 0, 0, 0.9);
+      width: toSize(8);
+      height: toSize(8);
+      margin: 0 toSize(8);
+      @include media('>1440px') {
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+        width: 8px;
+        height: 8px;
+        margin: 0 8px;
+      }
+    }
+
+    .carousel .control-dots {
+      margin: toSize(10) 0;
+      @include media('>1440px') {
+        margin: 10px 0;
+      }
+    }
   }
 }
