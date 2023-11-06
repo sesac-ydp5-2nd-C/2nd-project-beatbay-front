@@ -75,8 +75,10 @@ const SignInUpScreen = () => {
       };
       postUserSignup(apiData).then((res) => {
         console.log(res);
+        if (res.data.result === true) {
+          setErrorMessage('회원가입이 완료되었습니다.');
+        }
       });
-      setErrorMessage('회원가입이 완료되었습니다.');
     }
   };
 
@@ -101,9 +103,11 @@ const SignInUpScreen = () => {
       console.log('signing up');
 
       postUserLogin(apiData).then((res) => {
+        localStorage.setItem('login_id', res.data.logUserData.id);
         console.log(res);
 
-        if (res.data.true) {
+        if (res.data.result === true) {
+          setErrorMessage('로그인 성공');
           navigate(`../`);
         } else {
           setErrorMessage('로그인 실패');
@@ -163,16 +167,39 @@ const SignInUpScreen = () => {
       }
     });
   };
+
   const sendPw = () => {
-    console.log('Changing');
-    const apiData = {
-      userId: email,
-      newPass: password,
-      emailCode: certification,
-    };
-    putUserFindPass(apiData).then((res) => {
-      console.log(res);
-    });
+    if (!email) {
+      setErrorMessage('이메일이 작성되지 않았습니다.');
+    } else if (!password) {
+      setErrorMessage('비밀번호가 작성되지 않았습니다.');
+    } else if (!passwordCheck) {
+      setErrorMessage('비밀번호 확인이 작성되지 않았습니다.');
+    } else if (!certification) {
+      setErrorMessage('인증문자가 작성되지 않았습니다.');
+    } else if (!isValidEmail(email)) {
+      setErrorMessage('존재하지 않는 이메일 형식입니다.');
+    } else if (!isValidPassword(password)) {
+      setErrorMessage(
+        '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
+      );
+    } else if (password !== passwordCheck) {
+      setErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
+    } else {
+      console.log('Checking');
+      const apiData = {
+        userId: email,
+        newPass: password,
+        emailCode: certification,
+      };
+      putUserFindPass(apiData).then((res) => {
+        console.log(res);
+
+        if (res.data.result === false) {
+          setErrorMessage('이메일이 인증되지 않았습니다.');
+        }
+      });
+    }
   };
 
   return (
@@ -313,14 +340,28 @@ const SignInUpScreen = () => {
               <input
                 type="text"
                 placeholder="인증번호 입력 (6자리)"
-                // value={}
-                onChange={(e) => setName(e.target.value)}
+                value={certification}
+                onChange={(e) => setCertification(e.target.value)}
               />
               <button onClick={sendAuth}>인증번호 전송</button>
               <button onClick={checkAuth}>인증번호 확인</button>
             </div>
-
-            <br />
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {/* {errorMessage} */}
+            <input
+              type="password"
+              placeholder="비밀번호 확인"
+              value={passwordCheck}
+              onChange={(e) => setPasswordCheck(e.target.value)}
+            />
+            <p className="error-message" style={{ color: 'black' }}>
+              {mailCheckMessage}
+            </p>
             <button onClick={sendPw} style={{ width: '106%' }}>
               비밀번호 재설정
             </button>
@@ -340,6 +381,7 @@ const SignInUpScreen = () => {
               </label>
               하러가기
             </p>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
           </div>
         </div>
       </div>
