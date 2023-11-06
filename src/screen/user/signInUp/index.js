@@ -41,12 +41,10 @@ const SignInUpScreen = () => {
 
   const handleSignInClick = () => {
     setErrorMessage('');
-
     setIsSignUp(false);
   };
-
+  // 회원가입 유효성 검사
   const handleSignUp = () => {
-    // 회원가입 유효성 검사
     if (!name) {
       setErrorMessage('닉네임이 작성되지 않았습니다.');
     } else if (!email) {
@@ -78,14 +76,14 @@ const SignInUpScreen = () => {
       postUserSignup(apiData).then((res) => {
         console.log(res);
         if (res.data.result === true) {
+          setIsSignUp(false);
           setErrorMessage('회원가입이 완료되었습니다.');
         }
       });
     }
   };
-
+  //로그인 유효성 검사
   const handleSignIn = () => {
-    //로그인 유효성 검사
     if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다.');
     } else if (!password) {
