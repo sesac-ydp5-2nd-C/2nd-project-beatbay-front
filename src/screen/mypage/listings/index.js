@@ -79,6 +79,7 @@ export default function MypageListingsScreen() {
               tabsData={tabsData}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
+              setProductData={setProductData}
             />
 
             <CustomDropdown

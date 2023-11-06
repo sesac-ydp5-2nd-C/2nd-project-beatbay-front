@@ -50,7 +50,9 @@ export default function IntroVideo({ src, reverse }) {
               alt="front"
               src="forward.svg"
             />
-            <p className="goTrade">재능 거래 하러 가기</p>
+            <a href="/trade/talent" className="goTrade">
+              재능 거래 하러 가기
+            </a>
           </div>
         </div>
       )}
@@ -84,7 +86,9 @@ export default function IntroVideo({ src, reverse }) {
               alt="front"
               src="forward.svg"
             />
-            <p className="goTrade">물품 거래 하러 가기</p>
+            <a href="/trade/product" className="goTrade">
+              물품 거래 하러 가기
+            </a>
           </div>
         </div>
       )}

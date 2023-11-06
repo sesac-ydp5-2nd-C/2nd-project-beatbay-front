@@ -14,6 +14,7 @@
 .video-player {
   width: toSize(582);
   height: toSize(360);
+  filter: grayscale(50);
 
   @include media('>1440px') {
     width: 582px;
