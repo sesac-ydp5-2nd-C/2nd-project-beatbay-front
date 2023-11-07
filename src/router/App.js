@@ -20,6 +20,7 @@ import MypageChatScreen from '../screen/mypage/chat';
 import UserpageScreen from '../screen/userpage';
 import NoticeScreen from '../screen/notice';
 import ErrorScreen from '../screen/404';
+import AdminScreen from '../screen/adminpage';
 
 function App() {
   return (
@@ -55,7 +56,9 @@ function App() {
 
           <Route path="/notice" element={<NoticeScreen />} />
 
-          <Route path="/404" element={<ErrorScreen />} />
+          <Route path="/admin" element={<AdminScreen />} />
+
+          <Route path="/*" element={<ErrorScreen />} />
         </Routes>
       </BrowserRouter>
     </div>
