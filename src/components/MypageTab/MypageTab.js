@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './style.scss';
 
-export default function MypageTab({ tabsData, activeTab, setActiveTab }) {
+export default function MypageTab({
+  tabsData,
+  activeTab,
+  setActiveTab,
+  setProductData,
+}) {
   return (
     <div className="mpTabs-Container">
       <ul className="mpTabList">
@@ -11,7 +16,10 @@ export default function MypageTab({ tabsData, activeTab, setActiveTab }) {
             className={`mpTab ${activeTab.id === tab.id && 'active'} ${
               i === 0 && 'firstIndex'
             } ${i === tabsData.length - 1 && 'lastIndex'}`}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => {
+              setProductData();
+              setActiveTab(tab);
+            }}
           >
             {tab.title}
           </li>

@@ -58,10 +58,10 @@ export default function NoticeScreen() {
     {
       id: 4,
       type: '칼럼',
-      title: '이 가을...음악으로 계절을 느끼고 싶다면',
+      title: '대중음악의 힘',
       content:
-        '표제음악에 대하여...가을의 쓸쓸함에 어울리는 음악들, 샤미나드의 가을, 피아졸라의 ‘탱고음악’',
-      url: 'https://www.thecolumnist.kr/news/articleView.html?idxno=212',
+        '대중음악은 우리 삶의 반영이자 감정을 나타내는 예술로, 밥 딜런과 같은 아티스트들은 음악을 통해 사회적 메시지와 감동을 전달해왔습니다.',
+      url: 'https://www.daejonilbo.com/news/articleView.html?idxno=2078719',
     },
   ];
 

@@ -7,6 +7,7 @@ import './style.scss';
 import {
   postUserCertification,
   postUserEmailCodeCheck,
+  postUserIdExists,
   postUserLogin,
   postUserSignup,
   putUserFindPass,
@@ -21,11 +22,13 @@ const SignInUpScreen = () => {
   const [name, setName] = useState('');
   const [certification, setCertification] = useState('');
 
-  const [isChecked, setIsChecked] = useState(false); // 추가된 부분
+  const [isChecked, setIsChecked] = useState(false);
 
   const [mailCheckMessage, setMailCheckMessage] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const navigate = useNavigate();
 
@@ -40,12 +43,10 @@ const SignInUpScreen = () => {
 
   const handleSignInClick = () => {
     setErrorMessage('');
-
     setIsSignUp(false);
   };
-
+  // 회원가입 유효성 검사
   const handleSignUp = () => {
-    // 회원가입 유효성 검사
     if (!name) {
       setErrorMessage('닉네임이 작성되지 않았습니다.');
     } else if (!email) {
@@ -77,14 +78,14 @@ const SignInUpScreen = () => {
       postUserSignup(apiData).then((res) => {
         console.log(res);
         if (res.data.result === true) {
+          setIsSignUp(false);
           setErrorMessage('회원가입이 완료되었습니다.');
         }
       });
     }
   };
-
+  //로그인 유효성 검사
   const handleSignIn = () => {
-    //로그인 유효성 검사
     if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다.');
     } else if (!password) {
@@ -133,6 +134,7 @@ const SignInUpScreen = () => {
     );
   };
 
+  ///인증메일 전송 함수
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // 체크박스를 토글
   };
@@ -156,6 +158,7 @@ const SignInUpScreen = () => {
     }
   };
 
+  //인증번호 확인 함수
   const checkAuth = () => {
     console.log('Checking');
     const apiData = { emailCode: certification };
@@ -163,6 +166,9 @@ const SignInUpScreen = () => {
       console.log(res);
 
       if (res.data.result === true) {
+        if (isEmailVerified === false) {
+          setIsEmailVerified(!isEmailVerified);
+        }
         setMailCheckMessage('메일 인증 완료!');
       } else {
         setMailCheckMessage('올바르지 않은 코드입니다');
@@ -170,6 +176,7 @@ const SignInUpScreen = () => {
     });
   };
 
+  //비밀번호 변경 함수
   const sendPw = () => {
     if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다.');
@@ -204,6 +211,21 @@ const SignInUpScreen = () => {
     }
   };
 
+  //이메일 중복확인 함수
+  const checkEmail = () => {
+    console.log('checking Email');
+    const apiData = { userId: email };
+    postUserIdExists(apiData).then((res) => {
+      console.log(res);
+
+      if (res.data.result === true) {
+        setMailCheckMessage(res.data.message + '이메일 인증을 진행하세요!');
+      } else if (res.data.result === false) {
+        setErrorMessage(res.data.message);
+      }
+    });
+  };
+
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
       <div
@@ -220,18 +242,24 @@ const SignInUpScreen = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <input
-            type="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {/* {errorMessage} */}
+          <div className="email-authentication">
+            <input
+              type="email"
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ width: '69%' }}
+            />
+            <button onClick={checkEmail}>이메일 중복확인</button>
+            {/* {errorMessage} */}
+          </div>
           <input
             type="password"
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className={isEmailVerified ? '' : 'disabled-input'}
+            disabled={!isEmailVerified}
           />
           {/* {errorMessage} */}
           <input
@@ -239,6 +267,8 @@ const SignInUpScreen = () => {
             placeholder="비밀번호 확인"
             value={passwordCheck}
             onChange={(e) => setPasswordCheck(e.target.value)}
+            className={isEmailVerified ? '' : 'disabled-input'}
+            disabled={!isEmailVerified}
           />
           <div className="email-authentication">
             <input
@@ -353,6 +383,8 @@ const SignInUpScreen = () => {
               placeholder="비밀번호"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className={isEmailVerified ? '' : 'disabled-input'}
+              disabled={!isEmailVerified}
             />
             {/* {errorMessage} */}
             <input
@@ -360,6 +392,8 @@ const SignInUpScreen = () => {
               placeholder="비밀번호 확인"
               value={passwordCheck}
               onChange={(e) => setPasswordCheck(e.target.value)}
+              className={isEmailVerified ? '' : 'disabled-input'}
+              disabled={!isEmailVerified}
             />
             <p className="error-message" style={{ color: 'black' }}>
               {mailCheckMessage}

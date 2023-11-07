@@ -70,6 +70,12 @@
   span {
     font-size: 12px;
   }
+  .disabled-input {
+    background-color: #f0f0f0; /* Change the background color to a light gray */
+    color: #888; /* Change the text color to gray */
+
+    cursor: not-allowed; /* Change the cursor to 'not-allowed' */
+  }
 }
 
 .form-container {

@@ -1,0 +1,19 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.loadingSpinner {
+  animation: rotate 7s linear infinite;
+  width: toSize(300);
+  @include media('>1440px') {
+    width: 300px;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
