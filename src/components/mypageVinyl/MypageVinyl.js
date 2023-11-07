@@ -24,6 +24,7 @@ export default function MypageVinyl({ userData }) {
         return mezzoforte;
       case 5:
         return fortissimo;
+
       default:
         return pianissimo;
     }
