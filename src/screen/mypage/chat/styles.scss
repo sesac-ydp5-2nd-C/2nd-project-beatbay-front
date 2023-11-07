@@ -134,19 +134,24 @@
       margin-right: toSize(82);
       margin-bottom: toSize(82);
       @include media('>1440px') {
-        margin-right: 198px;
-        margin-bottom: 200px;
-        width: 70px;
+        width: 25px;
+        margin-right: 82px;
+        margin-bottom: 82px;
       }
     }
 
     .sellerName {
       font-size: toSize(20);
-      font-weight: 700;
       margin-top: toSize(28);
       margin-bottom: toSize(16);
+      font-weight: 700;
       overflow: hidden;
       text-overflow: ellipsis;
+      @include media('>1440px') {
+        font-size: 20px;
+        margin-top: 28px;
+        margin-bottom: 16px;
+      }
     }
 
     .sellerIntro {
@@ -160,20 +165,70 @@
       display: -webkit-box;
       -webkit-line-clamp: 2; // 원하는 라인수
       -webkit-box-orient: vertical;
+      @include media('>1440px') {
+        font-size: 16px;
+      }
     }
 
     .tagContainer {
       display: flex;
-      flex-wrap: nowrap;
       margin-top: toSize(22);
+      margin-bottom: toSize(30);
       height: toSize(28);
-      // white-space: nowrap;
-      text-overflow: ellipsis;
+      @include media('>1440px') {
+        margin-top: 22px;
+        margin-bottom: 30px;
+        height: 28px;
+      }
       .sellerTag {
+        background-color: #d9d9d9;
         padding: toSize(5) toSize(12);
         border-radius: toSize(5);
-        background-color: #d9d9d9;
         margin-right: toSize(8);
+        font-size: toSize(14);
+        font-weight: 500;
+        @include media('>1440px') {
+          padding: 5px 12px;
+          border-radius: 5px;
+          margin-right: 8px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .sellerInfoBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: toSize(120);
+      border-radius: toSize(10);
+      box-shadow: toSize(2) toSize(2) toSize(2) toSize(2) rgba(0, 0, 0, 0.1);
+      font-size: toSize(15);
+      font-weight: 700;
+      padding: toSize(10) 0px toSize(23) 0px;
+      @include media('>1440px') {
+        height: 120px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+        font-size: 15px;
+        padding: 10px 0px 23px 0px;
+      }
+
+      .countSize {
+        font-size: toSize(25);
+        color: #30338a;
+        @include media('>1440px') {
+          font-size: 25px;
+        }
+      }
+
+      &.mb22 {
+        margin-bottom: toSize(22);
+        @include media('>1440px') {
+          margin-bottom: 22px;
+        }
       }
     }
   }
@@ -220,21 +275,39 @@
   margin-bottom: toSize(13);
   padding: 0px toSize(9);
   border-bottom: solid toSize(1) #d6d6d6;
+  @include media('>1440px') {
+    height: 146px;
+    margin-bottom: 13px;
+    padding: 0px 9px;
+    border-bottom: solid 1px #d6d6d6;
+  }
 
   .objectImg {
     width: toSize(111);
     height: toSize(78);
     margin-right: toSize(20);
     object-fit: cover;
+    @include media('>1440px') {
+      width: 111px;
+      height: 78px;
+      margin-right: 20px;
+    }
   }
 
   .obTitle {
     font-size: toSize(14);
     font-weight: 500;
+    @include media('>1440px') {
+      font-size: 14px;
+    }
 
     &.won {
       margin-top: toSize(17);
       font-size: toSize(16);
+      @include media('>1440px') {
+        margin-top: 17px;
+        font-size: 16px;
+      }
     }
   }
 
@@ -248,5 +321,53 @@
     padding: 0px toSize(20);
     background-color: #30338a;
     border-radius: toSize(5);
+    @include media('>1440px') {
+      top: 20px;
+      right: 10px;
+      border-radius: 5px;
+      padding: 0px 20px;
+      font-size: 12px;
+    }
+  }
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: toSize(40) toSize(76) toSize(26) toSize(76);
+  font-size: toSize(16);
+  font-weight: bold;
+  .modalContent {
+    margin-top: toSize(37);
+    width: toSize(333);
+    height: toSize(200);
+    border: solid toSize(0.5) #d6d6d6;
+    padding: toSize(9) toSize(13);
+    outline: none;
+    resize: none;
+    font-size: toSize(16);
+    font-weight: 700;
+  }
+  .modalBtnContainer {
+    display: flex;
+    margin-top: toSize(30);
+    .modalBtn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: toSize(84);
+      height: toSize(30);
+      border-radius: toSize(5);
+      background-color: #30338a;
+      color: white;
+      font-size: toSize(14);
+      font-weight: 500;
+
+      &.mr {
+        margin-right: toSize(20);
+      }
+    }
   }
 }

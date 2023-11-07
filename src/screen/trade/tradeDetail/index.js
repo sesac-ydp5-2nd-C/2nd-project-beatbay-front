@@ -25,6 +25,7 @@ import { productCategory, abilityCategory } from '../../../function/changeKey';
 import { calculateTime } from '../../../function/calculate';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import ImageModal from '../../../components/imageModal/ImageModal';
+import LoadingSpinner from '../../../components/common/loadingSpinner';
 
 function TradeDetailScreen() {
   const [detailData, setDetailData] = useState();
@@ -114,7 +115,7 @@ function TradeDetailScreen() {
 
   return (
     <Screen>
-      {detailData && (
+      {detailData ? (
         <div className="detailContainer">
           <div className="prdType">
             {findValue(`${type}_category`, detailData[`${type}_category`])}
@@ -246,6 +247,10 @@ function TradeDetailScreen() {
               </div>
             </div>
           </div>
+        </div>
+      ) : (
+        <div className="loader" key={0}>
+          <LoadingSpinner />
         </div>
       )}
     </Screen>

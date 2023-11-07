@@ -22,7 +22,7 @@ const setInterceptors = (instance) => {
     },
 
     async (error) => {
-      if (error.response.status == 401) {
+      if (error.response.status == 400) {
         alert('로그인이 필요합니다 !');
         localStorage.removeItem('login_id');
         localStorage.removeItem('email');

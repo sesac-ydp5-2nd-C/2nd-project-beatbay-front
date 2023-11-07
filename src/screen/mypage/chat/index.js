@@ -5,6 +5,7 @@ import './styles.scss';
 import send from '../../../asset/send.svg';
 import fileSend from '../../../asset/fileSend.svg';
 import Screen from '../../Screen';
+import Modal from 'react-modal';
 import userImg from '../../../asset/profile_default.png';
 import ChatListCard from '../../../components/mypageChat/chatListCard/ChatListCard';
 import profile_default from '../../../asset/profile_default.png';
@@ -13,6 +14,29 @@ import tradeSample from '../../../asset/tradeSample.png';
 
 const name = `test 유저${parseInt(Math.random() * 100)}`;
 let socket;
+const modalStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+  },
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'white',
+    width: '33vw',
+    height: '27vw',
+    borderRadius: '1vw',
+    padding: 0,
+    overflow: 'hidden',
+  },
+};
 function MypageChatScreen() {
   const [userData, setUserData] = useState({
     user_nickname: '대만',
@@ -27,7 +51,7 @@ function MypageChatScreen() {
   });
 
   const user_id = localStorage.getItem('login_id');
-  const user_email = localStorage.getItem('email');
+  const email = localStorage.getItem('email');
   const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
   const [chatList, setChatList] = useState([
@@ -65,13 +89,14 @@ function MypageChatScreen() {
   ]);
   const [connect, setConnect] = useState(false);
   const [roomData, setRoomData] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const msgRef = useRef();
 
   // 화면 렌더링시 소켓 처음 접속
   useEffect(() => {
     socket = io(ENDPOINT);
     // 처음 접속시 newUser emit
-    socket.emit('newUser', { user_id });
+    socket.emit('newUser', { user_id, email });
     if (msgRef.current) {
       msgRef.current.scrollTop = msgRef.current.scrollHeight;
     }
@@ -117,7 +142,7 @@ function MypageChatScreen() {
   }, []);
 
   const enterRoom = (room_id) => {
-    socket.emit('enter', { room_id, user_id }, () => {});
+    socket.emit('enter', { room_id, user_id, email }, () => {});
   };
 
   const sendMessage = (event) => {
@@ -126,7 +151,7 @@ function MypageChatScreen() {
     if (message) {
       socket.emit(
         'sendMessage',
-        { content: message, receiver_id: roomData.sender_id },
+        { content: message, receiver_id: roomData.sender_id, email, user_id },
         () => setMessage(''),
       );
     }
@@ -152,7 +177,29 @@ function MypageChatScreen() {
                   <p className="obTitle">텔레케스터 민트 팝니당</p>
                   <p className="obTitle won">1,300,000 원</p>
                 </div>
-                <div className="finishBtn">거래 완료</div>
+                <div onClick={() => setIsModalOpen(true)} className="finishBtn">
+                  거래 완료
+                </div>
+                <Modal
+                  isOpen={isModalOpen}
+                  onRequestClose={() => setIsModalOpen(false)}
+                  style={modalStyles}
+                  contentLabel="review Modal"
+                >
+                  <div className="modalContainer">
+                    <p>솔직 담백한 리뷰를 남겨주세요!</p>
+                    <textarea className="modalContent" />
+                    <div className="modalBtnContainer">
+                      <div
+                        className="modalBtn mr"
+                        onClick={() => setIsModalOpen(false)}
+                      >
+                        취소
+                      </div>
+                      <div className="modalBtn">완료</div>
+                    </div>
+                  </div>
+                </Modal>
               </div>
               <div className="chatmessagesList" ref={msgRef}>
                 {messages.map((e, i) => {
@@ -188,9 +235,18 @@ function MypageChatScreen() {
             “그래, 난 정대만. 포기를 모르는 남자지…”
           </p>
           <div className="tagContainer">
-            {['밴드', '일렉기타', '일렉기타', '일렉기타'].map((e, i) => {
+            {['밴드', '일렉기타'].map((e, i) => {
               return <p className="sellerTag">{`# ${e}`}</p>;
             })}
+          </div>
+
+          <div className="sellerInfoBox mb22">
+            REVIEW
+            <p className="countSize">22</p>
+          </div>
+          <div className="sellerInfoBox">
+            FOLLOWER
+            <p className="countSize">22</p>
           </div>
         </div>
       </div>
