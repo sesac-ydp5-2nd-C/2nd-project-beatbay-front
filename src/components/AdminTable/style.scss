@@ -1,2 +1,138 @@
 @import '../../config/globalStyle.scss';
 @import '~include-media/dist/include-media';
+
+.adminTable {
+  margin-top: toSize(20);
+  @include media('>1440px') {
+    margin-top: 20px;
+  }
+
+  thead {
+    font-size: toSize(18);
+    @include media('>1440px') {
+      font-size: 18px;
+    }
+  }
+
+  tbody {
+    font-size: toSize(16);
+    text-align: center;
+    font-weight: 300;
+    @include media('>1440px') {
+      font-size: 16px;
+    }
+
+    td {
+      height: toSize(30);
+      @include media('>1440px') {
+        height: 30px;
+      }
+    }
+  }
+
+  button {
+    border-radius: toSize(5);
+    border: 1px solid #30338a;
+    background-color: white;
+    color: #30338a;
+    font-size: toSize(14);
+    @include media('>1440px') {
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    &:hover {
+      background-color: #878be5;
+      color: white;
+    }
+  }
+
+  select {
+    font-size: toSize(16);
+    border: none;
+    width: toSize(150);
+    @include media('>1440px') {
+      width: 150px;
+      font-size: 16px;
+    }
+  }
+}
+
+.adminTable.user {
+  margin: auto;
+  td:nth-child(1) {
+    width: toSize(100);
+    @include media('>1440px') {
+      width: 100px;
+    }
+  }
+  td:nth-child(2) {
+    width: toSize(450);
+    @include media('>1440px') {
+      width: 450px;
+    }
+  }
+  td:nth-child(3) {
+    width: toSize(300);
+    @include media('>1440px') {
+      width: 300px;
+    }
+  }
+  td:nth-child(4) {
+    width: toSize(250);
+    @include media('>1440px') {
+      width: 250px;
+    }
+  }
+  td:nth-child(5) {
+    width: toSize(100);
+    @include media('>1440px') {
+      width: 100px;
+    }
+  }
+}
+
+.adminTable.column,
+.adminTable.notice {
+  margin: auto;
+  td:nth-child(1) {
+    width: toSize(100);
+    @include media('>1440px') {
+      width: 100px;
+    }
+  }
+  td:nth-child(2) {
+    width: toSize(340);
+    @include media('>1440px') {
+      width: 340px;
+    }
+  }
+  td:nth-child(3) {
+    width: toSize(120);
+    @include media('>1440px') {
+      width: 120px;
+    }
+  }
+}
+
+.adminTable.product,
+.adminTable.ability {
+  margin: auto;
+  td:nth-child(1) {
+    width: toSize(100);
+    @include media('>1440px') {
+      width: 100px;
+    }
+  }
+  td:nth-child(2) {
+    width: toSize(400);
+    @include media('>1440px') {
+      width: 400px;
+    }
+  }
+  td:nth-child(3) {
+    width: toSize(100);
+    @include media('>1440px') {
+      width: 100px;
+    }
+  }
+}

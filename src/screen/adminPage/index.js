@@ -143,10 +143,9 @@ export default function AdminScreen() {
               <h2>회원관리</h2>
               <p>전체 회원 수: {admin.admin_data.user.length}</p>
             </div>
-            <AdminTable
-              data={admin.admin_data.user}
-              columns={['id', 'user_id', 'user_nickname', 'user_grade']}
-            />
+            <div className="ADtable">
+              <AdminTable data={admin.admin_data.user} dataType="user" />
+            </div>
           </div>
         </section>
 
@@ -156,20 +155,18 @@ export default function AdminScreen() {
               <h2>칼럼 관리</h2>
               <button className="columnPost">등록</button>
             </div>
-            <AdminTable
-              data={admin.admin_data.column}
-              columns={['id', 'title']}
-            />
+            <div className="ADtable">
+              <AdminTable data={admin.admin_data.column} dataType="column" />
+            </div>
           </div>
           <div className="noticeControl">
             <div className="ADControlTitle">
               <h2>공지 관리</h2>
               <button className="noticePost">등록</button>
             </div>
-            <AdminTable
-              data={admin.admin_data.notice}
-              columns={['id', 'title']}
-            />
+            <div className="ADtable">
+              <AdminTable data={admin.admin_data.notice} dataType="notice" />
+            </div>
           </div>
         </section>
 
@@ -179,20 +176,18 @@ export default function AdminScreen() {
               <h2>물품 관리</h2>
               <p>물품 등록 수: {admin.admin_data.product.length}</p>
             </div>
-            <AdminTable
-              data={admin.admin_data.product}
-              columns={['product_id', 'product_title']}
-            />
+            <div className="ADtable">
+              <AdminTable data={admin.admin_data.product} dataType="product" />
+            </div>
           </div>
           <div className="abilityControl">
             <div className="ADControlTitle">
               <h2>재능 관리</h2>
               <p>재능 등록 수: {admin.admin_data.product.length}</p>
             </div>
-            <AdminTable
-              data={admin.admin_data.ability}
-              columns={['ability_id', 'ability_title']}
-            />
+            <div className="ADtable">
+              <AdminTable data={admin.admin_data.ability} dataType="ability" />
+            </div>
           </div>
         </section>
       </div>
