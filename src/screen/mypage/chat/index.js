@@ -50,6 +50,7 @@ function MypageChatScreen() {
     itemCount: 20,
   });
 
+  const ref = useRef();
   const user_id = localStorage.getItem('login_id');
   const email = localStorage.getItem('email');
   const ENDPOINT = 'http://localhost:5001';
@@ -151,7 +152,7 @@ function MypageChatScreen() {
     if (message) {
       socket.emit(
         'sendMessage',
-        { content: message, receiver_id: roomData.sender_id, email, user_id },
+        { content: message, receiver_id: roomData?.sender_id, email, user_id },
         () => setMessage(''),
       );
     }
@@ -208,13 +209,15 @@ function MypageChatScreen() {
               </div>
               <div style={{ position: 'relative' }}>
                 <input
+                  ref={ref}
                   placeholder="TEXT MESSAGE..."
                   type="text"
                   className="chatInput"
                   value={message}
-                  onChange={(e) => setMessage(e.target.target)}
+                  onChange={(e) => setMessage(e.target.value)}
                 />
                 <img
+                  style={{ cursor: 'pointer' }}
                   alt="send"
                   src={send}
                   className="sendIcon"
