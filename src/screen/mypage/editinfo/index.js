@@ -32,16 +32,60 @@ function MypageEditInformationScreen() {
   const [profileImage, setProfileImage] = useState(null);
   const [interestTag, setInterestTag] = useState('');
 
+  const [PWerrorMessage, setPWErrorMessage] = useState('');
+  const [PWCerrorMessage, setPWCErrorMessage] = useState('');
+  const [NerrorMessage, setNErrorMessage] = useState('');
+
+  const validationTimeOut = () => {
+    setIsFormValid(false);
+    setTimeout(() => {
+      setIsFormValid(true);
+      setNErrorMessage('');
+      setPWErrorMessage('');
+      setPWCErrorMessage('');
+    }, 3000);
+    return;
+  };
+
+  const isValidPassword = (password) => {
+    //패스워드 검사 로직
+    return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/.test(
+      password,
+    );
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    // 여기에서 폼 데이터를 서버로 보내는 로직을 추가할 수 있습니다.
-    // 비밀번호, 닉네임, 자기소개, 관심분야, 프로필 이미지 등을 서버로 전송합니다.
+    // 여기에서 유효성 검사를 수행합니다.
+
+    if (!nickname) {
+      setNErrorMessage('닉네임이 작성되지 않았습니다.');
+      validationTimeOut();
+    } else if (!password) {
+      setPWErrorMessage('비밀번호가 작성되지 않았습니다.');
+      validationTimeOut();
+    } else if (!confirmPassword) {
+      setPWCErrorMessage('비밀번호 확인이 작성되지 않았습니다.');
+      validationTimeOut();
+    } else if (!isValidPassword(password)) {
+      setPWErrorMessage(
+        '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
+      );
+      validationTimeOut();
+    } else if (password !== confirmPassword) {
+      setPWCErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
+      validationTimeOut();
+    } else {
+      // 여기에서 폼 데이터를 서버로 보내는 로직을 추가할 수 있습니다.
+      // 비밀번호, 닉네임, 자기소개, 관심분야, 프로필 이미지 등을 서버로 전송합니다.
+    }
   };
 
   const handleDeleteAccount = () => {
     // 회원 탈퇴 로직을 구현할 수 있습니다.
   };
+
   return (
     <Screen>
       <div className="editInformationContainer">
@@ -74,7 +118,7 @@ function MypageEditInformationScreen() {
                   <span></span>
                 </div>
                 {!password && !isFormValid && (
-                  <p className="error-message">제목은 필수 항목입니다.</p>
+                  <p className="error-message">비밀번호는 필수 항목입니다.</p>
                 )}
               </section>
               <br />
@@ -184,7 +228,7 @@ function MypageEditInformationScreen() {
             탈퇴
           </button>
 
-          <button type="submit" className="editSubmit">
+          <button type="submit" onClick={handleUpdate} className="editSubmit">
             등록
           </button>
         </div>
