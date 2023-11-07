@@ -55,7 +55,7 @@ function App() {
 
           <Route path="/notice" element={<NoticeScreen />} />
 
-          <Route path="/404" element={<ErrorScreen />} />
+          <Route path="/*" element={<ErrorScreen />} />
         </Routes>
       </BrowserRouter>
     </div>

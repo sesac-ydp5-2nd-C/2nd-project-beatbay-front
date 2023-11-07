@@ -8,19 +8,29 @@
   align-items: center;
 
   .error404 {
-    width: toSize(1000);
-    max-width: 1000px;
+    width: toSize(900);
+    max-width: 900px;
+    @include media('>1440px') {
+      padding-bottom: 66px;
+    }
   }
 
   h1 {
-    font-size: toSize(40);
+    font-size: toSize(30);
     font-weight: 900;
     margin: 0 0 toSize(20) 0;
+    @include media('>1440px') {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
   }
 
   p {
     font-size: toSize(20);
     font-weight: 500;
+    @include media('>1440px') {
+      font-size: 20px;
+    }
   }
 
   div {
@@ -28,6 +38,12 @@
     height: toSize(100);
     margin-top: toSize(80);
     padding-left: toSize(20);
+    @include media('>1440px') {
+      width: 200px;
+      height: 100px;
+      margin-top: 80px;
+      padding-left: 20px;
+    }
 
     button {
       width: toSize(180);
@@ -42,11 +58,20 @@
       &:hover {
         background-color: #878be5;
       }
+      @include media('>1440px') {
+        width: 180px;
+        height: 50px;
+        font-size: 20px;
+      }
 
       .audioCable {
         width: toSize(100);
         position: absolute;
         left: toSize(-50);
+        @include media('>1440px') {
+          width: 100px;
+          left: -50px;
+        }
       }
 
       span {
@@ -54,6 +79,10 @@
         left: toSize(60);
         font-size: toSize(24);
         font-weight: 500;
+        @include media('>1440px') {
+          left: 60px;
+          font-size: 24px;
+        }
       }
     }
   }
