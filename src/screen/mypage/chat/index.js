@@ -1,17 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
+import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import './styles.scss';
 import send from '../../../asset/send.svg';
 import fileSend from '../../../asset/fileSend.svg';
 import Screen from '../../Screen';
+import userImg from '../../../asset/profile_default.png';
 import ChatListCard from '../../../components/mypageChat/chatListCard/ChatListCard';
 import profile_default from '../../../asset/profile_default.png';
 import ChatBallon from '../../../components/mypageChat/chatBallon/ChatBallon';
+import tradeSample from '../../../asset/tradeSample.png';
 
 const name = `test 유저${parseInt(Math.random() * 100)}`;
 let socket;
 function MypageChatScreen() {
+  const [userData, setUserData] = useState({
+    user_nickname: '대만',
+    comment: '“그래, 난 정대만. 포기를 모르는 남자지….”',
+    user_interests: ['밴드', '일렉기타'],
+    imgSrc: userImg,
+    user_grade: 5,
+    user_review: 32,
+    user_following: 28,
+    user_follower: 18,
+    itemCount: 20,
+  });
+
   const user_id = localStorage.getItem('login_id');
+  const user_email = localStorage.getItem('email');
   const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
   const [chatList, setChatList] = useState([
@@ -130,6 +146,14 @@ function MypageChatScreen() {
         <div className="chatConatainer">
           {messages ? (
             <>
+              <div className="objectInfoContainer">
+                <img alt="Sample" src={tradeSample} className="objectImg" />
+                <div>
+                  <p className="obTitle">텔레케스터 민트 팝니당</p>
+                  <p className="obTitle won">1,300,000 원</p>
+                </div>
+                <div className="finishBtn">거래 완료</div>
+              </div>
               <div className="chatmessagesList" ref={msgRef}>
                 {messages.map((e, i) => {
                   return <ChatBallon key={`${e}_${i}`} data={e} />;
@@ -157,20 +181,19 @@ function MypageChatScreen() {
           )}
         </div>
 
-        <div className="sellerContainer"></div>
+        <div className="sellerContainer">
+          <MypageVinyl userData={userData} />
+          <p className="sellerName">정대만</p>
+          <p className="sellerIntro">
+            “그래, 난 정대만. 포기를 모르는 남자지…”
+          </p>
+          <div className="tagContainer">
+            {['밴드', '일렉기타', '일렉기타', '일렉기타'].map((e, i) => {
+              return <p className="sellerTag">{`# ${e}`}</p>;
+            })}
+          </div>
+        </div>
       </div>
-      {/* <h1>화면 렌더링시 자동 접속, update시 ALERT</h1> */}
-      {/* <button
-        onClick={() => {
-          socket.emit('disconnect');
-          socket.off();
-        }}
-      >
-        연결 해제하기
-      </button> */}
-      {/* <input value={message} onChange={(e) => setMessage(e.target.value)} />
-      <button onClick={sendMessage}>메시지 보내기</button> */}
-      {/* <ChatCard /> */}
     </Screen>
   );
 }

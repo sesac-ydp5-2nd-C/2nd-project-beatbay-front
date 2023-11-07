@@ -35,13 +35,13 @@
     width: toSize(585);
     border-radius: toSize(15);
     margin: 0px toSize(24) 0px toSize(18);
-    padding: toSize(23) toSize(15);
+    padding: toSize(16) toSize(15) toSize(23) toSize(16);
     background-color: white;
     @include media('>1440px') {
       width: 585px;
       border-radius: 15px;
       margin: 0px 24px 0px 18px;
-      padding: 23px 15px;
+      padding: 16px 16px 23px 16px;
     }
 
     .chatmessagesList {
@@ -80,13 +80,101 @@
   }
 
   .sellerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: toSize(281);
     border-radius: toSize(15);
     height: 100%;
     background-color: white;
+    padding: toSize(50) toSize(30);
     @include media('>1440px') {
       width: 281px;
       border-radius: 15px;
+      padding: 50px 30px;
+    }
+
+    @include media('<768px') {
+      display: none;
+    }
+
+    .profileVinyl {
+      width: toSize(215);
+      height: toSize(192);
+      margin: 0;
+      @include media('>1440px') {
+        width: 215px;
+        height: 192px;
+      }
+    }
+
+    .turntable {
+      width: toSize(215);
+      height: toSize(192);
+      @include media('>1440px') {
+        width: 215px;
+        height: 192px;
+      }
+    }
+
+    .profileImg {
+      width: toSize(180);
+      margin-right: toSize(5);
+      margin-bottom: toSize(5);
+      border-radius: 999px;
+      @include media('>1440px') {
+        width: 180px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .gradeImg {
+      width: toSize(25);
+      margin-right: toSize(82);
+      margin-bottom: toSize(82);
+      @include media('>1440px') {
+        margin-right: 198px;
+        margin-bottom: 200px;
+        width: 70px;
+      }
+    }
+
+    .sellerName {
+      font-size: toSize(20);
+      font-weight: 700;
+      margin-top: toSize(28);
+      margin-bottom: toSize(16);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sellerIntro {
+      width: 100%;
+      text-align: center;
+      font-size: toSize(16);
+      font-weight: 500;
+      text-overflow: ellipsis;
+      word-break: break-word;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; // 원하는 라인수
+      -webkit-box-orient: vertical;
+    }
+
+    .tagContainer {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-top: toSize(22);
+      height: toSize(28);
+      // white-space: nowrap;
+      text-overflow: ellipsis;
+      .sellerTag {
+        padding: toSize(5) toSize(12);
+        border-radius: toSize(5);
+        background-color: #d9d9d9;
+        margin-right: toSize(8);
+      }
     }
   }
 }
@@ -121,5 +209,44 @@
   @include media('>1440px') {
     font-size: 32px;
     margin-top: 320px;
+  }
+}
+
+.objectInfoContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: toSize(146);
+  margin-bottom: toSize(13);
+  padding: 0px toSize(9);
+  border-bottom: solid toSize(1) #d6d6d6;
+
+  .objectImg {
+    width: toSize(111);
+    height: toSize(78);
+    margin-right: toSize(20);
+    object-fit: cover;
+  }
+
+  .obTitle {
+    font-size: toSize(14);
+    font-weight: 500;
+
+    &.won {
+      margin-top: toSize(17);
+      font-size: toSize(16);
+    }
+  }
+
+  .finishBtn {
+    cursor: pointer;
+    position: absolute;
+    top: toSize(20);
+    right: toSize(10);
+    font-size: toSize(12);
+    color: white;
+    padding: 0px toSize(20);
+    background-color: #30338a;
+    border-radius: toSize(5);
   }
 }

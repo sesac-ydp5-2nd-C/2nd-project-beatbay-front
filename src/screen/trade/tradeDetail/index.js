@@ -36,6 +36,7 @@ function TradeDetailScreen() {
   const [selectedItem, setSelectedItem] = useState();
   const { id, type } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImg, setSelectedImg] = useState();
   const data = {
     id: 1,
     name: '정대만',
@@ -146,12 +147,15 @@ function TradeDetailScreen() {
                         <p
                           style={{ cursor: 'pointer' }}
                           className="legend"
-                          onClick={() => setIsModalOpen(e)}
+                          onClick={() => {
+                            setIsModalOpen(true);
+                            setSelectedImg(e);
+                          }}
                         >
                           자세히 보기
                         </p>
                         <ImageModal
-                          uri={`http://localhost:8000/uploads/${isModalOpen}`}
+                          uri={`http://localhost:8000/uploads/${selectedImg}`}
                           isModalOpen={isModalOpen}
                           setIsModalOpen={setIsModalOpen}
                         />
