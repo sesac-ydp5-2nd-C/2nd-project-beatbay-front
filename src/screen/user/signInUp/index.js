@@ -12,6 +12,7 @@ import {
   postUserSignup,
   putUserFindPass,
 } from '../../../api/user';
+import axios from 'axios';
 
 const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -105,6 +106,7 @@ const SignInUpScreen = () => {
 
       postUserLogin(apiData).then((res) => {
         localStorage.setItem('login_id', res.data.logUserData.id);
+        localStorage.setItem('email', res.data.logUserData.userId);
         console.log(res);
 
         if (res.data.result === true) {

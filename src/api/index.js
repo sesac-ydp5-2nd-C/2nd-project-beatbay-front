@@ -25,6 +25,7 @@ const setInterceptors = (instance) => {
       if (error.response.status == 401) {
         alert('로그인이 필요합니다 !');
         localStorage.removeItem('login_id');
+        localStorage.removeItem('email');
         window.history.back();
       }
       // if (axios.isCancel(error)) {

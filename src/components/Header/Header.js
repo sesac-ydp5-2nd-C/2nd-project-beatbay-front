@@ -16,6 +16,7 @@ export default function Header({ color = 'black' }) {
   const handleLogout = () => {
     getUserLogout().then((res) => {
       localStorage.removeItem('login_id');
+      localStorage.removeItem('email');
       window.location.replace('http://localhost:3000/');
     });
   };
