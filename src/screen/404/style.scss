@@ -1,0 +1,60 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .error404 {
+    width: toSize(1000);
+    max-width: 1000px;
+  }
+
+  h1 {
+    font-size: toSize(40);
+    font-weight: 900;
+    margin: 0 0 toSize(20) 0;
+  }
+
+  p {
+    font-size: toSize(20);
+    font-weight: 500;
+  }
+
+  div {
+    width: toSize(200);
+    height: toSize(100);
+    margin-top: toSize(80);
+    padding-left: toSize(20);
+
+    button {
+      width: toSize(180);
+      height: toSize(50);
+      font-size: toSize(20);
+      display: flex;
+      position: relative;
+      align-items: center;
+      background-color: #dadada;
+      border: none;
+      border-radius: 555px;
+      &:hover {
+        background-color: #878be5;
+      }
+
+      .audioCable {
+        width: toSize(100);
+        position: absolute;
+        left: toSize(-50);
+      }
+
+      span {
+        position: absolute;
+        left: toSize(60);
+        font-size: toSize(24);
+        font-weight: 500;
+      }
+    }
+  }
+}
