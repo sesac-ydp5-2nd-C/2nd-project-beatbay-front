@@ -1,0 +1,106 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.adminContainer {
+  width: toSize(1250);
+  margin: auto;
+  @include media('>1440px') {
+    width: 1250px;
+  }
+  h1 {
+    font-size: toSize(30);
+    margin-top: toSize(40);
+    @include media('>1440px') {
+      font-size: 30px;
+      margin-top: 40px;
+    }
+  }
+
+  .ADNoticeSection,
+  .ADTradeSection {
+    margin: toSize(50) 0;
+    display: flex;
+  }
+
+  .ADUserSection {
+    background-color: white;
+    width: toSize(1250);
+    border-radius: toSize(15);
+    min-height: toSize(200);
+    max-height: toSize(500);
+    padding: toSize(30);
+
+    @include media('>1440px') {
+      width: 1250px;
+      border-radius: 15px;
+      min-height: 200px;
+      max-height: 500px;
+      padding: 30px;
+    }
+  }
+
+  .ADControlTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    h2 {
+      margin: 0;
+      font-size: toSize(20);
+      @include media('>1440px') {
+        font-size: 20px;
+      }
+    }
+
+    p {
+      font-size: toSize(20);
+      font-weight: 500;
+      @include media('>1440px') {
+        font-size: 20px;
+      }
+    }
+
+    button {
+      color: white;
+      background-color: #30338a;
+      border: none;
+      border-radius: toSize(10);
+      width: toSize(120);
+      height: toSize(40);
+      font-size: toSize(20);
+      font-weight: 300;
+      @include media('>1440px') {
+        border-radius: 10px;
+        width: 100px;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .columnControl,
+  .noticeControl,
+  .productControl,
+  .abilityControl {
+    width: toSize(613);
+    background-color: white;
+    min-height: toSize(200);
+    max-height: toSize(500);
+    padding: toSize(30);
+    border-radius: toSize(15);
+
+    @include media('>1440px') {
+      border-radius: 15px;
+      min-height: 200px;
+      max-height: 500px;
+      padding: 30px;
+    }
+  }
+
+  .columnControl,
+  .productControl {
+    margin-right: toSize(24);
+    @include media('>1440px') {
+      margin-right: 24px;
+    }
+  }
+}
