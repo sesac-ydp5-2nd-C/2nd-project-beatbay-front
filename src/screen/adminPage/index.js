@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.scss';
 import Screen from '../Screen';
 import AdminTable from '../../components/AdminTable/AdminTable';
+import ContentModal from '../../components/common/customModal/ContentModal';
 
 export default function AdminScreen() {
   const admin = {
@@ -133,6 +134,29 @@ export default function AdminScreen() {
       ],
     },
   };
+
+  const [selectedData, setSelectedData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({
+    title: '',
+    content: '',
+    url: '',
+  });
+  const handleEdit = (item) => {
+    setSelectedData(item);
+    setIsModalOpen(true);
+    console.log(item);
+  };
+
+  const handleDelete = () => {
+    console.log('삭제');
+  };
+
+  const closeModal = () => {
+    setSelectedData(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <Screen>
       <div className="adminContainer">
@@ -144,7 +168,11 @@ export default function AdminScreen() {
               <p>전체 회원 수: {admin.admin_data.user.length}</p>
             </div>
             <div className="ADtable">
-              <AdminTable data={admin.admin_data.user} dataType="user" />
+              <AdminTable
+                data={admin.admin_data.user}
+                dataType="user"
+                handleDelete={(item) => handleDelete(item)}
+              />
             </div>
           </div>
         </section>
@@ -153,19 +181,33 @@ export default function AdminScreen() {
           <div className="columnControl">
             <div className="ADControlTitle">
               <h2>칼럼 관리</h2>
-              <button className="columnPost">등록</button>
+              <button className="columnPost" onClick={handleEdit}>
+                등록
+              </button>
             </div>
             <div className="ADtable">
-              <AdminTable data={admin.admin_data.column} dataType="column" />
+              <AdminTable
+                data={admin.admin_data.column}
+                dataType="column"
+                handleEdit={(item) => handleEdit(item)}
+                handleDelete={(item) => handleDelete(item)}
+              />
             </div>
           </div>
           <div className="noticeControl">
             <div className="ADControlTitle">
               <h2>공지 관리</h2>
-              <button className="noticePost">등록</button>
+              <button className="noticePost" onClick={handleEdit}>
+                등록
+              </button>
             </div>
             <div className="ADtable">
-              <AdminTable data={admin.admin_data.notice} dataType="notice" />
+              <AdminTable
+                data={admin.admin_data.notice}
+                dataType="notice"
+                handleEdit={handleEdit}
+                handleDelete={(item) => handleDelete(item)}
+              />
             </div>
           </div>
         </section>
@@ -177,20 +219,37 @@ export default function AdminScreen() {
               <p>물품 등록 수: {admin.admin_data.product.length}</p>
             </div>
             <div className="ADtable">
-              <AdminTable data={admin.admin_data.product} dataType="product" />
+              <AdminTable
+                data={admin.admin_data.product}
+                dataType="product"
+                handleDelete={(item) => handleDelete(item)}
+              />
             </div>
           </div>
           <div className="abilityControl">
             <div className="ADControlTitle">
               <h2>재능 관리</h2>
-              <p>재능 등록 수: {admin.admin_data.product.length}</p>
+              <p>재능 등록 수: {admin.admin_data.ability.length}</p>
             </div>
             <div className="ADtable">
-              <AdminTable data={admin.admin_data.ability} dataType="ability" />
+              <AdminTable
+                data={admin.admin_data.ability}
+                dataType="ability"
+                handleDelete={(item) => handleDelete(item)}
+              />
             </div>
           </div>
         </section>
       </div>
+      {isModalOpen && (
+        <ContentModal
+          isOpen={isModalOpen}
+          closeModal={closeModal}
+          selectedData={selectedData}
+          modalData={modalData}
+          setModalData={setModalData}
+        />
+      )}
     </Screen>
   );
 }
