@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import Screen from '../Screen';
+import AdminTable from '../../components/AdminTable/AdminTable';
 
 export default function AdminScreen() {
   const admin = {
@@ -10,108 +11,50 @@ export default function AdminScreen() {
         {
           id: 2,
           user_id: 'imwoals7578@naver.com',
-          user_pw:
-            '$2b$05$YiPs1RFsW/LuuuaLBx7wlOam.DwjH9NCU8ck7AWb.4Z2hWD6gCOTq',
           user_nickname: '이재민',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img: null,
-          user_comment: null,
-          user_interest: null,
-          is_kakao: false,
         },
         {
           id: 5,
           user_id: 'jannie526@naver.com',
-          user_pw:
-            '$2b$05$fwFZOmqkv/lbZfCAyjY67.bZuS.3bmAkkcYOgih/iIiXrgqyUhH.S',
           user_nickname: '김정윤',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img: null,
-          user_comment: null,
-          user_interest: null,
-          is_kakao: false,
         },
         {
           id: 6,
           user_id: 'test@naver.com',
-          user_pw:
-            '$2b$05$5cbXMdKt3M8w42KsFg0yq.g1owSYT.Da9qxrbX7MYXRjlQZm/ReZ6',
           user_nickname: '이제그만하자',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img: null,
-          user_comment: null,
-          user_interest: null,
-          is_kakao: false,
         },
         {
           id: 8,
           user_id: 'flashrifle@gmail.com',
-          user_pw:
-            '$2b$05$bHx7F8ea6nPxgtCUupV0F.vCAfGYTl87bvl/skHuzAP6V3e1rRh6O',
           user_nickname: '이재민',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img:
-            'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg',
-          user_comment: null,
-          user_interest: null,
-          is_kakao: true,
         },
         {
           id: 9,
           user_id: 'flashrifle@gmail.com',
-          user_pw:
-            '$2b$05$MMRmjiAXrm3PRuVTxlDKuO/xshrEgyeAfxgOPW6K2CSka7Rv2/G5i',
           user_nickname: '이재민',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img:
-            'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg',
-          user_comment: null,
-          user_interest: null,
-          is_kakao: true,
         },
         {
           id: 10,
           user_id: 'jck1004ee@naver.com',
-          user_pw:
-            '$2b$05$sy95KzA6dXoiz3y8tp34GO6GwBs7pYhmCWNdE02b.dT7hQWivjHjS',
           user_nickname: 'sadfds',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img: null,
-          user_comment: null,
-          user_interest: null,
-          is_kakao: false,
         },
         {
           id: 11,
           user_id: 'jck1004ee@naver.com',
-          user_pw:
-            '$2b$05$sy95KzA6dXoiz3y8tp34GO6GwBs7pYhmCWNdE02b.dT7hQWivjHjS',
           user_nickname: 'sadfds',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img: null,
-          user_comment: null,
-          user_interest: null,
-          is_kakao: false,
         },
         {
           id: 12,
           user_id: 'jck1004ee@naver.com',
-          user_pw:
-            '$2b$05$sy95KzA6dXoiz3y8tp34GO6GwBs7pYhmCWNdE02b.dT7hQWivjHjS',
           user_nickname: 'sadfds',
           user_grade: 0,
-          auth_id: 0,
-          user_profile_img: null,
-          user_comment: null,
-          user_interest: null,
-          is_kakao: false,
         },
       ],
       column: [
@@ -168,8 +111,6 @@ export default function AdminScreen() {
         {
           product_id: 2,
           product_title: 'sample1',
-          product_id: 4,
-          product_title: 'slam dunk zzang',
         },
         {
           product_id: 3,
@@ -202,7 +143,10 @@ export default function AdminScreen() {
               <h2>회원관리</h2>
               <p>전체 회원 수: {admin.admin_data.user.length}</p>
             </div>
-            <table className="userTable"></table>
+            <AdminTable
+              data={admin.admin_data.user}
+              columns={['id', 'user_id', 'user_nickname', 'user_grade']}
+            />
           </div>
         </section>
 
@@ -212,14 +156,20 @@ export default function AdminScreen() {
               <h2>칼럼 관리</h2>
               <button className="columnPost">등록</button>
             </div>
-            <table className="columnTable"></table>
+            <AdminTable
+              data={admin.admin_data.column}
+              columns={['id', 'title']}
+            />
           </div>
           <div className="noticeControl">
             <div className="ADControlTitle">
               <h2>공지 관리</h2>
               <button className="noticePost">등록</button>
             </div>
-            <table className="noticeTable"></table>
+            <AdminTable
+              data={admin.admin_data.notice}
+              columns={['id', 'title']}
+            />
           </div>
         </section>
 
@@ -229,14 +179,20 @@ export default function AdminScreen() {
               <h2>물품 관리</h2>
               <p>물품 등록 수: {admin.admin_data.product.length}</p>
             </div>
-            <table className="productTable"></table>
+            <AdminTable
+              data={admin.admin_data.product}
+              columns={['product_id', 'product_title']}
+            />
           </div>
           <div className="abilityControl">
             <div className="ADControlTitle">
               <h2>재능 관리</h2>
               <p>재능 등록 수: {admin.admin_data.product.length}</p>
             </div>
-            <table className="abilityTable"></table>
+            <AdminTable
+              data={admin.admin_data.ability}
+              columns={['ability_id', 'ability_title']}
+            />
           </div>
         </section>
       </div>
