@@ -26,6 +26,7 @@ const SignInUpScreen = () => {
   const [mailCheckMessage, setMailCheckMessage] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [isFormValid, setIsFormValid] = useState(true); // 유효성 검사 결과를 저장
 
   const [isEmailVerified, setIsEmailVerified] = useState(false);
 
@@ -44,26 +45,42 @@ const SignInUpScreen = () => {
     setErrorMessage('');
     setIsSignUp(false);
   };
+  const validationTimeOut = () => {
+    setIsFormValid(false);
+    setTimeout(() => {
+      setIsFormValid(true);
+      setErrorMessage('');
+    }, 3000);
+  };
+
   // 회원가입 유효성 검사
   const handleSignUp = () => {
     if (!name) {
       setErrorMessage('닉네임이 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다.'); //닉네임 중복확인추가필요?
+      validationTimeOut();
     } else if (!password) {
       setErrorMessage('비밀번호가 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!passwordCheck) {
       setErrorMessage('비밀번호 확인이 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!certification) {
       setErrorMessage('인증문자가 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!isValidEmail(email)) {
       setErrorMessage('존재하지 않는 이메일 형식입니다.');
+      validationTimeOut();
     } else if (!isValidPassword(password)) {
       setErrorMessage(
         '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
+      validationTimeOut();
     } else if (password !== passwordCheck) {
       setErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
+      validationTimeOut();
     } else {
       // Perform your signup logic here
       // e.g., make an API request to register the user
@@ -87,14 +104,18 @@ const SignInUpScreen = () => {
   const handleSignIn = () => {
     if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!password) {
       setErrorMessage('비밀번호가 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!isValidEmail(email)) {
       setErrorMessage('존재하지 않는 이메일 형식입니다.');
+      validationTimeOut();
     } else if (!isValidPassword(password)) {
       setErrorMessage(
         '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
+      validationTimeOut();
     } else {
       setErrorMessage(' ');
       const apiData = {
@@ -178,20 +199,27 @@ const SignInUpScreen = () => {
   const sendPw = () => {
     if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!password) {
       setErrorMessage('비밀번호가 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!passwordCheck) {
       setErrorMessage('비밀번호 확인이 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!certification) {
       setErrorMessage('인증문자가 작성되지 않았습니다.');
+      validationTimeOut();
     } else if (!isValidEmail(email)) {
       setErrorMessage('존재하지 않는 이메일 형식입니다.');
+      validationTimeOut();
     } else if (!isValidPassword(password)) {
       setErrorMessage(
         '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
+      validationTimeOut();
     } else if (password !== passwordCheck) {
       setErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
+      validationTimeOut();
     } else {
       console.log('Checking');
       const apiData = {
@@ -218,8 +246,10 @@ const SignInUpScreen = () => {
 
       if (res.data.result === true) {
         setMailCheckMessage(res.data.message + '이메일 인증을 진행하세요!');
+        validationTimeOut();
       } else if (res.data.result === false) {
         setErrorMessage(res.data.message);
+        validationTimeOut();
       }
     });
   };

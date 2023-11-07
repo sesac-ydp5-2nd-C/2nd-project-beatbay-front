@@ -22,6 +22,8 @@ function MypageEditInformationScreen() {
     user_pw: 'qwerty1234!',
   });
 
+  const [isFormValid, setIsFormValid] = useState(true);
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [nickname, setNickname] = useState('');
@@ -43,15 +45,21 @@ function MypageEditInformationScreen() {
   return (
     <Screen>
       <div className="editInformationContainer">
-        <div className="PIContainer">
+        <div className="UPEContainer">
           <div className="editForm">
-            <h1>회원정보 수정</h1>
-
             <form onSubmit={handleUpdate}>
+              <h1>회원정보 수정</h1>
+
               <section className="editInfoSection">
-                <br></br>
-                ID: {userData.user_id}
-                <br />
+                <div
+                  className="editInfoContainer"
+                  style={{ fontWeight: '700', fontSize: '16px' }}
+                >
+                  ID: {userData.user_id}
+                </div>
+              </section>
+
+              <section className="editInfoSection">
                 <div className="editInfoContainer">
                   <input
                     type="password"
@@ -65,8 +73,12 @@ function MypageEditInformationScreen() {
                   <label className="formList">비밀번호</label>
                   <span></span>
                 </div>
+                {!password && !isFormValid && (
+                  <p className="error-message">제목은 필수 항목입니다.</p>
+                )}
               </section>
               <br />
+
               <section className="editInfoSection">
                 <div className="editInfoContainer">
                   <input
@@ -107,30 +119,40 @@ function MypageEditInformationScreen() {
               <br />
               <br />
               <section className="editInfoSection">
-                <span className="formList">자기소개</span>
-                <div className="editInfoContainer">
+                <span
+                  className="formList"
+                  style={{ fontWeight: '450', fontSize: '20px' }}
+                >
+                  자기소개
+                </span>
+                <div
+                  className="editInfoContainer"
+                  style={{ marginTop: '25px' }}
+                >
                   <textarea
-                    type="text"
-                    id="introduction"
-                    name="introduction"
+                    // type="text"
+                    // id="introduction"
+                    // name="introduction"
                     placeholder="자기소개를 입력해 주세요"
-                    rows="4"
-                    cols="50"
+                    // rows="4"
+                    // cols="50"
                     onChange={(e) => setIntroduction(e.target.value)}
                     required
                   />
+                  {/* {' '}
+                  {!introduction && (
+                    <p className="sellFormMsg">자기소개는 필수 항목입니다.</p>
+                  )} */}
                 </div>
               </section>
 
-              {/* <label htmlFor="profileImage">
-                프로필 이미지:
-              </label>
+              <label htmlFor="profileImage">프로필 이미지:</label>
               <input
                 type="file"
                 id="profileImage"
                 name="profileImage"
                 onChange={(e) => setProfileImage(e.target.files[0])}
-              /> */}
+              />
               <br></br>
 
               <label htmlFor="interests">관심분야 태그:</label>
@@ -145,20 +167,29 @@ function MypageEditInformationScreen() {
               <InterestTag userData={userData} />
             </form>
             <br />
-            <button type="button" onClick={handleDeleteAccount}>
-              탈퇴
-            </button>
-            <button type="submit">등록</button>
           </div>
+        </div>
+        <div className="R-UPEContainer">
+          <div className="vinylpic">
+            <div className="vinyl">
+              <MypageVinyl userData={userData} />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleDeleteAccount}
+            className="editQuit"
+          >
+            탈퇴
+          </button>
+
+          <button type="submit" className="editSubmit">
+            등록
+          </button>
         </div>
       </div>
       <br />
-
-      <div className="vinylpic">
-        <div className="vinyl">
-          <MypageVinyl userData={userData} />
-        </div>
-      </div>
     </Screen>
   );
 }
