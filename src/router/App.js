@@ -46,7 +46,7 @@ function App() {
           <Route path="/mypage/like" element={<MypageLikesScreen />} />
 
           <Route
-            path="/mypage/edit"
+            path="/mypage/userProfile"
             element={<MypageEditInformationScreen />}
           />
 

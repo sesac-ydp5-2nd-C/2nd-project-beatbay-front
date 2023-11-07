@@ -10,7 +10,7 @@ export default function MypageProfile({ userData }) {
       <div>
         <div className="helloUser">
           <h1> HELLO, {userData.user_nickname}</h1>
-          <Link to="/mypage/edit">
+          <Link to="/mypage/userProfile">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"

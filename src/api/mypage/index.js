@@ -15,3 +15,7 @@ export const getMyPurchase = async (apiData) => {
 export const getMyLikes = async (apiData) => {
   return await BB.get('/mypage/like', apiData);
 };
+
+export const getUserProfile = async (apiData) => {
+  return await BB.get('/userProfile', apiData);
+};
