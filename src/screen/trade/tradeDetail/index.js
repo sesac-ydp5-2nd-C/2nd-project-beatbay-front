@@ -183,7 +183,7 @@ function TradeDetailScreen() {
                       <div key={`${e}_${i}`}>
                         <img
                           alt="cImg"
-                          src={`http://localhost:8000/uploads/${e}`}
+                          src={`${process.env.REACT_APP_BACK_IP}/uploads/${e}`}
                           onError={(e) => (e.target.src = tradeSample)}
                           className="tradeCarouselImg"
                         />
@@ -198,7 +198,7 @@ function TradeDetailScreen() {
                           자세히 보기
                         </p>
                         <ImageModal
-                          uri={`http://localhost:8000/uploads/${selectedImg}`}
+                          uri={`${process.env.REACT_APP_BACK_IP}/uploads/${selectedImg}`}
                           isModalOpen={isModalOpen}
                           setIsModalOpen={setIsModalOpen}
                         />

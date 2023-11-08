@@ -58,7 +58,7 @@ function MypageChatScreen() {
   const ref = useRef();
   const user_id = localStorage.getItem('login_id');
   const email = localStorage.getItem('email');
-  const ENDPOINT = 'http://localhost:5001';
+  const ENDPOINT = process.env.REACT_APP_SOCKET_IP;
   //   const [name, setName] = useState('');
   const [chatList, setChatList] = useState([
     {

@@ -6,7 +6,6 @@ import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import MypageTab from '../../../components/MypageTab/MypageTab';
 import InfiniteScroll from 'react-infinite-scroller';
-import userImg from '../../../asset/profile_default.png';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getMyLikes } from '../../../api/mypage';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
@@ -34,19 +33,25 @@ export default function MypagePurchasesScreen() {
   const [activeTab, setActiveTab] = useState(tabsData[0]);
   const [productData, setProductData] = useState([]);
   const [startLoad, setStartLoad] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
     setStartLoad(true);
     console.log(activeTab);
-
+    setCurrentPage(0);
+    setTotalPage(1);
     getLikeList();
   }, [selectedItem, activeTab]);
 
-  const getLikeList = async () => {
-    setProductData(null);
+  const getLikeList = async (page = null) => {
+    if (!null) {
+      setProductData(null);
+    }
     const apiData = {
       type: activeTab.type === 'product' ? 0 : 1,
       update: items.indexOf(selectedItem),
+      page: page ? page : undefined,
     };
     console.log(apiData);
     getMyLikes(apiData).then((res) => {
@@ -58,6 +63,8 @@ export default function MypagePurchasesScreen() {
       } else if (activeTab.type === 'ability') {
         productDataFromResponse = res.data.userFavoriteAbility;
       }
+      setCurrentPage(res.data?.pageNum);
+      setTotalPage(res.data?.totalPages);
       console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
       setUserData(res.data.userData);
@@ -97,22 +104,23 @@ export default function MypagePurchasesScreen() {
               pageStart={0}
               loadMore={() => {
                 if (productData?.length > 0 && startLoad) {
-                  // setProductData([...productData, ...productData]);
-                  // console.log(productData);
+                  getLikeList(currentPage + 1);
                 }
               }}
-              hasMore={false}
+              hasMore={totalPage > currentPage ? true : false}
               loader={
                 startLoad ? (
-                  productData?.length === 0 ? (
-                    <div>데이터가 없습니다</div>
-                  ) : (
-                    <div className="loader" key={0}>
-                      <LoadingSpinner />
-                    </div>
-                  )
+                  <div
+                    style={{ display: 'flex', justifyContent: 'center' }}
+                    key={0}
+                  >
+                    <LoadingSpinner />
+                  </div>
                 ) : (
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div
+                    style={{ display: 'flex', justifyContent: 'center' }}
+                    key={0}
+                  >
                     <div onClick={() => setStartLoad(true)} className="seeMore">
                       더 보기 +
                     </div>
@@ -124,16 +132,15 @@ export default function MypagePurchasesScreen() {
                 <EmptyTrade where={'찜 내역이'} />
               ) : (
                 <div className="MpGridContainer">
-                  {productData &&
-                    productData?.map((e, i) => {
-                      return (
-                        <TradeCard
-                          key={`${i}_${e.title}`}
-                          data={e[`used_${activeTab.type}`]}
-                          type={activeTab.type}
-                        />
-                      );
-                    })}
+                  {productData?.map((e, i) => {
+                    return (
+                      <TradeCard
+                        key={`${i}_${e.title}`}
+                        data={e[`used_${activeTab.type}`]}
+                        type={activeTab.type}
+                      />
+                    );
+                  })}
                 </div>
               )}
             </InfiniteScroll>
