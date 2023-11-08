@@ -34,19 +34,26 @@ export default function MypageListingsScreen() {
   const [activeTab, setActiveTab] = useState(tabsData[0]);
   const [productData, setProductData] = useState();
   const [startLoad, setStartLoad] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
     setStartLoad(true);
+    setCurrentPage(0);
+    setTotalPage(1);
     console.log(activeTab);
 
     getSellList();
   }, [selectedItem, activeTab]);
 
-  const getSellList = async () => {
-    setProductData(null);
+  const getSellList = async (page = null) => {
+    if (!page) {
+      setProductData(null);
+    }
     const apiData = {
       type: activeTab.type === 'product' ? 0 : 1,
       update: items.indexOf(selectedItem),
+      page: page ? page : undefined,
     };
     console.log(apiData);
     getMySell(apiData).then((res) => {
@@ -55,8 +62,12 @@ export default function MypageListingsScreen() {
 
       if (activeTab.type === 'product') {
         productDataFromResponse = res.data.userProduct.products;
+        setCurrentPage(res.data.userProduct.pageNum);
+        setTotalPage(res.data.userProduct.totalPages);
       } else if (activeTab.type === 'ability') {
         productDataFromResponse = res.data.userAbility.abilities;
+        setCurrentPage(res.data.userAbility.pageNum);
+        setTotalPage(res.data.userAbility.totalPages);
       }
       console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
@@ -97,22 +108,23 @@ export default function MypageListingsScreen() {
               pageStart={0}
               loadMore={() => {
                 if (productData?.length > 0 && startLoad) {
-                  // setProductData([...productData, ...productData]);
-                  // console.log(productData);
+                  getSellList(null, currentPage + 1);
                 }
               }}
-              hasMore={false}
+              hasMore={totalPage > currentPage ? true : false}
               loader={
                 startLoad ? (
-                  productData?.length === 0 ? (
-                    <div>데이터가 없습니다</div>
-                  ) : (
-                    <div className="loader" key={0}>
-                      <LoadingSpinner />
-                    </div>
-                  )
+                  <div
+                    style={{ display: 'flex', justifyContent: 'center' }}
+                    key={0}
+                  >
+                    <LoadingSpinner />
+                  </div>
                 ) : (
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div
+                    style={{ display: 'flex', justifyContent: 'center' }}
+                    key={0}
+                  >
                     <div onClick={() => setStartLoad(true)} className="seeMore">
                       더 보기 +
                     </div>
@@ -124,16 +136,15 @@ export default function MypageListingsScreen() {
                 <EmptyTrade where={'판매 내역이'} />
               ) : (
                 <div className="MpGridContainer">
-                  {productData &&
-                    productData?.map((e, i) => {
-                      return (
-                        <TradeCard
-                          key={`${i}_${e.title}`}
-                          data={e}
-                          type={activeTab.type}
-                        />
-                      );
-                    })}
+                  {productData?.map((e, i) => {
+                    return (
+                      <TradeCard
+                        key={`${i}_${e.title}`}
+                        data={e}
+                        type={activeTab.type}
+                      />
+                    );
+                  })}
                 </div>
               )}
             </InfiniteScroll>

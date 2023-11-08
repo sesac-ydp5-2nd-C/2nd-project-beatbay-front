@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
-import { useSelector } from 'react-redux';
 import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
 import CustomTab from '../../../components/common/customTab/CustomTab';
@@ -8,8 +7,9 @@ import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeProduct } from '../../../api/trade';
-import emptyLogo from '../../../asset/emptyLogo.svg';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
+import write from '../../../asset/write.svg';
+import { Link } from 'react-router-dom';
 
 function ProductTradeScreen() {
   const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
@@ -53,7 +53,9 @@ function ProductTradeScreen() {
   }, [selectedItem, activeContent]);
 
   const getTradeList = async (search = null, page = null) => {
-    setProductData();
+    if (!page) {
+      setProductData();
+    }
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,
@@ -107,7 +109,12 @@ function ProductTradeScreen() {
       >
         <div className="postCardContainer">
           <div className="PIContainer">
-            <div className="postIntro">POST</div>
+            <Link to={'/trade/sell'}>
+              <div className="postIntro">
+                <img alt="write" src={write} className="writeIcon" />
+                POST
+              </div>
+            </Link>
             <CustomDropdown
               showDropdown={showDropdown}
               setShowDropdown={() => setShowDropdown(!showDropdown)}

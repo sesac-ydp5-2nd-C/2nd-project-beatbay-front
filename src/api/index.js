@@ -1,7 +1,7 @@
 import { create } from 'apisauce';
 import axios from 'axios';
 
-export const baseURL = 'http://localhost:8000';
+export const baseURL = process.env.REACT_APP_BACK_IP;
 
 const setInterceptors = (instance) => {
   instance.interceptors.request.use(

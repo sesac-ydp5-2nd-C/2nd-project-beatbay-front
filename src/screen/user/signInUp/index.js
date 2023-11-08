@@ -137,7 +137,7 @@ const SignInUpScreen = () => {
     }
   };
   const handleKakaoSignIn = () => {
-    window.location.href = 'http://localhost:8000/kakao';
+    window.location.href = `${process.env.REACT_APP_BACK_IP}/kakao`;
     // window.open('http://localhost:8000/kakao');
   };
 

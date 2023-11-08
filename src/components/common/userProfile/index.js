@@ -14,7 +14,7 @@ export default function UserProfileContainer({ followingData }) {
       <div className="UPImgBorder">
         <img
           alt="profileImg"
-          src={`http://localhost:8000/uploads/${followingData?.user_profile_img}`}
+          src={`${process.env.REACT_APP_BACK_IP}/uploads/${followingData?.user_profile_img}`}
           onError={(e) => (e.target.src = profileSample)}
           className="UPImg"
         />

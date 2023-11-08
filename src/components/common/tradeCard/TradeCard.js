@@ -14,7 +14,7 @@ export default function TradeCard({ data, type }) {
       <div className="TCContainer">
         <img
           alt="prdImg"
-          src={`http://localhost:8000/uploads/${tImg}`}
+          src={`${process.env.REACT_APP_BACK_IP}/uploads/${tImg}`}
           onError={(e) => (e.target.src = tradeSample)}
           className="prdImg"
         />

@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
-import { CSSTransition } from 'react-transition-group';
-import { useDispatch, useSelector } from 'react-redux';
-import tradeSample from '../../../asset/tradeSample.png';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
 import Screen from '../../Screen';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -10,8 +7,9 @@ import CustomTab from '../../../components/common/customTab/CustomTab';
 import TradeCard from '../../../components/common/tradeCard/TradeCard';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { getTradeAbility } from '../../../api/trade';
-import emptyLogo from '../../../asset/emptyLogo.svg';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
+import write from '../../../asset/write.svg';
+import { Link } from 'react-router-dom';
 
 function TalentTradeScreen() {
   const items = ['최신순', '인기순', '낮은가격순', '높은가격순'];
@@ -71,7 +69,9 @@ function TalentTradeScreen() {
   }, [selectedItem, activeContent, activeTab]);
 
   const getAbilityList = async (search = null, page = null) => {
-    setProductData();
+    if (!page) {
+      setProductData();
+    }
     const apiData = {
       orderMethod: items.indexOf(selectedItem),
       categoryNum: activeTab.id,
@@ -123,7 +123,12 @@ function TalentTradeScreen() {
       >
         <div className="postCardContainer">
           <div className="PIContainer">
-            <div className="postIntro">POST</div>
+            <Link to={'/trade/sell'}>
+              <div className="postIntro">
+                <img alt="write" src={write} className="writeIcon" />
+                POST
+              </div>
+            </Link>
             <CustomDropdown
               showDropdown={showDropdown}
               setShowDropdown={() => setShowDropdown(!showDropdown)}
