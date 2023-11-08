@@ -150,7 +150,14 @@ function MypageChatScreen() {
 
     if (message) {
       if (isNewRoom) {
-        console.log('dqwdwq');
+        console.log({
+          user_id,
+          email,
+          content: message,
+          receiver_id: sellerData.opponent_id,
+          type: sellerData.type,
+          object_id: sellerData.object_id,
+        });
         socket.emit(
           'join',
           {
