@@ -93,3 +93,10 @@
     }
   }
 }
+
+.sellerListContainer {
+  width: toSize(1250);
+  @include media('>1440px') {
+    width: 1250px;
+  }
+}
