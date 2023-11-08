@@ -13,10 +13,7 @@ import LoadingSpinner from '../../../components/common/loadingSpinner';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
 
 export default function MypagePurchasesScreen() {
-  const [userData, setUserData] = useState({
-    imgSrc: userImg,
-    user_grade: 5,
-  });
+  const [userData, setUserData] = useState();
 
   const tabsData = [
     {
@@ -41,11 +38,12 @@ export default function MypagePurchasesScreen() {
   useEffect(() => {
     setStartLoad(true);
     console.log(activeTab);
+
     getLikeList();
   }, [selectedItem, activeTab]);
 
   const getLikeList = async () => {
-    setProductData([]);
+    setProductData(null);
     const apiData = {
       type: activeTab.type === 'product' ? 0 : 1,
       update: items.indexOf(selectedItem),
@@ -54,6 +52,7 @@ export default function MypagePurchasesScreen() {
     getMyLikes(apiData).then((res) => {
       console.log(res);
       let productDataFromResponse;
+
       if (activeTab.type === 'product') {
         productDataFromResponse = res.data.userFavoriteProduct;
       } else if (activeTab.type === 'ability') {
@@ -61,6 +60,8 @@ export default function MypagePurchasesScreen() {
       }
       console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
+      setUserData(res.data.userData);
+      // console.log(res.data.userData.user_grade);
     });
   };
 
@@ -74,7 +75,7 @@ export default function MypagePurchasesScreen() {
                 <h1>찜</h1>
               </div>
               <div className="vinyl">
-                <MypageVinyl userData={userData} />
+                {userData && <MypageVinyl userData={userData} />}
               </div>
             </div>
             <MypageTab
@@ -128,7 +129,7 @@ export default function MypagePurchasesScreen() {
                       return (
                         <TradeCard
                           key={`${i}_${e.title}`}
-                          data={e}
+                          data={e[`used_${activeTab.type}`]}
                           type={activeTab.type}
                         />
                       );
