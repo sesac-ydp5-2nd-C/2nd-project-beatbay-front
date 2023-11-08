@@ -3,11 +3,15 @@ import Interest from './Interests';
 // import './style.scss';
 
 export default function InterestTag({ userData }) {
+  // const temp = {
+  //   user_interest: ['집', '가고', '싶다'],
+  // };
   return (
     <div className="interestBox">
-      {userData.user_interests.map((interest, index) => (
-        <Interest key={index} kind={interest} />
-      ))}
+      {userData?.user_interest &&
+        userData.user_interest.map((interest, index) => (
+          <Interest key={index} kind={interest} />
+        ))}
     </div>
   );
 }

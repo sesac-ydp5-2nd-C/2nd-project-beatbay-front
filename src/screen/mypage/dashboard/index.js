@@ -54,7 +54,7 @@ function MypageDashboardScreen() {
       if (result.data.userData) {
         setMyPageData(result.data);
       }
-      // mypageData && console.log('mypageData:', mypageData);
+      mypageData && console.log('mypageData:', mypageData);
       // console.log('mypageData.userData:', mypageData.userData);
     });
   };
