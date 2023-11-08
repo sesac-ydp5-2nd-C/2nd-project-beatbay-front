@@ -17,19 +17,6 @@ import LoadingSpinner from '../../components/common/loadingSpinner';
 import EmptyTrade from '../../components/common/emptyTrade/EmptyTrade';
 
 export default function Userpage() {
-  const [userData, setUserData] = useState({
-    id: 1,
-    user_nickname: '대만',
-    comment: '“그래, 난 정대만. 포기를 모르는 남자지….”',
-    user_interests: ['밴드', '일렉기타'],
-    imgSrc: userImg,
-    user_grade: 5,
-    user_review: 32,
-    user_following: 28,
-    user_follower: 18,
-    itemCount: 20,
-  });
-
   const [reviewsData, setReviewsData] = useState([
     {
       user_nickname: '대만',
@@ -58,6 +45,7 @@ export default function Userpage() {
     },
     {
       id: 2,
+
       title: '재능',
       type: 'ability',
     },
@@ -74,7 +62,11 @@ export default function Userpage() {
 
   useEffect(() => {
     setStartLoad(true);
-    console.log(activeTab);
+    console.log(sellerData);
+    if (activeTab && activeTab.id) {
+      console.log(activeTab.id);
+    }
+    console.log(activeTab?.id);
     getSellerInfo();
   }, [selectedItem, activeTab]);
 
@@ -95,7 +87,8 @@ export default function Userpage() {
         productDataFromResponse = res.data.abilities.abilities;
       }
       console.log(productDataFromResponse);
-      setSellerData(productDataFromResponse);
+      setProductData(productDataFromResponse);
+      setSellerData(res.data);
     });
   };
 
@@ -120,7 +113,7 @@ export default function Userpage() {
   return (
     <Screen>
       <div className="sellerProfile">
-        {sellerData && sellerData.user && (
+        {sellerData && (
           <div className="sellerInfo">
             <MypageVinyl userData={sellerData.user} />
             <div className="sellercontent">
@@ -138,14 +131,8 @@ export default function Userpage() {
                   <p>{sellerData.followerCount}</p>
                 </div>
                 <div className="figure followBtn">
-                  <div className="tradeUserBtn">
-                    <img
-                      alt="icon"
-                      src={likeWhite}
-                      className="TUIcon TUHeart"
-                    />
-                    FOLLOW
-                  </div>
+                  <img alt="icon" src={likeWhite} className="SellerHeart" />
+                  <p>FOLLOW</p>
                 </div>
               </div>
             </div>

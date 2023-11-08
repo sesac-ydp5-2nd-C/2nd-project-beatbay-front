@@ -66,6 +66,30 @@
           height: 110px;
         }
       }
+
+      .followBtn {
+        background-color: #30338a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+          color: white;
+          font-size: toSize(20);
+          font-weight: 500;
+          @include media('>1440px') {
+            font-size: 20px;
+          }
+        }
+
+        .SellerHeart {
+          width: toSize(40);
+          margin-right: toSize(10);
+          @include media('>1440px') {
+            width: 40px;
+            margin-right: 10px;
+          }
+        }
+      }
     }
   }
 }
