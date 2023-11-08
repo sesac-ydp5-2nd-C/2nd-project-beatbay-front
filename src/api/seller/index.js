@@ -9,5 +9,5 @@ export const getSellerPage = async (apiData) => {
  * @param {Number} apiData.following_id
  */
 export const patchSellFollow = async (apiData) => {
-  return await BB.patch('/sell/follow', apiData);
+  return await BB.patch('/seller/follow', apiData);
 };
