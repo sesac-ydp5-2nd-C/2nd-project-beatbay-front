@@ -28,12 +28,14 @@ import ImageModal from '../../../components/imageModal/ImageModal';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
 import { useDispatch } from 'react-redux';
 import { setChatRoomInfo } from '../../../store/feature/userSlice';
+import { patchSellFollow } from '../../../api/seller';
 
 function TradeDetailScreen() {
   const [detailData, setDetailData] = useState();
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isLike, setIsLike] = useState(false);
+  const [isFollow, setIsFollow] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const items = ['판매중', '예약중', '거래완료'];
   const [selectedItem, setSelectedItem] = useState();
@@ -69,6 +71,7 @@ function TradeDetailScreen() {
         setLikeCount(res.data.likeCount);
         setDetailData(res.data[type]);
         setIsLike(res.data.isLike == 0 ? false : true);
+        setIsFollow(res.data.isFollow == 0 ? false : true);
         setIsMyProduct(res.data[type].user.id == loginId ? true : false);
         setSelectedItem(items[Number(res.data[type][`${type}_update`]) - 1]);
       }
@@ -121,17 +124,35 @@ function TradeDetailScreen() {
   };
 
   const handleChat = () => {
-    const socketData = {
-      opponent_id: detailData.user.id,
-      type: type,
-      object_id: detailData[`${type}_id`],
-      object_img: JSON.parse(detailData[`${type}_file_path`])[0],
-      object_title: detailData[`${type}_title`],
-      object_price: detailData[`${type}_price`],
-      opponent_data: detailData.user,
-    };
-    dispatch(setChatRoomInfo(socketData));
-    navigate('/mypage/chat');
+    if (localStorage.getItem('login_id')) {
+      const socketData = {
+        opponent_id: detailData.user.id,
+        type: type,
+        object_id: detailData[`${type}_id`],
+        object_img: JSON.parse(detailData[`${type}_file_path`])[0],
+        object_title: detailData[`${type}_title`],
+        object_price: detailData[`${type}_price`],
+        opponent_data: detailData.user,
+      };
+      dispatch(setChatRoomInfo(socketData));
+      navigate('/mypage/chat');
+    } else {
+      alert('로그인이 필요합니다!');
+    }
+  };
+
+  const handleFollow = () => {
+    if (localStorage.getItem('login_id')) {
+      patchSellFollow({ following_id: detailData.user.id }).then((res) => {
+        if (res.data.isFollow === 'success') {
+          setIsFollow(true);
+        } else {
+          setIsFollow(false);
+        }
+      });
+    } else {
+      alert('로그인이 필요합니다!');
+    }
   };
 
   return (
@@ -272,8 +293,12 @@ function TradeDetailScreen() {
                 <img alt="icon" src={chat} className="TUIcon" />
                 CHAT
               </div>
-              <div className="tradeUserBtn">
-                <img alt="icon" src={likeWhite} className="TUIcon TUHeart" />
+              <div className="tradeUserBtn" onClick={handleFollow}>
+                <img
+                  alt="icon"
+                  src={isFollow ? heartFill : likeWhite}
+                  className="TUIcon TUHeart"
+                />
                 FOLLOW
               </div>
             </div>

@@ -24,6 +24,11 @@ export const postUserSignup = async (apiData) => {
   return await BB.post('/user/signup', apiData);
 };
 
+// 세션에 저장되어있는 유저데이터 받기
+export const getMain = async () => {
+  return await BB.get('/');
+};
+
 //이메일(아이디) 중복 확인
 export const postUserIdExists = async (apiData) => {
   const temp = {

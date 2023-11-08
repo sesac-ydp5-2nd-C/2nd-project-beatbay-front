@@ -72,7 +72,7 @@ export default function MypagePurchasesScreen() {
                 <h1>구매 내역</h1>
               </div>
               <div className="vinyl">
-                <MypageVinyl userData={userData} />
+                {userData && <MypageVinyl userData={userData} />}
               </div>
             </div>
             <MypageTab

@@ -7,12 +7,11 @@ import IntroVideo from '../../components/MainPage/introVideo/IntroVideo';
 import CustomCarousel from '../../components/MainPage/customCarousel/CustomCarousel';
 import ColumnCard from '../../components/MainPage/columnCard/ColumnCard';
 import CustomFooter from '../../components/MainPage/customFooter/CustomFooter';
-import { Cookies } from 'react-cookie';
 import mainVideo1 from '../../asset/mainVideo1.mp4';
 import mainVideo2 from '../../asset/mainVideo2.mp4';
+import { getMain } from '../../api/user';
 
 function MainScreen() {
-  const cookies = new Cookies();
   const [columnData, setColumnData] = useState([
     {
       src: 'columnImg1.png',
@@ -36,56 +35,70 @@ function MainScreen() {
       url: 'https://www.thecolumnist.kr/news/articleView.html?idxno=967',
     },
   ]);
-  const authInfo = useSelector((state) => state.user.authInfo);
+  const [startLoad, setStartLoad] = useState(false);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getMain().then((res) => {
+      console.log(res);
+      if (res.data?.loginUser) {
+        localStorage.setItem('login_id', res.data?.loginUser?.id);
+        localStorage.setItem('email', res.data?.loginUser?.userId);
+      } else {
+        localStorage.removeItem('login_id');
+        localStorage.removeItem('email');
+      }
+      setStartLoad(true);
+    });
+  }, []);
 
   return (
     <Screen headerColor="white">
-      <img className="disk" alt="disk" src="disk.png" />
+      {startLoad && (
+        <>
+          <img className="disk" alt="disk" src="disk.png" />
 
-      <div className="intro">
-        <p className="intro1">
-          악기 중고거래부터 재능 마켓까지 음악 거래의 새로운 중심지
-        </p>
-        <p className="intro2">BEAT BAY</p>
-        <p className="intro3">
-          We offer all used transaction services related to music.
-        </p>
-        <p className="intro3">Even the talents that you want to show!</p>
-      </div>
+          <div className="intro">
+            <p className="intro1">
+              악기 중고거래부터 재능 마켓까지 음악 거래의 새로운 중심지
+            </p>
+            <p className="intro2">BEAT BAY</p>
+            <p className="intro3">
+              We offer all used transaction services related to music.
+            </p>
+            <p className="intro3">Even the talents that you want to show!</p>
+          </div>
 
-      <div className="scrollContainer">
-        <div className="scrollLine"></div>
-        <div className="scrollBall"></div>
-      </div>
+          <div className="scrollContainer">
+            <div className="scrollLine"></div>
+            <div className="scrollBall"></div>
+          </div>
 
-      <IntroVideo src={mainVideo1} />
+          <IntroVideo src={mainVideo1} />
 
-      <IntroVideo src={mainVideo2} reverse />
+          <IntroVideo src={mainVideo2} reverse />
 
-      <CustomCarousel />
+          <CustomCarousel />
 
-      <div className="columnContainer">
-        <div className="columns">
-          {columnData.map((e, i) => {
-            return (
-              <ColumnCard
-                key={`${e}_${i}`}
-                mid={i === 1 ? true : false}
-                src={e.src}
-                title={e.title}
-                content={e.content}
-                url={e.url}
-              />
-            );
-          })}
-        </div>
-      </div>
+          <div className="columnContainer">
+            <div className="columns">
+              {columnData.map((e, i) => {
+                return (
+                  <ColumnCard
+                    key={`${e}_${i}`}
+                    mid={i === 1 ? true : false}
+                    src={e.src}
+                    title={e.title}
+                    content={e.content}
+                    url={e.url}
+                  />
+                );
+              })}
+            </div>
+          </div>
 
-      <CustomFooter />
+          <CustomFooter />
+        </>
+      )}
     </Screen>
   );
 }
