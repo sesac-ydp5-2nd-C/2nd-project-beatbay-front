@@ -47,7 +47,7 @@ function App() {
           <Route path="/mypage/buy" element={<MypagePurchasesScreen />} />
           <Route path="/mypage/like" element={<MypageLikesScreen />} />
           <Route
-            path="/mypage/edit"
+            path="/mypage/userProfile"
             element={<MypageEditInformationScreen />}
           />
           <Route path="/mypage/chat" element={<MypageChatScreen />} />

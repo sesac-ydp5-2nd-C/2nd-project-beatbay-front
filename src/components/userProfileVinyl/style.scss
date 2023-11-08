@@ -1,0 +1,97 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+@keyframes profileImg-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.zzprofileVinyl {
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  width: toSize(530);
+  height: toSize(475);
+  margin-right: toSize(80);
+  @include media('>1440px') {
+    width: 530px;
+    height: 475px;
+    margin-right: 80px;
+  }
+}
+
+.zzturntable {
+  position: absolute;
+  z-index: 1;
+  width: toSize(530);
+  height: toSize(475);
+  @include media('>1440px') {
+    width: 530px;
+    height: 475px;
+  }
+}
+
+.zzprofileImg {
+  width: toSize(435);
+  margin-right: toSize(20);
+  margin-bottom: toSize(20);
+  animation: profileImg-spin infinite 20s linear;
+  border-radius: 999px;
+  @include media('>1440px') {
+    width: 435px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.vinyl .zzprofileVinyl {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  width: toSize(330);
+  height: toSize(285);
+  @include media('>1440px') {
+    width: 330px;
+    height: 285px;
+  }
+  @include media('<=768px') {
+    width: 176px;
+    height: 152px;
+  }
+}
+
+.vinyl .zzturntable {
+  width: toSize(327);
+  height: toSize(285);
+  @include media('>1440px') {
+    width: 327px;
+    height: 285px;
+  }
+  @include media('<=768px') {
+    width: 176px;
+    height: 152px;
+  }
+}
+
+.vinyl .zzprofileImg {
+  width: toSize(270);
+  height: toSize(270);
+  margin-right: toSize(7);
+  margin-bottom: 0;
+  @include media('>1440px') {
+    width: 270px;
+    height: 270px;
+    margin-right: 7px;
+  }
+  @include media('<=768px') {
+    width: 144px;
+    height: 144px;
+    margin-right: 7px;
+  }
+}
