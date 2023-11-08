@@ -43,37 +43,20 @@ const modalStyles = {
 function MypageChatScreen() {
   const dispatch = useDispatch();
   const newRoomInfo = useSelector((state) => state.user.chatRoomInfo);
-  const [userData, setUserData] = useState({
-    user_nickname: '대만',
-    comment: '“그래, 난 정대만. 포기를 모르는 남자지….”',
-    user_interests: ['밴드', '일렉기타'],
-    imgSrc: userImg,
-    user_grade: 5,
-    user_review: 32,
-    user_following: 28,
-    user_follower: 18,
-    itemCount: 20,
-  });
+  // const [userData, setUserData] = useState({
+  //   user_nickname: '대만',
+  //   comment: '“그래, 난 정대만. 포기를 모르는 남자지….”',
+  //   user_interests: ['밴드', '일렉기타'],
+  //   imgSrc: userImg,
+  //   user_grade: 5,
+  // });
 
   const ref = useRef();
   const user_id = localStorage.getItem('login_id');
   const email = localStorage.getItem('email');
-  const ENDPOINT = process.env.REACT_APP_SOCKET_IP;
+  const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
-  const [chatList, setChatList] = useState([
-    {
-      user_img: profile_default,
-      user_name: 'Back Ho',
-      last_chat: '좋았싸',
-      unread: 1,
-    },
-    {
-      user_img: profile_default,
-      user_name: 'Back Ho',
-      last_chat: '좋았싸',
-      unread: 1,
-    },
-  ]);
+  const [chatList, setChatList] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState();
   const [sellerData, setSellerData] = useState();
@@ -121,6 +104,10 @@ function MypageChatScreen() {
     socket.on('room_list', (data) => {
       console.log(data);
       setChatList(data.room_list);
+    });
+
+    socket.on('update', (data) => {
+      console.log(data);
     });
 
     // 룸 선택시 룸에 대한 데이터들을 받아옴
@@ -205,36 +192,51 @@ function MypageChatScreen() {
         <div className="chatConatainer">
           {messages ? (
             <>
-              <div className="objectInfoContainer">
-                <img alt="Sample" src={tradeSample} className="objectImg" />
-                <div>
-                  <p className="obTitle">텔레케스터 민트 팝니당</p>
-                  <p className="obTitle won">1,300,000 원</p>
-                </div>
-                <div onClick={() => setIsModalOpen(true)} className="finishBtn">
-                  거래 완료
-                </div>
-                <Modal
-                  isOpen={isModalOpen}
-                  onRequestClose={() => setIsModalOpen(false)}
-                  style={modalStyles}
-                  contentLabel="review Modal"
-                >
-                  <div className="modalContainer">
-                    <p>솔직 담백한 리뷰를 남겨주세요!</p>
-                    <textarea className="modalContent" />
-                    <div className="modalBtnContainer">
-                      <div
-                        className="modalBtn mr"
-                        onClick={() => setIsModalOpen(false)}
-                      >
-                        취소
-                      </div>
-                      <div className="modalBtn">완료</div>
-                    </div>
+              {sellerData && (
+                <div className="objectInfoContainer">
+                  <img
+                    alt="Sample"
+                    src={`${process.env.REACT_APP_BACK_IP}/uploads/${sellerData.object_img}`}
+                    onError={(e) => (e.target.src = tradeSample)}
+                    className="objectImg"
+                  />
+                  <div>
+                    <p className="obTitle">{sellerData.object_title}</p>
+                    <p className="obTitle won">
+                      {sellerData.object_price
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                      {' 원'}
+                    </p>
                   </div>
-                </Modal>
-              </div>
+                  <div
+                    onClick={() => setIsModalOpen(true)}
+                    className="finishBtn"
+                  >
+                    거래 완료
+                  </div>
+                  <Modal
+                    isOpen={isModalOpen}
+                    onRequestClose={() => setIsModalOpen(false)}
+                    style={modalStyles}
+                    contentLabel="review Modal"
+                  >
+                    <div className="modalContainer">
+                      <p>솔직 담백한 리뷰를 남겨주세요!</p>
+                      <textarea className="modalContent" />
+                      <div className="modalBtnContainer">
+                        <div
+                          className="modalBtn mr"
+                          onClick={() => setIsModalOpen(false)}
+                        >
+                          취소
+                        </div>
+                        <div className="modalBtn">완료</div>
+                      </div>
+                    </div>
+                  </Modal>
+                </div>
+              )}
               <div className="chatmessagesList" ref={msgRef}>
                 {messages.map((e, i) => {
                   return <ChatBallon key={`${e}_${i}`} data={e} />;
@@ -264,27 +266,32 @@ function MypageChatScreen() {
           )}
         </div>
 
-        <div className="sellerContainer">
-          <MypageVinyl userData={userData} />
-          <p className="sellerName">정대만</p>
-          <p className="sellerIntro">
-            “그래, 난 정대만. 포기를 모르는 남자지…”
-          </p>
-          <div className="tagContainer">
-            {['밴드', '일렉기타'].map((e, i) => {
-              return <p className="sellerTag">{`# ${e}`}</p>;
-            })}
-          </div>
+        {sellerData && (
+          <div className="sellerContainer">
+            <MypageVinyl userData={sellerData.opponent_data} />
+            <p className="sellerName">
+              {sellerData.opponent_data.user_nickname}
+            </p>
+            <p className="sellerIntro">
+              {sellerData.opponent_data.user_comment}
+            </p>
+            <div className="tagContainer">
+              {sellerData.opponent_data.user_interest &&
+                sellerData.opponent_data.user_interest.map((e, i) => {
+                  return <p className="sellerTag">{`# ${e}`}</p>;
+                })}
+            </div>
 
-          <div className="sellerInfoBox mb22">
-            REVIEW
-            <p className="countSize">22</p>
+            <div className="sellerInfoBox mb22">
+              REVIEW
+              <p className="countSize">22</p>
+            </div>
+            <div className="sellerInfoBox">
+              FOLLOWER
+              <p className="countSize">22</p>
+            </div>
           </div>
-          <div className="sellerInfoBox">
-            FOLLOWER
-            <p className="countSize">22</p>
-          </div>
-        </div>
+        )}
       </div>
     </Screen>
   );
