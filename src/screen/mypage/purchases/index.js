@@ -13,11 +13,6 @@ import LoadingSpinner from '../../../components/common/loadingSpinner';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
 
 export default function MypagePurchasesScreen() {
-  const [userData, setUserData] = useState({
-    imgSrc: userImg,
-    user_grade: 5,
-  });
-
   const tabsData = [
     {
       id: 1,
@@ -31,6 +26,9 @@ export default function MypagePurchasesScreen() {
     },
   ];
 
+  const [userData, setUserData] = useState({});
+  const [showDropdown, setShowDropdown] = useState(false);
+  // const [selectedItem, setSelectedItem] = useState(items[0]);
   const [activeTab, setActiveTab] = useState(tabsData[0]);
   const [productData, setProductData] = useState();
   const [startLoad, setStartLoad] = useState(true);
@@ -38,6 +36,7 @@ export default function MypagePurchasesScreen() {
   useEffect(() => {
     setStartLoad(true);
     console.log(activeTab);
+
     getBuyList();
   }, [activeTab]);
 
@@ -45,18 +44,21 @@ export default function MypagePurchasesScreen() {
     setProductData(null);
     const apiData = {
       type: activeTab.type === 'product' ? 0 : 1,
+      // update: items.indexOf(selectedItem),
     };
     console.log(apiData);
     getMyPurchase(apiData).then((res) => {
       console.log(res);
       let productDataFromResponse;
+
       if (activeTab.type === 'product') {
-        productDataFromResponse = res.data.userProduct;
+        productDataFromResponse = res.data.userProduct.products;
       } else if (activeTab.type === 'ability') {
-        productDataFromResponse = res.data.userAbility;
+        productDataFromResponse = res.data.userAbility.abilities;
       }
       console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
+      setUserData(res.data.userData);
     });
   };
 

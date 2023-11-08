@@ -14,10 +14,6 @@ import LoadingSpinner from '../../../components/common/loadingSpinner';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
 
 export default function MypageListingsScreen() {
-  const [userData, setUserData] = useState({
-    imgSrc: userImg,
-    user_grade: 5,
-  });
   const tabsData = [
     {
       id: 1,
@@ -32,6 +28,7 @@ export default function MypageListingsScreen() {
   ];
 
   const items = ['전체', '판매중', '예약중', '판매완료'];
+  const [userData, setUserData] = useState({});
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [activeTab, setActiveTab] = useState(tabsData[0]);
@@ -41,6 +38,7 @@ export default function MypageListingsScreen() {
   useEffect(() => {
     setStartLoad(true);
     console.log(activeTab);
+
     getSellList();
   }, [selectedItem, activeTab]);
 
@@ -54,6 +52,7 @@ export default function MypageListingsScreen() {
     getMySell(apiData).then((res) => {
       console.log(res);
       let productDataFromResponse;
+
       if (activeTab.type === 'product') {
         productDataFromResponse = res.data.userProduct.products;
       } else if (activeTab.type === 'ability') {
@@ -61,6 +60,7 @@ export default function MypageListingsScreen() {
       }
       console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
+      setUserData(res.data.userData);
     });
   };
 
@@ -75,7 +75,7 @@ export default function MypageListingsScreen() {
                 <div className="postIntro">POST</div>
               </div>
               <div className="vinyl">
-                <MypageVinyl userData={userData} />
+                {userData && <MypageVinyl userData={userData} />}
               </div>
             </div>
             <MypageTab
