@@ -10,7 +10,7 @@ export default function UserProfileVinyl({ userData }) {
     <div className="zzprofileVinyl">
       <img src={turntable} alt="turntable" className="zzturntable" />
       <img
-        src={`http://localhost:8000/uploads/${userData?.user_profile_img}`}
+        src={`${process.env.REACT_APP_BACK_IP}/uploads/${userData?.user_profile_img}`}
         onError={(e) => (e.target.src = userImg)}
         alt="profileImg"
         className="zzprofileImg"

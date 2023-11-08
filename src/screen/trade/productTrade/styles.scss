@@ -4,8 +4,19 @@
 .postCardContainer {
   position: relative;
   width: toSize(1250);
+  margin-bottom: toSize(100);
   @include media('>1440px') {
     width: 1250px;
+    margin-bottom: 100px;
+  }
+}
+
+.writeIcon {
+  width: toSize(20);
+  margin-right: toSize(4);
+  @include media('>1440px') {
+    width: 20px;
+    margin-right: 4px;
   }
 }
 
@@ -33,6 +44,7 @@
 }
 
 .postIntro {
+  cursor: pointer;
   width: toSize(180);
   height: toSize(30);
   display: flex;
@@ -98,9 +110,9 @@
 .loader {
   display: flex;
   justify-content: center;
-  margin-top: toSize(200);
+  margin-top: toSize(100);
   @include media('>1440px') {
-    margin-top: 200px;
+    margin-top: 100px;
   }
   .loaderGif {
     width: toSize(200);
