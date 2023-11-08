@@ -7,45 +7,15 @@ import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
 
 import userImg from '../../../asset/profile_default.png';
 import CustomModal from '../../../components/common/customModal/CustomModal';
-import { getMypage } from '../../../api/mypage';
+import {
+  getMyFollowers,
+  getMyFollowing,
+  getMyReviews,
+  getMypage,
+} from '../../../api/mypage';
 import { Link } from 'react-router-dom';
 
 function MypageDashboardScreen() {
-  const [mypageData, setMyPageData] = useState();
-  const [reviewsData, setReviewsData] = useState([
-    {
-      user_nickname: '대만',
-      imgSrc: userImg,
-      comment:
-        '좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요',
-    },
-    {
-      user_nickname: '호열',
-      imgSrc: userImg,
-      comment:
-        '별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용',
-    },
-    {
-      user_nickname: '백호',
-      imgSrc: userImg,
-      comment: '굿이에용',
-    },
-  ]);
-  const [followData, setFollowData] = useState([
-    {
-      user_nickname: '해리',
-      imgSrc: userImg,
-    },
-    {
-      user_nickname: '론',
-      imgSrc: userImg,
-    },
-    {
-      user_nickname: '헤르미온느',
-      imgSrc: userImg,
-    },
-  ]);
-
   useEffect(() => {
     gogogo();
   }, []);
@@ -54,11 +24,29 @@ function MypageDashboardScreen() {
       if (result.data.userData) {
         setMyPageData(result.data);
       }
-      // mypageData && console.log('mypageData:', mypageData);
-      // console.log('mypageData.userData:', mypageData.userData);
+    });
+    getMyReviews().then((res) => {
+      if (res.data) {
+        setReviewsData(res.data);
+      }
+    });
+    getMyFollowers().then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        setFollowData(res.data);
+      }
+    });
+    getMyFollowing().then((res) => {
+      if (res.data) {
+        setFollowingData(res.data);
+      }
     });
   };
 
+  const [mypageData, setMyPageData] = useState();
+  const [reviewsData, setReviewsData] = useState();
+  const [followData, setFollowData] = useState();
+  const [followingData, setFollowingData] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [modalTitle, setModalTitle] = useState();
@@ -94,21 +82,21 @@ function MypageDashboardScreen() {
                 </Link>
                 <div
                   className="figure followers"
-                  onClick={() => openModal(reviewsData, '리뷰')}
+                  onClick={() => openModal(reviewsData.review, '리뷰')}
                 >
                   <h2>후기</h2>
                   <p>{mypageData.reviewCount}</p>
                 </div>
                 <div
                   className="figure followers"
-                  onClick={() => openModal(followData, '팔로워')}
+                  onClick={() => openModal(followData.follower, '팔로워')}
                 >
                   <h2>팔로워</h2>
                   <p>{mypageData.followerCount}</p>
                 </div>
                 <div
                   className="figure following"
-                  onClick={() => openModal(followData, '팔로잉')}
+                  onClick={() => openModal(followingData.following, '팔로잉')}
                 >
                   <h2>팔로잉</h2>
                   <p>{mypageData.followingCount}</p>
@@ -119,7 +107,7 @@ function MypageDashboardScreen() {
         </div>
       )}
       <MypageMenus />
-      {modalIsOpen && (
+      {modalIsOpen && modalData && (
         <CustomModal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
