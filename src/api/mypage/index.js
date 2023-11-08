@@ -16,7 +16,22 @@ export const getMyLikes = async (apiData) => {
   return await BB.get('/mypage/like', apiData);
 };
 
-//회원정보 가져오기/mypage
+export const getMyReviews = async (apiData) => {
+  return await BB.get('/mypage/mainReview', apiData);
+};
+
+export const getMyFollowers = async (apiData) => {
+  return await BB.get('/mypage/mainFollower', apiData);
+};
+
+export const getMyFollowing = async (apiData) => {
+  return await BB.get('/mypage/mainFollowing', apiData);
+};
+
+//회원정보 가져오기
+export const getUserProfile = async (apiData) => {
+  return await BB.get('/userProfile', apiData);
+};
 
 //회원정보 수정
 export const patchUpdateUser = async (apiData) => {

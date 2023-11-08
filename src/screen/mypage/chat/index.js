@@ -11,6 +11,8 @@ import ChatListCard from '../../../components/mypageChat/chatListCard/ChatListCa
 import profile_default from '../../../asset/profile_default.png';
 import ChatBallon from '../../../components/mypageChat/chatBallon/ChatBallon';
 import tradeSample from '../../../asset/tradeSample.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChatRoomInfo } from '../../../store/feature/userSlice';
 
 const name = `test 유저${parseInt(Math.random() * 100)}`;
 let socket;
@@ -37,7 +39,10 @@ const modalStyles = {
     overflow: 'hidden',
   },
 };
+
 function MypageChatScreen() {
+  const dispatch = useDispatch();
+  const newRoomInfo = useSelector((state) => state.user.chatRoomInfo);
   const [userData, setUserData] = useState({
     user_nickname: '대만',
     comment: '“그래, 난 정대만. 포기를 모르는 남자지….”',
@@ -70,34 +75,28 @@ function MypageChatScreen() {
     },
   ]);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 2, my_id: 1 },
-    { content: '어쩌구 저쩌구', sent_at: new Date(), sender_id: 1, my_id: 1 },
-  ]);
-  const [connect, setConnect] = useState(false);
+  const [messages, setMessages] = useState();
+  const [sellerData, setSellerData] = useState();
+  const [isNewRoom, setIsNewRoom] = useState(false);
   const [roomData, setRoomData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const msgRef = useRef();
 
   // 화면 렌더링시 소켓 처음 접속
   useEffect(() => {
+    console.log(newRoomInfo);
     socket = io(ENDPOINT);
     // 처음 접속시 newUser emit
     socket.emit('newUser', { user_id, email });
+
+    // 방을 처음 만드는 상태일떄 action
+    if (newRoomInfo) {
+      setIsNewRoom(true);
+      setMessages([]);
+      setSellerData(newRoomInfo);
+      dispatch(setChatRoomInfo(null));
+    }
+
     if (msgRef.current) {
       msgRef.current.scrollTop = msgRef.current.scrollHeight;
     }
@@ -150,11 +149,45 @@ function MypageChatScreen() {
     event.preventDefault();
 
     if (message) {
-      socket.emit(
-        'sendMessage',
-        { content: message, receiver_id: roomData?.sender_id, email, user_id },
-        () => setMessage(''),
-      );
+      if (isNewRoom) {
+        console.log({
+          user_id,
+          email,
+          content: message,
+          receiver_id: sellerData.opponent_id,
+          type: sellerData.type,
+          object_id: sellerData.object_id,
+        });
+        socket.emit(
+          'join',
+          {
+            user_id,
+            email,
+            content: message,
+            receiver_id: sellerData.opponent_id,
+            type: sellerData.type,
+            object_id: sellerData.object_id,
+          },
+          () => {
+            setMessage('');
+            setSellerData();
+            setIsNewRoom(false);
+          },
+        );
+      } else {
+        socket.emit(
+          'sendMessage',
+          {
+            content: message,
+            receiver_id: roomData?.sender_id,
+            email,
+            user_id,
+          },
+          () => setMessage(''),
+        );
+      }
+    } else {
+      alert('메세지 내용을 입력해 주세요');
     }
   };
 

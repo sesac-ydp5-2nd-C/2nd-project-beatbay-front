@@ -114,7 +114,7 @@ function MypageEditInformationScreen() {
                       className="editInfoContainer"
                       style={{ fontWeight: '700', fontSize: '16px' }}
                     >
-                      ID: {establishUserData && establishUserData.user_id}
+                      ID: {establishUserData.user_id}
                     </div>
                   </section>
 
@@ -219,18 +219,21 @@ function MypageEditInformationScreen() {
                     onChange={(e) => setProfileImage(e.target.files[0])}
                   />
                   <br></br>
-
-                  <label htmlFor="interests">관심분야 태그:</label>
-                  <input
-                    type="text"
-                    id="interest"
-                    name="interest"
-                    onChange={(e) => setInterests(e.target.value)}
-                  />
+                  <form className="addTagSection">
+                    <label htmlFor="interests">관심분야 태그:</label>
+                    <input
+                      type="text"
+                      id="interest"
+                      name="interest"
+                      onChange={(e) => setInterests(e.target.value)}
+                    />
+                    <button type="submit" className="addTagButton" value={''}>
+                      <img src="src\asset\plus.svg"></img>{' '}
+                    </button>
+                  </form>
                   <br />
-                  {establishUserData && (
-                    <InterestTag userData={establishUserData} />
-                  )}
+
+                  <InterestTag userData={establishUserData} />
                 </form>
                 <br />
               </div>
@@ -238,9 +241,7 @@ function MypageEditInformationScreen() {
             <div className="R-UPEContainer">
               <div className="vinylpic">
                 <div className="vinyl">
-                  <UserProfileVinyl
-                    userData={establishUserData && establishUserData}
-                  />
+                  <UserProfileVinyl userData={establishUserData} />
                 </div>
               </div>
 

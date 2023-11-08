@@ -27,7 +27,7 @@ export default function TradeCard({ data, type }) {
               .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
             <p className="TCWon">원</p>
           </div>
-          <img alt="TCLike" src={tradeLike} className="TCLike" />
+          {/* <img alt="TCLike" src={tradeLike} className="TCLike" /> */}
         </div>
       </div>
     </Link>

@@ -12,7 +12,7 @@ import fortissimo from '../../../asset/fortissimo.svg';
 import view from '../../../asset/view.svg';
 import UserProfileContainer from '../../../components/common/userProfile';
 import './styles.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   getTradeDetailAbility,
   getTradeDetailProduct,
@@ -26,18 +26,26 @@ import { calculateTime } from '../../../function/calculate';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import ImageModal from '../../../components/imageModal/ImageModal';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
+import { useDispatch } from 'react-redux';
+import { setChatRoomInfo } from '../../../store/feature/userSlice';
+import { patchSellFollow } from '../../../api/seller';
 
 function TradeDetailScreen() {
   const [detailData, setDetailData] = useState();
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isLike, setIsLike] = useState(false);
+  const [isFollow, setIsFollow] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const items = ['판매중', '예약중', '거래완료'];
   const [selectedItem, setSelectedItem] = useState();
   const { id, type } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState();
+  const [isMyProduct, setIsMyProduct] = useState(false);
+  const loginId = localStorage.getItem('login_id');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const data = {
     id: 1,
     name: '정대만',
@@ -58,11 +66,13 @@ function TradeDetailScreen() {
       ? getTradeDetailProduct({ product_id: id })
       : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
-      console.log(res.data);
+      console.log(res);
       if (res?.data[type]) {
         setLikeCount(res.data.likeCount);
         setDetailData(res.data[type]);
         setIsLike(res.data.isLike == 0 ? false : true);
+        setIsFollow(res.data.isFollow == 0 ? false : true);
+        setIsMyProduct(res.data[type].user.id == loginId ? true : false);
         setSelectedItem(items[Number(res.data[type][`${type}_update`]) - 1]);
       }
       // console.log(JSON.parse(res.data[type][`${type}_file_path`]));
@@ -111,6 +121,38 @@ function TradeDetailScreen() {
         setSelectedItem(item);
       }
     });
+  };
+
+  const handleChat = () => {
+    if (localStorage.getItem('login_id')) {
+      const socketData = {
+        opponent_id: detailData.user.id,
+        type: type,
+        object_id: detailData[`${type}_id`],
+        object_img: JSON.parse(detailData[`${type}_file_path`])[0],
+        object_title: detailData[`${type}_title`],
+        object_price: detailData[`${type}_price`],
+        opponent_data: detailData.user,
+      };
+      dispatch(setChatRoomInfo(socketData));
+      navigate('/mypage/chat');
+    } else {
+      alert('로그인이 필요합니다!');
+    }
+  };
+
+  const handleFollow = () => {
+    if (localStorage.getItem('login_id')) {
+      patchSellFollow({ following_id: detailData.user.id }).then((res) => {
+        if (res.data.isFollow === 'success') {
+          setIsFollow(true);
+        } else {
+          setIsFollow(false);
+        }
+      });
+    } else {
+      alert('로그인이 필요합니다!');
+    }
   };
 
   return (
@@ -198,14 +240,20 @@ function TradeDetailScreen() {
                     {findValue(`${type}_update`, detailData[`${type}_update`])}
                   </div> */}
 
-                  <CustomDropdown
-                    showDropdown={showDropdown}
-                    setShowDropdown={() => setShowDropdown(!showDropdown)}
-                    items={items}
-                    selectedItem={selectedItem}
-                    onChange={handleStatus}
-                    setSelectedItem={setSelectedItem}
-                  />
+                  {isMyProduct ? (
+                    <CustomDropdown
+                      showDropdown={showDropdown}
+                      setShowDropdown={() => setShowDropdown(!showDropdown)}
+                      items={items}
+                      selectedItem={selectedItem}
+                      onChange={handleStatus}
+                      setSelectedItem={setSelectedItem}
+                    />
+                  ) : (
+                    <div className="tradeUpdate">
+                      {items[Number(detailData[`${type}_update`]) - 1]}
+                    </div>
+                  )}
                 </div>
 
                 <ul className="regionInfo">
@@ -226,8 +274,12 @@ function TradeDetailScreen() {
             </div>
 
             <div className="flexEnd">
-              <button className="tDBtn">수정</button>
-              <button className="tDBtn">삭제</button>
+              {isMyProduct && (
+                <>
+                  <button className="tDBtn">수정</button>
+                  <button className="tDBtn">삭제</button>
+                </>
+              )}
             </div>
 
             <div className="tradeContent">{detailData[`${type}_content`]}</div>
@@ -235,14 +287,18 @@ function TradeDetailScreen() {
 
           <div className="prdType">판매자</div>
           <div className="tradeUserContainer">
-            <UserProfileContainer followingData={data} />
+            <UserProfileContainer followingData={detailData.user} />
             <div className="tradeUserBtnC">
-              <div className="tradeUserBtn">
+              <div className="tradeUserBtn" onClick={handleChat}>
                 <img alt="icon" src={chat} className="TUIcon" />
                 CHAT
               </div>
-              <div className="tradeUserBtn">
-                <img alt="icon" src={likeWhite} className="TUIcon TUHeart" />
+              <div className="tradeUserBtn" onClick={handleFollow}>
+                <img
+                  alt="icon"
+                  src={isFollow ? heartFill : likeWhite}
+                  className="TUIcon TUHeart"
+                />
                 FOLLOW
               </div>
             </div>
