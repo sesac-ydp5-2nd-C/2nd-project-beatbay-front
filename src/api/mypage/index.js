@@ -35,10 +35,10 @@ export const getUserProfile = async (apiData) => {
 
 //회원정보 수정
 export const patchUpdateUser = async (apiData) => {
-  return await BB.patch('/updateUser', apiData);
+  return await BB.patch('/mypage/updateUser', apiData);
 };
 
 //회원정보 수정
 export const DeleteDeleteUser = async (apiData) => {
-  return await BB.delete('/deleteUser', apiData);
+  return await BB.delete('/mypage/deleteUser', apiData);
 };

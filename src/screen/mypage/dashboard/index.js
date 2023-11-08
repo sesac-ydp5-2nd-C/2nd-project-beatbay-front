@@ -24,6 +24,10 @@ function MypageDashboardScreen() {
       if (result.data.userData) {
         setMyPageData(result.data);
       }
+<<<<<<< HEAD
+      mypageData && console.log('mypageData:', mypageData);
+      // console.log('mypageData.userData:', mypageData.userData);
+=======
     });
     getMyReviews().then((res) => {
       if (res.data) {
@@ -40,6 +44,7 @@ function MypageDashboardScreen() {
       if (res.data) {
         setFollowingData(res.data);
       }
+>>>>>>> 9a248da5dc2975c3c29e0bd9f0231acf9a99107d
     });
   };
 

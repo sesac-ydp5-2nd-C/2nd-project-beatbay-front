@@ -12,8 +12,6 @@ import {
   postUserSignup,
   putUserFindPass,
 } from '../../../api/user';
-import axios from 'axios';
-
 const SignInUpScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
@@ -95,8 +93,9 @@ const SignInUpScreen = () => {
       postUserSignup(apiData).then((res) => {
         console.log(res);
         if (res.data.result === true) {
-          setIsSignUp(false);
           setErrorMessage('회원가입이 완료되었습니다.');
+
+          setIsSignUp(false);
         }
       });
     }
