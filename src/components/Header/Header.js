@@ -42,7 +42,7 @@ export default function Header({ color = 'black' }) {
         <div className="headerMenus">
           <Link to={isLogin ? '/mypage' : '/user'}>
             <div style={{ color }} className="headerMenu hmLong">
-              {isLogin ? '마이페이지' : '회원가입'}
+              {isLogin ? '마이페이지' : '로그인'}
             </div>
           </Link>
           {isLogin ? (
@@ -54,9 +54,9 @@ export default function Header({ color = 'black' }) {
               로그아웃
             </div>
           ) : (
-            <Link to="/user">
+            <Link to="/notice">
               <div style={{ color }} className="headerMenu">
-                로그인
+                칼럼
               </div>
             </Link>
           )}

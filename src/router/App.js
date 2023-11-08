@@ -20,7 +20,7 @@ import MypageChatScreen from '../screen/mypage/chat';
 import UserpageScreen from '../screen/userpage';
 import NoticeScreen from '../screen/notice';
 import ErrorScreen from '../screen/404';
-import AdminScreen from '../screen/adminpage';
+import AdminScreen from '../screen/adminPage';
 
 function App() {
   return (
