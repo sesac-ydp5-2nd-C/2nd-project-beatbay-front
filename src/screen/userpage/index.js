@@ -11,32 +11,16 @@ import likeWhite from '../../asset/likeWhite.svg';
 
 import TradeCard from '../../components/common/tradeCard/TradeCard';
 import { useParams } from 'react-router-dom';
-import { getSellerPage } from '../../api/seller';
+import {
+  getSellerFollowers,
+  getSellerPage,
+  getSellerReviews,
+} from '../../api/seller';
 import CustomDropdown from '../../components/common/customDropdown/CustomDropdown';
 import LoadingSpinner from '../../components/common/loadingSpinner';
 import EmptyTrade from '../../components/common/emptyTrade/EmptyTrade';
 
 export default function Userpage() {
-  const [reviewsData, setReviewsData] = useState([
-    {
-      user_nickname: '대만',
-      imgSrc: userImg,
-      comment:
-        '좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요',
-    },
-    {
-      user_nickname: '호열',
-      imgSrc: userImg,
-      comment:
-        '별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용별루에용',
-    },
-    {
-      user_nickname: '백호',
-      imgSrc: userImg,
-      comment: '굿이에용',
-    },
-  ]);
-
   const tabsData = [
     {
       id: 1,
@@ -58,11 +42,12 @@ export default function Userpage() {
   const [sellerData, setSellerData] = useState();
   const [productData, setProductData] = useState();
   const [startLoad, setStartLoad] = useState(true);
+  const [reviewsData, setReviewsData] = useState();
+  const [followData, setFollowData] = useState();
   const { id } = useParams();
 
   useEffect(() => {
     setStartLoad(true);
-    console.log(sellerData);
     if (activeTab && activeTab.id) {
       console.log(activeTab.id);
     }
@@ -89,6 +74,18 @@ export default function Userpage() {
       console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
       setSellerData(res.data);
+    });
+    getSellerReviews(apiData).then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        setReviewsData(res.data);
+      }
+    });
+    getSellerFollowers(apiData).then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        setFollowData(res.data);
+      }
     });
   };
 
@@ -121,12 +118,15 @@ export default function Userpage() {
               <div className="figures">
                 <div
                   className="figure followers"
-                  onClick={() => openModal(reviewsData, '리뷰')}
+                  onClick={() => openModal(reviewsData.review, '리뷰')}
                 >
                   <h2>후기</h2>
                   <p>{sellerData.reviewCount}</p>
                 </div>
-                <div className="figure followers">
+                <div
+                  className="figure followers"
+                  onClick={() => openModal(followData.follower, '팔로워')}
+                >
                   <h2>팔로워</h2>
                   <p>{sellerData.followerCount}</p>
                 </div>
@@ -201,7 +201,7 @@ export default function Userpage() {
           </InfiniteScroll>
         </div>
       </div>
-      {modalIsOpen && (
+      {modalIsOpen && modalData && (
         <CustomModal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}

@@ -51,7 +51,7 @@ function MypageDashboardScreen() {
   const [modalData, setModalData] = useState(null);
   const [modalTitle, setModalTitle] = useState();
 
-  const openModal = (data, title, where) => {
+  const openModal = (data, title) => {
     setModalData(data);
     setModalIsOpen(true);
     setModalTitle(title);
@@ -82,21 +82,21 @@ function MypageDashboardScreen() {
                 </Link>
                 <div
                   className="figure followers"
-                  onClick={() => openModal(reviewsData, '리뷰')}
+                  onClick={() => openModal(reviewsData.review, '리뷰')}
                 >
                   <h2>후기</h2>
                   <p>{mypageData.reviewCount}</p>
                 </div>
                 <div
                   className="figure followers"
-                  onClick={() => openModal(followData, '팔로워')}
+                  onClick={() => openModal(followData.follower, '팔로워')}
                 >
                   <h2>팔로워</h2>
                   <p>{mypageData.followerCount}</p>
                 </div>
                 <div
                   className="figure following"
-                  onClick={() => openModal(followingData, '팔로잉')}
+                  onClick={() => openModal(followingData.following, '팔로잉')}
                 >
                   <h2>팔로잉</h2>
                   <p>{mypageData.followingCount}</p>

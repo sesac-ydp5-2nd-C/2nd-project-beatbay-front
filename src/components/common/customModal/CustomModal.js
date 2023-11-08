@@ -25,11 +25,14 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
         <main className="modalList">
           {modalData.length > 0 ? (
             modalData.map((item, i) => {
-              const userFromModal = item.Follower ? item.Follower : item.Buyer;
+              const userFromModal =
+                item.Follower || item.Buyer || item.Following;
+              console.log(item);
+              console.log(userFromModal);
 
               return (
                 <Link
-                  to={`/seller/${userFromModal.id}`}
+                  to={`/seller/${modalData.id}`}
                   key={`${item.id}_${i}`}
                   onClick={() => {
                     setSelectedItem(item);
@@ -40,7 +43,11 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
                     {userFromModal && (
                       <img
                         alt="profileImg"
-                        src={userFromModal.user_profile_img}
+                        src={
+                          userFromModal.user_profile_img
+                            ? userFromModal.user_profile_img
+                            : profileImg
+                        }
                         className="UPImg"
                       />
                     )}
