@@ -12,7 +12,7 @@ import { getMyLikes } from '../../../api/mypage';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
 
-export default function MypagePurchasesScreen() {
+export default function MypageLikesScreen() {
   const [userData, setUserData] = useState();
 
   const tabsData = [
@@ -42,24 +42,25 @@ export default function MypagePurchasesScreen() {
     getLikeList();
   }, [selectedItem, activeTab]);
 
-  const getLikeList = async () => {
+  const getLikeList = async (page = null) => {
     setProductData(null);
     const apiData = {
       type: activeTab.type === 'product' ? 0 : 1,
       update: items.indexOf(selectedItem),
+      page: page ? page : undefined,
     };
     console.log(apiData);
     getMyLikes(apiData).then((res) => {
       console.log(res);
-      let productDataFromResponse;
+      let productDataFromLikeRes;
 
       if (activeTab.type === 'product') {
-        productDataFromResponse = res.data.userFavoriteProduct;
+        productDataFromLikeRes = res.data.userFavoriteProduct;
       } else if (activeTab.type === 'ability') {
-        productDataFromResponse = res.data.userFavoriteAbility;
+        productDataFromLikeRes = res.data.userFavoriteAbility;
       }
-      console.log(productDataFromResponse);
-      setProductData(productDataFromResponse);
+      console.log(productDataFromLikeRes);
+      setProductData(productDataFromLikeRes);
       setUserData(res.data.userData);
       // console.log(res.data.userData.user_grade);
     });

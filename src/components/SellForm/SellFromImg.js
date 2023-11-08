@@ -9,6 +9,7 @@ export default function SellFromImg({
   setUploadImages,
   setFilePaths,
   filePaths,
+  detailData,
 }) {
   const onDrop = (acceptedFiles) => {
     if (uploadImages.length + acceptedFiles.length <= 5) {
@@ -42,7 +43,11 @@ export default function SellFromImg({
       {uploadImages.map((image, index) => (
         <div key={index} className="sellFormImgContainer">
           <img
-            src={URL.createObjectURL(image)}
+            src={
+              detailData
+                ? `http://localhost:8000/uploads/${filePaths}`
+                : URL.createObjectURL(image)
+            }
             alt={`이미지 ${index + 1}`}
             className="sellFormImg"
           />

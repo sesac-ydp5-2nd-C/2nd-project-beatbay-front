@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './formCategoryStyle.scss';
 
 function SellFormCategory({
@@ -51,7 +51,7 @@ function SellFormCategory({
           <div className="message">상위 카테고리를 선택해주세요.</div>
         )}
 
-        {selectedType !== null && (
+        {selectedType !== null && categories && (
           <div className="sellCategoryList">
             {categories[selectedType].subcategories.map(
               (subcategory, index) => (

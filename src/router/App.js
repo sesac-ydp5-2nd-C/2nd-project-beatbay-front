@@ -3,7 +3,6 @@ import MainScreen from '../screen/main';
 import ProductTradeScreen from '../screen/trade/productTrade';
 
 import SignInUpScreen from '../screen/user/signInUp';
-import MypageDashboard from '../screen/mypage/dashboard';
 
 import TalentTradeScreen from '../screen/trade/talentTrade';
 import MypageDashboardScreen from '../screen/mypage/dashboard';
@@ -11,7 +10,6 @@ import MypageListingsScreen from '../screen/mypage/listings';
 import MypagePurchasesScreen from '../screen/mypage/purchases';
 import MypageLikesScreen from '../screen/mypage/likes';
 import TradeDetailScreen from '../screen/trade/tradeDetail';
-import Userpage from '../screen/userpage';
 
 import MypageEditInformationScreen from '../screen/mypage/editinfo';
 
@@ -35,6 +33,7 @@ function App() {
             element={<TradeDetailScreen />}
           />
           <Route path="/trade/sell" element={<TradeSellScreen />} />
+          <Route path="/trade/sell/:type/:id" element={<TradeSellScreen />} />
           {/* <Route
             path="/trade/:ability/detail/:id"
             element={<TradeDetailScreen />}
