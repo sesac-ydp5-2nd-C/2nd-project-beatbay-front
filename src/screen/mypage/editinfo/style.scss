@@ -20,9 +20,9 @@ h1 {
 
   .UPEContainer {
     display: flex;
-    width: 50vw;
-    left: 100vw;
-    background-color: white;
+    width: 100vw;
+    // left: 100vw;
+    // background-color: white;
     justify-content: right;
     // margin-bottom: toSize(36);
     @include media('>1440px') {
@@ -31,10 +31,12 @@ h1 {
   }
 
   .R-UPEContainer {
+    box-sizing: border-box;
     display: relative;
-    width: 50%;
-    top: toSize(50);
-    background-color: white;
+    width: 50vw;
+    position: relative;
+    left: toSize(50);
+    // background-color: white;
     justify-content: right;
     // margin-bottom: toSize(36);
     @include media('>1440px') {
@@ -60,12 +62,18 @@ h1 {
       // left: toSize(400);
       // bottom: toSize(800);
       // bottom: 700px;
+
       height: 450px;
       margin-right: 300px;
       // display: absolute;
       align-items: center;
+
       // top: 90px;
     }
+  }
+
+  .vinylpic {
+    width: 40%;
   }
 
   button {
@@ -79,7 +87,7 @@ h1 {
     letter-spacing: 1px;
     width: 20%;
     position: relative;
-    top: 480px;
+    top: 350px;
 
     cursor: pointer;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -129,8 +137,8 @@ h1 {
   margin-top: 50px;
 
   textarea {
-    height: 300px;
-    width: 300px;
+    height: 169px;
+    width: 486px;
 
     resize: none;
   }
@@ -170,7 +178,7 @@ h1 {
     position: absolute;
     color: #aaa;
     left: 10px;
-    font-size: 20px;
+    font-size: 16px;
     bottom: 8px;
     transition: all 0.2s;
   }
@@ -185,7 +193,7 @@ h1 {
 
   input:focus ~ span,
   input:valid ~ span {
-    width: 100%;
+    width: 65%;
   }
 
   // .editForm {

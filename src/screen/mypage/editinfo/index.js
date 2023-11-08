@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Screen from '../../Screen';
 // import SellFormCategory from '../../../components/SellForm/SellFormCategory';
 // import SellFormStatus from '../../../components/SellForm/SellFormStatus';
@@ -10,7 +10,8 @@ import userImg from '../../../asset/profile_default.png';
 
 import InterestTag from '../../../components/interestTag/InterestTag';
 
-import MypageVinyl from '../../../components/mypageVinyl/MypageVinyl';
+import { getUserProfile } from '../../../api/mypage';
+import UserProfileVinyl from '../../../components/userProfileVinyl/UserProfileVinyl';
 
 function MypageEditInformationScreen() {
   const [userData, setUserData] = useState({
@@ -21,13 +22,14 @@ function MypageEditInformationScreen() {
     user_id: 'beatbay@gmail.com',
     user_pw: 'qwerty1234!',
   });
+  const [userinfo, setUserInfo] = useState('');
 
   const [isFormValid, setIsFormValid] = useState(true);
 
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [introduction, setIntroduction] = useState('');
+  const [password, setPassword] = useState(userData.user_pw);
+  const [confirmPassword, setConfirmPassword] = useState(userData.user_pw);
+  const [nickname, setNickname] = useState(userData.user_nickname);
+  const [introduction, setIntroduction] = useState(userData.comment);
   const [interests, setInterests] = useState('');
   const [profileImage, setProfileImage] = useState(null);
   const [interestTag, setInterestTag] = useState('');
@@ -35,6 +37,26 @@ function MypageEditInformationScreen() {
   const [PWerrorMessage, setPWErrorMessage] = useState('');
   const [PWCerrorMessage, setPWCErrorMessage] = useState('');
   const [NerrorMessage, setNErrorMessage] = useState('');
+
+  const [userProfile, setUserProfile] = useState('');
+
+  useEffect(() => {
+    renderMyData();
+  }, []);
+
+  const apidata = {
+    userInfo: userinfo,
+  };
+
+  const renderMyData = () => {
+    getUserProfile(apidata).then((res) => {
+      console.log('get해온 데이터', res);
+
+      if (res.data.userData) {
+        setUserProfile(res.data);
+      }
+    });
+  };
 
   const validationTimeOut = () => {
     setIsFormValid(false);
@@ -180,6 +202,7 @@ function MypageEditInformationScreen() {
                     placeholder="자기소개를 입력해 주세요"
                     // rows="4"
                     // cols="50"
+                    value={introduction}
                     onChange={(e) => setIntroduction(e.target.value)}
                     required
                   />
@@ -216,7 +239,7 @@ function MypageEditInformationScreen() {
         <div className="R-UPEContainer">
           <div className="vinylpic">
             <div className="vinyl">
-              <MypageVinyl userData={userData} />
+              <UserProfileVinyl userData={userData} />
             </div>
           </div>
 
