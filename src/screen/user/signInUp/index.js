@@ -140,7 +140,8 @@ const SignInUpScreen = () => {
     }
   };
   const handleKakaoSignIn = () => {
-    window.open('http://localhost:8000/kakao');
+    window.location.href = 'http://localhost:8000/kakao';
+    // window.open('http://localhost:8000/kakao');
   };
 
   const isValidEmail = (email) => {
