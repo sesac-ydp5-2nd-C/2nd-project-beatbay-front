@@ -1,3 +1,10 @@
+import pianissimo from '../asset/pianissimo.svg';
+import mezzopiano from '../asset/mezzopiano.svg';
+import piano from '../asset/piano.svg';
+import forte from '../asset/forte.svg';
+import mezzoforte from '../asset/mezzoforte.svg';
+import fortissimo from '../asset/fortissimo.svg';
+
 export const productCategory = (parentKey, key) => {
   const totalObject = {
     product_category: { 0: '전체', 1: '악기', 2: '음반' },
@@ -71,4 +78,23 @@ export const abilityCategory = (parentKey, key) => {
     ability_update: { 0: '거래 중', 1: '거래 종료' },
   };
   return totalObject[parentKey][key];
+};
+
+export const gradeImg = (e) => {
+  switch (e) {
+    case 0:
+      return pianissimo;
+    case 1:
+      return mezzopiano;
+    case 2:
+      return piano;
+    case 3:
+      return forte;
+    case 4:
+      return mezzoforte;
+    case 5:
+      return fortissimo;
+    default:
+      return pianissimo;
+  }
 };

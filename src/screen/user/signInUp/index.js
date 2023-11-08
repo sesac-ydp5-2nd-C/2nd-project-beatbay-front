@@ -126,8 +126,6 @@ const SignInUpScreen = () => {
       console.log('signing up');
 
       postUserLogin(apiData).then((res) => {
-        localStorage.setItem('login_id', res.data.logUserData.id);
-        localStorage.setItem('email', res.data.logUserData.userId);
         console.log(res);
 
         if (res.data.result === true) {
@@ -172,6 +170,7 @@ const SignInUpScreen = () => {
         console.log(res.data.result);
 
         if (res.data.result === true) {
+          console.log(res.data);
           setMailCheckMessage('메일 전송 완료!');
         } else {
           setMailCheckMessage('메일 전송 실패! 다시 시도해주세요');
@@ -185,8 +184,6 @@ const SignInUpScreen = () => {
     console.log('Checking');
     const apiData = { emailCode: certification };
     postUserEmailCodeCheck(apiData).then((res) => {
-      console.log(res);
-
       if (res.data.result === true) {
         if (isEmailVerified === false) {
           setIsEmailVerified(!isEmailVerified);
