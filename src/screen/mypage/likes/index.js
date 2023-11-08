@@ -56,12 +56,12 @@ export default function MypageLikesScreen() {
     console.log(apiData);
     getMyLikes(apiData).then((res) => {
       console.log(res);
-      let productDataFromLikeRes;
+      let productDataFromResponse;
 
       if (activeTab.type === 'product') {
-        productDataFromLikeRes = res.data.userFavoriteProduct;
+        productDataFromResponse = res.data.userFavoriteProduct;
       } else if (activeTab.type === 'ability') {
-        productDataFromLikeRes = res.data.userFavoriteAbility;
+        productDataFromResponse = res.data.userFavoriteAbility;
       }
       setCurrentPage(res.data?.pageNum);
       setTotalPage(res.data?.totalPages);
