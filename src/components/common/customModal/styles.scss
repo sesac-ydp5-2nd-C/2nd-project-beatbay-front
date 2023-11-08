@@ -55,6 +55,22 @@ header {
   overflow-x: hidden;
   padding: 0 10px;
 
+  .emptyContainer {
+    font-size: toSize(20);
+    width: toSize(400);
+    .emptyLogo {
+      width: toSize(180);
+      margin: 0;
+    }
+    @include media('>1440px') {
+      font-size: 16px;
+      width: 400px;
+      .emptyLogo {
+        width: 180px;
+      }
+    }
+  }
+
   &::-webkit-scrollbar {
     width: 5px;
   }
