@@ -44,3 +44,7 @@ export const patchUpdateUser = async (apiData) => {
 export const DeleteDeleteUser = async (apiData) => {
   return await BB.delete('/mypage/deleteUser', apiData);
 };
+
+export const postMypageReview = async (apiData) => {
+  return await BB.post('/mypage/review', apiData);
+};

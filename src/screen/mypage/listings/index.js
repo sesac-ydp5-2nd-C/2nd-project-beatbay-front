@@ -36,6 +36,7 @@ export default function MypageListingsScreen() {
   const [startLoad, setStartLoad] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setStartLoad(true);
@@ -47,6 +48,7 @@ export default function MypageListingsScreen() {
   }, [selectedItem, activeTab]);
 
   const getSellList = async (page = null) => {
+    setLoading(true);
     if (!page) {
       setProductData(null);
     }
@@ -90,6 +92,7 @@ export default function MypageListingsScreen() {
         setProductData(productDataFromResponse);
       }
       setUserData(res.data.userData);
+      setLoading(false);
     });
   };
 
@@ -108,6 +111,7 @@ export default function MypageListingsScreen() {
               </div>
             </div>
             <MypageTab
+              loading={loading}
               tabsData={tabsData}
               activeTab={activeTab}
               setActiveTab={setActiveTab}

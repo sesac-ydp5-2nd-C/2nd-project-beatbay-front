@@ -35,6 +35,7 @@ export default function MypageLikesScreen() {
   const [startLoad, setStartLoad] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setStartLoad(true);
@@ -45,7 +46,8 @@ export default function MypageLikesScreen() {
   }, [selectedItem, activeTab]);
 
   const getLikeList = async (page = null) => {
-    if (!null) {
+    setLoading(true);
+    if (!page) {
       setProductData(null);
     }
     const apiData = {
@@ -76,6 +78,7 @@ export default function MypageLikesScreen() {
       if (!page && res.data?.totalPages > res.data?.pageNum) {
         setStartLoad(false);
       }
+      setLoading(false);
     });
   };
 
@@ -93,6 +96,7 @@ export default function MypageLikesScreen() {
               </div>
             </div>
             <MypageTab
+              loading={loading}
               tabsData={tabsData}
               activeTab={activeTab}
               setActiveTab={setActiveTab}

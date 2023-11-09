@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './style.scss';
 
 export default function MypageTab({
+  loading,
   tabsData,
   activeTab,
   setActiveTab,
@@ -21,8 +22,10 @@ export default function MypageTab({
                 i === 0 && 'firstIndex'
               } ${i === tabsData.length - 1 && 'lastIndex'}`}
               onClick={() => {
-                setProductData();
-                setActiveTab(tab);
+                if (!loading) {
+                  setProductData();
+                  setActiveTab(tab);
+                }
               }}
             >
               {tab.title}

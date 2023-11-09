@@ -14,6 +14,8 @@ import tradeSample from '../../../asset/tradeSample.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChatRoomInfo } from '../../../store/feature/userSlice';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
+import { patchMypageReview, postMypageReview } from '../../../api/mypage';
+import { getSellerFollowers, getSellerReviews } from '../../../api/seller';
 
 let socket;
 const modalStyles = {
@@ -65,20 +67,27 @@ function MypageChatScreen() {
   const [isNewRoom, setIsNewRoom] = useState(false);
   const [roomData, setRoomData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [review, setReview] = useState();
+  const [reviewCount, setReviewCount] = useState(0);
+  const [followCount, setFollowCount] = useState(0);
   const msgRef = useRef();
 
   const setProductData = (d) => {
     if (d.productInfo.product_count) {
       setSellProductData({
+        type: 'product',
         object_img: JSON.parse(d.productInfo.product_file_path)[0],
         object_title: d.productInfo.product_title,
         object_price: d.productInfo.product_price,
+        object_id: d.productInfo.product_id,
       });
     } else {
       setSellProductData({
+        type: 'ability',
         object_img: JSON.parse(d.productInfo.ability_file_path)[0],
         object_title: d.productInfo.ability_title,
         object_price: d.productInfo.ability_price,
+        object_id: d.productInfo.ability_id,
       });
     }
   };
@@ -128,7 +137,9 @@ function MypageChatScreen() {
           dispatch(setChatRoomInfo(null));
         } else {
           // 이미 방이 있음
+          console.log(' 이미 방이 있음');
           dispatch(setChatRoomInfo(null));
+          // enterRoom(e.id);
         }
       }
     });
@@ -162,16 +173,17 @@ function MypageChatScreen() {
   const enterRoom = (data) => {
     const my_id = localStorage.getItem('login_id');
     setSellerData(my_id == data.user_1.id ? data.user_2 : data.user_1);
+    console.log(my_id == data.user_1.id ? data.user_2 : data.user_1);
     socket.emit('enter', { room_id: data.room_id, user_id, email }, () => {});
   };
 
   const checkExistingRoom = (data) => {
     let state = false;
+    const type = newRoomInfo.type;
     data.forEach((e, i) => {
-      console.log();
-      if (e[`${newRoomInfo.type}_id`] == newRoomInfo.object_id) {
+      if (e[`${type}_info`][`${type}_id`] === newRoomInfo.object_id) {
         state = true;
-        enterRoom(e.id);
+        enterRoom(e);
       }
     });
     return state;
@@ -200,17 +212,18 @@ function MypageChatScreen() {
             type: newRoomData.type,
             object_id: newRoomData.object_id,
           },
-          () => {
+          (id) => {
             setMessage('');
-            // setSellerData();
             setNewRoomData();
             setIsNewRoom(false);
+            setRoomData({ room_id: id });
           },
         );
       } else {
         socket.emit(
           'sendMessage',
           {
+            receiver_id: sellerData.id,
             room_id: roomData.room_id,
             content: message,
             email,
@@ -228,6 +241,41 @@ function MypageChatScreen() {
       alert('메세지 내용을 입력해 주세요');
     }
   };
+
+  const handleReview = () => {
+    console.log(sellProductData);
+    const apiData = {
+      id: sellProductData.object_id,
+      review_content: review,
+      seller_id: sellerData.id,
+      type: sellProductData.type === 'product' ? 0 : 1,
+    };
+    postMypageReview(apiData).then((res) => {
+      if (res.data.addId) {
+        console.log('success');
+        setIsModalOpen(false);
+        setReview();
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (sellerData) {
+      const apiData = { seller_id: sellerData.id };
+      getSellerReviews(apiData).then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setReviewCount(res.data.review.length);
+        }
+      });
+      getSellerFollowers(apiData).then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setFollowCount(res.data.follower.length);
+        }
+      });
+    }
+  }, [sellerData]);
 
   return (
     <Screen>
@@ -278,7 +326,11 @@ function MypageChatScreen() {
                   >
                     <div className="modalContainer">
                       <p>솔직 담백한 리뷰를 남겨주세요!</p>
-                      <textarea className="modalContent" />
+                      <textarea
+                        className="modalContent"
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                      />
                       <div className="modalBtnContainer">
                         <div
                           className="modalBtn mr"
@@ -286,7 +338,9 @@ function MypageChatScreen() {
                         >
                           취소
                         </div>
-                        <div className="modalBtn">완료</div>
+                        <div className="modalBtn" onClick={handleReview}>
+                          완료
+                        </div>
                       </div>
                     </div>
                   </Modal>
@@ -335,11 +389,11 @@ function MypageChatScreen() {
 
             <div className="sellerInfoBox mb22">
               REVIEW
-              <p className="countSize">22</p>
+              <p className="countSize">{reviewCount}</p>
             </div>
             <div className="sellerInfoBox">
               FOLLOWER
-              <p className="countSize">22</p>
+              <p className="countSize">{followCount}</p>
             </div>
           </div>
         )}
