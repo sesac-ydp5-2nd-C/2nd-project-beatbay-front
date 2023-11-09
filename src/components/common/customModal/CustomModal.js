@@ -34,11 +34,14 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
 
               return (
                 <Link
-                  to={`/seller/${
-                    modalTitle === '팔로잉'
-                      ? item.Following.id
-                      : item.Follower.id
-                  }`}
+                  to={
+                    !item.review_content &&
+                    `/seller/${
+                      modalTitle === '팔로잉'
+                        ? item.Following.id
+                        : item.Follower.id
+                    }`
+                  }
                   key={`${item.id}_${i}`}
                   onClick={() => {
                     setSelectedItem(item);
@@ -61,7 +64,9 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
                   </div>
                   <div className="modalContent">
                     <p>{userFromModal.user_nickname}</p>
-                    <p className="modalComment">{item.comment}</p>
+                    <p className="modalComment">
+                      {item.review_content || item.comment}
+                    </p>
                   </div>
                 </Link>
               );
