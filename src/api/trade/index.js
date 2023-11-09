@@ -73,13 +73,17 @@ export const patchTradeUpdateStatus = async (apiData) => {
  * @param {Number} apiData.files
  */
 export const postTradeSell = async (apiData) => {
-  return await BB.post('/trade/sell', apiData);
+  const headers = {};
+  headers['Content-Type'] = 'multipart/form-data';
+  return await BB.post('/trade/sell', apiData, { headers });
 };
 
 /**
  * 거래 수정
  * @param {Number} apiData.files
  */
-export const patchTradeSell = async (apiData) => {
-  return await BB.post('/trade/update', apiData);
-};
+// export const patchTradeSell = async (apiData) => {
+//   console.log('Headers:', headers);
+//   headers['Content-Type'] = 'multipart/form-data';
+//   return await BB.post('/trade/update', apiData, { headers });
+// };
