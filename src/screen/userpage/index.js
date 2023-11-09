@@ -45,6 +45,8 @@ export default function Userpage() {
   const [reviewsData, setReviewsData] = useState();
   const [followData, setFollowData] = useState();
   const { id } = useParams();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
     setStartLoad(true);
@@ -52,15 +54,20 @@ export default function Userpage() {
       console.log(activeTab.id);
     }
     console.log(activeTab?.id);
+    setCurrentPage(0);
+    setTotalPage(1);
     getSellerInfo();
   }, [selectedItem, activeTab]);
 
-  const getSellerInfo = async () => {
-    setProductData(null);
+  const getSellerInfo = async (page = null) => {
+    if (!page) {
+      setProductData(null);
+    }
     const apiData = {
       seller_id: id,
       type: activeTab.type === 'product' ? 0 : 1,
       update: items.indexOf(selectedItem),
+      page: page ? page : undefined,
     };
     console.log(apiData);
     getSellerPage(apiData).then((res) => {
@@ -68,11 +75,25 @@ export default function Userpage() {
       let productDataFromResponse;
       if (activeTab.type === 'product') {
         productDataFromResponse = res.data.products.products;
+        setCurrentPage(res.data?.products.pageNum);
+        setTotalPage(res.data?.products.totalPages);
+        if (res.data?.products.totalPages > res.data?.products.pageNum) {
+          setStartLoad(false);
+        }
       } else if (activeTab.type === 'ability') {
         productDataFromResponse = res.data.abilities.abilities;
+        setCurrentPage(res.data?.abilities.pageNum);
+        setTotalPage(res.data?.abilities.totalPages);
+        if (res.data?.abilities.totalPages > res.data?.abilities.pageNum) {
+          setStartLoad(false);
+        }
       }
       console.log(productDataFromResponse);
-      setProductData(productDataFromResponse);
+      if (page) {
+        setProductData([...productData, ...productDataFromResponse]);
+      } else {
+        setProductData(productDataFromResponse);
+      }
       setSellerData(res.data);
     });
     getSellerReviews(apiData).then((res) => {
@@ -114,7 +135,7 @@ export default function Userpage() {
           <div className="sellerInfo">
             <MypageVinyl userData={sellerData.user} />
             <div className="sellercontent">
-              <MypageProfile userData={sellerData.user} />
+              <MypageProfile userData={sellerData.user} noModify />
               <div className="figures">
                 <div
                   className="figure followers"
@@ -159,22 +180,20 @@ export default function Userpage() {
             pageStart={0}
             loadMore={() => {
               if (productData?.length > 0 && startLoad) {
-                // setProductData([...productData, ...productData]);
-                // console.log(productData);
+                getSellerInfo(currentPage + 1);
               }
             }}
-            hasMore={false}
+            hasMore={totalPage > currentPage ? true : false}
             loader={
               startLoad ? (
-                productData?.length === 0 ? (
-                  <div>데이터가 없습니다</div>
-                ) : (
-                  <div className="loader" key={0}>
-                    <LoadingSpinner />
-                  </div>
-                )
+                <div className="loader" key={0}>
+                  <LoadingSpinner />
+                </div>
               ) : (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                  key={0}
+                >
                   <div onClick={() => setStartLoad(true)} className="seeMore">
                     더 보기 +
                   </div>
@@ -186,16 +205,15 @@ export default function Userpage() {
               <EmptyTrade where={'판매 내역이'} />
             ) : (
               <div className="MpGridContainer">
-                {productData &&
-                  productData?.map((e, i) => {
-                    return (
-                      <TradeCard
-                        key={`${i}_${e.title}`}
-                        data={e}
-                        type={activeTab.type}
-                      />
-                    );
-                  })}
+                {productData?.map((e, i) => {
+                  return (
+                    <TradeCard
+                      key={`${i}_${e.title}`}
+                      data={e}
+                      type={activeTab.type}
+                    />
+                  );
+                })}
               </div>
             )}
           </InfiniteScroll>

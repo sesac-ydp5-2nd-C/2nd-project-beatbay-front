@@ -69,6 +69,9 @@ export default function MypagePurchasesScreen() {
       setProductData(productDataFromResponse);
       setUserData(res.data.userData);
       // console.log(res.data.userData.user_grade);
+      if (res.data?.totalPages > res.data?.pageNum) {
+        setStartLoad(false);
+      }
     });
   };
 

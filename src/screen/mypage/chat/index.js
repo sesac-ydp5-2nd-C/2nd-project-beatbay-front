@@ -13,6 +13,7 @@ import ChatBallon from '../../../components/mypageChat/chatBallon/ChatBallon';
 import tradeSample from '../../../asset/tradeSample.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChatRoomInfo } from '../../../store/feature/userSlice';
+import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 
 const name = `test 유저${parseInt(Math.random() * 100)}`;
 let socket;
@@ -56,26 +57,14 @@ function MypageChatScreen() {
   const email = localStorage.getItem('email');
   const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
-  const [chatList, setChatList] = useState([
-    {
-      user_img: profile_default,
-      user_name: 'Back Ho',
-      last_chat: '좋았싸',
-      unread: 1,
-    },
-    {
-      user_img: profile_default,
-      user_name: 'Back Ho',
-      last_chat: '좋았싸',
-      unread: 1,
-    },
-  ]);
+  const [chatList, setChatList] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState();
   const [sellerData, setSellerData] = useState();
   const [isNewRoom, setIsNewRoom] = useState(false);
   const [roomData, setRoomData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRoomId, setIsRoomId] = useState();
   const msgRef = useRef();
 
   // 화면 렌더링시 소켓 처음 접속
@@ -84,14 +73,6 @@ function MypageChatScreen() {
     socket = io(ENDPOINT);
     // 처음 접속시 newUser emit
     socket.emit('newUser', { user_id, email });
-
-    // 방을 처음 만드는 상태일떄 action
-    if (newRoomInfo) {
-      setIsNewRoom(true);
-      setMessages([]);
-      setSellerData(newRoomInfo);
-      dispatch(setChatRoomInfo(null));
-    }
 
     if (msgRef.current) {
       msgRef.current.scrollTop = msgRef.current.scrollHeight;
@@ -117,6 +98,19 @@ function MypageChatScreen() {
     socket.on('room_List', (data) => {
       console.log(data);
       setChatList(data);
+      // 방을 처음 만드는 상태일떄 action
+      if (newRoomInfo) {
+        if (!checkExistingRoom(data)) {
+          // 새로운 방 생성
+          setIsNewRoom(true);
+          setMessages([]);
+          setSellerData(newRoomInfo);
+          dispatch(setChatRoomInfo(null));
+        } else {
+          // 이미 방이 있음
+          dispatch(setChatRoomInfo(null));
+        }
+      }
     });
 
     socket.on('update', (data) => {
@@ -143,6 +137,18 @@ function MypageChatScreen() {
 
   const enterRoom = (room_id) => {
     socket.emit('enter', { room_id, user_id, email }, () => {});
+  };
+
+  const checkExistingRoom = (data) => {
+    let state = false;
+    data.forEach((e, i) => {
+      console.log();
+      if (e[`${newRoomInfo.type}_id`] == newRoomInfo.object_id) {
+        state = true;
+        enterRoom(e.id);
+      }
+    });
+    return state;
   };
 
   const sendMessage = (event) => {
@@ -200,7 +206,7 @@ function MypageChatScreen() {
               <ChatListCard
                 key={`${e}_${i}`}
                 data={e}
-                onClick={() => enterRoom(e.id)}
+                onClick={() => enterRoom(e.room_id)}
               />
             );
           })}
@@ -310,6 +316,7 @@ function MypageChatScreen() {
           </div>
         )}
       </div>
+      <MypageMenus />
     </Screen>
   );
 }

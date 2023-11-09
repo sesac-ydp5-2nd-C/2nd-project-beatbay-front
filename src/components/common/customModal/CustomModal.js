@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 
 function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
   const [selectedItem, setSelectedItem] = useState(null);
-
+  useEffect(() => {
+    console.log(modalData);
+  }, []);
   return (
     <Modal
       isOpen={isOpen}
@@ -32,7 +34,11 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
 
               return (
                 <Link
-                  to={`/seller/${modalData.id}`}
+                  to={`/seller/${
+                    modalTitle === '팔로잉'
+                      ? item.Following.id
+                      : item.Follower.id
+                  }`}
                   key={`${item.id}_${i}`}
                   onClick={() => {
                     setSelectedItem(item);
@@ -44,6 +50,7 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
                       <img
                         alt="profileImg"
                         src={
+                          // 수정예정
                           userFromModal.user_profile_img
                             ? userFromModal.user_profile_img
                             : profileImg

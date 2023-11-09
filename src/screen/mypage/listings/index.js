@@ -64,10 +64,18 @@ export default function MypageListingsScreen() {
         productDataFromResponse = res.data.userProduct.products;
         setCurrentPage(res.data.userProduct.pageNum);
         setTotalPage(res.data.userProduct.totalPages);
+        // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
+        if (res.data.userProduct.totalPages > res.data.userProduct.pageNum) {
+          setStartLoad(false);
+        }
       } else if (activeTab.type === 'ability') {
         productDataFromResponse = res.data.userAbility.abilities;
         setCurrentPage(res.data.userAbility.pageNum);
         setTotalPage(res.data.userAbility.totalPages);
+        // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
+        if (res.data.userAbility.totalPages > res.data.userAbility.pageNum) {
+          setStartLoad(false);
+        }
       }
       console.log(productDataFromResponse);
       setProductData(productDataFromResponse);
