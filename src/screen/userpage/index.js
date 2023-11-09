@@ -77,14 +77,20 @@ export default function Userpage() {
         productDataFromResponse = res.data.products.products;
         setCurrentPage(res.data?.products.pageNum);
         setTotalPage(res.data?.products.totalPages);
-        if (res.data?.products.totalPages > res.data?.products.pageNum) {
+        if (
+          !page &&
+          res.data?.products.totalPages > res.data?.products.pageNum
+        ) {
           setStartLoad(false);
         }
       } else if (activeTab.type === 'ability') {
         productDataFromResponse = res.data.abilities.abilities;
         setCurrentPage(res.data?.abilities.pageNum);
         setTotalPage(res.data?.abilities.totalPages);
-        if (res.data?.abilities.totalPages > res.data?.abilities.pageNum) {
+        if (
+          !page &&
+          res.data?.abilities.totalPages > res.data?.abilities.pageNum
+        ) {
           setStartLoad(false);
         }
       }
@@ -180,7 +186,7 @@ export default function Userpage() {
             pageStart={0}
             loadMore={() => {
               if (productData?.length > 0 && startLoad) {
-                getSellerInfo(currentPage + 1);
+                getSellerInfo(Number(currentPage) + 1);
               }
             }}
             hasMore={totalPage > currentPage ? true : false}

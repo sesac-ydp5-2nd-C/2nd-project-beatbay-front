@@ -46,9 +46,11 @@ h1 {
     }
 
     button {
-      // width: 20%;
-      // position: relative;
-      // top: 80%;
+      @include media('<=768px') {
+        top: 500px;
+        right: 150px;
+        width: 30%;
+      }
     }
     .editQuit {
     }
@@ -87,7 +89,7 @@ h1 {
     letter-spacing: 1px;
     width: 20%;
     position: relative;
-    top: 350px;
+    top: 400px;
 
     cursor: pointer;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -137,9 +139,9 @@ h1 {
   margin-top: 50px;
 
   textarea {
+    position: relative;
     height: 169px;
-    width: 486px;
-
+    width: toSize(1000);
     resize: none;
   }
 
@@ -153,6 +155,9 @@ h1 {
     position: relative;
     background: none;
     z-index: 5;
+    @include media('<=768px') {
+      font-size: 10px;
+    }
   }
 
   input::placeholder {
@@ -181,6 +186,9 @@ h1 {
     font-size: 16px;
     bottom: 8px;
     transition: all 0.2s;
+    @include media('<=768px') {
+      font-size: 7.6px;
+    }
   }
 
   input:focus ~ label,
@@ -189,6 +197,9 @@ h1 {
     bottom: 40px;
     color: #666;
     font-weight: bold;
+    @include media('<=768px') {
+      font-size: 7.6px;
+    }
   }
 
   input:focus ~ span,
@@ -250,6 +261,19 @@ h1 {
 
   /* 추가적인 스타일을 여기에 계속해서 추가하세요. */
 }
-.addTagButton {
-  top: 0px;
+
+.addTagSection {
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+  input {
+    position: relative;
+    left: 15px;
+    width: 100%;
+  }
+}
+.hashtag {
+  display: flex;
+  position: relative;
+  top: 65px;
 }

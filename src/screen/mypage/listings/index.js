@@ -65,7 +65,10 @@ export default function MypageListingsScreen() {
         setCurrentPage(res.data.userProduct.pageNum);
         setTotalPage(res.data.userProduct.totalPages);
         // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
-        if (res.data.userProduct.totalPages > res.data.userProduct.pageNum) {
+        if (
+          !page &&
+          res.data.userProduct.totalPages > res.data.userProduct.pageNum
+        ) {
           setStartLoad(false);
         }
       } else if (activeTab.type === 'ability') {
@@ -73,12 +76,19 @@ export default function MypageListingsScreen() {
         setCurrentPage(res.data.userAbility.pageNum);
         setTotalPage(res.data.userAbility.totalPages);
         // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
-        if (res.data.userAbility.totalPages > res.data.userAbility.pageNum) {
+        if (
+          !page &&
+          res.data.userAbility.totalPages > res.data.userAbility.pageNum
+        ) {
           setStartLoad(false);
         }
       }
       console.log(productDataFromResponse);
-      setProductData(productDataFromResponse);
+      if (page) {
+        setProductData([...productData, ...productDataFromResponse]);
+      } else {
+        setProductData(productDataFromResponse);
+      }
       setUserData(res.data.userData);
     });
   };
@@ -116,7 +126,7 @@ export default function MypageListingsScreen() {
               pageStart={0}
               loadMore={() => {
                 if (productData?.length > 0 && startLoad) {
-                  getSellList(null, currentPage + 1);
+                  getSellList(null, Number(currentPage) + 1);
                 }
               }}
               hasMore={totalPage > currentPage ? true : false}

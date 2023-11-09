@@ -3,7 +3,8 @@ import './styles.scss';
 import moment from 'moment';
 
 const ChatBallon = ({ data }) => {
-  if (data.sender_id === data.my_id) {
+  const my_id = localStorage.getItem('login_id');
+  if (data.sender_id == my_id) {
     return (
       <div className="bContainer">
         <div className="senderBallon">{data.content}</div>

@@ -61,11 +61,28 @@ function MypageChatScreen() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState();
   const [sellerData, setSellerData] = useState();
+  const [newRoomData, setNewRoomData] = useState();
+  const [sellProductData, setSellProductData] = useState();
   const [isNewRoom, setIsNewRoom] = useState(false);
   const [roomData, setRoomData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isRoomId, setIsRoomId] = useState();
   const msgRef = useRef();
+
+  const setProductData = (d) => {
+    if (d.productInfo.product_count) {
+      setSellProductData({
+        object_img: d.productInfo.product_file_path,
+        object_title: d.productInfo.product_title,
+        object_price: d.productInfo.product_price,
+      });
+    } else {
+      setSellProductData({
+        object_img: d.productInfo.ability_file_path,
+        object_title: d.productInfo.ability_title,
+        object_price: d.productInfo.ability_price,
+      });
+    }
+  };
 
   // 화면 렌더링시 소켓 처음 접속
   useEffect(() => {
@@ -84,11 +101,12 @@ function MypageChatScreen() {
     // 서버에서 새로 업데이트 되는 메세지를 받아옴
     socket.on('message', (data) => {
       // 현재 접속하고있는 방이면 메세지 업데이트
-      if (data.room_id === roomData.room_id) {
-        setMessages((messages) => [...messages, message]);
-      } else {
-        // 접속 안하고 있는 방이면 unread값만 업데이트...
-      }
+      // if (data.room_id === roomData.room_id) {
+      //   setMessages((messages) => [...messages, message]);
+      // } else {
+      //   // 접속 안하고 있는 방이면 unread값만 업데이트...
+      // }
+      setMessages((messages) => [...messages, message]);
       if (msgRef.current) {
         msgRef.current.scrollTop = msgRef.current.scrollHeight;
       }
@@ -104,7 +122,9 @@ function MypageChatScreen() {
           // 새로운 방 생성
           setIsNewRoom(true);
           setMessages([]);
-          setSellerData(newRoomInfo);
+          setNewRoomData(newRoomInfo);
+          setSellProductData(newRoomInfo);
+          setSellerData(newRoomInfo.opponent_data);
           dispatch(setChatRoomInfo(null));
         } else {
           // 이미 방이 있음
@@ -119,9 +139,10 @@ function MypageChatScreen() {
 
     // 룸 선택시 룸에 대한 데이터들을 받아옴
     socket.on('roomData', (data) => {
-      console.log(data);
-      setRoomData(data);
-      setMessages(data.message_list);
+      console.log(data[0]);
+      setRoomData(data[0]);
+      setProductData(data[0]);
+      setMessages(data[0].messageList);
     });
 
     // socket.on('update', (data) => {
@@ -135,8 +156,10 @@ function MypageChatScreen() {
     };
   }, []);
 
-  const enterRoom = (room_id) => {
-    socket.emit('enter', { room_id, user_id, email }, () => {});
+  const enterRoom = (data) => {
+    const my_id = localStorage.getItem('login_id');
+    setSellerData(my_id == data.user_1.id ? data.user_2 : data.user_1);
+    socket.emit('enter', { room_id: data.room_id, user_id, email }, () => {});
   };
 
   const checkExistingRoom = (data) => {
@@ -160,9 +183,9 @@ function MypageChatScreen() {
           user_id,
           email,
           content: message,
-          receiver_id: sellerData.opponent_id,
-          type: sellerData.type,
-          object_id: sellerData.object_id,
+          receiver_id: newRoomData.opponent_id,
+          type: newRoomData.type,
+          object_id: newRoomData.object_id,
         });
         socket.emit(
           'join',
@@ -170,13 +193,14 @@ function MypageChatScreen() {
             user_id,
             email,
             content: message,
-            receiver_id: sellerData.opponent_id,
-            type: sellerData.type,
-            object_id: sellerData.object_id,
+            receiver_id: newRoomData.opponent_id,
+            type: newRoomData.type,
+            object_id: newRoomData.object_id,
           },
           () => {
             setMessage('');
             setSellerData();
+            setNewRoomData();
             setIsNewRoom(false);
           },
         );
@@ -184,8 +208,8 @@ function MypageChatScreen() {
         socket.emit(
           'sendMessage',
           {
+            room_id: roomData.room_id,
             content: message,
-            receiver_id: roomData?.sender_id,
             email,
             user_id,
           },
@@ -206,7 +230,7 @@ function MypageChatScreen() {
               <ChatListCard
                 key={`${e}_${i}`}
                 data={e}
-                onClick={() => enterRoom(e.room_id)}
+                onClick={() => enterRoom(e)}
               />
             );
           })}
@@ -215,18 +239,18 @@ function MypageChatScreen() {
         <div className="chatConatainer">
           {messages ? (
             <>
-              {sellerData && (
+              {sellProductData && (
                 <div className="objectInfoContainer">
                   <img
                     alt="Sample"
-                    src={`${process.env.REACT_APP_BACK_IP}/uploads/${sellerData.object_img}`}
+                    src={`${process.env.REACT_APP_BACK_IP}/uploads/${sellProductData.object_img}`}
                     onError={(e) => (e.target.src = tradeSample)}
                     className="objectImg"
                   />
                   <div>
-                    <p className="obTitle">{sellerData.object_title}</p>
+                    <p className="obTitle">{sellProductData.object_title}</p>
                     <p className="obTitle won">
-                      {sellerData.object_price
+                      {sellProductData.object_price
                         .toString()
                         .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
                       {' 원'}
@@ -291,16 +315,12 @@ function MypageChatScreen() {
 
         {sellerData && (
           <div className="sellerContainer">
-            <MypageVinyl userData={sellerData.opponent_data} />
-            <p className="sellerName">
-              {sellerData.opponent_data.user_nickname}
-            </p>
-            <p className="sellerIntro">
-              {sellerData.opponent_data.user_comment}
-            </p>
+            <MypageVinyl userData={sellerData} />
+            <p className="sellerName">{sellerData.user_nickname}</p>
+            <p className="sellerIntro">{sellerData.user_comment}</p>
             <div className="tagContainer">
-              {sellerData.opponent_data.user_interest &&
-                sellerData.opponent_data.user_interest.map((e, i) => {
+              {sellerData.user_interest &&
+                sellerData.user_interest.map((e, i) => {
                   return <p className="sellerTag">{`# ${e}`}</p>;
                 })}
             </div>

@@ -1,19 +1,16 @@
 import React from 'react';
-import {
-  HeartOutlined,
-  HeartFilled,
-  PlusSquareOutlined,
-} from '@ant-design/icons'; //icons 모듈을 갖고온다
-
+import { PlusOutlined } from '@ant-design/icons'; //icons 모듈을 갖고온다
+import './addTsg.scss';
 // onclick = () => {
 //   this.setState({});
 // };
 
 class AddTagButton extends React.Component {
   render() {
+    const { onAddTag } = this.props;
     return (
-      <span className="icons-list">
-        <PlusSquareOutlined style={{ fontSize: '20px' }} />
+      <span className="tagAddButton" onClick={onAddTag}>
+        <PlusOutlined style={{ fontSize: '16px' }} />
       </span>
     );
   }
