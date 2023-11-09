@@ -3,7 +3,12 @@ import './style.scss';
 import Screen from '../Screen';
 import AdminTable from '../../components/AdminTable/AdminTable';
 import ContentModal from '../../components/common/customModal/ContentModal';
-import { getAdminData } from '../../api/adminpage';
+import {
+  deleteAdminAbility,
+  deleteAdminProduct,
+  deleteAdminUser,
+  getAdminData,
+} from '../../api/adminpage';
 import LoadingSpinner from '../../components/common/loadingSpinner';
 
 export default function AdminScreen() {
@@ -76,8 +81,27 @@ export default function AdminScreen() {
     console.log(item);
   };
 
-  const handleDelete = () => {
-    console.log('삭제');
+  const handleDelete = async (e) => {
+    if (e.id) {
+      console.log(e.id);
+      await deleteAdminUser({ user_id: e.id }).then(() => {
+        console.log(e, '삭제');
+      });
+    } else if (e.product_id) {
+      console.log(e.product_id);
+      await deleteAdminProduct({ product_id: e.product_id }).then(() => {
+        console.log(e, '삭제');
+      });
+    } else if (e.ability_id) {
+      console.log(e.ability_id);
+      await deleteAdminAbility({ ability_id: e.ability_id }).then(() => {
+        console.log(e, '삭제');
+      });
+    } else {
+      console.error('deleteError', e);
+    }
+
+    await getAdminPage();
   };
 
   const closeModal = () => {
@@ -85,20 +109,20 @@ export default function AdminScreen() {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const getAdminPage = async () => {
-      await getAdminData().then((res) => {
-        if (res.data) {
-          setAdminData(res.data);
-          setIsLoading(false);
-          console.log(res.data);
-        } else {
-          console.error('error');
-          setIsLoading(false);
-        }
-      });
-    };
+  const getAdminPage = async () => {
+    await getAdminData().then((res) => {
+      if (res.data) {
+        setAdminData(res.data);
+        setIsLoading(false);
+        console.log(res.data);
+      } else {
+        console.error('error');
+        setIsLoading(false);
+      }
+    });
+  };
 
+  useEffect(() => {
     getAdminPage();
   }, []);
 

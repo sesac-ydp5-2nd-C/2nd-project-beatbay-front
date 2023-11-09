@@ -162,12 +162,7 @@ function TradeDetailScreen() {
   };
 
   const handleDelete = () => {
-    console.log(detailData[`${type}_id`]); // 51
-    const apiData = {
-      product_id: detailData[`${type}_id`],
-    };
     if (type === 'product') {
-      console.log(apiData.product_id); // 51
       deleteTradeProduct({
         product_id: detailData[`${type}_id`],
       }).then((res) => {
