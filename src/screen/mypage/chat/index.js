@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setChatRoomInfo } from '../../../store/feature/userSlice';
 import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 
-const name = `test 유저${parseInt(Math.random() * 100)}`;
 let socket;
 const modalStyles = {
   overlay: {
@@ -71,13 +70,13 @@ function MypageChatScreen() {
   const setProductData = (d) => {
     if (d.productInfo.product_count) {
       setSellProductData({
-        object_img: d.productInfo.product_file_path,
+        object_img: JSON.parse(d.productInfo.product_file_path)[0],
         object_title: d.productInfo.product_title,
         object_price: d.productInfo.product_price,
       });
     } else {
       setSellProductData({
-        object_img: d.productInfo.ability_file_path,
+        object_img: JSON.parse(d.productInfo.ability_file_path)[0],
         object_title: d.productInfo.ability_title,
         object_price: d.productInfo.ability_price,
       });
@@ -106,7 +105,8 @@ function MypageChatScreen() {
       // } else {
       //   // 접속 안하고 있는 방이면 unread값만 업데이트...
       // }
-      setMessages((messages) => [...messages, message]);
+      console.log(data);
+      setMessages((messages) => [...messages, data]);
       if (msgRef.current) {
         msgRef.current.scrollTop = msgRef.current.scrollHeight;
       }
@@ -143,6 +143,9 @@ function MypageChatScreen() {
       setRoomData(data[0]);
       setProductData(data[0]);
       setMessages(data[0].messageList);
+      if (msgRef.current) {
+        msgRef.current.scrollTop = msgRef.current.scrollHeight;
+      }
     });
 
     // socket.on('update', (data) => {
@@ -199,7 +202,7 @@ function MypageChatScreen() {
           },
           () => {
             setMessage('');
-            setSellerData();
+            // setSellerData();
             setNewRoomData();
             setIsNewRoom(false);
           },
@@ -213,7 +216,12 @@ function MypageChatScreen() {
             email,
             user_id,
           },
-          () => setMessage(''),
+          () => {
+            setMessage('');
+            if (msgRef.current) {
+              msgRef.current.scrollTop = msgRef.current.scrollHeight;
+            }
+          },
         );
       }
     } else {
