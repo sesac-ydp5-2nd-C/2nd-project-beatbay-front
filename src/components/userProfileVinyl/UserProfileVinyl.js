@@ -3,12 +3,19 @@ import './style.scss';
 import turntable from '../../asset/change_profile_img1.svg';
 import userImg from '../../asset/profile_default.png';
 
-export default function UserProfileVinyl({ userData }) {
-  const [uploadedImage, setUploadedImage] = useState(null);
-
+export default function UserProfileVinyl({
+  userData,
+  uploadedImage,
+  setUploadedImage,
+}) {
+  const [profileImage, setProfileImage] = useState('');
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+    console.log('Selected file:', file); // Add this line
+    setProfileImage(file);
     const reader = new FileReader();
+    console.log('Profile Image:', profileImage);
+    console.log('Uploded Image:', uploadedImage);
 
     reader.onloadend = () => {
       setUploadedImage(reader.result);
@@ -40,13 +47,4 @@ export default function UserProfileVinyl({ userData }) {
       />
     </div>
   );
-}
-{
-  /* <label htmlFor="profileImage">프로필 이미지:</label>
-<input
-  type="file"
-  id="profileImage"
-  name="profileImage"
-  onChange={(e) => setProfileImage(e.target.files[0])}
-/> */
 }

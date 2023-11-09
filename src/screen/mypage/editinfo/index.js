@@ -20,7 +20,7 @@ import AddTagButton from '../../../components/myPageIcons/addTag';
 
 function MypageEditInformationScreen() {
   const [isFormValid, setIsFormValid] = useState(true);
-
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
@@ -79,21 +79,49 @@ function MypageEditInformationScreen() {
       setNErrorMessage('닉네임이 작성되지 않았습니다.');
       validationTimeOut();
     } else {
-      const apidata = {
-        user_nickname: nickname,
-        user_comment: introduction,
-        user_interest: interestTag,
-        user_profile_img: profileImage,
-      };
-      patchUpdateUser(apidata).then((res) => {
-        console.log(res);
+      console.log('////////////');
+      const formData = new FormData();
+      formData.append('userId', email);
+      formData.append('userPw', password);
 
-        if (res.data.result === true) {
-          alert('등록완료!');
-        } else {
-          alert('등록과정에서 오류가 발생했습니다');
-        }
+      formData.append('userNickname', nickname);
+      formData.append('userComment', introduction);
+
+      interests.forEach((tags, index) => {
+        formData.append('userInterest', tags);
       });
+      // formData.append('userInterest', interests);
+      formData.append('uploadFiles', uploadedImage);
+      for (const pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+      console.log(email);
+
+      console.log(nickname);
+
+      console.log(introduction);
+
+      console.log(interests);
+
+      console.log(uploadedImage);
+      patchUpdateUser(formData).then((res) => console.log(res));
+
+      // const apidata = {
+      //   user_nickname: nickname,
+      //   user_comment: introduction,
+      //   user_interest: interestTag,
+      //   user_profile_img: profileImage,
+      // };
+      // console.log(apidata);
+      // patchUpdateUser(apidata).then((res) => {
+      //   console.log(res);
+
+      //   if (res.data.result === true) {
+      //     alert('등록완료!');
+      //   } else {
+      //     alert('등록과정에서 오류가 발생했습니다');
+      //   }
+      // });
     }
   };
 
@@ -119,7 +147,7 @@ function MypageEditInformationScreen() {
       console.log('///////////////////');
       const apidata = {
         user_id: email,
-        // password: password,
+        userPw: password,
       };
       DeleteDeleteUser(apidata).then((res) => {
         console.log(res);
@@ -201,11 +229,7 @@ function MypageEditInformationScreen() {
                         type="text"
                         id="nickname"
                         name="nickname"
-                        // placeholder=
                         value={nickname}
-                        // value={
-                        //   establishUserData && establishUserData.user_nickname
-                        // }
                         style={{ color: 'black' }}
                         required
                         onChange={(e) => setNickname(e.target.value)}
@@ -221,20 +245,15 @@ function MypageEditInformationScreen() {
                   <br />
                   <br />
                   <section className="editInfoSection">
-                    <span
-                      className="formList"
-                      style={{ fontWeight: '450', fontSize: '16px' }}
-                    >
-                      자기소개
-                    </span>
+                    <span className="formList">자기소개</span>
                     <div
                       className="editInfoContainer"
                       style={{ marginTop: '25px' }}
                     >
                       <textarea
-                        // type="text"
-                        // id="introduction"
-                        // name="introduction"
+                        type="text"
+                        id="introduction"
+                        name="introduction"
                         placeholder={
                           // establishUserData && establishUserData.user_comment
                           '관심사를 작성해보세요!'
@@ -283,7 +302,11 @@ function MypageEditInformationScreen() {
             <div className="R-UPEContainer">
               <div className="vinylpic">
                 <div className="vinyl">
-                  <UserProfileVinyl userData={establishUserData} />
+                  <UserProfileVinyl
+                    userData={establishUserData}
+                    uploadedImage={uploadedImage}
+                    setUploadedImage={setUploadedImage}
+                  />
                 </div>
                 {/* <p className="error-message">
                   {PWCerrorMessage}
