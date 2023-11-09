@@ -10,17 +10,16 @@ import userImg from '../../../asset/profile_default.png';
 
 import InterestTag from '../../../components/interestTag/InterestTag';
 
-import { getMypage } from '../../../api/mypage';
+import { DeleteDeleteUser, getMypage } from '../../../api/mypage';
 import UserProfileVinyl from '../../../components/userProfileVinyl/UserProfileVinyl';
+import LikeButton from '../../../components/myPageIcons/addTag';
+import AddTagButton from '../../../components/myPageIcons/addTag';
+import { Navigate } from 'react-router-dom';
 
 function MypageEditInformationScreen() {
-  const [userinfo, setUserInfo] = useState({
-    user_interests: ['집', '가고', '싶다'],
-    imgSrc: userImg,
-  });
-
   const [isFormValid, setIsFormValid] = useState(true);
 
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [nickname, setNickname] = useState();
@@ -45,6 +44,12 @@ function MypageEditInformationScreen() {
       console.log(res);
       if (res.data.result === 'mypage main') {
         setEstablishUserData(res.data.userData);
+
+        setEmail(res.data.userData.user_id);
+        setNickname(res.data.userData.user_nickname || '');
+        setIntroduction(res.data.userData.user_comment || '');
+        setInterests(res.data.userData.user_interest || '');
+        setProfileImage(res.data.userData.user_profile_img || '');
       }
     });
   };
@@ -67,8 +72,8 @@ function MypageEditInformationScreen() {
     );
   };
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
+  const handleUpdate = () => {
+    // e.preventDefault();
 
     // 여기에서 유효성 검사를 수행합니다.
 
@@ -90,12 +95,44 @@ function MypageEditInformationScreen() {
       setPWCErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
       validationTimeOut();
     } else {
+      return true;
       // 여기에서 폼 데이터를 서버로 보내는 로직을 추가할 수 있습니다.
       // 비밀번호, 닉네임, 자기소개, 관심분야, 프로필 이미지 등을 서버로 전송합니다.
     }
   };
 
   const handleDeleteAccount = () => {
+    if (!nickname) {
+      setNErrorMessage('닉네임이 작성되지 않았습니다.');
+      validationTimeOut();
+    } else if (!password) {
+      setPWErrorMessage('비밀번호가 작성되지 않았습니다.');
+      validationTimeOut();
+    } else if (!confirmPassword) {
+      setPWCErrorMessage('비밀번호 확인이 작성되지 않았습니다.');
+      validationTimeOut();
+    } else if (!isValidPassword(password)) {
+      setPWErrorMessage(
+        '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
+      );
+      validationTimeOut();
+    } else if (password !== confirmPassword) {
+      setPWCErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
+      validationTimeOut();
+    } else {
+      console.log('///////////////////');
+      const apidata = {
+        user_id: email,
+        // password: password,
+      };
+      DeleteDeleteUser(apidata).then((res) => {
+        console.log(res);
+        if (res.data.result === true) {
+          setNErrorMessage('탈퇴완료');
+          document.location.href = '/';
+        }
+      });
+    }
     // 회원 탈퇴 로직을 구현할 수 있습니다.
   };
 
@@ -155,6 +192,11 @@ function MypageEditInformationScreen() {
                       </label>
                       <span></span>
                     </div>
+                    {!confirmPassword && !isFormValid && (
+                      <p className="error-message">
+                        비밀번호는 필수 항목입니다.
+                      </p>
+                    )}
                   </section>
                   <br />
                   <section className="editInfoSection">
@@ -164,9 +206,11 @@ function MypageEditInformationScreen() {
                         id="nickname"
                         name="nickname"
                         // placeholder=
-                        value={
-                          establishUserData && establishUserData.user_nickname
-                        }
+                        value={nickname}
+                        // value={
+                        //   establishUserData && establishUserData.user_nickname
+                        // }
+                        style={{ color: 'black' }}
                         required
                         onChange={(e) => setNickname(e.target.value)}
                       />
@@ -196,7 +240,8 @@ function MypageEditInformationScreen() {
                         // id="introduction"
                         // name="introduction"
                         placeholder={
-                          establishUserData && establishUserData.user_comment
+                          // establishUserData && establishUserData.user_comment
+                          '관심사를 작성해보세요!'
                         }
                         // rows="4"
                         // cols="50"
@@ -219,7 +264,7 @@ function MypageEditInformationScreen() {
                     onChange={(e) => setProfileImage(e.target.files[0])}
                   />
                   <br></br>
-                  <form className="addTagSection">
+                  <div className="addTagSection">
                     <label htmlFor="interests">관심분야 태그:</label>
                     <input
                       type="text"
@@ -227,10 +272,15 @@ function MypageEditInformationScreen() {
                       name="interest"
                       onChange={(e) => setInterests(e.target.value)}
                     />
-                    <button type="submit" className="addTagButton" value={''}>
+                    <AddTagButton />
+                    {/* <button
+                      type="submit"
+                      className="addTagButton"
+                      style={{ top: '0px' }}
+                    >
                       <img src="src\asset\plus.svg"></img>{' '}
-                    </button>
-                  </form>
+                    </button> */}
+                  </div>
                   <br />
 
                   <InterestTag userData={establishUserData} />
@@ -243,6 +293,11 @@ function MypageEditInformationScreen() {
                 <div className="vinyl">
                   <UserProfileVinyl userData={establishUserData} />
                 </div>
+                {/* <p className="error-message">
+                  {PWCerrorMessage}
+                  {PWCerrorMessage}
+                  {NerrorMessage}
+                </p> */}
               </div>
 
               <button
