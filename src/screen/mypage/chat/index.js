@@ -119,9 +119,9 @@ function MypageChatScreen() {
 
     // 룸 선택시 룸에 대한 데이터들을 받아옴
     socket.on('roomData', (data) => {
-      console.log(data);
-      setRoomData(data);
-      setMessages(data.message_list);
+      console.log(data[0]);
+      setRoomData(data[0]);
+      setMessages(data[0].messageList);
     });
 
     // socket.on('update', (data) => {
