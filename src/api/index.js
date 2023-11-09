@@ -7,6 +7,7 @@ const setInterceptors = (instance) => {
   instance.interceptors.request.use(
     async (config) => {
       // 여기서 헤더에 토큰 추가
+      config.headers['Content-Type'] = 'multipart/form-data';
       return config;
       // throw new axios.Cancel();
     },

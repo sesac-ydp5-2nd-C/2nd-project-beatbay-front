@@ -155,6 +155,14 @@ function TradeDetailScreen() {
     }
   };
 
+  const TradeEditBtn = () => {
+    if (type === 'product') {
+      navigate(`/trade/sell/product/${id}`);
+    } else {
+      navigate(`/trade/sell/ability/${id}`);
+    }
+  };
+
   return (
     <Screen>
       {detailData ? (
@@ -276,7 +284,9 @@ function TradeDetailScreen() {
             <div className="flexEnd">
               {isMyProduct && (
                 <>
-                  <button className="tDBtn">수정</button>
+                  <button className="tDBtn" onClick={TradeEditBtn}>
+                    수정
+                  </button>
                   <button className="tDBtn">삭제</button>
                 </>
               )}
