@@ -8,6 +8,7 @@ import {
   deleteAdminProduct,
   deleteAdminUser,
   getAdminData,
+  patchAdminGrade,
 } from '../../api/adminpage';
 import LoadingSpinner from '../../components/common/loadingSpinner';
 
@@ -74,6 +75,7 @@ export default function AdminScreen() {
   });
   const [adminData, setAdminData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedGrade, setSelectedGrade] = useState(0);
 
   const handleEdit = (item) => {
     setSelectedData(item);
@@ -101,6 +103,15 @@ export default function AdminScreen() {
       console.error('deleteError', e);
     }
 
+    await getAdminPage();
+  };
+
+  const handleGradeChange = async (id, grade) => {
+    console.log(id, grade);
+    setSelectedGrade(selectedGrade);
+    await patchAdminGrade({ user_id: id, user_grade: grade }).then(() => {
+      console.log('ㅠㅠ', id, grade);
+    });
     await getAdminPage();
   };
 
@@ -146,6 +157,9 @@ export default function AdminScreen() {
                   data={adminData.users}
                   dataType="user"
                   handleDelete={(item) => handleDelete(item)}
+                  handleGradeChange={handleGradeChange}
+                  selectedGrade={selectedGrade}
+                  setSelectedGrade={setSelectedGrade}
                 />
               </div>
             </div>

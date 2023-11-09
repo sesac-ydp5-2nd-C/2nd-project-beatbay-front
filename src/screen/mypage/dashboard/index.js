@@ -14,35 +14,53 @@ import {
   getMypage,
 } from '../../../api/mypage';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../../../components/common/loadingSpinner';
 
 function MypageDashboardScreen() {
   useEffect(() => {
     gogogo();
   }, []);
-  const gogogo = () => {
-    getMypage().then((result) => {
+  const gogogo = async () => {
+    await getMypage().then((result) => {
       if (result.data.userData) {
         setMyPageData(result.data);
+        setIsLoading(false);
+      } else {
+        console.error('error');
+        setIsLoading(false);
       }
     });
-    getMyReviews().then((res) => {
+    await getMyReviews().then((res) => {
       if (res.data) {
         setReviewsData(res.data);
+        setIsLoading(false);
+      } else {
+        console.error('error');
+        setIsLoading(false);
       }
     });
-    getMyFollowers().then((res) => {
+    await getMyFollowers().then((res) => {
       console.log(res.data);
       if (res.data) {
         setFollowData(res.data);
+        setIsLoading(false);
+      } else {
+        console.error('error');
+        setIsLoading(false);
       }
     });
-    getMyFollowing().then((res) => {
+    await getMyFollowing().then((res) => {
       if (res.data) {
         setFollowingData(res.data);
+        setIsLoading(false);
+      } else {
+        console.error('error');
+        setIsLoading(false);
       }
     });
   };
 
+  const [isLoading, setIsLoading] = useState(true);
   const [mypageData, setMyPageData] = useState();
   const [reviewsData, setReviewsData] = useState();
   const [followData, setFollowData] = useState();
@@ -64,6 +82,10 @@ function MypageDashboardScreen() {
     setModalData(null);
     setModalIsOpen(false);
   };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Screen>
