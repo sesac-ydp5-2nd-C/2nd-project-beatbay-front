@@ -57,6 +57,7 @@ function MypageChatScreen() {
   const user_id = localStorage.getItem('login_id');
   const email = localStorage.getItem('email');
   const ENDPOINT = 'http://15.164.171.113:5001';
+  // const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
   const [chatList, setChatList] = useState([]);
   const [message, setMessage] = useState('');
@@ -181,7 +182,10 @@ function MypageChatScreen() {
     let state = false;
     const type = newRoomInfo.type;
     data.forEach((e, i) => {
-      if (e[`${type}_info`][`${type}_id`] === newRoomInfo.object_id) {
+      if (
+        !e[`${type === 'product' ? 'ability' : 'product'}_info`] &&
+        e[`${type}_info`][`${type}_id`] === newRoomInfo.object_id
+      ) {
         state = true;
         enterRoom(e);
       }
@@ -375,28 +379,32 @@ function MypageChatScreen() {
           )}
         </div>
 
-        {sellerData && (
-          <div className="sellerContainer">
-            <MypageVinyl userData={sellerData} />
-            <p className="sellerName">{sellerData.user_nickname}</p>
-            <p className="sellerIntro">{sellerData.user_comment}</p>
-            <div className="tagContainer">
-              {sellerData.user_interest &&
-                sellerData.user_interest.map((e, i) => {
-                  return <p className="sellerTag">{`# ${e}`}</p>;
-                })}
-            </div>
+        <div className="sellerContainer">
+          {sellerData ? (
+            <>
+              <MypageVinyl userData={sellerData} />
+              <p className="sellerName">{sellerData.user_nickname}</p>
+              <p className="sellerIntro">{sellerData.user_comment}</p>
+              <div className="tagContainer">
+                {sellerData.user_interest &&
+                  sellerData.user_interest.map((e, i) => {
+                    return <p className="sellerTag">{`# ${e}`}</p>;
+                  })}
+              </div>
 
-            <div className="sellerInfoBox mb22">
-              REVIEW
-              <p className="countSize">{reviewCount}</p>
-            </div>
-            <div className="sellerInfoBox">
-              FOLLOWER
-              <p className="countSize">{followCount}</p>
-            </div>
-          </div>
-        )}
+              <div className="sellerInfoBox mb22">
+                REVIEW
+                <p className="countSize">{reviewCount}</p>
+              </div>
+              <div className="sellerInfoBox">
+                FOLLOWER
+                <p className="countSize">{followCount}</p>
+              </div>
+            </>
+          ) : (
+            <div className="beforeRoom">채팅방을 선택해주세요</div>
+          )}
+        </div>
       </div>
       <MypageMenus />
     </Screen>
