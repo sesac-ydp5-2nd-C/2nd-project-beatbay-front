@@ -49,7 +49,7 @@ const SignInUpScreen = () => {
     setTimeout(() => {
       setIsFormValid(true);
       setErrorMessage('');
-    }, 3000);
+    }, 6000);
   };
 
   // 회원가입 유효성 검사
@@ -308,9 +308,7 @@ const SignInUpScreen = () => {
             <button onClick={checkAuth}>인증번호 확인</button>
           </div>
 
-          <p className="error-message" style={{ color: 'black' }}>
-            {mailCheckMessage}
-          </p>
+          <p className="mail-error-message">{mailCheckMessage}</p>
 
           <button onClick={handleSignUp}>회원가입</button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -422,7 +420,7 @@ const SignInUpScreen = () => {
               className={isEmailVerified ? '' : 'disabled-input'}
               disabled={!isEmailVerified}
             />
-            <p className="error-message" style={{ color: 'black' }}>
+            <p className="mail-error-message" style={{ color: 'black' }}>
               {mailCheckMessage}
             </p>
             <button onClick={sendPw} style={{ width: '106%' }}>
