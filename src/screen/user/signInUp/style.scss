@@ -185,6 +185,9 @@
   color: red;
   font-weight: bold;
 }
+.mail-error-message {
+  font-weight: bold;
+}
 //--------------------------------
 
 #reg-log:checked ~ .form-container {
@@ -213,7 +216,3 @@
 .Lcard-back {
   transform: rotateY(180deg);
 }
-
-// .temp {
-//   visibility: hidden;
-// }

@@ -27,6 +27,8 @@
 
 .zzturntable {
   position: absolute;
+  top: toSize(0);
+  left: toSize(4);
   z-index: 1;
   width: toSize(530);
   height: toSize(475);
@@ -61,6 +63,7 @@
     height: 285px;
   }
   @include media('<=768px') {
+    right: 120px;
     width: 176px;
     height: 152px;
   }
