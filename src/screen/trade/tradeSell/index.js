@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   getTradeDetailAbility,
   getTradeDetailProduct,
+  postTradeSell,
 } from '../../../api/trade';
 import { productCategory, abilityCategory } from '../../../function/changeKey';
 
@@ -17,10 +18,6 @@ function TradeSellScreen() {
     {
       name: '물품',
       subcategories: [
-        {
-          name: '음반',
-          items: ['CD', 'DVD', 'LP', '기타'],
-        },
         {
           name: '악기',
           items: [
@@ -33,6 +30,10 @@ function TradeSellScreen() {
             '악기용품',
             '기타',
           ],
+        },
+        {
+          name: '음반',
+          items: ['CD', 'DVD', 'LP', '기타'],
         },
       ],
     },
@@ -114,22 +115,6 @@ function TradeSellScreen() {
       ],
     },
   ];
-  const items = [
-    '무관',
-    '강원도',
-    '경기도',
-    '경상도',
-    '광주',
-    '대구',
-    '부산',
-    '서울',
-    '울산',
-    '세종',
-    '인천',
-    '전라도',
-    '제주도',
-    '충청도',
-  ];
 
   const { id, type } = useParams();
   const [detailData, setDetailData] = useState();
@@ -139,6 +124,7 @@ function TradeSellScreen() {
   const defaultSelectType =
     type === 'product' ? 0 : type === 'ability' ? 1 : null;
   const [selectedType, setSelectedType] = useState(defaultSelectType);
+
   const [selectedCategory, setSelectedCategory] = useState(
     detailData ? detailData[`${type}_category`] : null,
   );
@@ -170,11 +156,6 @@ function TradeSellScreen() {
   useEffect(() => {
     if (id) {
       getTradeData();
-      if (detailData && detailData[`${type}_category`] !== null) {
-        setSelectedType(detailData[`${type}_type`]);
-        setSelectedCategory(detailData[`${type}_category`] - 1);
-        setSelectedSubCategory(detailData[`${type}_sub_category`] - 1);
-      }
     }
   }, []);
 
@@ -190,6 +171,9 @@ function TradeSellScreen() {
         both: bothChecked,
       });
     }
+    console.log(selectedType);
+    console.log(selectedCategory);
+    console.log(selectedSubCategory);
   }, [detailData, type]);
 
   const getTradeData = async () => {
@@ -205,6 +189,9 @@ function TradeSellScreen() {
         setPrice(res.data[type][`${type}_price`]);
         setContext(res.data[type][`${type}_content`]);
         setSelectLocation(res.data[type][`${type}_location`]);
+        setSelectedType(defaultSelectType);
+        setSelectedCategory(res.data[type][`${type}_category`] - 1);
+        setSelectedSubCategory(res.data[type][`${type}_sub_category`] - 1);
       }
     });
   };
@@ -243,61 +230,78 @@ function TradeSellScreen() {
   const sellFormData = {
     title: title,
     selectedType: selectedType,
-    selectedCategory: selectedCategory + 1,
-    selectedSubCategory: selectedSubCategory + 1,
+    selectedCategory: selectedCategory,
+    selectedSubCategory: selectedSubCategory,
     filePaths: filePaths,
     price: Number(price),
     context: context,
     status: Number(status),
     method: methodType,
     location: selectLocation,
-    uploadImages: JSON.stringify(uploadImages),
+    // uploadImages: JSON.stringify(uploadImages),
   };
 
   const [isFormValid, setIsFormValid] = useState(true);
 
   const submitClick = () => {
+    console.log(
+      title,
+      selectedType,
+      selectedCategory,
+      selectedSubCategory,
+      uploadImages.length,
+      filePaths.length,
+      price,
+      context,
+      status,
+      method,
+      selectLocation,
+    );
+
     if (
-      !title ||
-      !selectedType ||
-      !selectedCategory ||
-      !selectedSubCategory ||
-      !uploadImages.length ||
-      !filePaths.length ||
-      !price ||
-      !context ||
-      status === null ||
-      method.length === null ||
-      !selectLocation
+      sellFormData.title === null ||
+      sellFormData.selectedType === null ||
+      sellFormData.selectedCategory === null ||
+      sellFormData.selectedSubCategory === null ||
+      sellFormData.uploadImages === null ||
+      sellFormData.price === null ||
+      sellFormData.context === null ||
+      sellFormData.status === null ||
+      sellFormData.method === null ||
+      sellFormData.location === null
     ) {
       setIsFormValid(false);
       return;
     }
     setIsFormValid(true);
-    const apiData = {
-      type: sellFormData.selectedType,
-      title: sellFormData.title,
-      category: sellFormData.selectedCategory,
-      subcategory: sellFormData.selectedSubCategory,
-      price: sellFormData.price,
-      content: sellFormData.context,
-      status: sellFormData.status,
-      method: sellFormData.methodType,
-      location: sellFormData.location,
-      update: 1,
-      files: sellFormData.uploadImages,
-    };
-    postTradeSell(apiData)
-      .then((res) => res.json())
-      .then((data) => {
-        alert('등록 완료!');
-      });
-    console.log(apiData);
+    postSellForm();
   };
 
   const nav = useNavigate();
-  const hadleBack = () => {
+  const handleBack = () => {
     nav(-1);
+  };
+
+  const postSellForm = async () => {
+    console.log('ㄴㅇㄹㄹㄹ시발');
+    const apiData = {
+      type: sellFormData.selectedType,
+      title: sellFormData.title,
+      category: sellFormData.selectedCategory + 1,
+      subcategory: sellFormData.selectedSubCategory + 1,
+      price: sellFormData.price,
+      content: sellFormData.context,
+      status: sellFormData.status,
+      method: sellFormData.method,
+      location: sellFormData.location,
+      update: 1,
+      files: sellFormData.filePaths,
+    };
+    console.log(apiData);
+    postTradeSell(apiData).then((res) => {
+      console.log(apiData.files);
+      console.log(res.data);
+    });
   };
 
   return (
@@ -328,9 +332,13 @@ function TradeSellScreen() {
               <div className="sellInputContainer">
                 <SellFormCategory
                   categories={categories}
-                  selectedType={selectedType}
-                  selectedCategory={selectedCategory}
-                  selectedSubCategory={selectedSubCategory}
+                  selectedType={selectedType !== null ? selectedType : null}
+                  selectedCategory={
+                    selectedCategory !== null ? selectedCategory : null
+                  }
+                  selectedSubCategory={
+                    selectedSubCategory !== null ? selectedSubCategory : null
+                  }
                   setSelectedType={setSelectedType}
                   setSelectedCategory={setSelectedCategory}
                   setSelectedSubCategory={setSelectedSubCategory}
@@ -447,7 +455,7 @@ function TradeSellScreen() {
               <button
                 type="button"
                 className="sellFormExit"
-                onClick={hadleBack}
+                onClick={handleBack}
               >
                 취소
               </button>

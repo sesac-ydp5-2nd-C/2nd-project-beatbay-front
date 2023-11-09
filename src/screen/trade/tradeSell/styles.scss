@@ -136,6 +136,7 @@
   width: 100%;
   text-align: center;
   margin-top: toSize(150);
+
   @include media('>1440px') {
     margin-top: 150px;
   }
@@ -148,6 +149,7 @@
     border: none;
     border-radius: toSize(5);
     margin: toSize(20);
+    cursor: pointer;
     @include media('>1440px') {
       width: 78px;
       height: 45px;

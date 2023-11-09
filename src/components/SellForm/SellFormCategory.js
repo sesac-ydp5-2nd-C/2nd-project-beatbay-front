@@ -10,6 +10,12 @@ function SellFormCategory({
   setSelectedCategory,
   setSelectedSubCategory,
 }) {
+  useEffect(() => {
+    console.log(categories);
+    console.log(selectedType);
+    console.log(selectedCategory);
+    console.log(selectedSubCategory);
+  }, []);
   const handleTypeClick = (index) => {
     setSelectedType(index);
     setSelectedCategory(null);
