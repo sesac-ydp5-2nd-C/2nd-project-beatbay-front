@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Screen from '../../Screen';
 import SellFormCategory from '../../../components/SellForm/SellFormCategory';
 import SellFormStatus from '../../../components/SellForm/SellFormStatus';
 import './styles.scss';
 import SellFromImg from '../../../components/SellForm/SellFromImg';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  getTradeDetailAbility,
+  getTradeDetailProduct,
+  postTradeSell,
+} from '../../../api/trade';
+import { productCategory, abilityCategory } from '../../../function/changeKey';
+import axios from 'axios';
 
 function TradeSellScreen() {
   const categories = [
     {
       name: '물품',
       subcategories: [
-        {
-          name: '음반',
-          items: ['CD', 'DVD', 'LP', '기타'],
-        },
         {
           name: '악기',
           items: [
@@ -28,6 +31,10 @@ function TradeSellScreen() {
             '악기용품',
             '기타',
           ],
+        },
+        {
+          name: '음반',
+          items: ['CD', 'DVD', 'LP', '기타'],
         },
       ],
     },
@@ -109,57 +116,114 @@ function TradeSellScreen() {
       ],
     },
   ];
-  const items = [
-    '무관',
-    '강원도',
-    '경기도',
-    '경상도',
-    '광주',
-    '대구',
-    '부산',
-    '서울',
-    '울산',
-    '세종',
-    '인천',
-    '전라도',
-    '제주도',
-    '충청도',
-  ];
 
-  const [title, setTitle] = useState('');
-  const [selectedType, setSelectedType] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const { id, type } = useParams();
+  const [detailData, setDetailData] = useState();
+  const [title, setTitle] = useState(
+    detailData ? detailData[`${type}_title`] : '',
+  );
+  const defaultSelectType =
+    type === 'product' ? 0 : type === 'ability' ? 1 : null;
+  const [selectedType, setSelectedType] = useState(defaultSelectType);
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    detailData ? detailData[`${type}_category`] : null,
+  );
+  const [selectedSubCategory, setSelectedSubCategory] = useState(
+    detailData ? detailData[`${type}_sub_category`] : null,
+  );
   const [uploadImages, setUploadImages] = useState([]);
-  const [filePaths, setFilePaths] = useState([]);
-  const [price, setPrice] = useState(null);
-  const [context, setContext] = useState('');
-  const [status, setStatus] = useState(null);
+  const [filePaths, setFilePaths] = useState(
+    detailData ? JSON.parse(detailData[`${type}_file_path`]) : [],
+  );
+  const [price, setPrice] = useState(
+    detailData ? detailData[`${type}_price`] : null,
+  );
+  const [context, setContext] = useState(
+    detailData ? detailData[`${type}_content`] : '',
+  );
+  const [status, setStatus] = useState(
+    detailData ? detailData[`${type}_status`] : null,
+  );
   const [method, setMethod] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(items[0]);
-  const [showDropdown, setShowDropdown] = useState('');
+  const [checkedMethods, setCheckedMethods] = useState({
+    direct: false,
+    delivery: false,
+  });
+  const [selectLocation, setSelectLocation] = useState(
+    detailData ? detailData[`${type}_location`] : '',
+  );
+
+  useEffect(() => {
+    if (id) {
+      getTradeData();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (detailData && detailData[`${type}_method`] !== null) {
+      const methodValue = detailData[`${type}_method`];
+      const directChecked = (methodValue & 1) === 0;
+      const deliveryChecked = (methodValue & 1) === 1;
+      const bothChecked = (methodValue & 2) === 2;
+      setCheckedMethods({
+        direct: directChecked,
+        delivery: deliveryChecked,
+        both: bothChecked,
+      });
+    }
+    console.log(selectedType);
+    console.log(selectedCategory);
+    console.log(selectedSubCategory);
+  }, [detailData, type]);
+
+  const getTradeData = async () => {
+    (type === 'product'
+      ? getTradeDetailProduct({ product_id: id })
+      : getTradeDetailAbility({ ability_id: id })
+    ).then((res) => {
+      console.log(res);
+      if (res?.data && res.data[type]) {
+        setDetailData(res.data[type]);
+        setTitle(res.data[type][`${type}_title`]);
+        setStatus(res.data[type][`${type}_status`]);
+        setPrice(res.data[type][`${type}_price`]);
+        setContext(res.data[type][`${type}_content`]);
+        setSelectLocation(res.data[type][`${type}_location`]);
+        setSelectedType(defaultSelectType);
+        setSelectedCategory(res.data[type][`${type}_category`] - 1);
+        setSelectedSubCategory(res.data[type][`${type}_sub_category`] - 1);
+      }
+    });
+  };
 
   const handleMethodChange = (value) => {
-    if (method.includes(value)) {
-      setMethod(method.filter((item) => item !== value));
+    setCheckedMethods((prevMethods) => ({
+      ...prevMethods,
+      [value]: !prevMethods[value],
+    }));
+  };
+
+  const findValue = (parentKey, key) => {
+    if (type === 'product') {
+      return productCategory(parentKey, key);
     } else {
-      setMethod([...method, value]);
+      return abilityCategory(parentKey, key);
     }
   };
 
-  const selectedIndex = items.indexOf(selectedItem);
-
   const calculateMethod = () => {
-    if (method.length === 0) {
-      return 0;
-    } else if (method.length === 1) {
-      if (method.includes('direct')) {
-        return 0;
-      } else if (method.includes('delivery')) {
-        return 1;
-      }
+    let methodValue = 0;
+    if (checkedMethods.direct) {
+      methodValue |= 0;
     }
-    return 2;
+    if (checkedMethods.delivery) {
+      methodValue |= 1;
+    }
+    if (checkedMethods.direct && checkedMethods.delivery) {
+      methodValue |= 2;
+    }
+    return methodValue;
   };
 
   const methodType = calculateMethod();
@@ -167,42 +231,91 @@ function TradeSellScreen() {
   const sellFormData = {
     title: title,
     selectedType: selectedType,
-    selectedCategory: selectedCategory + 1,
-    selectedSubCategory: selectedSubCategory + 1,
-    filePaths: filePaths,
+    selectedCategory: selectedCategory,
+    selectedSubCategory: selectedSubCategory,
+    // filePaths: filePaths,
     price: Number(price),
     context: context,
     status: Number(status),
     method: methodType,
-    location: selectedIndex,
+    location: selectLocation,
+    uploadImages: uploadImages,
   };
 
   const [isFormValid, setIsFormValid] = useState(true);
 
-  const buttonClick = () => {
+  const submitClick = () => {
+    console.log(sellFormData.uploadImages);
+
     if (
-      !title ||
-      !selectedType ||
-      !selectedCategory ||
-      !selectedSubCategory ||
-      !uploadImages.length ||
-      !filePaths.length ||
-      !price ||
-      !context ||
-      status === null ||
-      method.length === 0 ||
-      !selectedItem
+      sellFormData.title === null ||
+      sellFormData.selectedType === null ||
+      sellFormData.selectedCategory === null ||
+      sellFormData.selectedSubCategory === null ||
+      sellFormData.uploadImages === null ||
+      sellFormData.price === null ||
+      sellFormData.context === null ||
+      sellFormData.status === null ||
+      sellFormData.method === null ||
+      sellFormData.location === null
     ) {
       setIsFormValid(false);
       return;
     }
     setIsFormValid(true);
-    console.log(sellFormData);
+    postSellForm();
   };
 
   const nav = useNavigate();
-  const hadleBack = () => {
+  const handleBack = () => {
     nav(-1);
+  };
+
+  // const postSellForm = async () => {
+  //   console.log('ㄴㅇㄹㄹㄹ시발');
+  //   const apiData = {
+  //     type: sellFormData.selectedType,
+  //     title: sellFormData.title,
+  //     category: sellFormData.selectedCategory + 1,
+  //     subcategory: sellFormData.selectedSubCategory + 1,
+  //     price: sellFormData.price,
+  //     content: sellFormData.context,
+  //     status: sellFormData.status,
+  //     method: sellFormData.method,
+  //     location: sellFormData.location,
+  //     update: 1,
+  //     files: sellFormData.filePaths,
+  //   };
+  //   console.log(apiData);
+  //   postTradeSell(apiData).then((res) => {
+  //     console.log(apiData.files);
+  //     console.log(res.data);
+  //   });
+  // };
+
+  const postSellForm = async () => {
+    const formData = new FormData();
+    formData.append('type', sellFormData.selectedType);
+    formData.append('title', sellFormData.title);
+    formData.append('category', sellFormData.selectedCategory + 1);
+    formData.append('subcategory', sellFormData.selectedSubCategory + 1);
+    formData.append('price', sellFormData.price);
+    formData.append('content', sellFormData.context);
+    formData.append('status', sellFormData.status);
+    formData.append('method', sellFormData.method);
+    formData.append('location', sellFormData.location);
+    formData.append('update', 1);
+    uploadImages.forEach((file, index) => {
+      formData.append(`uploadFiles`, file);
+    });
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    postTradeSell(formData).then((res) => console.log(res));
   };
 
   return (
@@ -210,7 +323,7 @@ function TradeSellScreen() {
       <div>
         <div className="sellFormContainer">
           <h1>상품 등록</h1>
-          <form className="sellForm">
+          <form className="sellForm" encType="multipart/form-data">
             <section className="sellTitleSection">
               <span htmlFor="sellTitle" className="formList">
                 제목
@@ -221,6 +334,7 @@ function TradeSellScreen() {
                   id="sellTitle"
                   placeholder="제목을 입력하세요."
                   onChange={(e) => setTitle(e.target.value)}
+                  value={title}
                 />
                 {!title && !isFormValid && (
                   <p className="sellFormMsg">제목은 필수 항목입니다.</p>
@@ -232,9 +346,13 @@ function TradeSellScreen() {
               <div className="sellInputContainer">
                 <SellFormCategory
                   categories={categories}
-                  selectedType={selectedType}
-                  selectedCategory={selectedCategory}
-                  selectedSubCategory={selectedSubCategory}
+                  selectedType={selectedType !== null ? selectedType : null}
+                  selectedCategory={
+                    selectedCategory !== null ? selectedCategory : null
+                  }
+                  selectedSubCategory={
+                    selectedSubCategory !== null ? selectedSubCategory : null
+                  }
                   setSelectedType={setSelectedType}
                   setSelectedCategory={setSelectedCategory}
                   setSelectedSubCategory={setSelectedSubCategory}
@@ -258,6 +376,7 @@ function TradeSellScreen() {
                   setUploadImages={setUploadImages}
                   setFilePaths={setFilePaths}
                   filePaths={filePaths}
+                  detailData={detailData}
                 />
                 {uploadImages.length === 0 && !isFormValid && (
                   <p className="sellFormMsg">이미지는 필수 항목입니다.</p>
@@ -274,6 +393,7 @@ function TradeSellScreen() {
                   id="sellPrice"
                   placeholder="0"
                   onChange={(e) => setPrice(e.target.value)}
+                  value={price}
                 />
                 원
                 {!price && !isFormValid && (
@@ -289,6 +409,7 @@ function TradeSellScreen() {
                 <textarea
                   onChange={(e) => setContext(e.target.value)}
                   placeholder="상품 설명을 입력하세요."
+                  value={context}
                 />{' '}
                 {!context && !isFormValid && (
                   <p className="sellFormMsg">설명은 필수 항목입니다.</p>
@@ -312,7 +433,7 @@ function TradeSellScreen() {
                     type="checkbox"
                     name="methodRadio0"
                     value="direct"
-                    checked={method.includes('direct')}
+                    checked={checkedMethods.direct}
                     onChange={() => handleMethodChange('direct')}
                   />
                   <span>직거래</span>
@@ -322,27 +443,24 @@ function TradeSellScreen() {
                     type="checkbox"
                     name="methodRadio1"
                     value="delivery"
-                    checked={method.includes('delivery')}
+                    checked={checkedMethods.delivery}
                     onChange={() => handleMethodChange('delivery')}
                   />
                   <span>비대면거래</span>
                 </label>
-                {method.length === 0 && !isFormValid && (
-                  <p className="sellFormMsg">거래 방식은 필수 항목입니다.</p>
-                )}
               </div>
             </section>
             <section className="sellLocationSection">
               <span className="formList">지역</span>
               <div className="sellInputContainer">
-                <CustomDropdown
-                  showDropdown={showDropdown}
-                  setShowDropdown={() => setShowDropdown(!showDropdown)}
-                  items={items}
-                  selectedItem={selectedItem}
-                  setSelectedItem={setSelectedItem}
+                <input
+                  type="text"
+                  id="sellLocation"
+                  placeholder="지역을 입력하세요."
+                  onChange={(e) => setSelectLocation(e.target.value)}
+                  value={selectLocation}
                 />
-                {!selectedItem && !isFormValid && (
+                {!selectLocation && !isFormValid && (
                   <p className="sellFormMsg">지역은 필수 항목입니다.</p>
                 )}
               </div>
@@ -351,14 +469,14 @@ function TradeSellScreen() {
               <button
                 type="button"
                 className="sellFormExit"
-                onClick={hadleBack}
+                onClick={handleBack}
               >
                 취소
               </button>
               <button
                 type="button"
                 className="sellFormSubmit"
-                onClick={buttonClick}
+                onClick={submitClick}
               >
                 등록
               </button>

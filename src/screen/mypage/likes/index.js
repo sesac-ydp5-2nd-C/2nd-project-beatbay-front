@@ -11,7 +11,7 @@ import { getMyLikes } from '../../../api/mypage';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
 
-export default function MypagePurchasesScreen() {
+export default function MypageLikesScreen() {
   const [userData, setUserData] = useState();
 
   const tabsData = [

@@ -67,3 +67,19 @@ export const patchTradeLikeAbility = async (apiData) => {
 export const patchTradeUpdateStatus = async (apiData) => {
   return await BB.patch('/trade/updateStatus', apiData);
 };
+
+/**
+ * 거래 등록
+ * @param {Number} apiData.files
+ */
+export const postTradeSell = async (apiData) => {
+  return await BB.post('/trade/sell', apiData);
+};
+
+/**
+ * 거래 수정
+ * @param {Number} apiData.files
+ */
+export const patchTradeSell = async (apiData) => {
+  return await BB.post('/trade/update', apiData);
+};
