@@ -73,7 +73,9 @@ export const patchTradeUpdateStatus = async (apiData) => {
  * @param {Number} apiData.files
  */
 export const postTradeSell = async (apiData) => {
-  return await BB.post('/trade/sell', apiData);
+  const headers = {};
+  headers['Content-Type'] = 'multipart/form-data';
+  return await BB.post('/trade/sell', apiData, { headers });
 };
 
 /**
@@ -81,5 +83,7 @@ export const postTradeSell = async (apiData) => {
  * @param {Number} apiData.files
  */
 export const patchTradeSell = async (apiData) => {
-  return await BB.post('/trade/update', apiData);
+  const headers = {};
+  headers['Content-Type'] = 'multipart/form-data';
+  return await BB.patch('/trade/update', apiData, { headers });
 };

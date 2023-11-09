@@ -5,10 +5,11 @@ import SellFormStatus from '../../../components/SellForm/SellFormStatus';
 import './styles.scss';
 import SellFromImg from '../../../components/SellForm/SellFromImg';
 import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useHistory } from 'react-router-dom';
 import {
   getTradeDetailAbility,
   getTradeDetailProduct,
+  patchTradeSell,
   postTradeSell,
 } from '../../../api/trade';
 import { productCategory, abilityCategory } from '../../../function/changeKey';
@@ -133,9 +134,7 @@ function TradeSellScreen() {
     detailData ? detailData[`${type}_sub_category`] : null,
   );
   const [uploadImages, setUploadImages] = useState([]);
-  const [filePaths, setFilePaths] = useState(
-    detailData ? JSON.parse(detailData[`${type}_file_path`]) : [],
-  );
+  const [filePaths, setFilePaths] = useState([]);
   const [price, setPrice] = useState(
     detailData ? detailData[`${type}_price`] : null,
   );
@@ -153,6 +152,11 @@ function TradeSellScreen() {
   const [selectLocation, setSelectLocation] = useState(
     detailData ? detailData[`${type}_location`] : '',
   );
+
+  const nav = useNavigate();
+  const handleBack = () => {
+    nav(-1);
+  };
 
   useEffect(() => {
     if (id) {
@@ -229,6 +233,7 @@ function TradeSellScreen() {
   const methodType = calculateMethod();
 
   const sellFormData = {
+    id: id,
     title: title,
     selectedType: selectedType,
     selectedCategory: selectedCategory,
@@ -246,6 +251,9 @@ function TradeSellScreen() {
 
   const submitClick = () => {
     console.log(sellFormData.uploadImages);
+    console.log(sellFormData.id);
+
+    let typeKeyword;
 
     if (
       sellFormData.title === null ||
@@ -262,36 +270,48 @@ function TradeSellScreen() {
       setIsFormValid(false);
       return;
     }
+    if (sellFormData.selectedType === 0) {
+      typeKeyword = 'product';
+    } else if (sellFormData.selectedType === 1) {
+      typeKeyword = 'talent';
+    }
     setIsFormValid(true);
-    postSellForm();
+    if (type === 'product' || type === 'ability') {
+      patchSellForm();
+      nav(`/trade/${type}/detail/${sellFormData.id}`);
+    } else {
+      postSellForm();
+      // const postNavType = () => {
+      console.log(sellFormData.id);
+      nav(`/trade/${typeKeyword}`);
+    }
   };
 
-  const nav = useNavigate();
-  const handleBack = () => {
-    nav(-1);
-  };
+  const patchSellForm = async () => {
+    const formData = new FormData();
+    formData.append('id', sellFormData.id);
+    formData.append('type', sellFormData.selectedType);
+    formData.append('title', sellFormData.title);
+    formData.append('category', sellFormData.selectedCategory + 1);
+    formData.append('subcategory', sellFormData.selectedSubCategory + 1);
+    formData.append('price', sellFormData.price);
+    formData.append('content', sellFormData.context);
+    formData.append('status', sellFormData.status);
+    formData.append('method', sellFormData.method);
+    formData.append('location', sellFormData.location);
+    formData.append('update', 1);
+    uploadImages.forEach((file, index) => {
+      formData.append(`uploadFiles`, file);
+    });
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
 
-  // const postSellForm = async () => {
-  //   console.log('ㄴㅇㄹㄹㄹ시발');
-  //   const apiData = {
-  //     type: sellFormData.selectedType,
-  //     title: sellFormData.title,
-  //     category: sellFormData.selectedCategory + 1,
-  //     subcategory: sellFormData.selectedSubCategory + 1,
-  //     price: sellFormData.price,
-  //     content: sellFormData.context,
-  //     status: sellFormData.status,
-  //     method: sellFormData.method,
-  //     location: sellFormData.location,
-  //     update: 1,
-  //     files: sellFormData.filePaths,
-  //   };
-  //   console.log(apiData);
-  //   postTradeSell(apiData).then((res) => {
-  //     console.log(apiData.files);
-  //     console.log(res.data);
-  //   });
-  // };
+    patchTradeSell(formData).then((res) => console.log(res));
+  };
 
   const postSellForm = async () => {
     const formData = new FormData();
@@ -371,14 +391,18 @@ function TradeSellScreen() {
                 <p>({uploadImages.length}/5)</p>
               </p>
               <div className="sellInputContainer">
-                <SellFromImg
-                  uploadImages={uploadImages}
-                  setUploadImages={setUploadImages}
-                  setFilePaths={setFilePaths}
-                  filePaths={filePaths}
-                  detailData={detailData}
-                />
-                {uploadImages.length === 0 && !isFormValid && (
+                {id ? (
+                  <div>이미지 변경은 불가능합니다.</div>
+                ) : (
+                  <SellFromImg
+                    uploadImages={uploadImages}
+                    setUploadImages={setUploadImages}
+                    setFilePaths={setFilePaths}
+                    filePaths={filePaths}
+                    detailData={detailData}
+                  />
+                )}
+                {!id && uploadImages.length === 0 && !isFormValid && (
                   <p className="sellFormMsg">이미지는 필수 항목입니다.</p>
                 )}
               </div>
