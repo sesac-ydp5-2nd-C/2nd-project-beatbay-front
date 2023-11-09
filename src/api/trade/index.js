@@ -82,8 +82,8 @@ export const postTradeSell = async (apiData) => {
  * 거래 수정
  * @param {Number} apiData.files
  */
-// export const patchTradeSell = async (apiData) => {
-//   console.log('Headers:', headers);
-//   headers['Content-Type'] = 'multipart/form-data';
-//   return await BB.post('/trade/update', apiData, { headers });
-// };
+export const patchTradeSell = async (apiData) => {
+  const headers = {};
+  headers['Content-Type'] = 'multipart/form-data';
+  return await BB.patch('/trade/update', apiData, { headers });
+};

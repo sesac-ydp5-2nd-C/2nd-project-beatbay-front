@@ -44,8 +44,8 @@ export default function SellFromImg({
         <div key={index} className="sellFormImgContainer">
           <img
             src={
-              detailData
-                ? `http://localhost:8000/uploads/${filePaths}`
+              typeof image === 'string'
+                ? `${process.env.REACT_APP_BACK_IP}/uploads/${image}`
                 : URL.createObjectURL(image)
             }
             alt={`이미지 ${index + 1}`}
