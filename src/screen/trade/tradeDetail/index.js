@@ -14,6 +14,8 @@ import UserProfileContainer from '../../../components/common/userProfile';
 import './styles.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
+  deleteTradeAbility,
+  deleteTradeProduct,
   getTradeDetailAbility,
   getTradeDetailProduct,
   patchTradeLikeAbility,
@@ -155,6 +157,33 @@ function TradeDetailScreen() {
     }
   };
 
+  const handleDelete = () => {
+    console.log(detailData[`${type}_id`]); // 51
+    const apiData = {
+      product_id: detailData[`${type}_id`],
+    };
+    if (type === 'product') {
+      console.log(apiData.product_id); // 51
+      deleteTradeProduct({
+        product_id: detailData[`${type}_id`],
+      }).then((res) => {
+        if (res.data.delete === 'success') {
+          navigate('/trade/product');
+        } else {
+        }
+      });
+    } else if (type === 'ability') {
+      deleteTradeAbility({
+        ability_id: detailData[`${type}_id`],
+      }).then((res) => {
+        if (res.data.delete === 'success') {
+          navigate('/trade/talent');
+        } else {
+        }
+      });
+    }
+  };
+
   const TradeEditBtn = () => {
     if (type === 'product') {
       navigate(`/trade/sell/product/${id}`);
@@ -287,7 +316,9 @@ function TradeDetailScreen() {
                   <button className="tDBtn" onClick={TradeEditBtn}>
                     수정
                   </button>
-                  <button className="tDBtn">삭제</button>
+                  <button className="tDBtn" onClick={handleDelete}>
+                    삭제
+                  </button>
                 </>
               )}
             </div>
