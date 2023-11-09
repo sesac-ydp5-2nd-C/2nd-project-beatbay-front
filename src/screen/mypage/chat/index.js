@@ -57,20 +57,7 @@ function MypageChatScreen() {
   const email = localStorage.getItem('email');
   const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
-  const [chatList, setChatList] = useState([
-    {
-      user_img: profile_default,
-      user_name: 'Back Ho',
-      last_chat: '좋았싸',
-      unread: 1,
-    },
-    {
-      user_img: profile_default,
-      user_name: 'Back Ho',
-      last_chat: '좋았싸',
-      unread: 1,
-    },
-  ]);
+  const [chatList, setChatList] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState();
   const [sellerData, setSellerData] = useState();
@@ -219,7 +206,7 @@ function MypageChatScreen() {
               <ChatListCard
                 key={`${e}_${i}`}
                 data={e}
-                onClick={() => enterRoom(e.id)}
+                onClick={() => enterRoom(e.room_id)}
               />
             );
           })}
