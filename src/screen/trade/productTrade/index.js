@@ -77,7 +77,6 @@ function ProductTradeScreen() {
       setTotalPage(res.data?.products.totalPages);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
       if (res.data?.products.totalPages > res.data?.products.pageNum) {
-        // if (true) {
         setStartLoad(false);
       }
     });

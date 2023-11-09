@@ -13,6 +13,7 @@ import ChatBallon from '../../../components/mypageChat/chatBallon/ChatBallon';
 import tradeSample from '../../../asset/tradeSample.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChatRoomInfo } from '../../../store/feature/userSlice';
+import MypageMenus from '../../../components/mypageMenu/MypageMenus';
 
 const name = `test 유저${parseInt(Math.random() * 100)}`;
 let socket;
@@ -328,6 +329,7 @@ function MypageChatScreen() {
           </div>
         )}
       </div>
+      <MypageMenus />
     </Screen>
   );
 }
