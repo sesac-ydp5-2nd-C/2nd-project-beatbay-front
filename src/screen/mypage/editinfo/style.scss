@@ -11,11 +11,15 @@ h1 {
   display: flex;
   justify-content: center;
   position: relative;
-  left: 100px;
+  // left: 20px;
   top: 50px;
   width: toSize(1250);
   @include media('>1440px') {
     width: 1250px;
+  }
+  @include media('<=768px') {
+    justify-content: left;
+    left: 30px;
   }
 
   .UPEContainer {
@@ -28,6 +32,10 @@ h1 {
     @include media('>1440px') {
       // margin-bottom: 36px;
     }
+    // @include media('<=768px') {
+    //   width: 150px;
+    //   height: 150px;
+    // }
   }
 
   .R-UPEContainer {
@@ -46,10 +54,11 @@ h1 {
     }
 
     button {
+      width: 30%;
       @include media('<=768px') {
         top: 500px;
         right: 150px;
-        width: 30%;
+        width: 40%;
       }
     }
     .editQuit {
@@ -66,7 +75,7 @@ h1 {
       // bottom: 700px;
 
       height: 450px;
-      margin-right: 300px;
+      // margin-right: 300px;
       // display: absolute;
       align-items: center;
 
@@ -99,6 +108,7 @@ h1 {
     // top: 500px;
     // width: toSize(78);
     // height: toSize(45);
+    // align-items: baseline;
   }
 }
 .editInformation {
@@ -121,13 +131,14 @@ h1 {
   }
 }
 .editInfoSection {
+  span {
+    font-weight: 450;
+    font-size: 16px;
+    @include media('<=768px') {
+      font-size: 12px;
+    }
+  }
 }
-
-// * {
-//     margin: 0;
-//     padding: 0;
-//     box-sizing: border-box;
-//   }
 
 .editInfoContainer {
   display: flex;
@@ -266,6 +277,7 @@ h1 {
   color: black;
   font-weight: 500;
   font-size: 16px;
+
   input {
     position: relative;
     left: 15px;

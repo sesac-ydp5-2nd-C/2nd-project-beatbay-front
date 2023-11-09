@@ -35,7 +35,9 @@ export const getUserProfile = async (apiData) => {
 
 //회원정보 수정
 export const patchUpdateUser = async (apiData) => {
-  return await BB.patch('/mypage/updateUser', apiData);
+  const headers = {};
+  headers['Content-Type'] = 'multipart/form-data';
+  return await BB.patch('/mypage/updateUser', apiData, { headers });
 };
 
 //회원정보 수정
