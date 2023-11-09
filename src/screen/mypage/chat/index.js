@@ -184,6 +184,7 @@ function MypageChatScreen() {
         socket.emit(
           'sendMessage',
           {
+            room_id: roomData.room_id,
             content: message,
             receiver_id: roomData?.sender_id,
             email,

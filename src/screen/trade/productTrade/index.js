@@ -76,7 +76,7 @@ function ProductTradeScreen() {
       setCurrentPage(res.data?.products.pageNum);
       setTotalPage(res.data?.products.totalPages);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
-      if (res.data?.products.totalPages > res.data?.products.pageNum) {
+      if (!page && res.data?.products.totalPages > res.data?.products.pageNum) {
         setStartLoad(false);
       }
     });
@@ -127,7 +127,7 @@ function ProductTradeScreen() {
             pageStart={0}
             loadMore={() => {
               if (productData?.length > 0 && startLoad) {
-                getTradeList(null, currentPage + 1);
+                getTradeList(null, Number(currentPage) + 1);
               }
             }}
             hasMore={totalPage > currentPage ? true : false}

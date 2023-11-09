@@ -66,10 +66,14 @@ export default function MypagePurchasesScreen() {
       setCurrentPage(res.data?.pageNum);
       setTotalPage(res.data?.totalPages);
       console.log(productDataFromResponse);
-      setProductData(productDataFromResponse);
+      if (page) {
+        setProductData([...productData, ...productDataFromResponse]);
+      } else {
+        setProductData(productDataFromResponse);
+      }
       setUserData(res.data.userData);
       // console.log(res.data.userData.user_grade);
-      if (res.data?.totalPages > res.data?.pageNum) {
+      if (!page && res.data?.totalPages > res.data?.pageNum) {
         setStartLoad(false);
       }
     });
@@ -107,7 +111,7 @@ export default function MypagePurchasesScreen() {
               pageStart={0}
               loadMore={() => {
                 if (productData?.length > 0 && startLoad) {
-                  getLikeList(currentPage + 1);
+                  getLikeList(Number(currentPage) + 1);
                 }
               }}
               hasMore={totalPage > currentPage ? true : false}
