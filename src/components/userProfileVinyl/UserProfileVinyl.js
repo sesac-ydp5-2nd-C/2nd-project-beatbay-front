@@ -48,12 +48,3 @@ export default function UserProfileVinyl({
     </div>
   );
 }
-{
-  /* <label htmlFor="profileImage">프로필 이미지:</label>
-<input
-  type="file"
-  id="profileImage"
-  name="profileImage"
-  onChange={(e) => setProfileImage(e.target.files[0])}
-/> */
-}
