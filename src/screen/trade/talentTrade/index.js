@@ -91,7 +91,10 @@ function TalentTradeScreen() {
       setCurrentPage(res.data?.abilities.pageNum);
       setTotalPage(res.data?.abilities.totalPages);
       // 더 보여줄 데이터가 있을 시 더보기 버튼 보이기
-      if (res.data?.abilities.totalPages > res.data?.abilities.pageNum) {
+      if (
+        !page &&
+        res.data?.abilities.totalPages > res.data?.abilities.pageNum
+      ) {
         setStartLoad(false);
       }
     });
@@ -142,7 +145,7 @@ function TalentTradeScreen() {
             pageStart={0}
             loadMore={() => {
               if (productData?.length > 0 && startLoad) {
-                getAbilityList(null, currentPage + 1);
+                getAbilityList(null, Number(currentPage) + 1);
               }
             }}
             hasMore={totalPage > currentPage ? true : false}
