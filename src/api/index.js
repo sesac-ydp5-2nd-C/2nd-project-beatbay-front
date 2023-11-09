@@ -7,7 +7,6 @@ const setInterceptors = (instance) => {
   instance.interceptors.request.use(
     async (config) => {
       // 여기서 헤더에 토큰 추가
-      // config.headers['Content-Type'] = 'multipart/form-data';
       return config;
       // throw new axios.Cancel();
     },
@@ -29,10 +28,7 @@ const setInterceptors = (instance) => {
         localStorage.removeItem('email');
         window.history.back();
       }
-      // if (axios.isCancel(error)) {
-      //   // 요청이 취소되었을 때 처리
-      //   console.log('Request was canceled');
-      // }
+
       return error.response;
     },
   );
@@ -43,7 +39,6 @@ export const createInstance = (url = baseURL) => {
   const instance = axios.create({
     baseURL: url,
     withCredentials: true,
-    headers: { 'Content-Type': 'application/json' },
   });
   return setInterceptors(instance);
 };

@@ -47,6 +47,7 @@ export default function Userpage() {
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setStartLoad(true);
@@ -60,6 +61,7 @@ export default function Userpage() {
   }, [selectedItem, activeTab]);
 
   const getSellerInfo = async (page = null) => {
+    setLoading(true);
     if (!page) {
       setProductData(null);
     }
@@ -101,6 +103,7 @@ export default function Userpage() {
         setProductData(productDataFromResponse);
       }
       setSellerData(res.data);
+      setLoading(false);
     });
     getSellerReviews(apiData).then((res) => {
       console.log(res.data);
@@ -166,8 +169,9 @@ export default function Userpage() {
           </div>
         )}
         <div className="sellerListContainer">
-          <MypageTab tabsData={tabsData} />
+          {/* <MypageTab tabsData={tabsData} /> */}
           <MypageTab
+            loading={loading}
             tabsData={tabsData}
             activeTab={activeTab}
             setActiveTab={setActiveTab}

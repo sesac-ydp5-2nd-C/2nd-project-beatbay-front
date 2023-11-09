@@ -34,6 +34,7 @@ export default function MypagePurchasesScreen() {
   const [startLoad, setStartLoad] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setStartLoad(true);
@@ -44,6 +45,7 @@ export default function MypagePurchasesScreen() {
   }, [activeTab]);
 
   const getBuyList = async (page = null) => {
+    setLoading(true);
     if (!page) {
       setProductData();
     }
@@ -87,6 +89,7 @@ export default function MypagePurchasesScreen() {
         setProductData(productDataFromResponse);
       }
       setUserData(res.data.userData);
+      setLoading(false);
     });
   };
 
@@ -104,6 +107,7 @@ export default function MypagePurchasesScreen() {
               </div>
             </div>
             <MypageTab
+              loading={loading}
               tabsData={tabsData}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
