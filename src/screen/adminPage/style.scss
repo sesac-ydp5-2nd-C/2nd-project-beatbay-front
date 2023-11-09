@@ -112,10 +112,10 @@
     margin-top: toSize(20);
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: toSize(500);
+    max-height: toSize(400);
     @include media('>1440px') {
       margin-top: 20px;
-      max-height: 500px;
+      max-height: 400px;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
 
 export default function AdminTable({
@@ -6,6 +6,7 @@ export default function AdminTable({
   dataType,
   handleEdit,
   handleDelete,
+  handleGradeChange,
 }) {
   let columns = [];
   let actions = [];
@@ -71,13 +72,25 @@ export default function AdminTable({
     }
   };
 
-  const [updatedData, setUpdatedData] = useState(data);
+  // const [updatedData, setUpdatedData] = useState(data);
 
-  const handleGradeChange = (event, itemIndex) => {
-    const newData = [...updatedData];
-    newData[itemIndex].user_grade = parseInt(event.target.value, 10);
-    setUpdatedData(newData);
+  // const handleGradeChange = (event, itemIndex) => {
+  //   const newData = [...updatedData];
+  //   newData[itemIndex].user_grade = parseInt(event.target.value, 10);
+  //   setUpdatedData(newData);
+  // };
+
+  const handleSelectChange = (event, item) => {
+    const setGrade = parseInt(event.target.value, 10);
+    const userId = item.id;
+    console.log(userId, setGrade);
+    handleGradeChange(userId, setGrade);
+    console.log(handleGradeChange);
   };
+
+  useEffect(() => {
+    console.log(dataType, data);
+  }, []);
 
   return (
     <table className={`adminTable ${dataType}`}>
@@ -96,8 +109,8 @@ export default function AdminTable({
               <td key={columnIndex}>
                 {column === 'user_grade' ? (
                   <select
-                    value={item[column]}
-                    onChange={(event) => handleGradeChange(event, index)}
+                    value={item.user_grade}
+                    onChange={(event) => handleSelectChange(event, item)}
                   >
                     {[0, 1, 2, 3, 4, 5, 6].map((grade) => (
                       <option key={grade} value={grade}>
