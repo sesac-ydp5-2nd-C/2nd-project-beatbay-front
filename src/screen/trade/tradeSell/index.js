@@ -12,6 +12,7 @@ import {
   postTradeSell,
 } from '../../../api/trade';
 import { productCategory, abilityCategory } from '../../../function/changeKey';
+import axios from 'axios';
 
 function TradeSellScreen() {
   const categories = [
@@ -232,31 +233,19 @@ function TradeSellScreen() {
     selectedType: selectedType,
     selectedCategory: selectedCategory,
     selectedSubCategory: selectedSubCategory,
-    filePaths: filePaths,
+    // filePaths: filePaths,
     price: Number(price),
     context: context,
     status: Number(status),
     method: methodType,
     location: selectLocation,
-    // uploadImages: JSON.stringify(uploadImages),
+    uploadImages: uploadImages,
   };
 
   const [isFormValid, setIsFormValid] = useState(true);
 
   const submitClick = () => {
-    console.log(
-      title,
-      selectedType,
-      selectedCategory,
-      selectedSubCategory,
-      uploadImages.length,
-      filePaths.length,
-      price,
-      context,
-      status,
-      method,
-      selectLocation,
-    );
+    console.log(sellFormData.uploadImages);
 
     if (
       sellFormData.title === null ||
@@ -282,26 +271,51 @@ function TradeSellScreen() {
     nav(-1);
   };
 
+  // const postSellForm = async () => {
+  //   console.log('ㄴㅇㄹㄹㄹ시발');
+  //   const apiData = {
+  //     type: sellFormData.selectedType,
+  //     title: sellFormData.title,
+  //     category: sellFormData.selectedCategory + 1,
+  //     subcategory: sellFormData.selectedSubCategory + 1,
+  //     price: sellFormData.price,
+  //     content: sellFormData.context,
+  //     status: sellFormData.status,
+  //     method: sellFormData.method,
+  //     location: sellFormData.location,
+  //     update: 1,
+  //     files: sellFormData.filePaths,
+  //   };
+  //   console.log(apiData);
+  //   postTradeSell(apiData).then((res) => {
+  //     console.log(apiData.files);
+  //     console.log(res.data);
+  //   });
+  // };
+
   const postSellForm = async () => {
-    console.log('ㄴㅇㄹㄹㄹ시발');
-    const apiData = {
-      type: sellFormData.selectedType,
-      title: sellFormData.title,
-      category: sellFormData.selectedCategory + 1,
-      subcategory: sellFormData.selectedSubCategory + 1,
-      price: sellFormData.price,
-      content: sellFormData.context,
-      status: sellFormData.status,
-      method: sellFormData.method,
-      location: sellFormData.location,
-      update: 1,
-      files: sellFormData.filePaths,
-    };
-    console.log(apiData);
-    postTradeSell(apiData).then((res) => {
-      console.log(apiData.files);
-      console.log(res.data);
+    const formData = new FormData();
+    formData.append('type', sellFormData.selectedType);
+    formData.append('title', sellFormData.title);
+    formData.append('category', sellFormData.selectedCategory + 1);
+    formData.append('subcategory', sellFormData.selectedSubCategory + 1);
+    formData.append('price', sellFormData.price);
+    formData.append('content', sellFormData.context);
+    formData.append('status', sellFormData.status);
+    formData.append('method', sellFormData.method);
+    formData.append('location', sellFormData.location);
+    formData.append('update', 1);
+    uploadImages.forEach((file, index) => {
+      formData.append(`uploadFiles`, file);
     });
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    postTradeSell(formData).then((res) => console.log(res));
   };
 
   return (
@@ -309,7 +323,7 @@ function TradeSellScreen() {
       <div>
         <div className="sellFormContainer">
           <h1>상품 등록</h1>
-          <form className="sellForm">
+          <form className="sellForm" encType="multipart/form-data">
             <section className="sellTitleSection">
               <span htmlFor="sellTitle" className="formList">
                 제목
