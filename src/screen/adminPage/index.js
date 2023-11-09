@@ -4,6 +4,7 @@ import Screen from '../Screen';
 import AdminTable from '../../components/AdminTable/AdminTable';
 import ContentModal from '../../components/common/customModal/ContentModal';
 import { getAdminData } from '../../api/adminpage';
+import LoadingSpinner from '../../components/common/loadingSpinner';
 
 export default function AdminScreen() {
   const adminParticle = {
@@ -67,6 +68,7 @@ export default function AdminScreen() {
     url: '',
   });
   const [adminData, setAdminData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleEdit = (item) => {
     setSelectedData(item);
@@ -84,100 +86,115 @@ export default function AdminScreen() {
   };
 
   useEffect(() => {
-    getAdminPage();
-  });
+    const getAdminPage = async () => {
+      await getAdminData().then((res) => {
+        if (res.data) {
+          setAdminData(res.data);
+          setIsLoading(false);
+          console.log(res.data);
+        } else {
+          console.error('error');
+          setIsLoading(false);
+        }
+      });
+    };
 
-  const getAdminPage = () => {
-    getAdminData().then((res) => {
-      if (res.data) {
-        setAdminData(res.data);
-      }
-    });
-  };
+    getAdminPage();
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Screen>
       <div className="adminContainer">
         <h1>관리자 </h1>
-        <section className="ADUserSection">
-          <div className="userControl">
-            <div className="ADControlTitle">
-              <h2>회원관리</h2>
-              <p>전체 회원 수: {adminData.userCount}</p>
+        {adminData && (
+          <section className="ADUserSection">
+            <div className="userControl">
+              <div className="ADControlTitle">
+                <h2>회원관리</h2>
+                <p>전체 회원 수: {adminData.userCount}</p>
+              </div>
+              <div className="ADtable">
+                <AdminTable
+                  data={adminData.users}
+                  dataType="user"
+                  handleDelete={(item) => handleDelete(item)}
+                />
+              </div>
             </div>
-            <div className="ADtable">
-              <AdminTable
-                data={adminData.users}
-                dataType="user"
-                handleDelete={(item) => handleDelete(item)}
-              />
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <section className="ADNoticeSection">
-          <div className="columnControl">
-            <div className="ADControlTitle">
-              <h2>칼럼 관리</h2>
-              <button className="columnPost" onClick={handleEdit}>
-                등록
-              </button>
+        {adminData && (
+          <section className="ADNoticeSection">
+            <div className="columnControl">
+              <div className="ADControlTitle">
+                <h2>칼럼 관리</h2>
+                <button className="columnPost" onClick={handleEdit}>
+                  등록
+                </button>
+              </div>
+              <div className="ADtable">
+                <AdminTable
+                  data={adminParticle.column}
+                  dataType="column"
+                  handleEdit={(item) => handleEdit(item)}
+                  handleDelete={(item) => handleDelete(item)}
+                />
+              </div>
             </div>
-            <div className="ADtable">
-              <AdminTable
-                data={adminParticle.column}
-                dataType="column"
-                handleEdit={(item) => handleEdit(item)}
-                handleDelete={(item) => handleDelete(item)}
-              />
+            <div className="noticeControl">
+              <div className="ADControlTitle">
+                <h2>공지 관리</h2>
+                <button className="noticePost" onClick={handleEdit}>
+                  등록
+                </button>
+              </div>
+              <div className="ADtable">
+                <AdminTable
+                  data={adminParticle.notice}
+                  dataType="notice"
+                  handleEdit={handleEdit}
+                  handleDelete={(item) => handleDelete(item)}
+                />
+              </div>
             </div>
-          </div>
-          <div className="noticeControl">
-            <div className="ADControlTitle">
-              <h2>공지 관리</h2>
-              <button className="noticePost" onClick={handleEdit}>
-                등록
-              </button>
-            </div>
-            <div className="ADtable">
-              <AdminTable
-                data={adminParticle.notice}
-                dataType="notice"
-                handleEdit={handleEdit}
-                handleDelete={(item) => handleDelete(item)}
-              />
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <section className="ADTradeSection">
-          <div className="productControl">
-            <div className="ADControlTitle">
-              <h2>물품 관리</h2>
-              <p>물품 등록 수: {adminData.productCount}</p>
+        {adminData && (
+          <section className="ADTradeSection">
+            <div className="productControl">
+              <div className="ADControlTitle">
+                <h2>물품 관리</h2>
+                <p>물품 등록 수: {adminData.productCount}</p>
+              </div>
+              <div className="ADtable">
+                <AdminTable
+                  data={adminData.products}
+                  dataType="product"
+                  handleDelete={(item) => handleDelete(item)}
+                />
+              </div>
             </div>
-            <div className="ADtable">
-              <AdminTable
-                data={adminData.product}
-                dataType="product"
-                handleDelete={(item) => handleDelete(item)}
-              />
+            <div className="abilityControl">
+              <div className="ADControlTitle">
+                <h2>재능 관리</h2>
+                <p>재능 등록 수: {adminData.abilityCount}</p>
+              </div>
+              <div className="ADtable">
+                <AdminTable
+                  data={adminData.abilities}
+                  dataType="ability"
+                  handleDelete={(item) => handleDelete(item)}
+                />
+              </div>
             </div>
-          </div>
-          <div className="abilityControl">
-            <div className="ADControlTitle">
-              <h2>재능 관리</h2>
-              <p>재능 등록 수: {adminData.abilityCount}</p>
-            </div>
-            <div className="ADtable">
-              <AdminTable
-                data={adminData.abilities}
-                dataType="ability"
-                handleDelete={(item) => handleDelete(item)}
-              />
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
       </div>
       {isModalOpen && (
         <ContentModal

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
 
 export default function AdminTable({
@@ -78,6 +78,10 @@ export default function AdminTable({
     newData[itemIndex].user_grade = parseInt(event.target.value, 10);
     setUpdatedData(newData);
   };
+
+  useEffect(() => {
+    console.log(dataType, data);
+  }, []);
 
   return (
     <table className={`adminTable ${dataType}`}>
