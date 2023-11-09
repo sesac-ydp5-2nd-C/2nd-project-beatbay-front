@@ -43,6 +43,22 @@ export const getTradeDetailAbility = async (apiData) => {
 };
 
 /**
+ * 물품 거래 삭제
+ * @param {Number} apiData.files
+ */
+export const deleteTradeProduct = async (apiData) => {
+  return await BB.delete('/trade/deleteProduct', apiData);
+};
+
+/**
+ * 재능 거래 삭제
+ * @param {Number} apiData.files
+ */
+export const deleteTradeAbility = async (apiData) => {
+  return await BB.delete('/trade/deleteAbility', apiData);
+};
+
+/**
  * 물품 좋아요
  * @param {Number} apiData.product_id 조회할 재능의 id
  */
@@ -73,7 +89,9 @@ export const patchTradeUpdateStatus = async (apiData) => {
  * @param {Number} apiData.files
  */
 export const postTradeSell = async (apiData) => {
-  return await BB.post('/trade/sell', apiData);
+  const headers = {};
+  headers['Content-Type'] = 'multipart/form-data';
+  return await BB.post('/trade/sell', apiData, { headers });
 };
 
 /**
@@ -81,5 +99,7 @@ export const postTradeSell = async (apiData) => {
  * @param {Number} apiData.files
  */
 export const patchTradeSell = async (apiData) => {
-  return await BB.post('/trade/update', apiData);
+  const headers = {};
+  headers['Content-Type'] = 'multipart/form-data';
+  return await BB.patch('/trade/update', apiData, { headers });
 };
