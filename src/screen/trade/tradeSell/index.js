@@ -168,11 +168,13 @@ function TradeSellScreen() {
   );
 
   useEffect(() => {
-    getTradeData();
-    if (detailData && detailData[`${type}_category`] !== null) {
-      setSelectedType(detailData[`${type}_type`]);
-      setSelectedCategory(detailData[`${type}_category`] - 1);
-      setSelectedSubCategory(detailData[`${type}_sub_category`] - 1);
+    if (id) {
+      getTradeData();
+      if (detailData && detailData[`${type}_category`] !== null) {
+        setSelectedType(detailData[`${type}_type`]);
+        setSelectedCategory(detailData[`${type}_category`] - 1);
+        setSelectedSubCategory(detailData[`${type}_sub_category`] - 1);
+      }
     }
   }, []);
 
@@ -196,7 +198,7 @@ function TradeSellScreen() {
       : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
       console.log(res);
-      if (res?.data[type]) {
+      if (res?.data && res.data[type]) {
         setDetailData(res.data[type]);
         setTitle(res.data[type][`${type}_title`]);
         setStatus(res.data[type][`${type}_status`]);
@@ -249,11 +251,12 @@ function TradeSellScreen() {
     status: Number(status),
     method: methodType,
     location: selectLocation,
+    uploadImages: JSON.stringify(uploadImages),
   };
 
   const [isFormValid, setIsFormValid] = useState(true);
 
-  const buttonClick = () => {
+  const submitClick = () => {
     if (
       !title ||
       !selectedType ||
@@ -271,7 +274,25 @@ function TradeSellScreen() {
       return;
     }
     setIsFormValid(true);
-    console.log(sellFormData);
+    const apiData = {
+      type: sellFormData.selectedType,
+      title: sellFormData.title,
+      category: sellFormData.selectedCategory,
+      subcategory: sellFormData.selectedSubCategory,
+      price: sellFormData.price,
+      content: sellFormData.context,
+      status: sellFormData.status,
+      method: sellFormData.methodType,
+      location: sellFormData.location,
+      update: 1,
+      files: sellFormData.uploadImages,
+    };
+    postTradeSell(apiData)
+      .then((res) => res.json())
+      .then((data) => {
+        alert('등록 완료!');
+      });
+    console.log(apiData);
   };
 
   const nav = useNavigate();
@@ -433,7 +454,7 @@ function TradeSellScreen() {
               <button
                 type="button"
                 className="sellFormSubmit"
-                onClick={buttonClick}
+                onClick={submitClick}
               >
                 등록
               </button>
