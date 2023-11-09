@@ -114,9 +114,9 @@ function MypageChatScreen() {
     });
 
     // 차음 접속시 룸 리스트들을 받아옴
-    socket.on('room_list', (data) => {
+    socket.on('room_List', (data) => {
       console.log(data);
-      setChatList(data.room_list);
+      setChatList(data);
     });
 
     socket.on('update', (data) => {
@@ -197,7 +197,11 @@ function MypageChatScreen() {
         <div className="chatListContainer">
           {chatList.map((e, i) => {
             return (
-              <ChatListCard key={`${e}_${i}`} data={e} onClick={enterRoom} />
+              <ChatListCard
+                key={`${e}_${i}`}
+                data={e}
+                onClick={() => enterRoom(e.id)}
+              />
             );
           })}
         </div>
