@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.scss';
 import profileSample from '../../../asset/profile_default.png';
 import Interests from '../../mypageProfile/Interests';
 import userImg from '../../../asset/profile_default.png';
 import { gradeImg } from '../../../function/changeKey';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function UserProfileContainer({ followingData }) {
   const userInterest = followingData?.user_interest
     ? followingData?.user_interest
     : [];
+
+  // useEffect(() => {
+  //   console.log(followingData?.id);
+  // }, []);
+
+  const navigate = useNavigate();
+
+  const navSeller = () => {
+    navigate(`/seller/${followingData?.id}`);
+  };
+
   return (
-    <div className="UPContainer">
+    <div className="UPContainer" onClick={navSeller}>
       <div className="UPImgBorder">
         <img
           alt="profileImg"
