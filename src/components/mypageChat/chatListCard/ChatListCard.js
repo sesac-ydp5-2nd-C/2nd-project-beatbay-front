@@ -16,7 +16,7 @@ const ChatListCard = ({ data, onClick }) => {
       />
       <div className="cpInfo">
         <p>{data[whichUser]?.user_nickname}</p>
-        <p className="cpLc">{data[whichUser]?.last_chat}</p>
+        <p className="cpLc">{data?.last_message}</p>
       </div>
       {/* {data.unread > 0 && <div className="unreadCircle">{data.unread}</div>} */}
     </div>

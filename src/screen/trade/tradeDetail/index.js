@@ -125,17 +125,21 @@ function TradeDetailScreen() {
 
   const handleChat = () => {
     if (localStorage.getItem('login_id')) {
-      const socketData = {
-        opponent_id: detailData.user.id,
-        type: type,
-        object_id: detailData[`${type}_id`],
-        object_img: JSON.parse(detailData[`${type}_file_path`])[0],
-        object_title: detailData[`${type}_title`],
-        object_price: detailData[`${type}_price`],
-        opponent_data: detailData.user,
-      };
-      dispatch(setChatRoomInfo(socketData));
-      navigate('/mypage/chat');
+      if (localStorage.getItem('login_id') == detailData.user.id) {
+        alert('자신이 올린글에는 채팅방을 열 수 없습니다.');
+      } else {
+        const socketData = {
+          opponent_id: detailData.user.id,
+          type: type,
+          object_id: detailData[`${type}_id`],
+          object_img: JSON.parse(detailData[`${type}_file_path`])[0],
+          object_title: detailData[`${type}_title`],
+          object_price: detailData[`${type}_price`],
+          opponent_data: detailData.user,
+        };
+        dispatch(setChatRoomInfo(socketData));
+        navigate('/mypage/chat');
+      }
     } else {
       alert('로그인이 필요합니다!');
     }
