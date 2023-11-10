@@ -257,7 +257,7 @@ const SignInUpScreen = () => {
   //회원가입 엔터키
   const handleOnKeyPressSignUp = (e) => {
     if (e.key === 'Enter') {
-      sendPw();
+      handleSignUp();
     }
   };
 
