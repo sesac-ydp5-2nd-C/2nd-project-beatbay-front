@@ -273,6 +273,10 @@ const SignInUpScreen = () => {
     }
   };
 
+  const handleHome = () => {
+    document.location.href = '/';
+  };
+
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
       <div
@@ -280,7 +284,9 @@ const SignInUpScreen = () => {
         style={{ opacity: isSignUp ? '100' : '0' }}
       >
         <div className="Form">
-          <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
+          <a href="/" rel="home">
+            <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
+          </a>
           <h1>회원가입</h1>
           <br />
           <input
@@ -350,7 +356,9 @@ const SignInUpScreen = () => {
         className={`form-container sign-in-container ${isSignUp ? 'temp' : ''}`}
       >
         <div className="Form">
-          <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
+          <a href="/" rel="home">
+            <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
+          </a>
           <h1>로그인</h1>
           <br></br>
           <input
@@ -407,8 +415,9 @@ const SignInUpScreen = () => {
 
         <div className="Lcard-back">
           <div className="Form">
-            <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
-
+            <a href="/" rel="home">
+              <img className="logo" src="beatbay_logo.svg" alt="로고"></img>
+            </a>
             <h1>비밀번호 찾기</h1>
             <br></br>
             <input
