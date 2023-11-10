@@ -105,6 +105,8 @@ function MypageEditInformationScreen() {
 
       console.log(uploadedImage);
       patchUpdateUser(formData).then((res) => console.log(res));
+      alert('수정완료');
+      document.location.href = '/mypage';
 
       // const apidata = {
       //   user_nickname: nickname,
@@ -152,7 +154,7 @@ function MypageEditInformationScreen() {
       DeleteDeleteUser(apidata).then((res) => {
         console.log(res);
         if (res.data.result === true) {
-          setNErrorMessage('탈퇴완료');
+          alert('탈퇴완료');
           document.location.href = '/';
         }
       });
