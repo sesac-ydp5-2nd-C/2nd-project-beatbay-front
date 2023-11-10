@@ -1,0 +1,48 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.mypageMenus {
+  position: fixed;
+  bottom: 0;
+  background-color: #f2f2f2;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.mypageMenus ul {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 toSize(145) toSize(20) toSize(145);
+  margin: 0;
+  width: toSize(1440);
+  @include media('>1440px') {
+    padding: 0 145px 20px 145px;
+    width: 1440px;
+  }
+  @include media('<=768px') {
+    height: 7vh;
+    padding: 0 5vw;
+  }
+}
+
+.mypageMenu {
+  list-style-type: none;
+  padding: toSize(15);
+  color: black;
+  font-weight: 500;
+  display: flex;
+  font-size: toSize(20);
+  @include media('>1440px') {
+    padding: 15px;
+    font-size: 20px;
+  }
+  @include media('<=768px') {
+    font-size: 3vw;
+  }
+}
+
+.selected {
+  color: #878be5;
+  font-weight: bold;
+}

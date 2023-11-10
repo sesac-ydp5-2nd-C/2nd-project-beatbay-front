@@ -1,0 +1,93 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.MLContainer {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+
+.MpTopBox {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 0;
+}
+
+.MpTitleBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.vinyl .profileVinyl {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  width: toSize(220);
+  height: toSize(190);
+  @include media('>1440px') {
+    width: 220px;
+    height: 190px;
+  }
+}
+
+.vinyl .turntable {
+  width: toSize(218);
+  height: toSize(190);
+  @include media('>1440px') {
+    width: 218px;
+    height: 190px;
+  }
+}
+
+.vinyl .profileImg {
+  width: toSize(180);
+  height: toSize(180);
+  margin-right: toSize(7);
+  margin-bottom: 0;
+  @include media('>1440px') {
+    width: 180px;
+    height: 180px;
+    margin-right: 7px;
+  }
+}
+
+.vinyl .gradeImg {
+  display: none;
+}
+
+.MpListContainer {
+  width: toSize(1250);
+  @include media('>1440px') {
+    width: 1250px;
+  }
+}
+
+.MpListContainer h1 {
+  font-size: toSize(30);
+  @include media('>1440px') {
+    font-size: 30px;
+  }
+}
+
+.dropdown-wrapper {
+  margin-left: auto;
+}
+
+.MpGridContainer {
+  margin-top: 30px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: toSize(24);
+  grid-row-gap: toSize(24);
+  @include media('>1440px') {
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+  }
+}

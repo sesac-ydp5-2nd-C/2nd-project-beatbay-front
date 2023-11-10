@@ -1,0 +1,104 @@
+@import '../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+.sellerProfile {
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sellerProfile .profileVinyl {
+  width: toSize(380);
+  height: toSize(340);
+  @include media('>1440px') {
+    width: 380px;
+    height: 340px;
+  }
+
+  .turntable {
+    width: toSize(380);
+    height: toSize(340);
+    @include media('>1440px') {
+      width: 380px;
+      height: 340px;
+    }
+  }
+
+  .profileImg {
+    width: toSize(300);
+    height: toSize(300);
+    @include media('>1440px') {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .gradeImg {
+    width: toSize(50);
+    margin-right: toSize(142);
+    margin-bottom: toSize(145);
+    @include media('>1440px') {
+      margin-right: 142px;
+      margin-bottom: 145px;
+      width: 50px;
+    }
+  }
+}
+
+.sellerInfo {
+  display: flex;
+  margin: 50px 0;
+  .sellercontent {
+    display: flex;
+    flex-direction: column;
+
+    .figures {
+      display: flex;
+      width: toSize(700);
+      @include media('>1440px') {
+        width: 700px;
+        h2 {
+          font-size: 15px;
+        }
+        p {
+          font-size: 20px;
+        }
+        .figure {
+          height: 110px;
+        }
+      }
+
+      .followBtn {
+        background-color: #30338a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+          color: white;
+          font-size: toSize(20);
+          font-weight: 500;
+          @include media('>1440px') {
+            font-size: 20px;
+          }
+        }
+
+        .SellerHeart {
+          width: toSize(40);
+          margin-right: toSize(10);
+          @include media('>1440px') {
+            width: 40px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.sellerListContainer {
+  width: toSize(1250);
+  @include media('>1440px') {
+    width: 1250px;
+  }
+}

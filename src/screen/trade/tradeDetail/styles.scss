@@ -1,0 +1,407 @@
+@import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
+
+.prdType {
+  display: flex;
+  width: toSize(1200);
+  margin-top: toSize(62);
+  margin-left: toSize(24);
+  margin-bottom: toSize(22);
+  font-size: toSize(20);
+  font-weight: 700;
+  @include media('>1440px') {
+    width: 1200px;
+    margin-top: 62px;
+    margin-left: 24px;
+    font-size: 20px;
+    margin-bottom: 22px;
+  }
+
+  .rArrow {
+    transform: rotate(-90deg);
+    width: toSize(14);
+    margin-top: toSize(4);
+    margin-right: toSize(8);
+    @include media('>1440px') {
+      margin-top: 4px;
+      width: 14px;
+      margin-right: 8px;
+    }
+  }
+
+  .type2Depth {
+    color: #878be5;
+  }
+}
+
+.detailContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .contentBox {
+    display: flex;
+    flex-direction: column;
+    width: toSize(1200);
+    min-height: toSize(862);
+    background-color: white;
+    border-radius: toSize(15);
+    padding: toSize(47) toSize(100);
+    @include media('>1440px') {
+      width: 1200px;
+      min-height: 862px;
+      border-radius: 15px;
+      padding: 47px 100px;
+    }
+  }
+
+  .tradeImgBox {
+    width: toSize(384);
+    @include media('>1440px') {
+      width: 384px;
+    }
+
+    .tradeCarouselImg {
+      width: toSize(384);
+      height: toSize(384);
+      object-fit: cover;
+      @include media('>1440px') {
+        width: 384px;
+        height: 384px;
+      }
+    }
+  }
+}
+
+.carousel:hover .slide .cLegend {
+  opacity: 1;
+}
+
+.carousel .slide .legend {
+  bottom: toSize(40);
+  border-radius: toSize(10);
+  padding: toSize(10);
+  font-size: toSize(12);
+  @include media('>1440px') {
+    bottom: 40px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+.carousel .control-dots .dot {
+  box-shadow: toSize(1) toSize(1) toSize(2) rgba(0, 0, 0, 0.9);
+  width: toSize(8);
+  height: toSize(8);
+  margin: 0 toSize(8);
+  @include media('>1440px') {
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    width: 8px;
+    height: 8px;
+    margin: 0 8px;
+  }
+}
+
+.carousel .control-dots {
+  margin: toSize(10) 0;
+  @include media('>1440px') {
+    margin: 10px 0;
+  }
+}
+
+.tradeDetailBox {
+  display: flex;
+  flex-direction: column;
+  padding-top: toSize(13);
+  width: toSize(541);
+  height: toSize(384);
+  border-bottom: solid toSize(0.5) #d9d9d9;
+  @include media('>1440px') {
+    padding-top: 13px;
+    width: 541px;
+    height: 384px;
+    border-bottom: solid 1px #d9d9d9;
+  }
+
+  .titleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .TTitle {
+    font-size: toSize(38);
+    font-weight: 700;
+    color: #30338a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include media('>1440px') {
+      font-size: 38px;
+    }
+  }
+
+  .tLike {
+    cursor: pointer;
+    transition: 0.2s;
+    width: toSize(40);
+    height: toSize(40);
+    @include media('>1440px') {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .tLike:hover {
+    transform: scale(1.05);
+  }
+
+  .detailPrice {
+    font-size: toSize(30);
+    font-weight: 700;
+    @include media('>1440px') {
+      font-size: 30px;
+    }
+  }
+
+  .TVLContainer {
+    display: flex;
+    position: relative;
+    align-items: start;
+    margin-top: toSize(22);
+    padding-top: toSize(20);
+    border-top: solid 1px #d9d9d9;
+    font-size: toSize(16);
+    line-height: 1;
+    @include media('>1440px') {
+      margin-top: 22px;
+      padding-top: 20px;
+      font-size: 16px;
+    }
+
+    .DcActive {
+      height: toSize(95);
+      overflow: hidden;
+      @include media('>1440px') {
+        height: 95px;
+      }
+    }
+
+    .dItem {
+      margin: 0px 0px toSize(10) toSize(8);
+      @include media('>1440px') {
+        margin: 0px 0px 10px 8px;
+      }
+      &.fItem {
+        margin-top: toSize(20);
+        @include media('>1440px') {
+          margin-top: 20px;
+        }
+      }
+    }
+
+    .TVLIcon {
+      width: toSize(15);
+      height: toSize(15);
+      margin-right: toSize(5);
+      @include media('>1440px') {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+      }
+      &.TVMB {
+        margin-top: toSize(2);
+        @include media('>1440px') {
+          margin-top: 2px;
+        }
+      }
+    }
+    .ICenter {
+      display: flex;
+      align-items: end;
+      margin: 0px toSize(14);
+      padding: 0px toSize(14);
+      border-right: solid toSize(0.5) #d9d9d9;
+      border-left: solid toSize(0.5) #d9d9d9;
+      @include media('>1440px') {
+        margin: 0px 14px;
+        padding: 0px 14px;
+        border-right: solid 0.5px #d9d9d9;
+        border-left: solid 0.5px #d9d9d9;
+      }
+    }
+  }
+
+  .tradeUpdate {
+    position: absolute;
+    right: 0;
+    background-color: #30338a;
+    color: white;
+    padding: toSize(6);
+    border-radius: toSize(5);
+    font-size: toSize(14);
+    @include media('>1440px') {
+      padding: 6px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .regionInfo {
+    margin-top: toSize(54);
+    padding-inline-start: toSize(40);
+    @include media('>1440px') {
+      margin-top: 54px;
+      padding-inline-start: 40px;
+    }
+    .tdInfo {
+      font-size: toSize(18);
+      font-weight: 500;
+      @include media('>1440px') {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.tDBtn {
+  padding: 0;
+  width: toSize(78);
+  margin-left: toSize(24);
+  background-color: white;
+  border: solid toSize(0.5) #30338a;
+  cursor: pointer;
+  font-size: toSize(14);
+  font-weight: 500;
+  @include media('>1440px') {
+    width: 78px;
+    margin-left: 24px;
+    border: solid 0.5px #30338a;
+    font-size: 14px;
+  }
+}
+
+.tDBtn:hover {
+  background-color: #d9d9d9;
+}
+
+.flexEnd {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: toSize(22);
+  @include media('>1440px') {
+    margin-top: 22px;
+  }
+}
+.tradeContent {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: toSize(22);
+  margin: toSize(46) 0px;
+  padding: toSize(40) 0px;
+  min-height: toSize(211);
+  border-top: solid 1px #d9d9d9;
+  border-bottom: solid 1px #d9d9d9;
+  white-space: pre-wrap;
+  word-break: break-all;
+  @include media('>1440px') {
+    margin: 46px 0px;
+    padding: 40px 0px;
+    min-height: 211px;
+    font-size: 22px;
+  }
+}
+
+.tradeUserContainer {
+  display: flex;
+  width: toSize(1200);
+  justify-content: space-between;
+  height: toSize(145);
+  margin-bottom: toSize(100);
+  @include media('>1440px') {
+    width: 1200px;
+    height: 145px;
+    margin-bottom: 100px;
+  }
+
+  .tradeUserBtnC {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .tradeUserBtn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      border-radius: toSize(15);
+      width: toSize(384);
+      height: toSize(66);
+      background-color: #30338a;
+      color: white;
+      font-size: toSize(24);
+      font-weight: 500;
+      @include media('>1440px') {
+        font-size: 24px;
+        border-radius: 15px;
+        width: 384px;
+        height: 66px;
+      }
+    }
+  }
+}
+
+.UPContainer {
+  width: toSize(792);
+  align-items: center;
+  margin: 0;
+  padding: 0px toSize(23);
+  @include media('>1440px') {
+    width: 792px;
+    padding: 0px 23px;
+  }
+
+  .UPImgBorder {
+    width: toSize(105);
+    height: toSize(105);
+    @include media('>1440px') {
+      width: 105px;
+      height: 105px;
+    }
+
+    .UPImg {
+      width: toSize(90);
+      height: toSize(90);
+      @include media('>1440px') {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  }
+  .UPInfo .interestBox {
+    margin: toSize(15) 0;
+    @include media('>1440px') {
+      margin: 15px 0;
+    }
+  }
+}
+
+.TUIcon {
+  width: toSize(30);
+  height: toSize(30);
+  margin-right: toSize(57);
+  margin-left: toSize(100);
+  @include media('>1440px') {
+    width: 30px;
+    height: 30px;
+    margin-right: 57px;
+    margin-left: 100px;
+  }
+
+  &.TUHeart {
+    margin-right: toSize(40);
+    @include media('>1440px') {
+      margin-right: 40px;
+    }
+  }
+}

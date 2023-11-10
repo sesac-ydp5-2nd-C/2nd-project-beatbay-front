@@ -1,0 +1,33 @@
+@import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
+
+.modalContent {
+  text-align: left;
+  margin-bottom: toSize(20);
+  @include media('>1440px') {
+    margin-bottom: 20px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: toSize(16);
+    margin-bottom: toSize(10);
+    border: 1px solid #ccc;
+    border-radius: toSize(5);
+    font-size: toSize(20);
+    @include media('>1440px') {
+      margin-bottom: 20px;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+  }
+
+  textarea {
+    resize: none;
+    height: toSize(300);
+    @include media('>1440px') {
+      height: 300px;
+    }
+  }
+}

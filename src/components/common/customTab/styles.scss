@@ -1,0 +1,191 @@
+@import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
+
+.total-tabs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: toSize(45) 0px;
+  @include media('>1440px') {
+    margin: 45px 0px;
+  }
+}
+
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: toSize(1250);
+
+  @include media('>1440px') {
+    width: 1250px;
+  }
+
+  .tab-list {
+    position: relative;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tab {
+    cursor: pointer;
+    text-align: center;
+    padding: toSize(21) 0px toSize(17) 0px;
+    width: toSize(100);
+    background-color: #fff;
+    transition: color 0.3s;
+    user-select: none;
+    font-size: toSize(20);
+    font-weight: 700;
+    color: #c4c4c4;
+    border-bottom: solid toSize(2) #d6d6d6;
+    @include media('>1440px') {
+      width: 100px;
+      padding: 21px 0px 17px 0px;
+      font-size: 2rem;
+      border-bottom: solid 2px #d6d6d6;
+    }
+  }
+
+  .tab:hover {
+    color: #878be5;
+  }
+
+  .tab.active {
+    color: #000;
+  }
+
+  .firstIndex {
+    border-top-left-radius: toSize(15);
+    @include media('>1440px') {
+      border-top-left-radius: 15px;
+    }
+  }
+
+  .lastIndex {
+    border-top-right-radius: toSize(15);
+    @include media('>1440px') {
+      border-top-right-radius: 15px;
+    }
+  }
+
+  .tab-bar {
+    position: absolute;
+    bottom: toSize(-1);
+    left: 0;
+    height: toSize(3);
+    background-color: #878be5;
+    transition: left 0.3s;
+    border-radius: 999px;
+    @include media('>1440px') {
+      bottom: -1px;
+      height: 4px;
+    }
+  }
+}
+
+.tab-content-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  height: toSize(93);
+  background-color: #fff;
+  border-radius: toSize(15);
+  border-top-left-radius: 0px;
+  font-size: toSize(16);
+  font-weight: 500;
+  @include media('>1440px') {
+    height: 93px;
+    border-radius: 15px;
+    border-top-left-radius: 0px;
+    font-size: 1.6rem;
+  }
+
+  .tab-content {
+    cursor: pointer;
+    display: flex;
+    height: toSIze(35);
+    align-items: center;
+    padding: 0px toSize(38);
+    border-right: solid toSize(1) #d6d6d6;
+    @include media('>1440px') {
+      height: 35px;
+      padding: 0px 38px;
+      border-right: solid 1px #d6d6d6;
+    }
+  }
+
+  .tcActive {
+    font-weight: bold;
+    color: #878be5;
+  }
+}
+
+.tcTwoLine {
+  height: toSize(151);
+  @include media('>1440px') {
+    height: 151px;
+  }
+}
+
+.top-tab-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.searchInput {
+  width: toSize(282);
+  height: toSize(32);
+  border: none;
+  border-bottom: solid toSize(1);
+  background-color: #f2f2f2;
+  padding: 0 toSize(10);
+  @include media('>1440px') {
+    width: 282px;
+    height: 32px;
+    padding: 0 10px;
+    border-bottom: solid 1px;
+  }
+}
+.searchInput::placeholder {
+  color: #aaaaaa;
+  font-size: toSize(18);
+  @include media('>1440px') {
+    font-size: 18px;
+  }
+}
+
+input:focus {
+  outline: none;
+}
+
+.searchIcon {
+  width: toSize(12);
+  height: toSize(12);
+  position: absolute;
+  right: toSize(12);
+  @include media('>1440px') {
+    width: 12px;
+    height: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  //   .tabs-container {
+  //     .tab {
+  //       padding: 5px 10px;
+  //       font-size: 14px;
+  //     }
+
+  //     .tab-bar {
+  //       height: 3px;
+  //     }
+  //   }
+}

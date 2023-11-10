@@ -1,0 +1,125 @@
+@import '~include-media/dist/include-media';
+@import '../../../config/globalStyle.scss';
+
+.dropdown-wrapper {
+  position: relative;
+  width: toSize(100);
+  @include media('>1440px') {
+    width: 100px;
+  }
+}
+
+.trigger-button {
+  z-index: 3;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  color: #000;
+  font-size: toSize(14);
+  font-weight: 500;
+  border: solid toSize(0.5) black;
+  border-radius: 999px;
+  width: toSize(100);
+  height: toSize(30);
+  padding: 0px toSize(8);
+  cursor: pointer;
+  @include media('>1440px') {
+    height: 30px;
+    width: 100px;
+    font-size: 14px;
+    border: solid 0.5px black;
+    padding: 0px 8px;
+  }
+}
+
+.dropdown-content {
+  z-index: 2;
+  position: absolute;
+  background: #fff;
+  color: #000000;
+  list-style: none;
+  top: toSize(15);
+  margin: 0;
+  font-size: toSize(14);
+  overflow: hidden;
+  height: 0px;
+  transition: height 0.3s ease;
+  padding: 0;
+  width: 100%;
+  border: solid toSize(0.5) black;
+  border-bottom-left-radius: toSize(10);
+  border-bottom-right-radius: toSize(10);
+
+  @include media('>1440px') {
+    top: 15px;
+    font-size: 14px;
+    border: solid 0.5px black;
+    font-size: 14px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+.DcActive {
+  height: toSize(120);
+  overflow: hidden;
+  @include media('>1440px') {
+    height: 120px;
+  }
+}
+
+.dItem {
+  font-size: toSize(14);
+  margin: 0px 0px toSize(3) toSize(8);
+  @include media('>1440px') {
+    font-size: 14px;
+    margin: 0px 0px 3px 8px;
+  }
+}
+
+.fItem {
+  margin-top: toSize(18);
+  @include media('>1440px') {
+    margin-top: 18px;
+  }
+}
+.dItem:hover {
+  cursor: pointer;
+}
+.dsItem {
+  color: red;
+}
+
+.dArrow {
+  width: toSize(10);
+  transform: rotate(0deg);
+  animation: arrow-anim-close 0.3s linear;
+  @include media('>1440px') {
+    width: 10px;
+  }
+}
+
+@keyframes arrow-anim-open {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes arrow-anim-close {
+  from {
+    transform: rotate(-180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.AActive {
+  transform: rotate(-180deg);
+  animation: arrow-anim-open 0.3s linear;
+}

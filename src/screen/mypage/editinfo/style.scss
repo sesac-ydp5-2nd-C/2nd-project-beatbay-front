@@ -1,0 +1,291 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.editInformationContainer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  // left: 20px;
+  top: 50px;
+  width: toSize(1250);
+  @include media('>1440px') {
+    width: 1250px;
+  }
+  @include media('<=768px') {
+    justify-content: left;
+    left: 30px;
+  }
+
+  .UPEContainer {
+    display: flex;
+    width: 100vw;
+    // left: 100vw;
+    // background-color: white;
+    justify-content: right;
+    // margin-bottom: toSize(36);
+    @include media('>1440px') {
+      // margin-bottom: 36px;
+    }
+    // @include media('<=768px') {
+    //   width: 150px;
+    //   height: 150px;
+    // }
+  }
+
+  .R-UPEContainer {
+    box-sizing: border-box;
+    display: relative;
+    width: 50vw;
+    position: relative;
+    left: toSize(50);
+    // background-color: white;
+    justify-content: right;
+    // margin-bottom: toSize(36);
+    @include media('>1440px') {
+      // margin-bottom: 36px;
+    }
+    @include media('<=768px') {
+    }
+
+    button {
+      width: 30%;
+      @include media('<=768px') {
+        top: 500px;
+        right: 150px;
+        width: 40%;
+      }
+    }
+    .editQuit {
+    }
+    .editSubmit {
+      margin-left: toSize(12);
+    }
+
+    .vinylpic {
+      display: flex;
+      // position: relative;
+      // left: toSize(400);
+      // bottom: toSize(800);
+      // bottom: 700px;
+
+      height: 450px;
+      // margin-right: 300px;
+      // display: absolute;
+      align-items: center;
+
+      // top: 90px;
+    }
+  }
+
+  .vinylpic {
+    width: 40%;
+  }
+
+  button {
+    border-radius: 5px;
+    border: 1px solid #30338a;
+    background-color: #30338a;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 15px;
+    letter-spacing: 1px;
+    width: 20%;
+    position: relative;
+    top: 400px;
+
+    cursor: pointer;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    // width: 20%;
+    // position: absolute;
+    // left: 350px;
+    // top: 500px;
+    // width: toSize(78);
+    // height: toSize(45);
+    // align-items: baseline;
+  }
+}
+.editInformation {
+  width: toSize(180);
+  height: toSize(30);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: white;
+  font-size: toSize(20);
+  font-weight: 700;
+  background-color: #30338a;
+  border-radius: toSize(8);
+  @include media('>1440px') {
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 8px;
+  }
+}
+.editInfoSection {
+  span {
+    font-weight: 450;
+    font-size: 16px;
+    @include media('<=768px') {
+      font-size: 12px;
+    }
+  }
+}
+
+.editInfoContainer {
+  display: flex;
+  text-align: left;
+
+  position: relative;
+  width: 300px;
+  //   margin-left: 50px;
+  margin-top: 50px;
+
+  textarea {
+    position: relative;
+    height: 169px;
+    width: toSize(1000);
+    resize: none;
+  }
+
+  input {
+    font-size: 15px;
+    color: #222222;
+    border: none;
+    border-bottom: solid #aaaaaa 1px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    position: relative;
+    background: none;
+    z-index: 5;
+    @include media('<=768px') {
+      font-size: 10px;
+    }
+  }
+
+  input::placeholder {
+    color: #aaaaaa;
+  }
+  input:focus {
+    outline: none;
+  }
+
+  span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0%; /* right로만 바꿔주면 오 - 왼 */
+    background-color: #666;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    transition: 0.5s;
+  }
+
+  label {
+    position: absolute;
+    color: #aaa;
+    left: 10px;
+    font-size: 16px;
+    bottom: 8px;
+    transition: all 0.2s;
+    @include media('<=768px') {
+      font-size: 7.6px;
+    }
+  }
+
+  input:focus ~ label,
+  input:valid ~ label {
+    font-size: 16px;
+    bottom: 40px;
+    color: #666;
+    font-weight: bold;
+    @include media('<=768px') {
+      font-size: 7.6px;
+    }
+  }
+
+  input:focus ~ span,
+  input:valid ~ span {
+    width: 65%;
+  }
+
+  // .editForm {
+  //   width: 100%;
+  //   background-color: white;
+  //   border-radius: toSize(15);
+  //   padding: toSize(105);
+  //   padding-bottom: toSize(200);
+  //   font-size: toSize(20);
+  //   font-weight: 500;
+  //   @include media('>1440px') {
+  //     border-radius: 15px;
+  //     padding: 105px;
+  //     padding-bottom: 200px;
+  //     font-size: 20px;
+  //     font-weight: 500;
+  //   }
+  // }
+
+  // form {
+  //   max-width: 400px;
+  //   margin: 0 auto;
+  //   padding: 20px;
+  //   border: 1px solid #ccc;
+  //   border-radius: 5px;
+  // }
+
+  // label {
+  //   display: block;
+  //   margin-top: 10px;
+  //   font-weight: bold;
+  // }
+
+  // input[type='password'],
+  // input[type='text'],
+  // textarea {
+  //   width: 100%;
+  //   padding: 10px;
+  //   margin-top: 5px;
+  //   border: 1px solid #ccc;
+  //   border-radius: 5px;
+  // }
+
+  // button {
+  //   display: inline-block;
+  //   margin-top: 20px;
+  //   padding: 10px 20px;
+  //   background-color: #007bff;
+  //   color: #fff;
+  //   border: none;
+  //   border-radius: 5px;
+  //   cursor: pointer;
+  // }
+
+  /* 추가적인 스타일을 여기에 계속해서 추가하세요. */
+}
+
+.addTagSection {
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+
+  input {
+    position: relative;
+    left: 15px;
+    width: 100%;
+  }
+}
+.hashtag {
+  display: flex;
+  position: relative;
+  top: 65px;
+}
