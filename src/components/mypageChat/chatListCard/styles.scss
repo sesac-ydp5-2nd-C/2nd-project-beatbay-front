@@ -23,6 +23,7 @@
     height: toSize(65);
     margin-left: toSize(26);
     margin-right: toSize(20);
+    border-radius: 999px;
     @include media('>1440px') {
       width: 65px;
       height: 65px;

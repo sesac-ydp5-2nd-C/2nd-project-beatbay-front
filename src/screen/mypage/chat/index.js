@@ -158,10 +158,10 @@ function MypageChatScreen() {
     //   alert(data.message);
     // });
 
-    return () => {
-      // User leaves room
-      socket.disconnect();
-    };
+    // return () => {
+    //   // User leaves room
+    //   socket.disconnect();
+    // };
   }, []);
 
   const enterRoom = (data) => {
