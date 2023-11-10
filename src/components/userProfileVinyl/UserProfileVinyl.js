@@ -8,6 +8,7 @@ export default function UserProfileVinyl({
   uploadedImage,
   setUploadedImage,
 }) {
+  const [imagePreview, setImagePreview] = useState('');
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     console.log('Selected file:', file);
@@ -18,8 +19,9 @@ export default function UserProfileVinyl({
 
     reader.onloadend = () => {
       // 이미지 미리보기 등을 원한다면 아래 코드를 사용
-      const imagePreview = reader.result;
+      setImagePreview(reader.result);
       console.log('Image Preview:', imagePreview);
+      // document.location.href = '/mypage/userProfile';
     };
 
     if (file) {
@@ -40,6 +42,7 @@ export default function UserProfileVinyl({
       />
       <img
         src={
+          imagePreview ||
           uploadedImage ||
           `${process.env.REACT_APP_BACK_IP}/uploads/${userData?.user_profile_img}`
         }
