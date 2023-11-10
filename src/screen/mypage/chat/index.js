@@ -56,7 +56,7 @@ function MypageChatScreen() {
   const ref = useRef();
   const user_id = localStorage.getItem('login_id');
   const email = localStorage.getItem('email');
-  const ENDPOINT = 'http://15.164.171.113:5001';
+  const ENDPOINT = 'http://43.201.32.46:5001';
   // const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
   const [chatList, setChatList] = useState([]);
@@ -165,10 +165,10 @@ function MypageChatScreen() {
     //   alert(data.message);
     // });
 
-    return () => {
-      // User leaves room
-      socket.disconnect();
-    };
+    // return () => {
+    //   // User leaves room
+    //   socket.disconnect();
+    // };
   }, []);
 
   const enterRoom = (data) => {

@@ -84,12 +84,14 @@
     flex-direction: column;
     align-items: center;
     width: toSize(281);
+
     border-radius: toSize(15);
     height: 100%;
     background-color: white;
     padding: toSize(50) toSize(30);
     @include media('>1440px') {
       width: 281px;
+
       border-radius: 15px;
       padding: 50px 30px;
     }
@@ -119,11 +121,13 @@
 
     .profileImg {
       width: toSize(180);
+      height: toSize(180);
       margin-right: toSize(5);
       margin-bottom: toSize(5);
       border-radius: 999px;
       @include media('>1440px') {
         width: 180px;
+        height: 180px;
         margin-right: 5px;
         margin-bottom: 5px;
       }

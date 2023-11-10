@@ -17,7 +17,8 @@ export default function Header({ color = 'black' }) {
     getUserLogout().then((res) => {
       localStorage.removeItem('login_id');
       localStorage.removeItem('email');
-      window.location.replace(process.env.REACT_APP_CLIENT_IP);
+      // window.location.replace(process.env.REACT_APP_CLIENT_IP);
+      window.location.replace('http://43.201.32.46');
     });
   };
 
