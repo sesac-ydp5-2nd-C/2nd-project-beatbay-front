@@ -85,7 +85,19 @@ function MypageDashboardScreen() {
   };
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          width: '100vw',
+          height: '100vh',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   return (

@@ -38,12 +38,14 @@
 
 .profileImg {
   width: toSize(435);
+  height: toSize(435);
   margin-right: toSize(20);
   margin-bottom: toSize(20);
   animation: profileImg-spin infinite 20s linear;
   border-radius: 999px;
   @include media('>1440px') {
     width: 435px;
+    height: 435px;
     margin-right: 20px;
     margin-bottom: 20px;
   }
