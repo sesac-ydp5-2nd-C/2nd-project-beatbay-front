@@ -45,18 +45,11 @@ const modalStyles = {
 function MypageChatScreen() {
   const dispatch = useDispatch();
   const newRoomInfo = useSelector((state) => state.user.chatRoomInfo);
-  // const [userData, setUserData] = useState({
-  //   user_nickname: '대만',
-  //   comment: '“그래, 난 정대만. 포기를 모르는 남자지….”',
-  //   user_interests: ['밴드', '일렉기타'],
-  //   imgSrc: userImg,
-  //   user_grade: 5,
-  // });
 
   const ref = useRef();
   const user_id = localStorage.getItem('login_id');
   const email = localStorage.getItem('email');
-  const ENDPOINT = 'http://15.164.171.113:5001';
+  const ENDPOINT = 'http://43.201.244.219:5001';
   // const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
   const [chatList, setChatList] = useState([]);
