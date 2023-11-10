@@ -136,6 +136,7 @@ const SignInUpScreen = () => {
       });
     }
   };
+
   const handleKakaoSignIn = () => {
     window.location.href = `${process.env.REACT_APP_BACK_IP}/kakao`;
     // window.open('http://localhost:8000/kakao');
@@ -253,6 +254,19 @@ const SignInUpScreen = () => {
     });
   };
 
+  //회원가입 엔터키
+  const handleOnKeyPressSignUp = (e) => {
+    if (e.key === 'Enter') {
+      handleSignUp();
+    }
+  };
+
+  const handleOnKeyPressSignIn = (e) => {
+    if (e.key === 'Enter') {
+      handleSignIn();
+    }
+  };
+
   return (
     <div className={`Lcontainer ${isSignUp ? 'right-panel-active' : ''}`}>
       <div
@@ -287,6 +301,7 @@ const SignInUpScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
             className={isEmailVerified ? '' : 'disabled-input'}
             disabled={!isEmailVerified}
+            onKeyPress={handleOnKeyPressSignUp}
           />
           {/* {errorMessage} */}
           <input
@@ -296,6 +311,7 @@ const SignInUpScreen = () => {
             onChange={(e) => setPasswordCheck(e.target.value)}
             className={isEmailVerified ? '' : 'disabled-input'}
             disabled={!isEmailVerified}
+            onKeyPress={handleOnKeyPressSignUp}
           />
           <div className="email-authentication">
             <input
@@ -336,12 +352,14 @@ const SignInUpScreen = () => {
             placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyPress={handleOnKeyPressSignIn}
           />
           <input
             type="password"
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={handleOnKeyPressSignIn}
           />
           <br />
           <button onClick={handleSignIn}>로그인</button>
