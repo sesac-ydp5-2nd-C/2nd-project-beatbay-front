@@ -31,8 +31,9 @@ export default function MypageVinyl({ userData }) {
   };
 
   const userGradeImg = gradeImg(userData.user_grade);
-  const profileImgSrc = userData.user_profile_img ? userData.imgSrc : userImg;
-
+  const profileImgSrc = userData.user_profile_img
+    ? `${process.env.REACT_APP_BACK_IP}/uploads/${userData.user_profile_img}`
+    : userImg;
   return (
     <div className="profileVinyl">
       <img src={turntable} alt="turntable" className="turntable" />
