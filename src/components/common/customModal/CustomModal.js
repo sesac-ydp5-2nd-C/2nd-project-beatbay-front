@@ -55,7 +55,7 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
                         src={
                           // 수정예정
                           userFromModal.user_profile_img
-                            ? userFromModal.user_profile_img
+                            ? `${process.env.REACT_APP_BACK_IP}/uploads/${userFromModal.user_profile_img}`
                             : profileImg
                         }
                         className="UPImg"
