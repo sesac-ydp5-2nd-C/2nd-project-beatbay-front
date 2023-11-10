@@ -22,6 +22,7 @@ function MypageDashboardScreen() {
   }, []);
   const gogogo = async () => {
     await getMypage().then((result) => {
+      console.log(result);
       if (result.data.userData) {
         setMyPageData(result.data);
         setIsLoading(false);
