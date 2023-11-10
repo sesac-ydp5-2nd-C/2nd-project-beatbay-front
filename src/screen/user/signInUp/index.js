@@ -257,13 +257,19 @@ const SignInUpScreen = () => {
   //회원가입 엔터키
   const handleOnKeyPressSignUp = (e) => {
     if (e.key === 'Enter') {
-      handleSignUp();
+      sendPw();
     }
   };
 
   const handleOnKeyPressSignIn = (e) => {
     if (e.key === 'Enter') {
       handleSignIn();
+    }
+  };
+
+  const handleOnKeyPressPWC = (e) => {
+    if (e.key === 'Enter') {
+      sendPw();
     }
   };
 
@@ -428,6 +434,7 @@ const SignInUpScreen = () => {
               onChange={(e) => setPassword(e.target.value)}
               className={isEmailVerified ? '' : 'disabled-input'}
               disabled={!isEmailVerified}
+              onKeyPress={handleOnKeyPressPWC}
             />
             {/* {errorMessage} */}
             <input
@@ -437,6 +444,7 @@ const SignInUpScreen = () => {
               onChange={(e) => setPasswordCheck(e.target.value)}
               className={isEmailVerified ? '' : 'disabled-input'}
               disabled={!isEmailVerified}
+              onKeyPress={handleOnKeyPressPWC}
             />
             <p className="mail-error-message" style={{ color: 'black' }}>
               {mailCheckMessage}
