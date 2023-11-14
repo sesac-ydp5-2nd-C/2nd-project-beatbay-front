@@ -87,9 +87,9 @@ function MypageEditInformationScreen() {
       formData.append('userNickname', nickname);
       formData.append('userComment', introduction);
 
-      interests.forEach((tags, index) => {
-        formData.append('userInterest', tags);
-      });
+      const stringTags = interests.join(', ');
+      formData.append('userInterest', stringTags);
+
       // formData.append('userInterest', interests);
       formData.append('uploadFiles', uploadedImage);
       for (const pair of formData.entries()) {
@@ -101,14 +101,14 @@ function MypageEditInformationScreen() {
 
       console.log(introduction);
 
-      console.log(interests);
+      console.log(stringTags);
 
       console.log(uploadedImage);
-      patchUpdateUser(formData).then((res) => {
-        console.log(res);
-        alert('수정완료');
-        document.location.href = '/mypage';
-      });
+      // patchUpdateUser(formData).then((res) => {
+      //   console.log(res);
+      //   alert('수정완료');
+      //   document.location.href = '/mypage';
+      // });
 
       // const apidata = {
       //   user_nickname: nickname,
@@ -162,6 +162,16 @@ function MypageEditInformationScreen() {
       });
     }
     // 회원 탈퇴 로직을 구현할 수 있습니다.
+  };
+
+  const removeLatestInterestTag = () => {
+    // interests 배열이 비어있지 않은 경우에만 실행
+    if (interests.length > 0) {
+      const updatedInterests = [...interests];
+      // 배열에서 가장 마지막 요소를 제거
+      updatedInterests.pop();
+      setInterests(updatedInterests);
+    }
   };
 
   return (
@@ -289,11 +299,26 @@ function MypageEditInformationScreen() {
                     {/* <div className="addTagButton"> */}
                     <AddTagButton
                       onAddTag={() => {
-                        setInterests([...interests, interestTag]);
-                        console.log([...interests, interestTag]);
+                        // interestTag가 빈 문자열인지 확인
+                        if (interestTag.trim() !== '') {
+                          // interestTag가 빈 문자열이 아니면 추가
+                          setInterests([...interests, interestTag]);
+                          // console.log([...interests, interestTag]);
+                        } else {
+                          // interestTag가 빈 문자열이면 알림 또는 다른 동작 수행
+                          alert('관심사를 입력해주세요.');
+                        }
                       }}
                     />
                     {/* </div> */}
+                    <button
+                      type="button"
+                      onClick={removeLatestInterestTag}
+                      className="deleteTag"
+                    >
+                      {/* 새로운 버튼 */}
+                      최신 태그 삭제
+                    </button>
                   </div>
                   {interests.length === 0 ? (
                     <InterestTag />

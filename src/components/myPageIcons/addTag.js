@@ -1,9 +1,6 @@
 import React from 'react';
 import { PlusOutlined } from '@ant-design/icons'; //icons 모듈을 갖고온다
 import './addTsg.scss';
-// onclick = () => {
-//   this.setState({});
-// };
 
 class AddTagButton extends React.Component {
   render() {
