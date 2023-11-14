@@ -4,7 +4,7 @@ import Interest from './Interests';
 
 export default function InterestTag({ userData }) {
   const temp = {
-    user_interest: '관심사가, 없습니다, 이만',
+    user_interest: '관심사가 없습니다.',
   };
 
   const defaultInterestsArray = temp.user_interest.split(', ');
