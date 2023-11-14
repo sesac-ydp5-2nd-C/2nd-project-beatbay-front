@@ -6,7 +6,7 @@ const Screen = ({ children, bgColor = 'gray', headerColor = 'black' }) => {
   return (
     <div
       className={bgColor === 'gray' ? 'bgGray' : ' bgPurple'}
-      style={{ width: '100vw' }}
+      style={{ width: '100vw', height: '100vh' }}
     >
       <Header color={headerColor} />
       {children}

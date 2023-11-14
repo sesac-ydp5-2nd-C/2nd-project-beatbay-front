@@ -5,9 +5,11 @@ import whiteHamburger from '../../asset/whiteHamburger.svg';
 import { Link } from 'react-router-dom';
 import './styles.scss';
 import { getUserLogout } from '../../api/user';
+import { useNavigate } from 'react-router-dom'; //useNavigate import
 
 export default function Header({ color = 'black' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // 메뉴를 열고 닫는 상태값 저장
+  const navigate = useNavigate();
   const toggleBurger = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -17,8 +19,9 @@ export default function Header({ color = 'black' }) {
     getUserLogout().then((res) => {
       localStorage.removeItem('login_id');
       localStorage.removeItem('email');
+      navigate('/');
       // window.location.replace(process.env.REACT_APP_CLIENT_IP);
-      window.location.replace('http://43.201.32.46');
+      // window.location.replace('http://43.201.32.46');
     });
   };
 

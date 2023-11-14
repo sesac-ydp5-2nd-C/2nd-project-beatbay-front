@@ -48,20 +48,10 @@ function TradeDetailScreen() {
   const loginId = localStorage.getItem('login_id');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data = {
-    id: 1,
-    name: '정대만',
-    grade: fortissimo,
-    introduce: '“그래, 난 정대만. 포기를 모르는 남자지….”',
-    profileImg: tradeSample,
-    interests: ['밴드', '일렉기타'],
-  };
 
   useEffect(() => {
     getTradeData();
   }, []);
-
-  useEffect(() => {}, []);
 
   const getTradeData = () => {
     (type === 'product'

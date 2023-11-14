@@ -8,8 +8,7 @@ const modalStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#000000',
-    opacity: '70%',
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
   },
   content: {
     top: '50%',
@@ -18,7 +17,7 @@ const modalStyles = {
     bottom: 'auto',
     transform: 'translate(-50%, -50%)',
     border: 'none',
-    backgroundColor: 'transparent',
+    // backgroundColor: 'transparent',
     // width: '80%',
     // height: '80%',
   },
