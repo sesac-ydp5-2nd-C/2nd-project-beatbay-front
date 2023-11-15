@@ -130,8 +130,8 @@ const SignInUpScreen = () => {
         if (res.data.result === true) {
           setErrorMessage('로그인 성공');
           navigate(`../`);
-        } else {
-          setErrorMessage('로그인 실패');
+        } else if (res.data.result === false) {
+          setErrorMessage('존재하지 않는 아이디 입니다');
         }
       });
     }

@@ -4,15 +4,20 @@ import Interest from './Interests';
 
 export default function InterestTag({ userData }) {
   const temp = {
-    user_interest: ['관심사가 없습니다'],
+    user_interest: '관심사가 없습니다.',
   };
+
+  const defaultInterestsArray = temp.user_interest.split(', ');
+
+  const interestsArray = temp.user_interest.split(', ');
+
   return (
     <div className="interestBox">
       {userData?.user_interest
         ? userData.user_interest.map((interest, index) => (
             <Interest key={index} kind={interest} />
           ))
-        : temp.user_interest.map((interest, index) => (
+        : defaultInterestsArray.map((interest, index) => (
             <Interest key={index} kind={interest} />
           ))}
     </div>
