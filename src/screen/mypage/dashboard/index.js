@@ -26,6 +26,7 @@ function MypageDashboardScreen() {
       if (result.data.userData) {
         setMyPageData(result.data);
         setIsLoading(false);
+        console.log(mypageData);
       } else {
         console.error('error');
         setIsLoading(false);

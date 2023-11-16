@@ -32,8 +32,12 @@ export default function CustomFooter() {
                 <p>김정윤</p>
               </div>
               <div className="personGithub">
-                <p>@flashrifle</p>
-                <p>@pipi-shortstocking</p>
+                <Link to={'https://github.com/flashrifle'}>
+                  <p>@flashrifle</p>
+                </Link>
+                <Link to={'https://github.com/pipi-shortstocking'}>
+                  <p>@pipi-shortstocking</p>
+                </Link>
               </div>
             </div>
           </div>
@@ -46,9 +50,15 @@ export default function CustomFooter() {
                 <p>전수현</p>
               </div>
               <div className="personGithub">
-                <p>@Sangwoo97</p>
-                <p>@22-JWL</p>
-                <p>@jjsh03</p>
+                <Link to={'https://github.com/Sangwoo97'}>
+                  <p>@Sangwoo97</p>
+                </Link>
+                <Link to={'https://github.com/22-JWL'}>
+                  <p>@22-JWL</p>
+                </Link>
+                <Link to={'https://github.com/jjsh03'}>
+                  <p>@jjsh03</p>
+                </Link>
               </div>
             </div>
           </div>
