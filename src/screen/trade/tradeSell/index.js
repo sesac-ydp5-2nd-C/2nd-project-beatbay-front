@@ -4,7 +4,6 @@ import SellFormCategory from '../../../components/SellForm/SellFormCategory';
 import SellFormStatus from '../../../components/SellForm/SellFormStatus';
 import './styles.scss';
 import SellFromImg from '../../../components/SellForm/SellFromImg';
-import CustomDropdown from '../../../components/common/customDropdown/CustomDropdown';
 import { useNavigate, useParams, useHistory } from 'react-router-dom';
 import {
   getTradeDetailAbility,
@@ -12,8 +11,6 @@ import {
   patchTradeSell,
   postTradeSell,
 } from '../../../api/trade';
-import { productCategory, abilityCategory } from '../../../function/changeKey';
-import axios from 'axios';
 
 function TradeSellScreen() {
   const categories = [
@@ -176,9 +173,6 @@ function TradeSellScreen() {
         both: bothChecked,
       });
     }
-    console.log(selectedType);
-    console.log(selectedCategory);
-    console.log(selectedSubCategory);
   }, [detailData, type]);
 
   const getTradeData = async () => {
@@ -208,14 +202,6 @@ function TradeSellScreen() {
     }));
   };
 
-  const findValue = (parentKey, key) => {
-    if (type === 'product') {
-      return productCategory(parentKey, key);
-    } else {
-      return abilityCategory(parentKey, key);
-    }
-  };
-
   const calculateMethod = () => {
     let methodValue = 0;
     if (checkedMethods.direct) {
@@ -238,7 +224,6 @@ function TradeSellScreen() {
     selectedType: selectedType,
     selectedCategory: selectedCategory,
     selectedSubCategory: selectedSubCategory,
-    // filePaths: filePaths,
     price: Number(price),
     context: context,
     status: Number(status),
@@ -300,15 +285,6 @@ function TradeSellScreen() {
     formData.append('method', sellFormData.method);
     formData.append('location', sellFormData.location);
     formData.append('update', 1);
-    uploadImages.forEach((file, index) => {
-      formData.append(`uploadFiles`, file);
-    });
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
 
     patchTradeSell(formData).then((res) => console.log(res));
   };
@@ -328,12 +304,6 @@ function TradeSellScreen() {
     uploadImages.forEach((file, index) => {
       formData.append(`uploadFiles`, file);
     });
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
 
     postTradeSell(formData).then((res) => console.log(res));
   };
