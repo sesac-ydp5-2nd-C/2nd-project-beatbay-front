@@ -1,3 +1,6 @@
+@import '../../../config/globalStyle.scss';
+@import '~include-media/dist/include-media';
+
 .Lcontainer {
   background: url(../../../../public/loginpage.png) no-repeat center fixed;
   background-size: cover;
@@ -34,6 +37,7 @@
     background-color: transparent;
     border-color: #ffffff;
   }
+
   button {
     border-radius: 5px;
     border: 1px solid #30338a;
@@ -41,13 +45,35 @@
     color: #ffffff;
     font-size: 12px;
     font-weight: bold;
-    padding: 12px 15px;
+    padding: 12px 1px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform ease-in;
     cursor: pointer;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     width: 100%;
+  }
+  .ghost-mobile {
+    // background-color: red;
+
+    // border-radius: 5px;
+    color: #2a2b38;
+    border: 1px solid #30338a;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    position: relative;
+    // margin: toSize(50) auto;
+
+    @include media('>768px') {
+      display: none;
+    }
+  }
+  .email-duplication-verification {
+    width: 38%;
+    @include media('<=768px') {
+      width: 90%;
+      margin: auto;
+    }
   }
 
   h1 {
@@ -87,6 +113,9 @@
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transition: all 400ms ease-out;
+  @include media('<=768px') {
+    transition: none;
+  }
   // -webkit-backface-visibility: hidden;
   // -moz-backface-visibility: hidden;
   // -o-backface-visibility: hidden;
@@ -103,6 +132,9 @@
     padding: 0 50px;
     height: 100%;
     text-align: center;
+    @include media('<=768px') {
+      width: 100vw;
+    }
   }
   a {
     color: #333;
@@ -120,6 +152,9 @@
 
 .Lcontainer.right-panel-active .sign-in-container {
   transform: translateX(100%);
+  @include media('<=768px') {
+    transform: none;
+  }
 }
 
 .sign-up-container {
@@ -133,6 +168,9 @@
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
+  @include media('<=768px') {
+    transform: none;
+  }
 }
 
 .overlay-container {
@@ -156,6 +194,9 @@
   // letter-spacing: -1.75px;
   // text-transform: uppercase;
   transition: all 400ms ease-out;
+  @include media('<=768px') {
+    display: none;
+  }
 }
 
 .Lcontainer.right-panel-active .overlay-container {
@@ -173,12 +214,18 @@
   input {
     width: 49%;
     text-align: left;
+    @include media('<=768px') {
+      width: 90%;
+    }
   }
   button {
     font-size: 1rem;
     font-weight: 500;
     width: 19%;
     margin-left: 10px;
+    @include media('<=768px') {
+      width: 45%;
+    }
   }
 }
 .error-message {
@@ -211,6 +258,9 @@
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
+  @include media('<=768px') {
+    // transform-style: flat;
+  }
 }
 
 .Lcard-back {
