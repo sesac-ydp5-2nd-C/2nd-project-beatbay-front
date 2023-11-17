@@ -93,7 +93,7 @@ const SignInUpScreen = () => {
       postUserSignup(apiData).then((res) => {
         console.log(res);
         if (res.data.result === true) {
-          setErrorMessage('회원가입이 완료되었습니다.');
+          alert('회원가입이 완료되었습니다.');
 
           setIsSignUp(false);
         }
