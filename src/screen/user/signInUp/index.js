@@ -93,7 +93,7 @@ const SignInUpScreen = () => {
       postUserSignup(apiData).then((res) => {
         console.log(res);
         if (res.data.result === true) {
-          setErrorMessage('회원가입이 완료되었습니다.');
+          alert('회원가입이 완료되었습니다.');
 
           setIsSignUp(false);
         }
@@ -301,9 +301,14 @@ const SignInUpScreen = () => {
               placeholder="이메일"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ width: '69%' }}
+              // style={{ width: '69%' }}
             />
-            <button onClick={checkEmail}>이메일 중복확인</button>
+            <button
+              onClick={checkEmail}
+              className="email-duplication-verification"
+            >
+              이메일 중복확인
+            </button>
             {/* {errorMessage} */}
           </div>
           <input
@@ -339,9 +344,18 @@ const SignInUpScreen = () => {
           <p className="mail-error-message">{mailCheckMessage}</p>
 
           <button onClick={handleSignUp}>회원가입</button>
+          <br></br>
+          <button
+            className="ghost-mobile"
+            onClick={isSignUp ? handleSignInClick : handleSignUpClick}
+            // style={{ backgroundColor: 'red' }}
+          >
+            {isSignUp ? '로그인 하러 가기' : `회원가입 하러 가기`}
+          </button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       </div>
+
       <input
         className="checkbox"
         type="checkbox"
@@ -408,7 +422,13 @@ const SignInUpScreen = () => {
               비밀번호찾기
             </label>
           </p>
-          <br />
+          <button
+            className="ghost-mobile"
+            onClick={isSignUp ? handleSignInClick : handleSignUpClick}
+            // style={{ backgroundColor: 'red' }}
+          >
+            {isSignUp ? '로그인 하러 가기' : `회원가입 하러 가기`}
+          </button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
         <div />
