@@ -30,10 +30,6 @@ function MypageEditInformationScreen() {
   const [profileImage, setProfileImage] = useState(null);
   const [interestTag, setInterestTag] = useState('');
 
-  const [PWerrorMessage, setPWErrorMessage] = useState('');
-  const [PWCerrorMessage, setPWCErrorMessage] = useState('');
-  const [NerrorMessage, setNErrorMessage] = useState('');
-
   const [establishUserData, setEstablishUserData] = useState();
 
   useEffect(() => {
@@ -50,23 +46,11 @@ function MypageEditInformationScreen() {
         setEmail(res.data.userData.user_id);
         setNickname(res.data.userData.user_nickname || '');
         setIntroduction(res.data.userData.user_comment || '');
-        setInterests(res.data.userData.user_interest || []);
+        setInterests(res.data.userData.user_interest.split(',') || []);
         setProfileImage(res.data.userData.user_profile_img || '');
       }
     });
   };
-
-  const validationTimeOut = () => {
-    setIsFormValid(false);
-    setTimeout(() => {
-      setIsFormValid(true);
-      setNErrorMessage('');
-      setPWErrorMessage('');
-      setPWCErrorMessage('');
-    }, 3000);
-    return;
-  };
-
   const isValidPassword = (password) => {
     //패스워드 검사 로직
     return /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/.test(
@@ -76,8 +60,17 @@ function MypageEditInformationScreen() {
 
   const handleUpdate = () => {
     if (!nickname) {
-      setNErrorMessage('닉네임이 작성되지 않았습니다.');
-      validationTimeOut();
+      alert('닉네임이 작성되지 않았습니다.');
+    } else if (!password) {
+      alert('비밀번호가 작성되지 않았습니다.');
+    } else if (!confirmPassword) {
+      alert('비밀번호 확인이 작성되지 않았습니다.');
+    } else if (!isValidPassword(password)) {
+      alert(
+        '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
+      );
+    } else if (password !== confirmPassword) {
+      alert('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
     } else {
       console.log('////////////');
       const formData = new FormData();
@@ -131,22 +124,17 @@ function MypageEditInformationScreen() {
 
   const handleDeleteAccount = () => {
     if (!nickname) {
-      setNErrorMessage('닉네임이 작성되지 않았습니다.');
-      validationTimeOut();
+      alert('닉네임이 작성되지 않았습니다.');
     } else if (!password) {
-      setPWErrorMessage('비밀번호가 작성되지 않았습니다.');
-      validationTimeOut();
+      alert('비밀번호가 작성되지 않았습니다.');
     } else if (!confirmPassword) {
-      setPWCErrorMessage('비밀번호 확인이 작성되지 않았습니다.');
-      validationTimeOut();
+      alert('비밀번호 확인이 작성되지 않았습니다.');
     } else if (!isValidPassword(password)) {
-      setPWErrorMessage(
+      alert(
         '비밀번호는 특수문자, 영문, 숫자의 조합으로 8자리이상이어야 합니다.',
       );
-      validationTimeOut();
     } else if (password !== confirmPassword) {
-      setPWCErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
-      validationTimeOut();
+      alert('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
     } else {
       console.log('///////////////////');
       const apidata = {
