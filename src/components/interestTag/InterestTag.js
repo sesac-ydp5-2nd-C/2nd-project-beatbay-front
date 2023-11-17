@@ -13,11 +13,17 @@ export default function InterestTag({ userData }) {
 
   return (
     <div className="interestBox">
-      {userData?.user_interest
-        ? userData.user_interest.map((interest, index) => (
-            <Interest key={index} kind={interest} />
-          ))
-        : defaultInterestsArray.map((interest, index) => (
+      {userData?.userData.user_interest
+        ? userData.user_interest
+            .split(',')
+            .map((interest, index) => (
+              <Interest key={index} kind={interest.trim()} />
+            ))
+        : // {userData?.user_interest
+          //   ? userData.user_interest.map((interest, index) => (
+          //       <Interest key={index} kind={interest} />
+          //     ))
+          defaultInterestsArray.map((interest, index) => (
             <Interest key={index} kind={interest} />
           ))}
     </div>

@@ -29,9 +29,11 @@ export default function MypageProfile({ userData, noModify = false }) {
       <div className="interestBox">
         <div className="interests">
           {userData.user_interest ? (
-            userData.user_interest.map((interest, index) => (
-              <Interest key={index} kind={interest} />
-            ))
+            userData.user_interest
+              .split(',')
+              .map((interest, index) => (
+                <Interest key={index} kind={interest.trim()} />
+              ))
           ) : (
             <span>{'# 관심사가 없습니다.'}</span>
           )}

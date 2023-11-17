@@ -104,11 +104,11 @@ function MypageEditInformationScreen() {
       console.log(stringTags);
 
       console.log(uploadedImage);
-      // patchUpdateUser(formData).then((res) => {
-      //   console.log(res);
-      //   alert('수정완료');
-      //   document.location.href = '/mypage';
-      // });
+      patchUpdateUser(formData).then((res) => {
+        console.log(res);
+        alert('수정완료');
+        document.location.href = '/mypage';
+      });
 
       // const apidata = {
       //   user_nickname: nickname,
