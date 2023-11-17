@@ -10,12 +10,7 @@ function SellFormCategory({
   setSelectedCategory,
   setSelectedSubCategory,
 }) {
-  useEffect(() => {
-    console.log(categories);
-    console.log(selectedType);
-    console.log(selectedCategory);
-    console.log(selectedSubCategory);
-  }, []);
+  useEffect(() => {}, []);
   const handleTypeClick = (index) => {
     setSelectedType(index);
     setSelectedCategory(null);
@@ -32,7 +27,6 @@ function SellFormCategory({
   const handleSubCategoryClick = (index) => {
     if (selectedType !== null && selectedCategory !== null) {
       setSelectedSubCategory(index);
-      console.log(selectedType, selectedCategory + 1, index + 1);
     }
   };
 

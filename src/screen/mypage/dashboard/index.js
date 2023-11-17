@@ -13,7 +13,7 @@ import {
   getMyReviews,
   getMypage,
 } from '../../../api/mypage';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
 
 function MypageDashboardScreen() {
@@ -26,9 +26,11 @@ function MypageDashboardScreen() {
       if (result.data.userData) {
         setMyPageData(result.data);
         setIsLoading(false);
+        console.log(mypageData);
       } else {
         console.error('error');
         setIsLoading(false);
+        NavLink('/');
       }
     });
     await getMyReviews().then((res) => {

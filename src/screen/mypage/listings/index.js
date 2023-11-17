@@ -12,6 +12,7 @@ import userImg from '../../../asset/profile_default.png';
 import { getMySell } from '../../../api/mypage';
 import LoadingSpinner from '../../../components/common/loadingSpinner';
 import EmptyTrade from '../../../components/common/emptyTrade/EmptyTrade';
+import { Link } from 'react-router-dom';
 
 export default function MypageListingsScreen() {
   const tabsData = [
@@ -104,7 +105,9 @@ export default function MypageListingsScreen() {
             <div className="MpTopBox">
               <div className="MpTitleBox">
                 <h1>판매 내역</h1>
-                <div className="postIntro">POST</div>
+                <Link to={'/trade/sell'}>
+                  <div className="postIntro">POST</div>
+                </Link>
               </div>
               <div className="vinyl">
                 {userData && <MypageVinyl userData={userData} />}
