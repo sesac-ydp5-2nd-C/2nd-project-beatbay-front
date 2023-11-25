@@ -8,6 +8,7 @@ import piano from '../../asset/piano.svg';
 import forte from '../../asset/forte.svg';
 import mezzoforte from '../../asset/mezzoforte.svg';
 import fortissimo from '../../asset/fortissimo.svg';
+import trebeclef from '../../asset/trebeclef.svg';
 
 export default function MypageVinyl({ userData }) {
   const gradeImg = (e) => {
@@ -24,7 +25,8 @@ export default function MypageVinyl({ userData }) {
         return mezzoforte;
       case 5:
         return fortissimo;
-      case 6:
+      case 99:
+        return trebeclef;
       default:
         return pianissimo;
     }

@@ -65,7 +65,7 @@ export default function AdminTable({
         return 'mezzoforte';
       case 5:
         return 'fortissimo';
-      case 6:
+      case 99:
         return 'trebeclef';
       default:
         return 'pianissimo';
@@ -112,7 +112,7 @@ export default function AdminTable({
                     value={item.user_grade}
                     onChange={(event) => handleSelectChange(event, item)}
                   >
-                    {[0, 1, 2, 3, 4, 5, 6].map((grade) => (
+                    {[0, 1, 2, 3, 4, 5, 99].map((grade) => (
                       <option key={grade} value={grade}>
                         {userGradeToMusicTerm(grade)}
                       </option>
