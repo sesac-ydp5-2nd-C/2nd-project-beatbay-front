@@ -13,11 +13,19 @@ const ContentModal = ({
 }) => {
   useEffect(() => {
     if (selectedData) {
-      setModalData({
-        title: selectedData.title || '',
-        content: selectedData.content || '',
-        url: selectedData.url || '',
-      });
+      console.log(selectedData);
+      if (dataType === 'column') {
+        setModalData({
+          title: selectedData.column_title || '',
+          content: selectedData.column_content || '',
+          url: selectedData.url || '',
+        });
+      } else if (dataType === 'notice') {
+        setModalData({
+          title: selectedData.notice_title || '',
+          content: selectedData.notice_content || '',
+        });
+      }
     }
   }, [selectedData]);
 

@@ -21,8 +21,18 @@ export default function AdminTable({
       ];
       break;
     case 'column':
+      columns = ['id', 'column_title'];
+      actions = [
+        <button key="edit" onClick={(item) => handleEdit(item)}>
+          수정
+        </button>,
+        <button key="delete" onClick={(item) => handleDelete(item)}>
+          삭제
+        </button>,
+      ];
+      break;
     case 'notice':
-      columns = ['id', 'title'];
+      columns = ['id', 'notice_title'];
       actions = [
         <button key="edit" onClick={(item) => handleEdit(item)}>
           수정
