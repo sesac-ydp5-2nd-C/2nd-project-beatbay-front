@@ -10,6 +10,7 @@ import CustomFooter from '../../components/MainPage/customFooter/CustomFooter';
 import mainVideo1 from '../../asset/mainVideo1.mp4';
 import mainVideo2 from '../../asset/mainVideo2.mp4';
 import { getMain } from '../../api/user';
+import { Link } from 'react-router-dom';
 
 function MainScreen() {
   const [columnData, setColumnData] = useState([
@@ -80,6 +81,13 @@ function MainScreen() {
           <CustomCarousel />
 
           <div className="columnContainer">
+            <div className="columnsTitleContainer">
+              <p></p>
+              <p className="columnsTitle">컬럼</p>
+              <Link to={'/notice'}>
+                <p className="columnsMore"> + 더보기</p>
+              </Link>
+            </div>
             <div className="columns">
               {columnData.map((e, i) => {
                 return (

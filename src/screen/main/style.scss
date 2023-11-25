@@ -103,11 +103,42 @@ p {
 
 .columnContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: toSize(250);
   @include media('>1440px') {
     padding-bottom: 250px;
+  }
+}
+
+.columnsTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: toSize(1200);
+  margin-bottom: toSize(40);
+  .columnsTitle {
+    font-size: toSize(40);
+    margin-left: toSize(100);
+    font-weight: 500;
+  }
+  .columnsMore {
+    font-size: toSize(30);
+    cursor: pointer;
+    font-weight: 500;
+    color: #777be0;
+  }
+  @include media('>1440px') {
+    width: 1200px;
+    margin-bottom: 40px;
+    .columnsTitle {
+      font-size: 40px;
+      margin-left: 100px;
+    }
+    .columnsMore {
+      font-size: 30px;
+    }
   }
 }
 
