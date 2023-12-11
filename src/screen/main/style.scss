@@ -31,6 +31,11 @@
   left: 50%;
   // transform: translateX(-50%);
   animation: disk-spin infinite 20s linear;
+  @include media('<768px') {
+    width: toSizeM(320);
+    height: toSizeM(320);
+    top: toSizeM(42);
+  }
 }
 
 .intro {
@@ -38,7 +43,11 @@
   z-index: 2;
   text-align: center;
   margin-top: toSize(144);
+  @include media('<768px') {
+    margin-top: toSizeM(100);
+  }
 }
+
 p {
   margin: 0;
   padding: 0;
@@ -47,6 +56,9 @@ p {
   font-size: toSize(20);
   color: white;
   font-weight: 500;
+  @include media('<768px') {
+    font-size: toSizeM(10);
+  }
 }
 .intro2 {
   font-size: toSize(120);
@@ -54,10 +66,19 @@ p {
   font-weight: bold;
   line-height: 1;
   margin-bottom: toSize(14);
+  @include media('<768px') {
+    margin-top: toSizeM(24);
+    line-height: auto;
+    font-size: toSizeM(64);
+    margin-bottom: toSizeM(28);
+  }
 }
 .intro3 {
   font-size: toSize(20);
   color: white;
+  @include media('<768px') {
+    font-size: toSizeM(10);
+  }
 }
 
 .scrollLine {
@@ -76,6 +97,10 @@ p {
   @include media('>1440px') {
     margin-top: 172px;
     margin-bottom: 100px;
+  }
+  @include media('<768px') {
+    margin-top: toSizeM(92);
+    margin-bottom: toSizeM(25);
   }
 }
 

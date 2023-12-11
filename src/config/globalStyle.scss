@@ -8,6 +8,11 @@ $breakpoint-mobile: 768px;
   @return #{$calculatedSize * 1vw};
 }
 
+@function toSizeM($size) {
+  $calculatedSize: ($size / 390) * 100;
+  @return #{$calculatedSize * 1vw};
+}
+
 // Screen 배경색 설정
 .bgGray {
   background-color: #f2f2f2;

@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAuthInfo } from '../../store/feature/userSlice';
 import Screen from '../Screen';
 import IntroVideo from '../../components/MainPage/introVideo/IntroVideo';
 import CustomCarousel from '../../components/MainPage/customCarousel/CustomCarousel';
