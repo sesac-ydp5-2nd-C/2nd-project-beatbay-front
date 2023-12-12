@@ -154,10 +154,10 @@ const SignInUpScreen = () => {
     );
   };
 
-  ///인증메일 전송 함수
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // 체크박스를 토글
   };
+  ///인증메일 전송 함수
   const sendAuth = () => {
     if (!email) {
       setErrorMessage('이메일이 작성되지 않았습니다');
