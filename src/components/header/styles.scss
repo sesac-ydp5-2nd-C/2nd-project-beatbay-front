@@ -22,7 +22,7 @@
   display: none;
   position: relative;
   z-index: 2;
-  height: 7vw;
+  height: 10vw;
   justify-content: space-between;
   background-color: transparent;
 }
@@ -38,8 +38,8 @@
   height: toSize(100);
 
   &.mobile {
-    width: 10vw;
-    height: 10vw;
+    width: 14vw;
+    height: 14vw;
   }
 
   @include media('>1440px') {
@@ -49,9 +49,9 @@
 }
 
 .hamburger {
-  width: 5vw;
-  height: 5vw;
-  margin: 2vw 2vw 0px 0px;
+  width: 7vw;
+  height: 7vw;
+  margin: 3vw 3vw 0px 0px;
   cursor: pointer;
 
   &.wBurger {

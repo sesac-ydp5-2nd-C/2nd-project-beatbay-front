@@ -9,13 +9,17 @@
   @include media('>1440px') {
     padding: 45px 0px 100px 0px;
   }
+  @include media('<768px') {
+    padding: 0px 0px toSizeM(20) 0px;
+  }
 
   .carouselContainer {
     width: toSize(1250);
-    // height: toSize(450);
     @include media('>1440px') {
       width: 1250px;
-      // height: 450px;
+    }
+    @include media('<768px') {
+      width: toSizeM(358);
     }
 
     .carousel:hover .slide .cLegend {
