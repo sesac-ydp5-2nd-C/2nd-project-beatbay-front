@@ -13,10 +13,22 @@
 
 @keyframes disk-spin {
   from {
-    transform: translateX(-50%) rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-    transform: translateX(-50%) rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.diskContainer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  top: 0;
+  @include media('<768px') {
+    height: toSizeM(400);
+    top: toSizeM(25);
   }
 }
 
@@ -26,15 +38,13 @@
   max-width: 1200px;
   height: toSize(1200);
   max-height: 1200px;
-  position: absolute;
-  top: toSize(-633);
-  left: 50%;
-  // transform: translateX(-50%);
+  position: relative;
+  top: toSize(-620);
   animation: disk-spin infinite 20s linear;
   @include media('<768px') {
     width: toSizeM(320);
     height: toSizeM(320);
-    top: toSizeM(42);
+    top: toSizeM(15);
   }
 }
 

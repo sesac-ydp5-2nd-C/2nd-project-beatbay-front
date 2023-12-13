@@ -53,8 +53,9 @@ function MainScreen() {
     <Screen headerColor="white">
       {startLoad && (
         <>
-          <img className="disk" alt="disk" src="disk.png" />
-
+          <div className="diskContainer">
+            <img className="disk" alt="disk" src="disk.png" />
+          </div>
           <div className="intro">
             <p className="intro1">
               악기 중고거래부터 재능 마켓까지 음악 거래의 새로운 중심지
