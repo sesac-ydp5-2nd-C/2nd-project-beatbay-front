@@ -21,7 +21,6 @@ export default function CustomCarousel() {
   }, []);
 
   useEffect(() => {
-    console.log(wWidth);
     if (wWidth > 768) {
       AOS.init();
     }

@@ -37,7 +37,6 @@ export default function IntroVideo({ src, reverse }) {
   }, []);
 
   useEffect(() => {
-    console.log(wWidth);
     if (wWidth > 768) {
       AOS.init();
     }
