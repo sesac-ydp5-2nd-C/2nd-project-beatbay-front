@@ -64,7 +64,9 @@ export default function Header({ color = 'black' }) {
         </div>
       </div>
       <div className="mobileHeader">
-        <img src={logo} className="logo mobile" alt="logo" />
+        <Link to="/">
+          <img src={logo} className="logo mobile" alt="logo" />
+        </Link>
         <img
           src={hamburger}
           className="hamburger"

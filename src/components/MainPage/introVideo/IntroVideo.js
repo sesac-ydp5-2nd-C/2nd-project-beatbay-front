@@ -2,29 +2,50 @@ import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import objectImg from '../../../asset/object_img.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function IntroVideo({ src, reverse }) {
   const videoRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [wWidth, setWWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   const togglePlayPause = () => {
-    const video = videoRef.current;
-    if (video.paused) {
-      video.play();
+    if (wWidth <= 768) {
+      navigate('/trade/product');
     } else {
-      video.pause();
+      const video = videoRef.current;
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+      setIsPlaying(!isPlaying);
     }
-    setIsPlaying(!isPlaying);
+  };
+
+  const handleResize = () => {
+    setWWidth(window.innerWidth);
   };
 
   useEffect(() => {
-    AOS.init();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
+  useEffect(() => {
+    if (wWidth > 768) {
+      AOS.init();
+    }
+  }, [wWidth]);
 
   return (
     <div
-      data-aos-duration="2000"
-      data-aos={reverse ? 'fade-right' : 'fade-left'}
+      data-aos-duration={wWidth > 768 ? '2000' : null}
+      data-aos={wWidth > 768 ? (reverse ? 'fade-right' : 'fade-left') : null}
       className="video-player-container"
     >
       {reverse && (
@@ -56,13 +77,21 @@ export default function IntroVideo({ src, reverse }) {
           </div>
         </div>
       )}
-      <video
-        ref={videoRef}
-        className="video-player"
-        src={src}
-        preload="auto"
-        loop
-      />
+      {wWidth > 768 ? (
+        <video
+          ref={videoRef}
+          className="video-player"
+          src={src}
+          preload="auto"
+          loop
+        />
+      ) : (
+        <img
+          alt="mobile"
+          className="mobileImg"
+          src={reverse ? objectImg : objectImg}
+        />
+      )}
       {!reverse && (
         <div className="controller">
           <p className="introLetter">ALL THE ITEMS</p>

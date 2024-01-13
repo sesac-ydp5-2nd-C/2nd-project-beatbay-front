@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.scss';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -8,14 +8,28 @@ import mCarousel_2 from '../../../asset/mCarousel_2.png';
 import mCarousel_3 from '../../../asset/mCarousel_3.png';
 
 export default function CustomCarousel() {
+  const [wWidth, setWWidth] = useState(window.innerWidth);
+  const handleResize = () => {
+    setWWidth(window.innerWidth);
+  };
+
   useEffect(() => {
-    AOS.init();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
+  useEffect(() => {
+    if (wWidth > 768) {
+      AOS.init();
+    }
+  }, [wWidth]);
   return (
     <div
+      data-aos-duration={wWidth > 768 ? '1500' : null}
+      data-aos={wWidth > 768 ? 'zoom-in' : null}
       className="parentContainer"
-      data-aos="zoom-in"
-      data-aos-duration="1500"
     >
       <div className="carouselContainer">
         <Carousel

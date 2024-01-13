@@ -83,7 +83,6 @@ const SignInUpScreen = () => {
     } else {
       // Perform your signup logic here
       // e.g., make an API request to register the user
-      console.log('Signing up');
       const apiData = {
         userId: email,
         userPw: password,
@@ -91,7 +90,6 @@ const SignInUpScreen = () => {
         authCode: certification,
       };
       postUserSignup(apiData).then((res) => {
-        console.log(res);
         if (res.data.result === true) {
           alert('회원가입이 완료되었습니다.');
 
@@ -122,11 +120,8 @@ const SignInUpScreen = () => {
         userId: email,
         userPw: password,
       };
-      console.log('signing up');
 
       postUserLogin(apiData).then((res) => {
-        console.log(res);
-
         if (res.data.result === true) {
           setErrorMessage('로그인 성공');
           navigate(`../`);
@@ -164,13 +159,9 @@ const SignInUpScreen = () => {
     } else if (!isValidEmail(email)) {
       setErrorMessage('존재하지 않는 이메일 형식입니다.');
     } else {
-      console.log('sending');
       const apiData = { email: email };
       postUserCertification(apiData).then((res) => {
-        console.log(res.data.result);
-
         if (res.data.result === true) {
-          console.log(res.data);
           setMailCheckMessage('메일 전송 완료!');
         } else {
           setMailCheckMessage('메일 전송 실패! 다시 시도해주세요');
@@ -181,7 +172,6 @@ const SignInUpScreen = () => {
 
   //인증번호 확인 함수
   const checkAuth = () => {
-    console.log('Checking');
     const apiData = { emailCode: certification };
     postUserEmailCodeCheck(apiData).then((res) => {
       if (res.data.result === true) {
@@ -221,15 +211,12 @@ const SignInUpScreen = () => {
       setErrorMessage('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
       validationTimeOut();
     } else {
-      console.log('Checking');
       const apiData = {
         userId: email,
         newPass: password,
         emailCode: certification,
       };
       putUserFindPass(apiData).then((res) => {
-        console.log(res);
-
         if (res.data.result === false) {
           setErrorMessage('이메일이 인증되지 않았습니다.');
         }
@@ -239,11 +226,8 @@ const SignInUpScreen = () => {
 
   //이메일 중복확인 함수
   const checkEmail = () => {
-    console.log('checking Email');
     const apiData = { userId: email };
     postUserIdExists(apiData).then((res) => {
-      console.log(res);
-
       if (res.data.result === true) {
         setMailCheckMessage(res.data.message + '이메일 인증을 진행하세요!');
         validationTimeOut();

@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAuthInfo } from '../../store/feature/userSlice';
 import Screen from '../Screen';
 import IntroVideo from '../../components/MainPage/introVideo/IntroVideo';
 import CustomCarousel from '../../components/MainPage/customCarousel/CustomCarousel';
@@ -39,7 +37,6 @@ function MainScreen() {
 
   useEffect(() => {
     getMain().then((res) => {
-      console.log(res);
       if (res.data?.loginUser) {
         localStorage.setItem('login_id', res.data?.loginUser?.id);
         localStorage.setItem('email', res.data?.loginUser?.userId);
@@ -55,8 +52,9 @@ function MainScreen() {
     <Screen headerColor="white">
       {startLoad && (
         <>
-          <img className="disk" alt="disk" src="disk.png" />
-
+          <div className="diskContainer">
+            <img className="disk" alt="disk" src="disk.png" />
+          </div>
           <div className="intro">
             <p className="intro1">
               악기 중고거래부터 재능 마켓까지 음악 거래의 새로운 중심지

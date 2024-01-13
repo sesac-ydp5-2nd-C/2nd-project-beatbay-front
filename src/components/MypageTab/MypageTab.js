@@ -8,9 +8,6 @@ export default function MypageTab({
   setActiveTab,
   setProductData,
 }) {
-  // console.log(activeTab);
-  // console.log(activeTab.id);
-  // console.log(tabsData[0]?.id);
   return (
     <div className="mpTabs-Container">
       <ul className="mpTabList">

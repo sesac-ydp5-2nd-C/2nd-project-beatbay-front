@@ -83,14 +83,8 @@ export default function AdminTable({
   const handleSelectChange = (event, item) => {
     const setGrade = parseInt(event.target.value, 10);
     const userId = item.id;
-    console.log(userId, setGrade);
     handleGradeChange(userId, setGrade);
-    console.log(handleGradeChange);
   };
-
-  useEffect(() => {
-    console.log(dataType, data);
-  }, []);
 
   return (
     <table className={`adminTable ${dataType}`}>

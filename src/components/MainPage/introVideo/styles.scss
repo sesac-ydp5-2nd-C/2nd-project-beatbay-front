@@ -6,6 +6,7 @@
   align-items: flex-end;
   justify-content: center;
   padding-bottom: toSize(66);
+  position: relative;
   @include media('>1440px') {
     padding-bottom: 66px;
   }
@@ -21,6 +22,12 @@
     height: 360px;
   }
 }
+
+.mobileImg {
+  width: toSizeM(358);
+  height: toSizeM(224);
+}
+
 .controller {
   margin-left: toSize(30);
   &.rev {
@@ -32,10 +39,23 @@
     @include media('>1440px') {
       margin-right: 30px;
     }
+    @include media('<768px') {
+      position: absolute;
+      margin-right: toSizeM(30);
+      right: 0;
+      top: toSizeM(28);
+    }
   }
 
   @include media('>1440px') {
     margin-left: 30px;
+  }
+
+  @include media('<768px') {
+    margin-left: toSizeM(40);
+    position: absolute;
+    left: 0;
+    top: toSizeM(28);
   }
 }
 .introLetter {
@@ -47,10 +67,17 @@
     @media (min-width: 1440px) {
       margin-bottom: 25px;
     }
+    @include media('<768px') {
+      margin-bottom: toSizeM(95);
+    }
   }
 
   @media (min-width: 1440px) {
     font-size: 40px;
+  }
+  @include media('<768px') {
+    font-size: toSizeM(20);
+    color: white;
   }
 }
 
@@ -69,6 +96,14 @@
     margin-bottom: 44px;
     padding: 0px 23px;
   }
+
+  @include media('<768px') {
+    height: toSizeM(33);
+    margin-bottom: 0;
+    padding: 0px;
+    background-color: transparent;
+    width: auto;
+  }
 }
 
 .play-pause-button {
@@ -86,6 +121,9 @@
     @include media('>1440px') {
       margin-right: 30px;
     }
+    @include media('<768px') {
+      margin-right: toSizeM(15);
+    }
   }
 
   &.mlPr {
@@ -93,11 +131,19 @@
     @include media('>1440px') {
       margin-left: 30px;
     }
+    @include media('<768px') {
+      margin-left: toSizeM(15);
+    }
   }
 
   @include media('>1440px') {
     width: 30px;
     height: 30px;
+  }
+
+  @include media('<768px') {
+    width: toSizeM(15);
+    height: toSizeM(15);
   }
 }
 
@@ -113,5 +159,11 @@
     margin-left: 30px;
     padding-left: 30px;
     border-left: solid 1px white;
+  }
+
+  @include media('<768px') {
+    margin-left: toSizeM(10);
+    padding-left: toSizeM(10);
+    font-size: toSizeM(12);
   }
 }
