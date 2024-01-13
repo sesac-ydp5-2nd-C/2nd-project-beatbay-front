@@ -80,25 +80,15 @@ export default function AdminScreen() {
   const handleEdit = (item) => {
     setSelectedData(item);
     setIsModalOpen(true);
-    console.log(item);
   };
 
   const handleDelete = async (e) => {
     if (e.id) {
-      console.log(e.id);
-      await deleteAdminUser({ user_id: e.id }).then(() => {
-        console.log(e, '삭제');
-      });
+      await deleteAdminUser({ user_id: e.id }).then(() => {});
     } else if (e.product_id) {
-      console.log(e.product_id);
-      await deleteAdminProduct({ product_id: e.product_id }).then(() => {
-        console.log(e, '삭제');
-      });
+      await deleteAdminProduct({ product_id: e.product_id }).then(() => {});
     } else if (e.ability_id) {
-      console.log(e.ability_id);
-      await deleteAdminAbility({ ability_id: e.ability_id }).then(() => {
-        console.log(e, '삭제');
-      });
+      await deleteAdminAbility({ ability_id: e.ability_id }).then(() => {});
     } else {
       console.error('deleteError', e);
     }
@@ -107,11 +97,8 @@ export default function AdminScreen() {
   };
 
   const handleGradeChange = async (id, grade) => {
-    console.log(id, grade);
     setSelectedGrade(selectedGrade);
-    await patchAdminGrade({ user_id: id, user_grade: grade }).then(() => {
-      console.log('ㅠㅠ', id, grade);
-    });
+    await patchAdminGrade({ user_id: id, user_grade: grade }).then(() => {});
     await getAdminPage();
   };
 
@@ -125,7 +112,6 @@ export default function AdminScreen() {
       if (res.data) {
         setAdminData(res.data);
         setIsLoading(false);
-        console.log(res.data);
       } else {
         console.error('error');
         setIsLoading(false);

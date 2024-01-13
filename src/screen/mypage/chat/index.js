@@ -49,7 +49,7 @@ function MypageChatScreen() {
   const ref = useRef();
   const user_id = localStorage.getItem('login_id');
   const email = localStorage.getItem('email');
-  const ENDPOINT = 'http://43.201.244.219:5001';
+  const ENDPOINT = process.env.REACT_APP_SOCKET_IP;
   // const ENDPOINT = 'http://localhost:5001';
   //   const [name, setName] = useState('');
   const [chatList, setChatList] = useState([]);
@@ -88,7 +88,6 @@ function MypageChatScreen() {
 
   // 화면 렌더링시 소켓 처음 접속
   useEffect(() => {
-    console.log(newRoomInfo);
     socket = io(ENDPOINT);
     // 처음 접속시 newUser emit
     socket.emit('newUser', { user_id, email });
@@ -108,7 +107,6 @@ function MypageChatScreen() {
       // } else {
       //   // 접속 안하고 있는 방이면 unread값만 업데이트...
       // }
-      console.log(data);
       setMessages((messages) => [...messages, data]);
       if (msgRef.current) {
         msgRef.current.scrollTop = msgRef.current.scrollHeight;
@@ -117,7 +115,6 @@ function MypageChatScreen() {
 
     // 차음 접속시 룸 리스트들을 받아옴
     socket.on('room_List', (data) => {
-      console.log(data);
       setChatList(data);
       // 방을 처음 만드는 상태일떄 action
       if (newRoomInfo) {
@@ -131,20 +128,16 @@ function MypageChatScreen() {
           dispatch(setChatRoomInfo(null));
         } else {
           // 이미 방이 있음
-          console.log(' 이미 방이 있음');
           dispatch(setChatRoomInfo(null));
           // enterRoom(e.id);
         }
       }
     });
 
-    socket.on('update', (data) => {
-      console.log(data);
-    });
+    socket.on('update', (data) => {});
 
     // 룸 선택시 룸에 대한 데이터들을 받아옴
     socket.on('roomData', (data) => {
-      console.log(data[0]);
       setRoomData(data[0]);
       setProductData(data[0]);
       setMessages(data[0].messageList);
@@ -167,7 +160,6 @@ function MypageChatScreen() {
   const enterRoom = (data) => {
     const my_id = localStorage.getItem('login_id');
     setSellerData(my_id == data.user_1.id ? data.user_2 : data.user_1);
-    console.log(my_id == data.user_1.id ? data.user_2 : data.user_1);
     socket.emit('enter', { room_id: data.room_id, user_id, email }, () => {});
   };
 
@@ -191,14 +183,6 @@ function MypageChatScreen() {
 
     if (message) {
       if (isNewRoom) {
-        console.log({
-          user_id,
-          email,
-          content: message,
-          receiver_id: newRoomData.opponent_id,
-          type: newRoomData.type,
-          object_id: newRoomData.object_id,
-        });
         socket.emit(
           'join',
           {
@@ -240,7 +224,6 @@ function MypageChatScreen() {
   };
 
   const handleReview = () => {
-    console.log(sellProductData);
     const apiData = {
       id: sellProductData.object_id,
       review_content: review,
@@ -249,7 +232,6 @@ function MypageChatScreen() {
     };
     postMypageReview(apiData).then((res) => {
       if (res.data.addId) {
-        console.log('success');
         setIsModalOpen(false);
         setReview();
       }
@@ -260,13 +242,11 @@ function MypageChatScreen() {
     if (sellerData) {
       const apiData = { seller_id: sellerData.id };
       getSellerReviews(apiData).then((res) => {
-        console.log(res.data);
         if (res.data) {
           setReviewCount(res.data.review.length);
         }
       });
       getSellerFollowers(apiData).then((res) => {
-        console.log(res.data);
         if (res.data) {
           setFollowCount(res.data.follower.length);
         }

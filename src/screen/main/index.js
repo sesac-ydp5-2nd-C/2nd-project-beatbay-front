@@ -37,7 +37,6 @@ function MainScreen() {
 
   useEffect(() => {
     getMain().then((res) => {
-      console.log(res);
       if (res.data?.loginUser) {
         localStorage.setItem('login_id', res.data?.loginUser?.id);
         localStorage.setItem('email', res.data?.loginUser?.userId);

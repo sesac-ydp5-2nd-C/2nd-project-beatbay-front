@@ -52,9 +52,7 @@ export default function Userpage() {
   useEffect(() => {
     setStartLoad(true);
     if (activeTab && activeTab.id) {
-      console.log(activeTab.id);
     }
-    console.log(activeTab?.id);
     setCurrentPage(0);
     setTotalPage(1);
     getSellerInfo();
@@ -71,9 +69,7 @@ export default function Userpage() {
       update: items.indexOf(selectedItem),
       page: page ? page : undefined,
     };
-    console.log(apiData);
     getSellerPage(apiData).then((res) => {
-      console.log(res);
       let productDataFromResponse;
       if (activeTab.type === 'product') {
         productDataFromResponse = res.data.products.products;
@@ -96,7 +92,6 @@ export default function Userpage() {
           setStartLoad(false);
         }
       }
-      console.log(productDataFromResponse);
       if (page) {
         setProductData([...productData, ...productDataFromResponse]);
       } else {
@@ -106,13 +101,11 @@ export default function Userpage() {
       setLoading(false);
     });
     getSellerReviews(apiData).then((res) => {
-      console.log(res.data);
       if (res.data) {
         setReviewsData(res.data);
       }
     });
     getSellerFollowers(apiData).then((res) => {
-      console.log(res.data);
       if (res.data) {
         setFollowData(res.data);
       }
@@ -128,11 +121,9 @@ export default function Userpage() {
     setModalIsOpen(true);
     setModalTitle(title);
     setModalTitle(title);
-    console.log(title, data);
   };
 
   const closeModal = () => {
-    console.log('Modal Closed');
     setModalData(null);
     setModalIsOpen(false);
   };

@@ -6,6 +6,7 @@ $breakpoint-mobile: 768px;
 @function toSize($size) {
   $calculatedSize: ($size / 1440) * 100;
   @return #{$calculatedSize * 1vw};
+  // @return #{$size * 1px};
 }
 
 @function toSizeM($size) {

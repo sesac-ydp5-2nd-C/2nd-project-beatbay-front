@@ -11,7 +11,6 @@ export default function UserProfileVinyl({
   const [imagePreview, setImagePreview] = useState('');
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    console.log('Selected file:', file);
 
     setUploadedImage(file); // 직접 파일 객체를 업로드된 이미지 상태에 설정
 
@@ -20,7 +19,6 @@ export default function UserProfileVinyl({
     reader.onloadend = () => {
       // 이미지 미리보기 등을 원한다면 아래 코드를 사용
       setImagePreview(reader.result);
-      console.log('Image Preview:', imagePreview);
       // document.location.href = '/mypage/userProfile';
     };
 

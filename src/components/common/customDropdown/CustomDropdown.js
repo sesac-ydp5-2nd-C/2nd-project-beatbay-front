@@ -10,9 +10,6 @@ const CustomDropdown = ({
   selectedItem,
   onChange,
 }) => {
-  useEffect(() => {
-    console.log(selectedItem);
-  }, []);
   return (
     <div className="dropdown-wrapper">
       <div onClick={setShowDropdown} className="trigger-button">

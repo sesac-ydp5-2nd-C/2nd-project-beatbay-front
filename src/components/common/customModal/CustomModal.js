@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom';
 
 function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
   const [selectedItem, setSelectedItem] = useState(null);
-  useEffect(() => {
-    console.log(modalData);
-  }, []);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -29,8 +27,6 @@ function CustomModal({ isOpen, onRequestClose, modalData, modalTitle }) {
             modalData.map((item, i) => {
               const userFromModal =
                 item.Follower || item.Buyer || item.Following;
-              console.log(item);
-              console.log(userFromModal);
 
               return (
                 <Link

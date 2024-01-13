@@ -39,7 +39,6 @@ export default function MypageLikesScreen() {
 
   useEffect(() => {
     setStartLoad(true);
-    console.log(activeTab);
     setCurrentPage(0);
     setTotalPage(1);
     getLikeList();
@@ -55,9 +54,7 @@ export default function MypageLikesScreen() {
       update: items.indexOf(selectedItem),
       page: page ? page : undefined,
     };
-    console.log(apiData);
     getMyLikes(apiData).then((res) => {
-      console.log(res);
       let productDataFromResponse;
 
       if (activeTab.type === 'product') {
@@ -67,14 +64,12 @@ export default function MypageLikesScreen() {
       }
       setCurrentPage(res.data?.pageNum);
       setTotalPage(res.data?.totalPages);
-      console.log(productDataFromResponse);
       if (page) {
         setProductData([...productData, ...productDataFromResponse]);
       } else {
         setProductData(productDataFromResponse);
       }
       setUserData(res.data.userData);
-      // console.log(res.data.userData.user_grade);
       if (!page && res.data?.totalPages > res.data?.pageNum) {
         setStartLoad(false);
       }

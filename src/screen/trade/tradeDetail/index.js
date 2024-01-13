@@ -68,7 +68,6 @@ function TradeDetailScreen() {
       ? getTradeDetailProduct({ product_id: id })
       : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
-      console.log(res);
       if (res?.data[type]) {
         setLikeCount(res.data.likeCount);
         setDetailData(res.data[type]);
@@ -89,7 +88,6 @@ function TradeDetailScreen() {
           ? patchTradeLikeProduct({ product_id: id })
           : patchTradeLikeAbility({ ability_id: id })
         ).then((res) => {
-          console.log(res.data.like);
           setIsLike(!isLike);
           setLoading(false);
           if (res.data.like === 'success') {
@@ -262,7 +260,7 @@ function TradeDetailScreen() {
                 </div>
                 <div className="TVLContainer">
                   <img alt="icon" src={time} className={'TVLIcon TVMB'} />
-                  {calculateTime(detailData.updatedAt)}
+                  {calculateTime(detailData.createdAt)}
                   <div className="ICenter">
                     <img alt="icon" src={view} className={'TVLIcon'} />
                     {detailData[`${type}_count`]}
