@@ -19,7 +19,7 @@ export default function TradeCard({ data, type }) {
           className="prdImg"
         />
         <p className="TCTitle">{data[`${type}_title`]}</p>
-        <p className="TCDate">{calculateTime(data.updatedAt)}</p>
+        <p className="TCDate">{calculateTime(data.createdAt)}</p>
         <div className="TCPContainer">
           <div className="TCPrice">
             {data[`${type}_price`]

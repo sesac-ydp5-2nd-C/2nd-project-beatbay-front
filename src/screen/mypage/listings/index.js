@@ -43,7 +43,6 @@ export default function MypageListingsScreen() {
     setStartLoad(true);
     setCurrentPage(0);
     setTotalPage(1);
-    console.log(activeTab);
 
     getSellList();
   }, [selectedItem, activeTab]);
@@ -58,9 +57,7 @@ export default function MypageListingsScreen() {
       update: items.indexOf(selectedItem),
       page: page ? page : undefined,
     };
-    console.log(apiData);
     getMySell(apiData).then((res) => {
-      console.log(res);
       let productDataFromResponse;
 
       if (activeTab.type === 'product') {
@@ -86,7 +83,6 @@ export default function MypageListingsScreen() {
           setStartLoad(false);
         }
       }
-      console.log(productDataFromResponse);
       if (page) {
         setProductData([...productData, ...productDataFromResponse]);
       } else {

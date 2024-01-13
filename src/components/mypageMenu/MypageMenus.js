@@ -10,7 +10,6 @@ export default function MypageMenus() {
 
   const handleItemClick = (itemName) => {
     setSelectedItem(itemName);
-    console.log(`Item clicked: ${itemName}`);
   };
 
   function getSelectedItemFromPath(path) {

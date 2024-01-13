@@ -3,8 +3,6 @@ import Interest from './Interests';
 // import './style.scss';
 
 export default function InterestTag({ userData }) {
-  console.log('InterestTag의 userdata', userData);
-
   const temp = {
     user_interest: ['관심사가 없습니다.'],
   };

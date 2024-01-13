@@ -38,7 +38,6 @@ export default function MypagePurchasesScreen() {
 
   useEffect(() => {
     setStartLoad(true);
-    console.log(activeTab);
     setCurrentPage(0);
     setTotalPage(1);
     getBuyList();
@@ -54,9 +53,7 @@ export default function MypagePurchasesScreen() {
       // update: items.indexOf(selectedItem),
       page: page ? page : undefined,
     };
-    console.log(apiData);
     getMyPurchase(apiData).then((res) => {
-      console.log(res);
       let productDataFromResponse;
 
       if (activeTab.type === 'product') {
@@ -82,7 +79,6 @@ export default function MypagePurchasesScreen() {
           setStartLoad(false);
         }
       }
-      console.log(productDataFromResponse);
       if (page) {
         setProductData([...productData, ...productDataFromResponse]);
       } else {

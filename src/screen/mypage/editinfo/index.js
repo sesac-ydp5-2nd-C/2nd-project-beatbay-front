@@ -39,7 +39,6 @@ function MypageEditInformationScreen() {
   const renderMyData = () => {
     getMypage().then((res) => {
       // console.log(establishUserData.user_interest);
-      console.log(res);
       if (res.data.result === 'mypage main') {
         setEstablishUserData(res.data.userData);
 
@@ -72,7 +71,6 @@ function MypageEditInformationScreen() {
     } else if (password !== confirmPassword) {
       alert('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
     } else {
-      console.log('////////////');
       const formData = new FormData();
       formData.append('userId', email);
       formData.append('userPw', password);
@@ -85,20 +83,8 @@ function MypageEditInformationScreen() {
 
       // formData.append('userInterest', interests);
       formData.append('uploadFiles', uploadedImage);
-      for (const pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-      }
-      console.log(email);
 
-      console.log(nickname);
-
-      console.log(introduction);
-
-      console.log(stringTags);
-
-      console.log(uploadedImage);
       patchUpdateUser(formData).then((res) => {
-        console.log(res);
         alert('수정완료');
         document.location.href = '/mypage';
       });
@@ -136,13 +122,11 @@ function MypageEditInformationScreen() {
     } else if (password !== confirmPassword) {
       alert('비밀번호와 비밀번호 확인을 다르게 입력하셨습니다.');
     } else {
-      console.log('///////////////////');
       const apidata = {
         user_id: email,
         userPw: password,
       };
       DeleteDeleteUser(apidata).then((res) => {
-        console.log(res);
         if (res.data.result === true) {
           alert('탈퇴완료');
           document.location.href = '/';

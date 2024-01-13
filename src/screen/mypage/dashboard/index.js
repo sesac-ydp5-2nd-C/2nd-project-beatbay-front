@@ -22,11 +22,9 @@ function MypageDashboardScreen() {
   }, []);
   const gogogo = async () => {
     await getMypage().then((result) => {
-      console.log(result);
       if (result.data.userData) {
         setMyPageData(result.data);
         setIsLoading(false);
-        console.log(mypageData);
       } else {
         console.error('error');
         setIsLoading(false);
@@ -43,7 +41,6 @@ function MypageDashboardScreen() {
       }
     });
     await getMyFollowers().then((res) => {
-      console.log(res.data);
       if (res.data) {
         setFollowData(res.data);
         setIsLoading(false);
@@ -77,11 +74,9 @@ function MypageDashboardScreen() {
     setModalIsOpen(true);
     setModalTitle(title);
     setModalTitle(title);
-    console.log(title, data);
   };
 
   const closeModal = () => {
-    console.log('Modal Closed');
     setModalData(null);
     setModalIsOpen(false);
   };

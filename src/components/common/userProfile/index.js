@@ -11,10 +11,6 @@ export default function UserProfileContainer({ followingData }) {
     ? followingData?.user_interest
     : [];
 
-  // useEffect(() => {
-  //   console.log(followingData?.id);
-  // }, []);
-
   const navigate = useNavigate();
 
   const navSeller = () => {

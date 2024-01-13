@@ -180,7 +180,6 @@ function TradeSellScreen() {
       ? getTradeDetailProduct({ product_id: id })
       : getTradeDetailAbility({ ability_id: id })
     ).then((res) => {
-      console.log(res);
       if (res?.data && res.data[type]) {
         setDetailData(res.data[type]);
         setTitle(res.data[type][`${type}_title`]);
@@ -235,9 +234,6 @@ function TradeSellScreen() {
   const [isFormValid, setIsFormValid] = useState(true);
 
   const submitClick = () => {
-    console.log(sellFormData.uploadImages);
-    console.log(sellFormData.id);
-
     let typeKeyword;
 
     if (
@@ -267,7 +263,6 @@ function TradeSellScreen() {
     } else {
       postSellForm();
       // const postNavType = () => {
-      console.log(sellFormData.id);
       nav(`/trade/${typeKeyword}`);
     }
   };
@@ -286,7 +281,7 @@ function TradeSellScreen() {
     formData.append('location', sellFormData.location);
     formData.append('update', 1);
 
-    patchTradeSell(formData).then((res) => console.log(res));
+    patchTradeSell(formData).then((res) => {});
   };
 
   const postSellForm = async () => {
@@ -305,7 +300,7 @@ function TradeSellScreen() {
       formData.append(`uploadFiles`, file);
     });
 
-    postTradeSell(formData).then((res) => console.log(res));
+    postTradeSell(formData).then((res) => {});
   };
 
   return (
